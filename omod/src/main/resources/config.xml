@@ -24,6 +24,12 @@
         <require_module version="${appointmentSchedulingVersion}">
             org.openmrs.module.appointmentscheduling
         </require_module>
+        <require_module version="${appframeworkVersion}">
+            org.openmrs.module.appframework
+        </require_module>
+        <require_module version="${uiframeworkVersion}">
+            org.openmrs.module.uiframework
+        </require_module>
     </require_modules>
 	
 	<!-- Maps hibernate file's, if present -->
