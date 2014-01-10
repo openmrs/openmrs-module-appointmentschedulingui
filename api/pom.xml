@@ -13,6 +13,23 @@
 	<name>Appointment Scheduling UI Module API</name>
 	<description>API project for AppointmentSchedulingUI</description>
 
+    <dependencies>
+        <dependency> <!-- Needed because the UI Framework module uses HttpSession in its api project -->
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency> <!-- Needed for AddressSupport, which is in openmrs-web -->
+            <groupId>org.openmrs.web</groupId>
+            <artifactId>openmrs-web</artifactId>
+            <version>${openmrsCoreVersion}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
 	<build>
 		<resources>
 			<resource>
