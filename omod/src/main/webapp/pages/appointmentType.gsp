@@ -1,5 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
+    ui.includeCss("appointmentschedulingui", "appointmentType.css")
 %>
 
 
@@ -19,24 +20,30 @@
     ${ ui.message("appointmentschedulingui.appointmenttype.title") }
 </h1>
 
-<form method="post" id="accountForm">
+<form class="create-appointment-type" method="post" id="accountForm">
 
         ${ ui.includeFragment("uicommons", "field/text", [
                 label: ui.message("appointmentschedulingui.appointmenttype.name"),
-                formFieldName: "familyName",
-                initialValue: ('')
+                formFieldName: "appointmentName",
+                initialValue: (''),
+                size: 50
         ])}
 
         ${ ui.includeFragment("uicommons", "field/text", [
                 label: ui.message("appointmentschedulingui.appointmenttype.duration"),
-                formFieldName: "givenName",
-                initialValue: ('')
+                formFieldName: "appointmentDuration",
+                initialValue: (''),
+                min: 15,
+                max: 120,
+                size: 10,
+                classes: ["numeric-range"]
         ])}
 
-        ${ ui.includeFragment("uicommons", "field/text", [
+        ${ ui.includeFragment("emr", "field/textarea", [
                 label: ui.message("appointmentschedulingui.appointmenttype.description"),
-                formFieldName: "givenName",
-                initialValue: ('')
+                formFieldName: "appointmentDescription",
+                initialValue: (''),
+                size: 50
         ])}
 
     <div>

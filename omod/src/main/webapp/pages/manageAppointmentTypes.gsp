@@ -1,6 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
-    ui.includeCss("appointmentscheduingui", "appointmentType.css")
+    ui.includeCss("appointmentschedulingui", "appointmentType.css")
 %>
 
 
@@ -16,12 +16,12 @@ var breadcrumbs = [
 
 <div class="container">
     <div>
-        <div id=manageAppointmentsTypeTitle align="left" class="appointment-type-label">
+        <div id=manageAppointmentsTypeTitle class="appointment-type-label">
             <h1>
                 ${ ui.message("appointmentschedulingui.appointmenttype.label") }
             </h1>
         </div>
-        <button class="confirm appointment-type-label" style="float: right"
+        <button class="confirm appointment-type-label right"
                     onclick="location.href='${ui.pageLink("appointmentschedulingui", "appointmentType")}'">
                 <i class="icon-plus"></i>
                 ${ ui.message("appointmentschedulingui.appointmenttype.button")}
@@ -54,7 +54,7 @@ var breadcrumbs = [
                 <td>${ ui.format(appointmentType.name) }</td>
                 <td>${ ui.format(appointmentType.duration) }</td>
                 <td>${ ui.format(appointmentType.description)}</td>
-                <td align="center">
+                <td class="align-center">
                     <span>
                         <i class="editEncounter delete-item icon-pencil" title="${ ui.message("coreapps.edit") }"></i>
                         <i class="deleteEncounterId delete-item icon-remove" title="${ ui.message("coreapps.delete") }"></i>

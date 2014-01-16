@@ -1,4 +1,7 @@
-
-.appointment-type-label{
+.appointment-type-label {
   display: inline-block;
+}
+
+.create-appointment-type input, .create-appointment-type textarea{
+  min-width: 0;
 }
