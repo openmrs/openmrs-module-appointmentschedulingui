@@ -1,5 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
+    ui.includeCss("appointmentscheduingui", "appointmentType.css")
 %>
 
 
@@ -12,19 +13,29 @@ var breadcrumbs = [
 </script>
 
 
-<h1>
-    ${ ui.message("appointmentschedulingui.appointmenttype.label") }
-</h1>
 
 <div class="container">
+    <div>
+        <div id=manageAppointmentsTypeTitle align="left" class="appointment-type-label">
+            <h1>
+                ${ ui.message("appointmentschedulingui.appointmenttype.label") }
+            </h1>
+        </div>
+        <button class="confirm appointment-type-label" style="float: right"
+                    onclick="location.href='${ui.pageLink("appointmentschedulingui", "appointmentType")}'">
+                <i class="icon-plus"></i>
+                ${ ui.message("appointmentschedulingui.appointmenttype.button")}
+        </button>
 
+    </div>
     <div id="appointmentTypes-list">
         <table id="appointmentTypesTable">
             <thead>
             <tr>
-                <th style="width: 35%">${ ui.message("appointmentschedulingui.appointmenttype.name") }</th>
+                <th style="width: 40%">${ ui.message("appointmentschedulingui.appointmenttype.name") }</th>
                 <th style="width: 15%">${ ui.message("appointmentschedulingui.appointmenttype.duration") }</th>
-                <th style="width: 50%">${ ui.message("appointmentschedulingui.appointmenttype.description") }</th>
+                <th style="width: 30%">${ ui.message("appointmentschedulingui.appointmenttype.description") }</th>
+                <th style="width: 15%">${ ui.message("appointmentschedulingui.appointmenttype.actions") }</th>
             </tr>
             </thead>
             <tbody>
@@ -32,6 +43,7 @@ var breadcrumbs = [
                     || (appointmentTypeList!= null && appointmentTypeList.size() == 0)) { %>
             <tr>
                 <td>${ ui.message("uicommons.dataTable.emptyTable") }</td>
+                <td></td>
                 <td></td>
                 <td></td>
 
@@ -42,6 +54,12 @@ var breadcrumbs = [
                 <td>${ ui.format(appointmentType.name) }</td>
                 <td>${ ui.format(appointmentType.duration) }</td>
                 <td>${ ui.format(appointmentType.description)}</td>
+                <td align="center">
+                    <span>
+                        <i class="editEncounter delete-item icon-pencil" title="${ ui.message("coreapps.edit") }"></i>
+                        <i class="deleteEncounterId delete-item icon-remove" title="${ ui.message("coreapps.delete") }"></i>
+                    </span>
+                </td>
             </tr>
             <% } %>
             </tbody>
@@ -51,7 +69,7 @@ var breadcrumbs = [
 
 ${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#appointmentTypesTable",
         options: [
-                bFilter: true,
+                bFilter: false,
                 bJQueryUI: true,
                 bLengthChange: false,
                 iDisplayLength: 10,

@@ -38,6 +38,7 @@
         <uiframeworkVersion>3.1</uiframeworkVersion>
         <appframeworkVersion>2.1-SNAPSHOT</appframeworkVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <uicommonsVersion>1.2-SNAPSHOT</uicommonsVersion>
     </properties>
 
     <dependencies>
@@ -94,6 +95,13 @@
 
         <!-- End OpenMRS core -->
 
+        <dependency>
+            <groupId>rubygems</groupId>
+            <artifactId>sass</artifactId>
+            <version>3.2.12</version>
+            <type>gem</type>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -117,6 +125,22 @@
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>2.4</version>
                 </plugin>
+                <plugin>
+                    <groupId>de.saumya.mojo</groupId>
+                    <artifactId>gem-maven-plugin</artifactId>
+                    <version>1.0.0-rc4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jasig.maven</groupId>
+                    <artifactId>sass-maven-plugin</artifactId>
+                    <version>1.1.1</version>
+                    <configuration>
+                        <sassSourceDirectory>${basedir}/src/main/webapp</sassSourceDirectory>
+                        <outputDirectory>${basedir}/src/main/webapp/resources/styles</outputDirectory>
+                        <baseOutputDirectory>${basedir}/src/main/webapp/resources/styles</baseOutputDirectory>
+                        <skin>scss</skin>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -126,6 +150,10 @@
             <id>openmrs-repo</id>
             <name>OpenMRS Nexus Repository</name>
             <url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+        </repository>
+        <repository>
+            <id>rubygems-releases</id>
+            <url>http://rubygems-proxy.torquebox.org/releases</url>
         </repository>
     </repositories>
 
