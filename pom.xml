@@ -98,7 +98,7 @@
         <dependency>
             <groupId>rubygems</groupId>
             <artifactId>sass</artifactId>
-            <version>3.2.12</version>
+            <version>3.2.10</version>
             <type>gem</type>
         </dependency>
 
@@ -128,7 +128,7 @@
                 <plugin>
                     <groupId>de.saumya.mojo</groupId>
                     <artifactId>gem-maven-plugin</artifactId>
-                    <version>1.0.0-rc4</version>
+                    <version>0.28.6</version>
                 </plugin>
                 <plugin>
                     <groupId>org.jasig.maven</groupId>
