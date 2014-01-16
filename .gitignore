@@ -13,6 +13,8 @@ omod/.classpath
 omod/.settings/
 omod/target/
 
+omod/src/main/compass/sass-external/
+*.css
 *.DS_Store
 .idea/
 *.iml
