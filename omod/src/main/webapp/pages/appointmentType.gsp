@@ -20,18 +20,18 @@
     ${ ui.message("appointmentschedulingui.appointmenttype.title") }
 </h1>
 
-<form class="create-appointment-type" method="post" id="accountForm">
+<form class="create-appointment-type" method="post" id="appointmentType">
 
         ${ ui.includeFragment("uicommons", "field/text", [
                 label: ui.message("appointmentschedulingui.appointmenttype.name"),
-                formFieldName: "appointmentName",
+                formFieldName: "name",
                 initialValue: (''),
                 size: 50
         ])}
 
         ${ ui.includeFragment("uicommons", "field/text", [
                 label: ui.message("appointmentschedulingui.appointmenttype.duration"),
-                formFieldName: "appointmentDuration",
+                formFieldName: "duration",
                 initialValue: (''),
                 min: 15,
                 max: 120,
@@ -41,7 +41,7 @@
 
         ${ ui.includeFragment("emr", "field/textarea", [
                 label: ui.message("appointmentschedulingui.appointmenttype.description"),
-                formFieldName: "appointmentDescription",
+                formFieldName: "description",
                 initialValue: (''),
                 size: 50
         ])}

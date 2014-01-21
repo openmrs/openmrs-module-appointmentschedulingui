@@ -93,6 +93,13 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.openmrs.web</groupId>
+            <artifactId>openmrs-web</artifactId>
+            <version>${openmrsCoreVersion}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
         <!-- End OpenMRS core -->
 
         <dependency>
