@@ -15,14 +15,24 @@
 
 	<dependencies>
 
-		<!-- Begin OpenMRS modules -->
-		
-		<dependency>
-			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-api</artifactId>
-			<version>${project.parent.version}</version>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>appointmentschedulingui-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
 
-		</dependency>
+		<!-- Begin OpenMRS core -->
+
+        <dependency>
+            <groupId>org.openmrs.web</groupId>
+            <artifactId>openmrs-web</artifactId>
+            <version>${openmrsCoreVersion}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- End OpenMRS core -->
+
         <dependency>
             <groupId>rubygems</groupId>
             <artifactId>compass</artifactId>
