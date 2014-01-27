@@ -6,10 +6,11 @@ $( function(){
     });
 
     $(document).on('click', '.editAppointmentType', function(event) {
-        var editUrl = $(event.target).attr("data-edit-url");
-        alert(editUrl);
-
-        window.location.assign(editUrl);
+        emr.navigateTo({
+            provider: 'appointmentschedulingui',
+            page: 'appointmentType',
+            query: { appointmentTypeId: $(event.target).attr("data-appointment-type-id") }
+        });
     });
 
     addDefaultRowWhenAppointmentTableEmpty();

@@ -48,8 +48,13 @@ var breadcrumbs = [
                 <td>${ ui.format(appointmentType.description)}</td>
                 <td class="align-center">
                     <span>
-                        <i class="editAppointmentType delete-item icon-pencil" title="${ ui.message("coreapps.edit") }"  data-edit-url='${ui.pageLink("appointmentschedulingui", "appointmentType")}'></i>
-                        <i class="deleteAppointmentType delete-item icon-remove" data-appointment-type-id="${ appointmentType.id}" title="${ ui.message("coreapps.delete") }"></i>
+                        <i class="editAppointmentType delete-item icon-pencil"
+                           data-appointment-type-id="${ appointmentType.id}"
+                           data-edit-url='${ui.pageLink("appointmentschedulingui", "appointmentType")}'
+                           title="${ ui.message("coreapps.edit") }"></i>
+                        <i class="deleteAppointmentType delete-item icon-remove"
+                           data-appointment-type-id="${ appointmentType.id}"
+                           title="${ ui.message("coreapps.delete") }"></i>
                     </span>
                 </td>
             </tr>

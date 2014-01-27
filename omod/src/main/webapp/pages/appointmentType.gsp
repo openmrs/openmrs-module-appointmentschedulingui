@@ -20,19 +20,19 @@
     ${ ui.message("appointmentschedulingui.appointmenttype.title") }
 </h1>
 
-<form class="create-appointment-type" method="post" id="appointmentType">
+<form class="create-appointment-type" method="post" id="appointmentTypeForm">
 
         ${ ui.includeFragment("uicommons", "field/text", [
                 label: ui.message("appointmentschedulingui.appointmenttype.name"),
                 formFieldName: "name",
-                initialValue: (''),
+                initialValue: (appointmentType.name ?: ''),
                 size: 50
         ])}
 
         ${ ui.includeFragment("uicommons", "field/text", [
                 label: ui.message("appointmentschedulingui.appointmenttype.duration"),
                 formFieldName: "duration",
-                initialValue: (''),
+                initialValue: (appointmentType.duration ?: ''),
                 min: 15,
                 max: 120,
                 size: 10,
@@ -42,9 +42,11 @@
         ${ ui.includeFragment("emr", "field/textarea", [
                 label: ui.message("appointmentschedulingui.appointmenttype.description"),
                 formFieldName: "description",
-                initialValue: (''),
+                initialValue: (appointmentType.description ?: ''),
                 size: 50
         ])}
+
+    <input type="hidden" value="${ appointmentType.uuid }" name="uuid">
 
     <div>
         <input type="button" class="cancel" value="${ ui.message("appointmentschedulingui.appointmenttype.cancel") }" onclick="javascript:window.location='/${ contextPath }/appointmentschedulingui/manageAppointmentTypes.page'" />
