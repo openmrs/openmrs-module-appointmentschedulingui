@@ -23,6 +23,8 @@ function createDeleteAppointmentTypeDialog(appointmentTypeId, deleteElement) {
             confirm: function() {
                 jq('#delete-appointment-type-dialog' + ' .icon-spin').css('display', 'inline-block').parent().addClass('disabled');
                 deleteAppointmentTypeWithCallback(appointmentTypeId, deleteElement);
+                deleteAppointmentTypeDialog.close();
+                jq('#delete-appointment-type-dialog' + ' .icon-spin').css('display', 'none').parent().removeClass('disabled');
             },
             cancel: function() {
                 deleteAppointmentTypeDialog.close();
@@ -41,8 +43,6 @@ function deleteAppointmentTypeWithCallback(appointmentTypeId, deleteElement) {
     emr.getFragmentActionWithCallback('appointmentschedulingui', 'manageAppointmentTypes', 'retireAppointmentType'
     , { appointmentTypeId: appointmentTypeId}
     , function (data) {
-            deleteAppointmentTypeDialog.close();
-           // window.location.reload();
             deleteElement.parents("tr").remove();
             addDefaultRowWhenAppointmentTableEmpty();
             emr.successMessage(data.message);
