@@ -1,5 +1,5 @@
 $( function(){
-    $(document).on('click', '.delete-item', function(event) {
+    $(document).on('click', '.deleteAppointmentType', function(event) {
         var appointmentTypeId = $(event.target).attr("data-appointment-type-id");
         createDeleteAppointmentTypeDialog(appointmentTypeId,$(this));
         showDeleteAppointmentTypeDialog();

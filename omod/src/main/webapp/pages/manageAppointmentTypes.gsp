@@ -51,7 +51,7 @@ var breadcrumbs = [
             </tr>
             <% } %>
             <% appointmentTypeList.each { appointmentType -> %>
-            <form id="appointmentTypeRaw">
+            <form id="appointmentTypeRow">
                 <tr>
                     <td>${ ui.format(appointmentType.name) }</td>
                     <td>${ ui.format(appointmentType.duration) }</td>
@@ -59,7 +59,7 @@ var breadcrumbs = [
                     <td class="align-center">
                         <span>
                             <i class="editEncounter delete-item icon-pencil" title="${ ui.message("coreapps.edit") }"></i>
-                            <i class="delete-item icon-remove" data-appointment-type-id="${ appointmentType.id}" title="${ ui.message("coreapps.delete") }"></i>
+                            <i class="deleteAppointmentType delete-item icon-remove" data-appointment-type-id="${ appointmentType.id}" title="${ ui.message("coreapps.delete") }"></i>
                         </span>
                     </td>
                 </tr>
