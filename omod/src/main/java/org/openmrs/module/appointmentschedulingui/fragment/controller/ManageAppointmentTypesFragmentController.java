@@ -19,10 +19,10 @@ public class ManageAppointmentTypesFragmentController {
 
         if (appointmentTypeToRetired != null) {
             appointmentService.retireAppointmentType(appointmentTypeToRetired,"Retired appointment type by system administration");
-            return new SuccessResult(ui.message("coreapps.patientDashBoard.deleteEncounter.successMessage"));
+            return new SuccessResult(ui.message("appointmentschedulingui.manageappointmenttype.success"));
         }
         else{
-            return new FailureResult(ui.message("coreapps.patientDashBoard.deleteEncounter.notAllowed"));
+            return new FailureResult(ui.message("appointmentschedulingui.manageappointmenttype.notAllowed"));
         }
     }
 }
