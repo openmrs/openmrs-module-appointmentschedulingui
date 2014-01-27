@@ -30,7 +30,7 @@ var breadcrumbs = [
 
     </div>
     <div id="appointmentTypes-list">
-        <table id="appointmentTypesTable">
+        <table id="appointmentTypesTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
             <thead>
             <tr>
                 <th style="width: 40%">${ ui.message("appointmentschedulingui.appointmenttype.name") }</th>
@@ -40,30 +40,20 @@ var breadcrumbs = [
             </tr>
             </thead>
             <tbody>
-            <% if ( (appointmentTypeList == null)
-                    || (appointmentTypeList!= null && appointmentTypeList.size() == 0)) { %>
-            <tr>
-                <td>${ ui.message("uicommons.dataTable.emptyTable") }</td>
-                <td></td>
-                <td></td>
-                <td></td>
-
-            </tr>
-            <% } %>
             <% appointmentTypeList.each { appointmentType -> %>
-            <form id="appointmentTypeRow">
-                <tr>
-                    <td>${ ui.format(appointmentType.name) }</td>
-                    <td>${ ui.format(appointmentType.duration) }</td>
-                    <td>${ ui.format(appointmentType.description)}</td>
-                    <td class="align-center">
-                        <span>
-                            <i class="editEncounter delete-item icon-pencil" title="${ ui.message("coreapps.edit") }"></i>
-                            <i class="deleteAppointmentType delete-item icon-remove" data-appointment-type-id="${ appointmentType.id}" title="${ ui.message("coreapps.delete") }"></i>
-                        </span>
-                    </td>
-                </tr>
-            </form>
+
+            <tr>
+                <td>${ ui.format(appointmentType.name) }</td>
+                <td>${ ui.format(appointmentType.duration) }</td>
+                <td>${ ui.format(appointmentType.description)}</td>
+                <td class="align-center">
+                    <span>
+                        <i class="editAppointmentType delete-item icon-pencil" title="${ ui.message("coreapps.edit") }"  data-edit-url='${ui.pageLink("appointmentschedulingui", "appointmentType")}'></i>
+                        <i class="deleteAppointmentType delete-item icon-remove" data-appointment-type-id="${ appointmentType.id}" title="${ ui.message("coreapps.delete") }"></i>
+                    </span>
+                </td>
+            </tr>
+
 
 
             <div id="delete-appointment-type-dialog" class="dialog" style="display: none">
