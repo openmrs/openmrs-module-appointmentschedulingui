@@ -1,6 +1,7 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
     ui.includeCss("appointmentschedulingui", "appointmentType.css")
+    ui.includeJavascript("appointmentschedulingui", "appointmentType.js")
 %>
 
 
@@ -15,6 +16,11 @@
     ];
 </script>
 
+<script type="text/javascript">
+    jq( function(){
+        confirmButtonEventListerner("${ ui.message("appointmentschedulingui.appointmenttype.duration.errorMessage")}");
+    });
+</script>
 
 <h1>
     ${ ui.message("appointmentschedulingui.appointmenttype.title") }
@@ -32,6 +38,7 @@
         ${ ui.includeFragment("uicommons", "field/text", [
                 label: ui.message("appointmentschedulingui.appointmenttype.duration"),
                 formFieldName: "duration",
+                id: "duration",
                 initialValue: (appointmentType.duration ?: ''),
                 min: 15,
                 max: 120,
@@ -50,7 +57,7 @@
 
     <div>
         <input type="button" class="cancel" value="${ ui.message("appointmentschedulingui.appointmenttype.cancel") }" onclick="javascript:window.location='/${ contextPath }/appointmentschedulingui/manageAppointmentTypes.page'" />
-        <input type="submit" class="confirm" id="save-button" value="${ ui.message("appointmentschedulingui.appointmenttype.save") }"  />
+        <input type="button" class="confirm" id="save-button" value="${ ui.message("appointmentschedulingui.appointmenttype.save") }"  />
     </div>
 
 </form>
