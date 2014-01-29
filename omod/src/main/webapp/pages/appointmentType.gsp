@@ -1,6 +1,7 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
     ui.includeCss("appointmentschedulingui", "appointmentType.css")
+    ui.includeJavascript("appointmentschedulingui", "appointmentType.js")
 %>
 
 
@@ -15,40 +16,42 @@
     ];
 </script>
 
+<script type="text/javascript">
+    jq( function(){
+        confirmButtonEventListerner("${ ui.message("appointmentschedulingui.appointmenttype.duration.errorMessage")}");
+    });
+</script>
 
 <h1>
     ${ ui.message("appointmentschedulingui.appointmenttype.title") }
 </h1>
 
-<form class="create-appointment-type" method="post" id="accountForm">
+<form class="create-appointment-type" method="post" id="appointmentTypeForm">
 
         ${ ui.includeFragment("uicommons", "field/text", [
                 label: ui.message("appointmentschedulingui.appointmenttype.name"),
-                formFieldName: "appointmentName",
-                initialValue: (''),
-                size: 50
+                formFieldName: "name",
+                initialValue: (appointmentType.name ?: '')
         ])}
 
         ${ ui.includeFragment("uicommons", "field/text", [
                 label: ui.message("appointmentschedulingui.appointmenttype.duration"),
-                formFieldName: "appointmentDuration",
-                initialValue: (''),
-                min: 15,
-                max: 120,
-                size: 10,
-                classes: ["numeric-range"]
+                formFieldName: "duration",
+                id: "duration",
+                initialValue: (appointmentType.duration ?: '')
         ])}
 
         ${ ui.includeFragment("emr", "field/textarea", [
                 label: ui.message("appointmentschedulingui.appointmenttype.description"),
-                formFieldName: "appointmentDescription",
-                initialValue: (''),
-                size: 50
+                formFieldName: "description",
+                initialValue: (appointmentType.description ?: '')
         ])}
+
+    <input type="hidden" value="${ appointmentType.uuid }" name="uuid">
 
     <div>
         <input type="button" class="cancel" value="${ ui.message("appointmentschedulingui.appointmenttype.cancel") }" onclick="javascript:window.location='/${ contextPath }/appointmentschedulingui/manageAppointmentTypes.page'" />
-        <input type="submit" class="confirm" id="save-button" value="${ ui.message("appointmentschedulingui.appointmenttype.save") }"  />
+        <input type="button" class="confirm" id="save-button" value="${ ui.message("appointmentschedulingui.appointmenttype.save") }"  />
     </div>
 
 </form>
