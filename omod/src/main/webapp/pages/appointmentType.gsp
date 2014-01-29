@@ -31,26 +31,20 @@
         ${ ui.includeFragment("uicommons", "field/text", [
                 label: ui.message("appointmentschedulingui.appointmenttype.name"),
                 formFieldName: "name",
-                initialValue: (appointmentType.name ?: ''),
-                size: 50
+                initialValue: (appointmentType.name ?: '')
         ])}
 
         ${ ui.includeFragment("uicommons", "field/text", [
                 label: ui.message("appointmentschedulingui.appointmenttype.duration"),
                 formFieldName: "duration",
                 id: "duration",
-                initialValue: (appointmentType.duration ?: ''),
-                min: 15,
-                max: 120,
-                size: 10,
-                classes: ["numeric-range"]
+                initialValue: (appointmentType.duration ?: '')
         ])}
 
         ${ ui.includeFragment("emr", "field/textarea", [
                 label: ui.message("appointmentschedulingui.appointmenttype.description"),
                 formFieldName: "description",
-                initialValue: (appointmentType.description ?: ''),
-                size: 50
+                initialValue: (appointmentType.description ?: '')
         ])}
 
     <input type="hidden" value="${ appointmentType.uuid }" name="uuid">
