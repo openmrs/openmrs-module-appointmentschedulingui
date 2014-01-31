@@ -63,18 +63,19 @@ var breadcrumbs = [
 
             <div id="delete-appointment-type-dialog" class="dialog" style="display: none">
                 <div class="dialog-header">
-                    <h3>Delete Appointment Type</h3>
+                    <h3>${ ui.message("appointmentschedulingui.manageappointmenttype.deleteAppointmentTypeTitleDialog")}</h3>
                 </div>
                 <div class="dialog-content">
                     <input type="hidden" id="encounterId" value="">
                     <ul>
                         <li class="info">
-                            <span>Are you sure you want to delete this appointment type?</span>
+                            <span>${ ui.message("appointmentschedulingui.manageappointmenttype.deleteAppointmentTypeMessageDialog")}</span>
                         </li>
                     </ul>
 
-                    <button class="confirm right">Yes<i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-                    <button class="cancel">No</button>
+                    <button class="confirm right">${ ui.message("emr.yes")}
+                        <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+                    <button class="cancel">${ ui.message("emr.no")}</button>
                 </div>
             </div>
             <% } %>
