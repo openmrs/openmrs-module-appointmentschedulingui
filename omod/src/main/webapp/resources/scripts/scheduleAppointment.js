@@ -1,18 +1,27 @@
 
 angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap', 'ngGrid'])
-    .controller('ScheduleAppointmentCtrl', function ($scope, AppointmentService) {
+    .controller('ScheduleAppointmentCtrl', function ($scope, AppointmentService, filterFilter) {
 
         // model
         $scope.appointmentType = undefined;
         $scope.fromDate = undefined;
         $scope.toDate = undefined;
+        $scope.filterText = '';
         $scope.timeSlots = [];
+        $scope.filteredTimeSlots = [];
+        $scope.selectedTimeSlot = undefined;
+
+        $scope.showTimeSlotsGrid = false;
+        $scope.showNoTimeSlotsMessage = false;
+        $scope.showScheduleAppointment = true;
+        $scope.showConfirmAppointment = false;
 
         $scope.timeSlotOptions = {
-            data: 'timeSlots',
+            data: 'filteredTimeSlots',
             multiSelect: false,
             enableSorting: false,
-            columnDefs: [   { field: 'startDate', displayName: 'Time Slot' },
+            selectedItems: [],
+            columnDefs: [   { field: "date", displayName: 'Time Slot' },
                             { field: 'appointmentBlock.provider.person.display', displayName: 'Provider' },
                             { field: 'appointmentBlock.location.name', displayName: 'Location' } ]
         };
@@ -21,23 +30,59 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
             return AppointmentService.getAppointmentTypes(searchString);
         }
 
+        $scope.searchDisabled = function() {
+            return !$scope.appointmentType || !$scope.appointmentType.uuid;
+        }
+
         $scope.findAvailableTimeSlots = function() {
 
             // TODO don't enable button if use hasn't selected a appointmentType
             var params = { 'appointmentType' : $scope.appointmentType.uuid }
 
             if ($scope.fromDate) {
-                params['fromDate'] = $scope.fromDate;
+                params['fromDate'] = moment($scope.fromDate).format();
             }
 
             if ($scope.toDate) {
-                params['toDate'] = $scope.toDate;
+                params['toDate'] = moment($scope.toDate).endOf('day').format();
             }
 
             AppointmentService.getTimeSlots(params).then(function (results) {
-                $scope.timeSlots = results;
-            });
+                angular.forEach(results, function(result) {
+                    // format date result
+                    // TODO how to localize date?
+                    result['date'] = moment(result.startDate).format("DD MMM YYYY") + ", "
+                          + moment(result.startDate).format("h:mm a") + " - " + moment(result.endDate).format("h:mm a");
+                })
 
+                $scope.timeSlots = results;
+                $scope.showTimeSlotsGrid = results.length > 1;
+                $scope.showNoTimeSlotsMessage = !$scope.showTimeSlotsGrid;
+
+                $scope.updateFilter();
+            });
+        }
+
+        $scope.updateFilter = function() {
+            $scope.filteredTimeSlots = filterFilter($scope.timeSlots, function(row) {
+                return row.appointmentBlock.location.name.toLowerCase().indexOf($scope.filterText.toLowerCase()) != -1
+                    || row.appointmentBlock.provider.person.display.toLowerCase().indexOf($scope.filterText.toLowerCase()) != -1;
+            });
+        }
+
+        $scope.selectTimeSlot = function() {
+            $scope.selectedTimeSlot = $scope.timeSlotOptions.selectedItems[0];
+            $scope.showScheduleAppointment = false;
+            $scope.showConfirmAppointment = true;
+        }
+
+        $scope.cancelConfirmAppointment = function () {
+            $scope.showConfirmAppointment = false;
+            $scope.showScheduleAppointment = true;
+        }
+
+        $scope.confirmAppointment = function() {
+            return true;
         }
 
     });
