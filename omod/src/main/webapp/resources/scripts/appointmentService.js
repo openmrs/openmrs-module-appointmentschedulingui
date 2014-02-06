@@ -1,7 +1,7 @@
 
 
 angular.module('appointmentscheduling.appointmentService', ['appointmentscheduling.appointmentResources'])
-    .factory('AppointmentService', function(AppointmentType, TimeSlot) {
+    .factory('AppointmentService', function(Appointment, AppointmentType, TimeSlot) {
 
         return {
 
@@ -14,6 +14,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
 
             },
 
+            // returns default representation by default
             getTimeSlots: function(params) {
 
                 if (params['v'] == undefined) {
@@ -24,6 +25,10 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                     .then(function(res) {
                         return res.results;
                     });
+            },
+
+            saveAppointment: function(appointment) {
+                return Appointment.save(appointment).$promise;
             }
         };
 

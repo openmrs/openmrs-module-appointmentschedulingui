@@ -47,8 +47,8 @@ describe('ScheduleAppointment tests', function() {
 
         $scope.findAvailableTimeSlots();
         expect(mockAppointmentService.getTimeSlots).toHaveBeenCalledWith({'appointmentType' : 'abc123',
-                                                                          "fromDate" : '2012-02-12',
-                                                                          "toDate" : '2012-02-13'});
+                                                                          "fromDate" : '2012-02-12T00:00:00-05:00',
+                                                                          "toDate" : '2012-02-13T23:59:59-05:00'});
 
     }))
 

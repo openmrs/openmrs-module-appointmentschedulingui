@@ -10,11 +10,13 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         $scope.timeSlots = [];
         $scope.filteredTimeSlots = [];
         $scope.selectedTimeSlot = undefined;
+        $scope.appointmentReason = '';
 
         $scope.showTimeSlotsGrid = false;
         $scope.showNoTimeSlotsMessage = false;
         $scope.showScheduleAppointment = true;
         $scope.showConfirmAppointment = false;
+        $scope.confirmAppointmentButtonsDisabled = false;
 
         $scope.timeSlotOptions = {
             data: 'filteredTimeSlots',
@@ -30,13 +32,8 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
             return AppointmentService.getAppointmentTypes(searchString);
         }
 
-        $scope.searchDisabled = function() {
-            return !$scope.appointmentType || !$scope.appointmentType.uuid;
-        }
-
         $scope.findAvailableTimeSlots = function() {
 
-            // TODO don't enable button if use hasn't selected a appointmentType
             var params = { 'appointmentType' : $scope.appointmentType.uuid }
 
             if ($scope.fromDate) {
@@ -56,6 +53,7 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                 })
 
                 $scope.timeSlots = results;
+
                 $scope.showTimeSlotsGrid = results.length > 1;
                 $scope.showNoTimeSlotsMessage = !$scope.showTimeSlotsGrid;
 
@@ -82,7 +80,31 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         }
 
         $scope.confirmAppointment = function() {
-            return true;
+
+            $scope.confirmAppointmentButtonsDisabled = true;
+
+            var appointment = { 'appointmentType': $scope.appointmentType.uuid,
+                                'status': 'SCHEDULED',
+                                'timeSlot': $scope.selectedTimeSlot.uuid,
+                                'reason': $scope.appointmentReason,
+                                'patient': patientUuid  // from global scope, defined in scheduleAppointment.gsp
+                                };
+
+            AppointmentService.saveAppointment(appointment).then(function() {
+
+                // success callback
+                emr.navigateTo({
+                    provider: 'coreapps',
+                    page: 'findpatient/findPatient',
+                    query: { app: 'schedulingAppointmentApp' }
+                },
+
+                // failure callback
+                function() {
+                    emr.errorMessage("Unable to book appointment");
+                });
+            });
+
         }
 
     });

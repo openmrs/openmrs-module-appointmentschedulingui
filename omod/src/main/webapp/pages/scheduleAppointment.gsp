@@ -5,6 +5,7 @@
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.6.0.min.js")
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "moment.min.js")
+    ui.includeJavascript("uicommons", "emr.js")
 
     ui.includeJavascript("appointmentschedulingui", "ng-grid-2.0.7.min.js")
     ui.includeCss("appointmentschedulingui", "ng-grid.min.css")
@@ -20,7 +21,7 @@
 .gridStyle {
     border: 1px solid rgb(212,212,212);
     width: 800px;
-    height: 600px
+    height: 250px
 }
 </style>
 
@@ -29,6 +30,10 @@
    var breadcrumbs = [
      // TODO add breadcrumbs
    ];
+
+   // TODO better way to inject this?
+    var patientUuid = '${ patient.patient.uuid }';
+
 </script>
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
@@ -54,7 +59,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             <input type="text" ng-model="toDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" />
         </span>
 
-        <button ng-click="findAvailableTimeSlots()" ng-disabled="searchDisabled()">Search</button>
+        <button ng-click="findAvailableTimeSlots()" ng-disabled="!appointmentType || !appointmentType.uuid">Search</button>
 
         <br/>
         Filter: <input type="text" ng-model="filterText" ng-change="updateFilter()"/>
@@ -80,9 +85,10 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         Location: {{ selectedTimeSlot.appointmentBlock.location.name }} <br/>
 
         Additional Notes (optional):<br/>
+        <textarea ng-model="appointmentReason"> </textarea>
 
-        <button ng-click="cancelConfirmAppointment()">Back</button>
-        <button ng-click="confirmAppointment()">Next</button>
+        <button ng-click="cancelConfirmAppointment()" ng-disabled="confirmAppointmentButtonsDisabled">Back</button>
+        <button ng-click="confirmAppointment()" ng-disabled="confirmAppointmentButtonsDisabled">Next</button>
     </div>
 
 </div>
