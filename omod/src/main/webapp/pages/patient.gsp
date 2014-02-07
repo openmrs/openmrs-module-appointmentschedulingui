@@ -54,10 +54,10 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         <table id="scheduledAppointmentTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
             <thead>
             <tr>
-                <th style="width: 40%">${ ui.message("appointmentschedulingui.scheduleAppointment.date") }</th>
-                <th style="width: 15%">${ ui.message("appointmentschedulingui.appointmenttype.title") }</th>
-                <th style="width: 30%">${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
-                <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.location") }</th>
+                <th style="width: 30%">${ ui.message("appointmentschedulingui.scheduleAppointment.date") }</th>
+                <th style="width: 30%">${ ui.message("appointmentschedulingui.appointmenttype.title") }</th>
+                <th style="width: 20%">${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
+                <th style="width: 20%">${ ui.message("appointmentschedulingui.scheduleAppointment.location") }</th>
             </tr>
             </thead>
             <tbody>
@@ -78,10 +78,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             <% upcomingAppointmentList.each { appointment -> %>
 
             <tr>
-                <td>${ ui.format(appointment.date) }</td>
+                <td>${ ui.format(appointment.timeSlot.appointmentBlock.startDate.format('dd MMM yyyy'))}
+                    | ${ ui.format(appointment.timeSlot.appointmentBlock.startDate.format('HH:mm a'))} -
+                    ${ ui.format(appointment.timeSlot.appointmentBlock.endDate.format('HH:mm a')) }</td>
                 <td>${ ui.format(appointment.appointmentType) }</td>
-                <td>${ ui.format(appointment.provider)}</td>
-                <td>${ ui.format(appointment.location)}</td>
+                <td>${ ui.format(appointment.timeSlot.appointmentBlock.provider.name)}</td>
+                <td>${ ui.format(appointment.timeSlot.appointmentBlock.location.name)}</td>
             </tr>
             <% } %>
             </tbody>
