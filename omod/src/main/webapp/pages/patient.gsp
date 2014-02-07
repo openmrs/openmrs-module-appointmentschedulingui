@@ -15,13 +15,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 <script type="text/javascript">
     jq(function() {
         jq('#actions .cancel').click(function() {
-            emr.navigateTo({
-                provider: "coreapps",
-                page: "findpatient/findPatient",
-                query: {
-                    app: "schedulingAppointmentApp"
-                }
-            });
+            emr.navigateTo({url: emr.pageLink("coreapps", "findpatient/findPatient", {app: 'schedulingAppointmentApp'})})
         });
         jq('#actions .confirm').click(function() {
             emr.navigateTo({
@@ -40,18 +34,69 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
 <div class="container">
 
-    <h1>${ ui.message("coreapps.vitals.confirmPatientQuestion") }</h1>
+    <h1>${ ui.message("appointmentschedulingui.scheduleAppointment.confirmPatientQuestion") }</h1>
 
     <div id="actions" class="half-width">
         <button class="confirm big right">
             <i class="icon-arrow-right"></i>
-            ${ ui.message("dispensing.findpatient.confirm.yes") }
+            ${ ui.message("appointmentschedulingui.scheduleAppointment.yes") }
         </button>
 
         <button class="cancel big">
             <i class="icon-arrow-left"></i>
-            ${ ui.message("coreapps.vitals.confirm.no") }
+            ${ ui.message("appointmentschedulingui.scheduleAppointment.no") }
         </button>
     </div>
 
+    <div>
+        <h2> ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") } </h2>
+
+        <table id="scheduledAppointmentTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
+            <thead>
+            <tr>
+                <th style="width: 40%">${ ui.message("appointmentschedulingui.scheduleAppointment.date") }</th>
+                <th style="width: 15%">${ ui.message("appointmentschedulingui.appointmenttype.title") }</th>
+                <th style="width: 30%">${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
+                <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.location") }</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <% if ( (upcomingAppointmentList == null)
+                    || (upcomingAppointmentList!= null && upcomingAppointmentList.size() == 0)) { %>
+            <tr>
+                <td>${ ui.message("uicommons.dataTable.emptyTable") }</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <% } %>
+
+            <% upcomingAppointmentList.each { appointment -> %>
+
+            <tr>
+                <td>${ ui.format(appointment.date) }</td>
+                <td>${ ui.format(appointment.appointmentType) }</td>
+                <td>${ ui.format(appointment.provider)}</td>
+                <td>${ ui.format(appointment.location)}</td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#appointmentTypesTable",
+        options: [
+                bFilter: false,
+                bJQueryUI: true,
+                bLengthChange: false,
+                iDisplayLength: 10,
+                sPaginationType: '\"full_numbers\"',
+                bSort: false,
+                sDom: '\'ft<\"fg-toolbar ui-toolbar ui-corner-bl ui-corner-br ui-helper-clearfix datatables-info-and-pg \"ip>\''
+        ]
+]) }
