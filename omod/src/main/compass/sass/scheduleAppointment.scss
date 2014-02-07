@@ -1,0 +1,43 @@
+
+.gridStyle {
+  border: 1px solid rgb(212,212,212);
+  width: 800px;
+  height: 250px
+}
+
+#searchParameters {
+  width: 800px;
+}
+
+#selectAppointmentType {
+  display: inline-block;
+}
+
+#selectTimeframe {
+  display: inline-block;
+}
+
+#searchButtons {
+  padding: 5px;
+}
+
+#filter {
+  padding: 5px;
+}
+
+#noTimeSlots {
+  padding: 5px;
+}
+
+#selectAppointment {
+  padding: 5px;
+}
+
+#confirmAppointment div {
+  padding: 5px;
+}
+
+#appointmentReason {
+  width: 400px;
+  height: 100px;
+}
