@@ -1,4 +1,6 @@
 
+// registers angular resources that can be used to retrieve appointment scheduling domain objects via REST
+
 var appointmentResource = angular.module('appointmentscheduling.appointmentResources', ['ngResource']);
 
     appointmentResource.factory('AppointmentType', function($resource) {

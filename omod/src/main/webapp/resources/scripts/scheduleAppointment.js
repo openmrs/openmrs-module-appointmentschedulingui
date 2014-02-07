@@ -16,16 +16,19 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         $scope.showNoTimeSlotsMessage = false;
         $scope.showScheduleAppointment = true;
         $scope.showConfirmAppointment = false;
+        $scope.searchButtonDisabled = false;
         $scope.confirmAppointmentButtonsDisabled = false;
+
+        $scope.now = new Date();
 
         $scope.timeSlotOptions = {
             data: 'filteredTimeSlots',
             multiSelect: false,
             enableSorting: false,
             selectedItems: [],
-            columnDefs: [   { field: "date", displayName: 'Time Slot' },
-                            { field: 'appointmentBlock.provider.person.display', displayName: 'Provider' },
-                            { field: 'appointmentBlock.location.name', displayName: 'Location' } ]
+            columnDefs: [   { field: 'date', displayName: emr.message("appointmentschedulingui.scheduleAppointment.timeSlot") },
+                            { field: 'appointmentBlock.provider.person.display', displayName: emr.message("uicommons.provider") },
+                            { field: 'appointmentBlock.location.name', displayName: emr.message("uicommons.location") } ]
         };
 
         $scope.getAppointmentTypes = function(searchString) {
@@ -33,6 +36,8 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         }
 
         $scope.findAvailableTimeSlots = function() {
+
+            $scope.searchButtonDisabled = true;
 
             var params = { 'appointmentType' : $scope.appointmentType.uuid }
 
@@ -58,7 +63,12 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                 $scope.showNoTimeSlotsMessage = !$scope.showTimeSlotsGrid;
 
                 $scope.updateFilter();
-            });
+                $scope.searchButtonDisabled = false;
+            })
+                .catch(function() {
+                    emr.errorMessage("appointmentschedulingui.scheduleAppointment.invalidSearchParameters");
+                    $scope.searchButtonDisabled = false;
+                });
         }
 
         $scope.updateFilter = function() {
@@ -97,14 +107,19 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                     provider: 'coreapps',
                     page: 'findpatient/findPatient',
                     query: { app: 'schedulingAppointmentApp' }
-                },
-
-                // failure callback
-                function() {
-                    emr.errorMessage("Unable to book appointment");
                 });
-            });
+            }).catch(function () {
+                // error callback
+                emr.errorMessage("appointmentschedulingui.scheduleAppointment.errorSavingAppointment");
+            })
+        }
 
+        $scope.backToPatientSearch = function() {
+            emr.navigateTo({
+                provider: 'coreapps',
+                page: 'findpatient/findPatient',
+                query: { app: 'schedulingAppointmentApp' }
+            });
         }
 
     });

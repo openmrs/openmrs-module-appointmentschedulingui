@@ -5,7 +5,12 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
 
         return {
 
-            // returns ref representation
+            /**
+             * Fetches Appointment Types
+             *
+             * @param searchString a string to search against
+             * @returns $promise of array of matching appointment types (REST ref representation by default)
+             */
             getAppointmentTypes: function(searchString) {
                 return AppointmentType.query({"q":searchString}).$promise
                     .then(function(res) {
@@ -14,7 +19,16 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
 
             },
 
-            // returns default representation by default
+            /**
+             * Fetches Time Slots based on parameters in param map
+             *
+             * @param fromDate: only time slots after this date
+             * @param toDate: only time slots before this date
+             * @param appointmentType: uuid of appointmentType to match against
+             * @param provider; uuid of provider to match against
+             * @param location: uuid of location to match against
+             * @returns $promise of array of matching time slots (REST default representation by default)
+             */
             getTimeSlots: function(params) {
 
                 if (params['v'] == undefined) {
@@ -27,8 +41,14 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                     });
             },
 
+            /**
+             * Saves an appointment
+             *
+             * @param appointment to save
+             * @returns $promise with results
+             */
             saveAppointment: function(appointment) {
-                return Appointment.save(appointment).$promise;
+                return Appointment.save(appointment).$promise
             }
         };
 
