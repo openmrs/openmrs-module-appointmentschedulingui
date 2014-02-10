@@ -1,5 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
+    ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
 %>
 
 <script type="text/javascript">
@@ -48,7 +49,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         </button>
     </div>
 
-    <div>
+    <div id="scheduleAppointment">
         <h2> ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") } </h2>
 
         <table id="scheduledAppointmentTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
