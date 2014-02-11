@@ -48,6 +48,20 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
            ${ ui.message("appointmentschedulingui.scheduleAppointment.title") }
        </h1>
 
+       <!-- modal for showing full list of appointment types -->
+       <div id="allAppointmentTypesModal" class="dialog" ng-show="showAllAppointmentTypesModal">
+           <div class="dialog-header">
+               <h3>${ ui.message("appointmentschedulingui.scheduleAppointment.serviceTypes") }</h3>
+           </div>
+           <div class="dialog-content">
+               <div ng-repeat="type in allAppointmentTypes">
+                   <a ng-click="selectAppointmentType(type)">{{ type.display }}</a>
+               </div>
+               <br/>
+               <span class="button confirm" ng-click="showAllAppointmentTypesModal = false"> ${ ui.message("uicommons.close") }</span>
+           </div>
+       </div>
+
        <div id="searchParameters" />
            <div id="selectAppointmentType">
                <h3>
@@ -55,7 +69,10 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                </h3>
 
                <input type="text" ng-model="appointmentType" typeahead="appointmentType as appointmentType.display for appointmentType in getAppointmentTypes(\$viewValue) | filter: \$viewValue | limitTo:8" >
+            </div>
 
+            <div>
+                <a ng-click="showAllAppointmentTypesModal = true">${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }</a>
             </div>
 
            <div id="selectTimeframe">

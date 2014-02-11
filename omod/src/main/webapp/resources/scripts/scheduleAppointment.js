@@ -11,11 +11,18 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         $scope.filteredTimeSlots = [];
         $scope.selectedTimeSlot = undefined;
         $scope.appointmentReason = '';
+        $scope.allAppointmentTypes = [];
+
+        // initialize all appointment types array
+        AppointmentService.getAppointmentTypes().then(function (result) {
+            $scope.allAppointmentTypes = result;
+        });
 
         $scope.showTimeSlotsGrid = false;
         $scope.showNoTimeSlotsMessage = false;
         $scope.showScheduleAppointment = true;
         $scope.showConfirmAppointment = false;
+        $scope.showAllAppointmentTypesModal = false;
         $scope.searchButtonDisabled = false;
         $scope.confirmAppointmentButtonsDisabled = false;
 
@@ -120,6 +127,11 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                 page: 'findpatient/findPatient',
                 query: { app: 'schedulingAppointmentApp' }
             });
+        }
+
+        $scope.selectAppointmentType = function(type) {
+            $scope.appointmentType = type;
+            $scope.showAllAppointmentTypesModal = false;
         }
 
     });
