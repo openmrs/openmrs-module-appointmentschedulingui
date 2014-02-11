@@ -1,7 +1,10 @@
 <%
+    def angularLocale = context.locale.toString().toLowerCase();
+
     ui.decorateWith("appui", "standardEmrPage")
 
     ui.includeJavascript("uicommons", "angular.min.js")
+    ui.includeJavascript("uicommons", "i18n/angular-locale_" + angularLocale + ".js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.6.0.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ng-grid-2.0.7.min.js")
     ui.includeJavascript("uicommons", "angular-resource.min.js")
