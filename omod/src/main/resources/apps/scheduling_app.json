@@ -1,22 +1,33 @@
 [
     {
-        "id": "schedulingAppointmentApp",
+        "id": "appointmentschedulingui.schedulingAppointmentApp",
         "instanceOf": "coreapps.template.findPatient",
         "extensions": [
             {
-                "id": "schedulingAppointmentApp",
+                "id": "appointmentschedulingui.schedulingAppointmentAppLink",
                 "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
                 "type": "link",
                 "label": "appointmentschedulingui.scheduleAppointment.title",
-                "url": "coreapps/findpatient/findPatient.page?app=schedulingAppointmentApp",
+                "url": "coreapps/findpatient/findPatient.page?app=appointmentschedulingui.schedulingAppointmentApp",
                 "icon": "icon-calendar",
                 "order": 1
+            },
+            {
+                "id": "appointmentschedulingui.schedulingAppointmentDashboardLink",
+                "extensionPointId": "patientDashboard.overallActions",
+                "type": "link",
+                "label": "appointmentschedulingui.scheduleAppointment.title",
+                "url": "/appointmentschedulingui/scheduleAppointment.page?patientId={{patientId}}",
+                "icon": "icon-calendar",
+                "order": 20
             }
         ],
         "config": {
             "afterSelectedUrl": "/appointmentschedulingui/patient.page?patientId={{patientId}}",
             "label": "appointmentschedulingui.scheduleAppointment.title",
             "heading": "appointmentschedulingui.scheduleAppointment.title"
-        }
+        },
+        "requiredPrivilege": "App: appointmentschedulingui.scheduleAppointment",
+        "featureToggle": "new_appointment_scheduling_ui"
     }
 ]
