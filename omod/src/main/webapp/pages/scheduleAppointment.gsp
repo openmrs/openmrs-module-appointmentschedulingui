@@ -105,8 +105,10 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         <div class="gridStyle" ng-grid="timeSlotOptions" ng-show="showTimeSlotsGrid"></div>
 
         <div id="noTimeSlots" ng-show="showNoTimeSlotsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noAvailableSlots") }</div>
+        <div id="loadingMessage" ng-show="showLoadingMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.loading") }</div>
 
-       <div id="selectAppointment">
+
+    <div id="selectAppointment">
             <button class="confirm" ng-click="selectTimeSlot()" ng-show="showTimeSlotsGrid" ng-disabled="timeSlotOptions.selectedItems.length == 0">
                 ${ ui.message("uicommons.next") }</button>
        </div>

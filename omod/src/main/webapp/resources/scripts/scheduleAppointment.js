@@ -20,6 +20,7 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
 
         $scope.showTimeSlotsGrid = false;
         $scope.showNoTimeSlotsMessage = false;
+        $scope.showLoadingMessage = false;
         $scope.showScheduleAppointment = true;
         $scope.showConfirmAppointment = false;
         $scope.showAllAppointmentTypesModal = false;
@@ -45,6 +46,8 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         $scope.findAvailableTimeSlots = function() {
 
             $scope.searchButtonDisabled = true;
+            $scope.showLoadingMessage= true;
+            $scope.showTimeSlotsGrid = false;
 
             var params = { 'appointmentType' : $scope.appointmentType.uuid }
 
@@ -64,6 +67,7 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                           + moment(result.startDate).format("h:mm a") + " - " + moment(result.endDate).format("h:mm a");
                 })
 
+                $scope.showLoadingMessage = false;
                 $scope.timeSlots = results;
 
                 $scope.showTimeSlotsGrid = results.length > 1;
