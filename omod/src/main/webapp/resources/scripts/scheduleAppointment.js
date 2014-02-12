@@ -61,8 +61,6 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
 
             AppointmentService.getTimeSlots(params).then(function (results) {
                 angular.forEach(results, function(result) {
-                    // format date result
-                    // TODO how to localize date?
                     result['date'] = moment(result.startDate).format("DD MMM YYYY") + ", "
                           + moment(result.startDate).format("h:mm a") + " - " + moment(result.endDate).format("h:mm a");
                 })
