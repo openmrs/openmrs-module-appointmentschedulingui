@@ -21,7 +21,7 @@
 
 <%= ui.includeFragment("appui", "messages", [ codes: [
     'uicommons.location',
-    'uicomons.provider',
+    'uicommons.provider',
     'appointmentschedulingui.scheduleAppointment.timeSlot',
     'appointmentschedulingui.scheduleAppointment.errorSavingAppointment',
     'appointmentschedulingui.scheduleAppointment.invalidSearchParameters'
