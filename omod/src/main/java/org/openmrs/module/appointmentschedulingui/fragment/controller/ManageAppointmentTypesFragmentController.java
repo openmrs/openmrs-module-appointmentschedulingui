@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ManageAppointmentTypesFragmentController {
 
     public FragmentActionResult retireAppointmentType(UiUtils ui,
-                                                @RequestParam(value = "appointmentTypeId", required = true) int appointmentTypeId,
-                                                @SpringBean("appointmentService") AppointmentService appointmentService) {
+                                                      @RequestParam(value = "appointmentTypeId", required = true) int appointmentTypeId,
+                                                      @SpringBean("appointmentService") AppointmentService appointmentService) {
 
         AppointmentType appointmentTypeToRetired = appointmentService.getAppointmentType(appointmentTypeId);
 
         if (appointmentTypeToRetired != null) {
             appointmentService.retireAppointmentType(appointmentTypeToRetired,"Retired appointment type by system administration");
-            return new SuccessResult(ui.message("appointmentschedulingui.manageappointmenttype.success"));
+            return new SuccessResult("deleted");
         }
         else{
             return new FailureResult(ui.message("appointmentschedulingui.manageappointmenttype.notAllowed"));

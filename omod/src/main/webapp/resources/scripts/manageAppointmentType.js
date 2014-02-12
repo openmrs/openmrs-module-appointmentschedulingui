@@ -35,6 +35,14 @@ function createDeleteAppointmentTypeDialog(appointmentTypeId, deleteElement) {
 }
 
 
+function reloadPage(){
+    emr.navigateTo({
+        provider: 'appointmentschedulingui',
+        page: 'manageAppointmentTypes',
+        query: {deleted: true}
+    });
+}
+
 function showDeleteAppointmentTypeDialog () {
     deleteAppointmentTypeDialog.show();
     return false;
@@ -44,9 +52,7 @@ function deleteAppointmentTypeWithCallback(appointmentTypeId, deleteElement) {
     emr.getFragmentActionWithCallback('appointmentschedulingui', 'manageAppointmentTypes', 'retireAppointmentType'
     , { appointmentTypeId: appointmentTypeId}
     , function (data) {
-            deleteElement.parents("tr").remove();
-            addDefaultRowWhenAppointmentTableEmpty();
-            emr.successMessage(data.message);
+            reloadPage(data.message);
         }
     , function (err) {
             emr.handleError(err.message);

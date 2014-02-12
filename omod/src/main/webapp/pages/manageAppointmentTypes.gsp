@@ -11,6 +11,14 @@ var breadcrumbs = [
 { label: "${ ui.message("emr.app.systemAdministration.label")}", link: '${ui.pageLink("emr", "systemAdministration")}' },
 { label: "${ ui.message("appointmentschedulingui.appointmenttype.label")}" }
 ];
+
+jq( function(){
+    var resultMessage = "${resultMessage}";
+    if (resultMessage !=  ""){
+        emr.successMessage(resultMessage);
+    }
+});
+
 </script>
 
 
