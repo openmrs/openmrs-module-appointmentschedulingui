@@ -16,7 +16,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 <script type="text/javascript">
     jq(function() {
         jq('#actions .cancel').click(function() {
-            emr.navigateTo({url: emr.pageLink("coreapps", "findpatient/findPatient", {app: 'schedulingAppointmentApp'})})
+            emr.navigateTo({url: emr.pageLink("coreapps", "findpatient/findPatient", {app: 'appointmentschedulingui.schedulingAppointmentApp'})})
         });
         jq('#actions .confirm').click(function() {
             emr.navigateTo({

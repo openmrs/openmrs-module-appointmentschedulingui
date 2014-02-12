@@ -33,7 +33,7 @@
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message("appointmentschedulingui.scheduleAppointment.title")}",
-            link: '${ui.pageLink("coreapps", "findpatient/findPatient", [ app: 'schedulingAppointmentApp'])}' },
+            link: '${ui.pageLink("coreapps", "findpatient/findPatient", [ app: 'appointmentschedulingui.schedulingAppointmentApp'])}' },
         { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" }
     ];
 

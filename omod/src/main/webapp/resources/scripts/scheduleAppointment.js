@@ -113,7 +113,7 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                 emr.navigateTo({
                     provider: 'coreapps',
                     page: 'findpatient/findPatient',
-                    query: { app: 'schedulingAppointmentApp' }
+                    query: { app: 'appointmentschedulingui.schedulingAppointmentApp' }
                 });
             }).catch(function () {
                 // error callback
