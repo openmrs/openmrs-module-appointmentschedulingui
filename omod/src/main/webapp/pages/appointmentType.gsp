@@ -43,7 +43,7 @@
         ])}
 
         ${ ui.includeFragment("emr", "field/textarea", [
-                label: ui.message("appointmentschedulingui.appointmenttype.description"),
+                label: ui.message("appointmentschedulingui.appointmenttype.optionalDescription"),
                 formFieldName: "description",
                 id: "description",
                 initialValue: (appointmentType.description ?: '')

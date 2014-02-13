@@ -7,7 +7,7 @@
                 "id": "appointmentschedulingui.schedulingAppointmentAppLink",
                 "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
                 "type": "link",
-                "label": "appointmentschedulingui.scheduleAppointment.title",
+                "label": "appointmentschedulingui.scheduleAppointment.buttonTitle",
                 "url": "coreapps/findpatient/findPatient.page?app=appointmentschedulingui.schedulingAppointmentApp",
                 "icon": "icon-calendar",
                 "order": 1
