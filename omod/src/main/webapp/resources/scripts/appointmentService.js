@@ -1,7 +1,7 @@
 
 
 angular.module('appointmentscheduling.appointmentService', ['appointmentscheduling.appointmentResources'])
-    .factory('AppointmentService', function(Appointment, AppointmentType, TimeSlot) {
+    .factory('AppointmentService', function(Appointment, AppointmentType, AppointmentBlock, TimeSlot) {
 
         return {
 
@@ -39,6 +39,19 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                     .then(function(res) {
                         return res.results;
                     });
+            },
+
+            getAppointmentBlocks: function(params) {
+
+                if (params['v'] == undefined) {
+                    params['v'] = 'default';
+                }
+
+                return AppointmentBlock.query(params).$promise
+                    .then(function(res) {
+                        return res.results;
+                    });
+
             },
 
             /**

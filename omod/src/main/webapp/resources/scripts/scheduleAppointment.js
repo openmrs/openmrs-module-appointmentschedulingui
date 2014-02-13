@@ -36,7 +36,7 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
             selectedItems: [],
             columnDefs: [   { field: 'date', displayName: emr.message("appointmentschedulingui.scheduleAppointment.timeSlot") },
                             { field: 'appointmentBlock.provider.person.display', displayName: emr.message("uicommons.provider") },
-                            { field: 'appointmentBlock.location.name', displayName: emr.message("uicommons.location") } ]
+                            { field: 'appointmentBlock.location.display', displayName: emr.message("uicommons.location") } ]
         };
 
         $scope.getAppointmentTypes = function(searchString) {
@@ -49,7 +49,8 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
             $scope.showLoadingMessage= true;
             $scope.showTimeSlotsGrid = false;
 
-            var params = { 'appointmentType' : $scope.appointmentType.uuid }
+            var params = { 'appointmentType' : $scope.appointmentType.uuid,
+                           'v': 'custom:(uuid,startDate,endDate,appointmentBlock:(provider:(person:ref),location:ref))' }
 
             if ($scope.fromDate) {
                 params['fromDate'] = moment($scope.fromDate).format();
@@ -82,7 +83,7 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
 
         $scope.updateFilter = function() {
             $scope.filteredTimeSlots = filterFilter($scope.timeSlots, function(row) {
-                return row.appointmentBlock.location.name.toLowerCase().indexOf($scope.filterText.toLowerCase()) != -1
+                return row.appointmentBlock.location.display.toLowerCase().indexOf($scope.filterText.toLowerCase()) != -1
                     || row.appointmentBlock.provider.person.display.toLowerCase().indexOf($scope.filterText.toLowerCase()) != -1;
             });
         }
