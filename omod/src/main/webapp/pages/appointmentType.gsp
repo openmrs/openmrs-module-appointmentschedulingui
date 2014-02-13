@@ -36,7 +36,7 @@
         ])}
 
         ${ ui.includeFragment("uicommons", "field/text", [
-                label: ui.message("appointmentschedulingui.appointmenttype.duration"),
+                label: ui.message("appointmentschedulingui.appointmenttype.optionalDescription"),
                 formFieldName: "duration",
                 id: "duration",
                 initialValue: (appointmentType.duration ?: '')

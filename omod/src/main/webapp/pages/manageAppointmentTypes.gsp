@@ -41,10 +41,10 @@ jq( function(){
         <table id="appointmentTypesTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
             <thead>
             <tr>
-                <th style="width: 40%">${ ui.message("appointmentschedulingui.scheduleAppointment.date") }</th>
-                <th style="width: 15%">${ ui.message("appointmentschedulingui.appointmenttype.title") }</th>
-                <th style="width: 30%">${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
-                <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.location") }</th>
+                <th style="width: 40%">${ ui.message("appointmentschedulingui.appointmenttype.name") }</th>
+                <th style="width: 15%">${ ui.message("appointmentschedulingui.appointmenttype.duration") }</th>
+                <th style="width: 30%">${ ui.message("appointmentschedulingui.appointmenttype.description") }</th>
+                <th style="width: 15%">${ ui.message("appointmentschedulingui.appointmenttype.actions") }</th>
             </tr>
             </thead>
             <tbody>
