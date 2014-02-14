@@ -54,6 +54,10 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
 
             },
 
+            saveAppointmentBlock: function(appointmentBlock) {
+                return AppointmentBlock.save(appointmentBlock).$promise
+            },
+
             /**
              * Saves an appointment
              *
