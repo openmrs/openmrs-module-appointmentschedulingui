@@ -52,12 +52,12 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
             var params = { 'appointmentType' : $scope.appointmentType.uuid,
                            'v': 'custom:(uuid,startDate,endDate,appointmentBlock:(provider:(person:ref),location:ref))' }
 
-            if ($scope.fromDate) {
-                params['fromDate'] = moment($scope.fromDate).format();
+            if ($('#appointmentStartDate-field').attr("value")) {
+                params['fromDate'] = moment($('#appointmentStartDate-field').attr("value")).format();
             }
 
-            if ($scope.toDate) {
-                params['toDate'] = moment($scope.toDate).endOf('day').format();
+            if ($('#appointmentEndDate-field').attr("value")) {
+                params['toDate'] = moment($('#appointmentEndDate-field').attr("value")).endOf('day').format();
             }
 
             AppointmentService.getTimeSlots(params).then(function (results) {

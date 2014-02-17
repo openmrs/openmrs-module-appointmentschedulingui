@@ -65,30 +65,33 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
            </div>
        </div>
 
-       <div id="searchParameters" />
-           <div id="selectAppointmentType">
-               <h3>
-                   ${ ui.message("appointmentschedulingui.scheduleAppointment.selectAppointmentType") }
-               </h3>
+       <div id="searchParameters">
+           <div id="selectAppointmentType"  class="inlineBox">
+               <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.selectAppointmentType") }</p>
 
                <input type="text" ng-model="appointmentType" typeahead="appointmentType as appointmentType.display for appointmentType in getAppointmentTypes(\$viewValue) | filter: \$viewValue | limitTo:8" >
-            </div>
+           </div>
 
-            <div>
+           <div id="viewAllAppointmentTypes" class="inlineBox">
                 <a ng-click="showAllAppointmentTypesModal = true">${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }</a>
-            </div>
+           </div>
 
-           <div id="selectTimeframe">
-               <h3>
-                   ${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }
-               </h3>
+           <div id="selectTimeframe" class="inlineBox">
+               <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") } </p>
 
-                <span class="angular-datepicker">
-                    <input type="text" ng-model="fromDate" min="now" max="toDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
-                </span>
-                <span class="angular-datepicker">
-                    <input type="text" ng-model="toDate" min="fromDate || now" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
-                </span>
+               ${ ui.includeFragment("uicommons", "field/datetimepicker", [
+                       id: "appointmentStartDate",
+                       formFieldName: "appointmentStartDate",
+                       label:"",
+                       useTime: false
+               ])}
+
+               ${ ui.includeFragment("uicommons", "field/datetimepicker", [
+                       id: "appointmentEndDate",
+                       formFieldName: "appointmentEndDate",
+                       label: "",
+                       useTime: false
+               ])}
            </div>
        </div>
 

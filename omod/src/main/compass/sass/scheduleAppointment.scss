@@ -6,7 +6,18 @@
 }
 
 #searchParameters {
-  width: 800px;
+  display: inline-block;
+}
+
+.inlineBox {
+  float: left;
+  margin-right: 10px;
+}
+
+#viewAllAppointmentTypes{
+  font-size: 12px;
+  margin-top: 25px;
+  margin-left: 40px;
 }
 
 #selectAppointmentType {
