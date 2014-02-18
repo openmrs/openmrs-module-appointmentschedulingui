@@ -69,7 +69,7 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                 $scope.showLoadingMessage = false;
                 $scope.timeSlots = results;
 
-                $scope.showTimeSlotsGrid = results.length > 1;
+                $scope.showTimeSlotsGrid = results.length > 0;
                 $scope.showNoTimeSlotsMessage = !$scope.showTimeSlotsGrid;
 
                 $scope.updateFilter();
