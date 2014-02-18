@@ -24,6 +24,8 @@
     ui.includeJavascript("appointmentschedulingui", "fullcalendar/gcal.js")
     ui.includeCss("appointmentschedulingui", "fullcalendar/fullcalendar.css")
 
+    ui.includeJavascript("appointmentschedulingui", "qtip/jquery.qtip.min.js")
+    ui.includeCss("appointmentschedulingui", "qtip/jquery.qtip.min.css")
 %>
 
 <script type="text/javascript">
@@ -39,10 +41,26 @@
             ${ ui.message("appointmentschedulingui.scheduleProviders.manageAppointmentBlocks") }
         </h1>
 
+        <table>
+            <tr>
+                <td>
+                    <label>${ ui.message("uicommons.location") }</label>
+                    <select ng-model="locationFilter" ng-options="l.display for l in locations" ng-change="refreshCalendarEvents()">
+                        <option value=""></option>
+                    </select>
+                </td>
+                <td>
+                    <label>${ ui.message("uicommons.provider") }</label>
+                    <input type="text"
+                           ng-model="providerFilter"
+                           typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | filter: \$viewValue | limitTo:8"
+                           typeahead-on-select="refreshCalendarEvents()">
+                </td>
+            </tr>
+        </table>
 
-        <div ui-calendar="uiConfig.calendar" ng-model="appointmentBlocksSource"></div>
+        <div ui-calendar="uiConfig.calendar" calendar="calendar" ng-model="appointmentBlocksSource"></div>
     </div>
-
 
     <div ng-show="showCreateAppointmentBlock">
 
@@ -53,12 +71,12 @@
         <table>
             <tr>
                 <td>
-                    <label>${ ui.message("uicommons.provider") }</label>
-                    <input type="text" ng-model="provider" typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | filter: \$viewValue | limitTo:8" >
-                </td>
-                <td>
                     <label>${ ui.message("uicommons.location") }</label>
                     <select ng-model="location" ng-options="l.display for l in locations"/>
+                </td>
+                <td>
+                    <label>${ ui.message("uicommons.provider") }</label>
+                    <input type="text" ng-model="provider" typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | filter: \$viewValue | limitTo:8" >
                 </td>
             </tr>
             <tr>
@@ -75,14 +93,14 @@
                     <timepicker ng-model="startTime" minute-step="15"/>
                 </td>
                 <td>
-                    <label>${ ui.message("appointmetnschedulingui.endTime") }</label>
+                    <label>${ ui.message("appointmentschedulingui.endTime") }</label>
                     <timepicker ng-model="endTime"  minute-step="15"/>
 
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>${ ui.message("appointmetnschedulingui.appointmenttypes") }</label>
+                    <label>${ ui.message("appointmentschedulingui.appointmenttypes") }</label>
                     <input type="text" ng-model="appointmentType" typeahead-on-select="addAppointmentType()" typeahead="appointmentType as appointmentType.display for appointmentType in getAppointmentTypes(\$viewValue) | filter: \$viewValue | limitTo:8" >
                 </td>
                 <td>
@@ -93,10 +111,17 @@
             </tr>
         </table>
 
-        <button class="cancel" ng-click="showCreateAppointmentBlock=false;showCalendar=true"> ${ ui.message("cancel") }</button>
+        <button class="cancel" ng-click="showCreateAppointmentBlock=false;showCalendar=true"> ${ ui.message("uicommons.cancelForm") }</button>
         <button class="confirm" ng-click="saveAppointmentBlock()" ng-disabled="!location || !date || !startTime || !endTime || appointmentTypes.length == 0">
             ${ ui.message("appointmentschedulingui.scheduleProviders.createAppointmentBlock") }</button>
 
+    </div>
+
+    <div id="tooltip">
+        <p>{{ tooltipDate }}, {{ tooltipStartTime }} - {{ tooltipStopTime }}</p>
+        <p>${ ui.message('uicommons.location') }: {{ tooltipLocation.display }}</p>
+        <p>${ ui.message('uicommons.provider') }: {{ tooltipProvider.person.display }}</p>
+        <p><a>${ ui.message('uicommons.edit')}</a>  <a ng-click="deleteAppointmentBlock(tooltipAppointmentBlockUuid)">${ ui.message('uicommons.delete')}</a></p>
     </div>
 
 </div>

@@ -58,6 +58,10 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return AppointmentBlock.save(appointmentBlock).$promise
             },
 
+            deleteAppointmentBlock: function(appointmentBlockUuid) {
+                return AppointmentBlock.delete({ 'uuid': appointmentBlockUuid }).$promise;
+            },
+
             /**
              * Saves an appointment
              *

@@ -1,5 +1,26 @@
 angular.module('appointmentscheduling.scheduleProviders', ['appointmentscheduling.appointmentService', 'providerService','locationService','ui.bootstrap', 'ui.calendar' ])
-    .controller('ScheduleProvidersCtrl', function ($scope, $filter, AppointmentService, ProviderService, LocationService) {
+    .controller('ScheduleProvidersCtrl', function ($scope, $filter, $timeout, $compile, AppointmentService, ProviderService, LocationService) {
+
+        // model
+        $scope.location;
+        $scope.provider;
+        $scope.appointmentType;
+        $scope.appointmentTypes = [];
+        $scope.locationFilter;
+        $scope.providerFilter;
+
+        $scope.date = undefined
+        $scope.startTime = undefined;
+        $scope.endTime = undefined;
+        $scope.locations = [];
+
+        $scope.tooltipLocation;
+        $scope.tooltipProvider;
+        $scope.tooltipDate;
+        $scope.tooltipStartTime;
+        $scope.tooltipStopTime;
+        $scope.tooltipAppointmentBlockUuid;
+
 
         /* config object */
         $scope.uiConfig = {
@@ -12,23 +33,37 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                 },
                 allDaySlot: false,
 
-                dayClick: function(date) { $scope.createAppointmentBlock(date) }
+                dayClick: function(date) { $scope.createAppointmentBlock(date) },
+
+                eventClick: function(event) {
+                    $scope.tooltipLocation = event.location;
+                    $scope.tooltipProvider = event.provider;
+                    $scope.tooltipDate = moment(event.start).format('MMM D');
+                    $scope.tooltipStartTime = moment(event.start).format('h:mm a');
+                    $scope.tooltipStopTime = moment(event.end).format('h:mm a');
+                    $scope.tooltipAppointmentBlockUuid = event.uuid;
+                },
+
+                eventRender: function(event, element) {
+                    element.qtip({
+                        position: {
+                            my: 'bottom center',
+                            at: 'center'
+                        },
+                        show: {
+                            event: 'click'
+                        },
+                        hide: {
+                            event: 'unfocus'
+                        },
+                        content: {
+                            text:  jq('#tooltip'),
+                            button: true
+                        }
+                    });
+                }
             }
         };
-
-        // model
-        $scope.location = undefined;
-        $scope.provider = undefined;
-        $scope.appointmentType = undefined;
-        $scope.appointmentTypes = [];
-
-        $scope.date = undefined
-        $scope.startTime = undefined;
-        $scope.endTime = undefined;
-        $scope.locations = [];
-
-        // TODO create tool tip? add appointment type?
-        // TODO clicking on a day opens schedule appt for that day
 
         // initialize all locations into array
         // TODO: limit to mirebalais hospital location
@@ -44,19 +79,46 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
         $scope.appointmentBlocksSource = [ function (start, end, callback) {
 
-            AppointmentService.getAppointmentBlocks( { fromDate: moment(start).format(),
-                                                       toDate: moment(end).format(),
-                                                       limit:100 }).then(function (results) {
+            var params = { fromDate: moment(start).format(),
+                            toDate: moment(end).format(),
+                            limit:100 }
+
+            if ($scope.providerFilter) {
+                params['provider'] = $scope.providerFilter.uuid;
+            }
+
+            if ($scope.locationFilter) {
+                params['location'] = $scope.locationFilter.uuid;
+            }
+
+            AppointmentService.getAppointmentBlocks(params).then(function (results) {
 
                 appointmentBlocks = [];
 
                 angular.forEach(results, function(result) {
-                    appointmentBlocks.push( { title: result.provider.person.display + ", " + result.location.display, start: result.startDate, end: result.endDate, allDay: false} )
+                    appointmentBlocks.push( { title: result.provider.person.display + ", " + result.location.display,
+                        start: result.startDate,
+                        end: result.endDate,
+                        provider: result.provider,
+                        location: result.location,
+                        uuid: result.uuid,
+                        allDay: false} )
                 })
 
                 callback(appointmentBlocks);
             })
         } ];
+
+        $scope.refreshCalendarEvents = function() {
+            $scope.calendar.fullCalendar('refetchEvents');
+        };
+
+        // sort-of hack to make sure we refresh when providerFilter is cleared
+        $scope.$watch('providerFilter', function(newValue, oldValue) {
+            if (!newValue && oldValue) {
+                $scope.refreshCalendarEvents();
+            }
+        });
 
         $scope.getProviders = function (searchString) {
             // TODO sort???
@@ -93,6 +155,8 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
             $scope.date = date;
             $scope.startTime = date;
             $scope.endTime = date;
+            $scope.provider = $scope.providerFilter;
+            $scope.location = $scope.locationFilter;
             $scope.showCalendar = false;
             $scope.showCreateAppointmentBlock = true;
         }
@@ -119,14 +183,17 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
 
             AppointmentService.saveAppointmentBlock(appointmentBlock).then(function() {
-
-                // TODO: trigger refresh?
-
+                $scope.refreshCalendarEvents();
                 $scope.showCreateAppointmentBlock = false;
                 $scope.showCalendar = true;
+
             }).catch(function () {
                     // error callback
                     emr.errorMessage("appointmentschedulingui.scheduleProviders.errorSavingAppointmentBlock");
                 })
+        }
+
+        $scope.deleteAppointmentBlock = function(appointmentBlockUuid) {
+            AppointmentService.deleteAppointmentBlock(appointmentBlockUuid).then($scope.refreshCalendarEvents());
         }
     });
