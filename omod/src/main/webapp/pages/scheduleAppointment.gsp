@@ -96,7 +96,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
        </div>
 
         <div id="searchButtons">
-            <button class="cancel" ng-click="backToPatientSearch()"> ${ ui.message("uicommons.previous") }</button>
+            <button class="cancel" ng-click="backToPatientSearch()"> ${ ui.message("appointmentschedulingui.scheduleAppointment.back") }</button>
             <button class="confirm" ng-click="findAvailableTimeSlots()" ng-disabled="!appointmentType || !appointmentType.uuid || searchButtonDisabled">
                 ${ ui.message("uicommons.search") }</button>
         </div>
@@ -133,7 +133,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
         <div>
             <button class="cancel" ng-click="cancelConfirmAppointment()" ng-disabled="confirmAppointmentButtonsDisabled">
-                ${ ui.message("uicommons.previous") }</button>
+                ${ ui.message("appointmentschedulingui.scheduleAppointment.back") }</button>
             <button class="confirm" ng-click="confirmAppointment()" ng-disabled="confirmAppointmentButtonsDisabled">
                 ${ ui.message("uicommons.next") }</button>
         </div>
