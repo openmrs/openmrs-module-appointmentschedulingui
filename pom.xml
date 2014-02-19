@@ -43,6 +43,7 @@
         <providermanagementVersion>1.1.3</providermanagementVersion>
         <webServicesRestVersion>2.4</webServicesRestVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <appuiVersion>1.0</appuiVersion>
 
     </properties>
 
