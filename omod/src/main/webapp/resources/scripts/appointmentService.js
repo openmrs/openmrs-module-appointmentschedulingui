@@ -5,6 +5,8 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
 
         return {
 
+            // TODO write up the various tests?
+
             /**
              * Fetches Appointment Types
              *
@@ -58,7 +60,17 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
             // TODO what about the bug Dave saw when editing appointment blocks?
 
             saveAppointmentBlock: function(appointmentBlock) {
-                return AppointmentBlock.save(appointmentBlock).$promise
+
+                var params = {};
+                var postData = angular.copy(appointmentBlock);
+
+                // need to pull the uuid off the object because OpenMRS API doesn't like getting it
+                if (postData.uuid) {
+                    params = { uuid: appointmentBlock.uuid };
+                    delete postData.uuid;
+                }
+
+                return AppointmentBlock.save(params, postData).$promise
             },
 
             deleteAppointmentBlock: function(appointmentBlockUuid) {
@@ -72,6 +84,9 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              * @returns $promise with results
              */
             saveAppointment: function(appointment) {
+
+                // TODO add the same stuff here as I've added to saveAppointmentBlock?
+
                 return Appointment.save(appointment).$promise
             }
         };

@@ -5,20 +5,23 @@ var appointmentResource = angular.module('appointmentscheduling.appointmentResou
 
 appointmentResource.factory('AppointmentType', function($resource) {
     return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/appointmenttype/:uuid", {
-        },{
+        'uuid' : '@uuid'
+    },{
             query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
-        });
+    });
 });
 
 appointmentResource.factory('TimeSlot', function($resource) {
     return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/timeslot/:uuid", {
-        },{
+        'uuid' : '@uuid'
+    },{
         query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
     });
 });
 
 appointmentResource.factory('Appointment', function($resource) {
     return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/appointment/:uuid", {
+        'uuid' : '@uuid'
     },{
         query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
     });
@@ -26,6 +29,7 @@ appointmentResource.factory('Appointment', function($resource) {
 
 appointmentResource.factory('AppointmentBlock', function($resource) {
     return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/appointmentblock/:uuid", {
+        'uuid' : '@uuid'
     },{
         query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
     });
