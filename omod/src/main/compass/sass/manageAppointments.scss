@@ -1,0 +1,53 @@
+.gridStyle {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0 auto;
+}
+
+.ngHeaderCell {
+  width: 100%;
+  background: #E6E6E6;
+  border: 1px solid #DDD;
+  width: auto;
+  border: 1px solid #eeeeee;
+
+
+  text-align: left;
+  word-break: normal;
+  font-weight: normal;
+  color: #555;
+  font-family: "OpenSansBold";
+}
+
+.ngRow.odd {
+  background: #fffdf7;
+  color: #555;
+
+}
+
+.ngRow.odd.selected {
+  background: #007FFF;
+  color: #FFFFFF;
+}
+
+.ngRow.odd:hover {
+  background: #007FFF;
+  color: #FFFFFF;
+}
+
+.ngRow.even {
+  background: #FFFFFF;
+  color: #555;
+}
+
+.ngRow.even.selected {
+  background: #007FFF;
+  color: #FFFFFF;
+}
+
+.ngRow.even:hover {
+  background: #007FFF;
+  color: #FFFFFF;
+}
+
+

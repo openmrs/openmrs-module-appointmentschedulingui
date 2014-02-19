@@ -16,6 +16,7 @@
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
     ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
+    ui.includeCss("appointmentschedulingui", "manageAppointments.css")
 
 %>
 
@@ -105,7 +106,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             ${ ui.message("appointmentschedulingui.scheduleAppointment.filter") } <input type="text" ng-model="filterText" ng-change="updateFilter()"/>
        </div>
 
-        <div class="gridStyle" ng-grid="timeSlotOptions" ng-show="showTimeSlotsGrid"></div>
+
+        <table id="appointmentTable" class="gridStyle" ng-grid="timeSlotOptions" ng-show="showTimeSlotsGrid"></table>
 
         <div id="noTimeSlots" ng-show="showNoTimeSlotsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noAvailableSlots") }</div>
         <div id="loadingMessage" ng-show="showLoadingMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.loading") }</div>
