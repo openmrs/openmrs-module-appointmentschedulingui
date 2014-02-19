@@ -80,19 +80,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
            <div id="selectTimeframe" class="inlineBox">
                <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") } </p>
 
-               ${ ui.includeFragment("uicommons", "field/datetimepicker", [
-                       id: "appointmentStartDate",
-                       formFieldName: "appointmentStartDate",
-                       label:"",
-                       useTime: false
-               ])}
-
-               ${ ui.includeFragment("uicommons", "field/datetimepicker", [
-                       id: "appointmentEndDate",
-                       formFieldName: "appointmentEndDate",
-                       label: "",
-                       useTime: false
-               ])}
+               <span class="angular-datepicker">
+                   <input type="text" ng-model="fromDate" min="now" max="toDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
+               </span>
+               <span class="angular-datepicker">
+                   <input type="text" ng-model="toDate" min="fromDate || now" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
+               </span>
            </div>
        </div>
 
