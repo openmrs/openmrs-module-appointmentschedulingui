@@ -54,6 +54,9 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
 
             },
 
+            // TODO service method to create time slot for appointment block? make sure this works properly with editing
+            // TODO what about the bug Dave saw when editing appointment blocks?
+
             saveAppointmentBlock: function(appointmentBlock) {
                 return AppointmentBlock.save(appointmentBlock).$promise
             },

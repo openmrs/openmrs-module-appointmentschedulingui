@@ -19,6 +19,7 @@
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
 
+    // TODO move to ui commons module
     ui.includeJavascript("appointmentschedulingui", "angular-ui-calendar/calendar.js")
     ui.includeJavascript("appointmentschedulingui", "fullcalendar/fullcalendar.min.js")
     ui.includeJavascript("appointmentschedulingui", "fullcalendar/gcal.js")
@@ -27,6 +28,13 @@
     ui.includeJavascript("appointmentschedulingui", "qtip/jquery.qtip.min.js")
     ui.includeCss("appointmentschedulingui", "qtip/jquery.qtip.min.css")
 %>
+
+<%= ui.includeFragment("appui", "messages", [ codes: [
+        'appointmentschedulingui.scheduleProviders.errorSavingAppointmentBlock',
+        'appointmentschedulingui.scheduleProviders.errorDeletingAppointmentBlock'
+].flatten()
+]) %>
+
 
 <script type="text/javascript">
     var breadcrumbs = [
@@ -117,11 +125,25 @@
 
     </div>
 
+    <!-- TODO add message codes for edit and delete -->
+
     <div id="tooltip">
         <p>{{ tooltipDate }}, {{ tooltipStartTime }} - {{ tooltipStopTime }}</p>
         <p>${ ui.message('uicommons.location') }: {{ tooltipLocation.display }}</p>
         <p>${ ui.message('uicommons.provider') }: {{ tooltipProvider.person.display }}</p>
-        <p><a>${ ui.message('uicommons.edit')}</a>  <a ng-click="deleteAppointmentBlock(tooltipAppointmentBlockUuid)">${ ui.message('uicommons.delete')}</a></p>
+        <p><a>${ ui.message('uicommons.edit')}</a>  <a ng-clck="showDeleteAppointmentBlockModal = true">${ ui.message('uicommons.delete')}</a></p>
+    </div>
+
+    <div id="deleteAppointmnentBlockModal" class="dialog" ng-show="showDeleteAppointmentBlockModal">
+        <div class="dialog-header">
+            <h3>${ ui.message("appointmentschedulingui.scheduleProviders.deleteAppointmentBlock") }</h3>
+        </div>
+        <div class="dialog-content">
+            ${ ui.message("appointmentschedulingui.scheduleProviders.deleteAppointmentBlockMessage") }
+            { tooltipLocation.display }}, {{ tooltipProvider.person.display }}, {{ tooltipDate }}, {{ tooltipStartTime }} - {{ tooltipStopTime }}?
+            <span class="button cancel">${ ui.message("uicommons.cancel") }</span>
+            <span class="button confirm" ng-click="deleteAppointmentBlock(tooltipAppointmentBlockUuid)"> ${ ui.message("uicommons.delete") }</span>
+        </div>
     </div>
 
 </div>

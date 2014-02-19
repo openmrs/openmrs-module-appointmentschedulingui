@@ -1,11 +1,11 @@
 angular.module('appointmentscheduling.scheduleProviders', ['appointmentscheduling.appointmentService', 'providerService','locationService','ui.bootstrap', 'ui.calendar' ])
-    .controller('ScheduleProvidersCtrl', function ($scope, $filter, $timeout, $compile, AppointmentService, ProviderService, LocationService) {
+    .controller('ScheduleProvidersCtrl', function ($scope, $filter, AppointmentService, ProviderService, LocationService) {
 
         // model
         $scope.location;
         $scope.provider;
-        $scope.appointmentType;
         $scope.appointmentTypes = [];
+        $scope.appointmentType;
         $scope.locationFilter;
         $scope.providerFilter;
 
@@ -21,6 +21,12 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
         $scope.tooltipStopTime;
         $scope.tooltipAppointmentBlockUuid;
 
+        $scope.showDeleteAppointmentBlock = false;
+        $scope.showCalendar = true;
+        $scope.showCreateAppointmentBlock = false;
+
+        // appointment blocks
+        var appointmentBlocks = [];
 
         /* config object */
         $scope.uiConfig = {
@@ -70,12 +76,6 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
         LocationService.getLocations().then(function (result) {
             $scope.locations = result;
         });
-
-        $scope.showCalendar = true;
-        $scope.showCreateAppointmentBlock = false;
-
-        // appointment blocks
-        var appointmentBlocks = [];
 
         $scope.appointmentBlocksSource = [ function (start, end, callback) {
 
@@ -161,6 +161,8 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
             $scope.showCreateAppointmentBlock = true;
         }
 
+        // TODO validation--check for overbookings
+
         $scope.saveAppointmentBlock = function() {
 
             // TODO right now only adds first appointment Type
@@ -188,12 +190,21 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                 $scope.showCalendar = true;
 
             }).catch(function () {
+                    // TODO get this message resolve properly
                     // error callback
                     emr.errorMessage("appointmentschedulingui.scheduleProviders.errorSavingAppointmentBlock");
                 })
         }
 
+        // TODO should first check if the appointment block has any appointments? otherwise this will fail with unhelpful error message
         $scope.deleteAppointmentBlock = function(appointmentBlockUuid) {
-            AppointmentService.deleteAppointmentBlock(appointmentBlockUuid).then($scope.refreshCalendarEvents());
+            AppointmentService.deleteAppointmentBlock(appointmentBlockUuid).then(function() {
+                $scope.refreshCalendarEvents();
+                $scope.showDeleteAppointmentBlock = false;
+            }).catch(function () {
+                    // TODO get this message resolve properly
+                    // error callback
+                    emr.errorMessage("appointmentschedulingui.scheduleProviders.errorDeletingAppointmentBlock");
+                })
         }
     });
