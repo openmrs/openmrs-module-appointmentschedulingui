@@ -120,16 +120,19 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
    </div>
 
-    <div ng-show="showConfirmAppointment" id="confirmAppointment">
-        <h1>
+    <div ng-show="showConfirmAppointment" id="confirmAppointment" class="container">
+        <h3>
             ${ ui.message("appointmentschedulingui.scheduleAppointment.confirmAppointment") }
-        </h1>
+        </h3>
 
          <div>
-            <p>${ ui.message("appointmentschedulingui.scheduleAppointment.date") }: {{ selectedTimeSlot.date }}  <p/>
-            <p>${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }: {{ selectedTimeSlot.appointmentBlock.provider ? selectedTimeSlot.appointmentBlock.provider.person.display : '' }} <p/>
-            <p>${ ui.message("appointmentschedulingui.scheduleAppointment.location") }: {{ selectedTimeSlot.appointmentBlock.location.name }} <p/>
-            <p>${ ui.message("appointmentschedulingui.scheduleAppointment.additionalNotes") }:</p>
+            <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.date") }:
+                <span class="confirmAppointmentInfo">{{ selectedTimeSlot.date }} </span> <p/>
+            <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }:
+                <span class="confirmAppointmentInfo">{{ selectedTimeSlot.appointmentBlock.provider ? selectedTimeSlot.appointmentBlock.provider.person.display : '' }}</span> <p/>
+            <p>${ ui.message("appointmentschedulingui.scheduleAppointment.location") }:
+                <span class="confirmAppointmentInfo">{{ selectedTimeSlot.appointmentBlock.location.display }} </span> <p/>
+            <p class="notes">${ ui.message("appointmentschedulingui.scheduleAppointment.additionalNotes") }:</p>
              <textarea ng-model="appointmentReason" ng-maxlength="1024" id="appointmentReason"> </textarea>
          </div>
 

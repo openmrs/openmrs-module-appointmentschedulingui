@@ -14,10 +14,15 @@
   margin-right: 10px;
 }
 
+.confirmAppointmentInfo {
+  font-family: 'OpenSansBold';
+  font-size: 1.2em;
+}
+
 #viewAllAppointmentTypes{
   font-size: 12px;
   margin-top: 25px;
-  margin-left: 40px;
+  margin-right: 40px;
 }
 
 #selectAppointmentType {
@@ -56,10 +61,14 @@
 #allAppointmentTypesModal {
   position:absolute;
 }
+
 #scheduleAppointment h2 {
   margin-top:40px;
 }
 
+.notes {
+  margin-top: 30px;
+}
 .appointment-filters{
   margin-bottom:20px;
 }
