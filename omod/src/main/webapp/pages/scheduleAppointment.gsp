@@ -81,10 +81,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") } </p>
 
                <span class="angular-datepicker">
-                   <input type="text" ng-model="fromDate" min="now" max="toDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
+                    <input type="text" is-open="timeframe.start.opened" ng-model="fromDate" min="now" max="toDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
+                    <i class="icon-calendar small add-on" ng-click="timeframe.start.open(\$event)" ></i>
                </span>
                <span class="angular-datepicker">
-                   <input type="text" ng-model="toDate" min="fromDate || now" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
+                   <input type="text" is-open="timeframe.end.opened"  ng-model="toDate" min="fromDate || now" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
+                   <i class="icon-calendar small add-on" ng-click="timeframe.end.open(\$event)"></i>
                </span>
            </div>
        </div>

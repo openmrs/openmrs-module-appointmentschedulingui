@@ -12,6 +12,28 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         $scope.selectedTimeSlot = undefined;
         $scope.appointmentReason = '';
         $scope.allAppointmentTypes = [];
+        $scope.timeframe= {
+            end: {
+                opened: false,
+                open: function($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+
+                    $scope.timeframe.end.opened = true;
+                    $scope.timeframe.start.opened = false;
+                }
+            },
+            start: {
+                opened: false,
+                open: function($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+
+                    $scope.timeframe.start.opened = true;
+                    $scope.timeframe.end.opened = false;
+                }
+            }
+        }
 
         // initialize all appointment types array
         AppointmentService.getAppointmentTypes().then(function (result) {
