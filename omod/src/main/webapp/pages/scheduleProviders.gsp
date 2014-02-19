@@ -46,7 +46,7 @@
     ];
 </script>
 
-<div class="scheduleProviders" ng-app="appointmentscheduling.scheduleProviders" ng-controller="ScheduleProvidersCtrl">
+<div class="schedule-providers" ng-app="appointmentscheduling.scheduleProviders" ng-controller="ScheduleProvidersCtrl">
 
     <div ng-show="showCalendar">
         <h1>
@@ -127,30 +127,30 @@
             </tr>
         </table>
 
-        <button class="cancel" ng-click="showAppointmentBlockForm=false;showCalendar=true"> ${ ui.message("uicommons.cancelForm") }</button>
+        <button class="cancel" ng-click="showAppointmentBlockForm=false;showCalendar=true;refreshCalendarEvents()"> ${ ui.message("uicommons.cancel") }</button>
         <button class="confirm" ng-click="saveAppointmentBlock()" ng-disabled="!appointmentBlock.location || !appointmentBlock.startDate || !appointmentBlock.endDate || appointmentBlock.types.length == 0">
             ${ ui.message("uicommons.save") }</button>
 
     </div>
 
-    <div id="deleteAppointmentBlockModal" class="dialog" ng-show="showDeleteAppointmentBlockModal">
+    <div id="delete-appointment-block-modal" class="dialog" style="display:none">
         <div class="dialog-header">
             <h3>${ ui.message("appointmentschedulingui.scheduleProviders.deleteAppointmentBlock") }</h3>
         </div>
         <div class="dialog-content">
             <p>${ ui.message("appointmentschedulingui.scheduleProviders.deleteAppointmentBlockMessage") }
             {{ appointmentBlock.location.display }}, {{ appointmentBlock.provider.person.display }}, {{ appointmentBlock.startDate | date: 'MMM d' }}, {{ appointmentBlock.startDate | date: 'hh:mm a' }} - {{ appointmentBlock.endDate | date: 'hh:mm a' }}?</p>
-            <p><span class="button cancel" ng-click="showDeleteAppointmentBlockModal = false">${ ui.message("uicommons.cancel") }</span> <span class="button confirm" ng-click="deleteAppointmentBlock(appointmentBlock.uuid)"> ${ ui.message("uicommons.delete") }</span></p>
+            <p><span class="button cancel">${ ui.message("uicommons.cancel") }</span> <span class="button confirm"> ${ ui.message("uicommons.delete") }</span></p>
         </div>
     </div>
 
     <!-- TODO add message codes for edit and delete and save -->
 
-    <div id="tooltip" class="hidden">
+    <div id="tooltip" class="hidden" >
         <p>{{ appointmentBlock.startDate | date: 'MMM d' }}, {{ appointmentBlock.startDate | date: 'hh:mm a' }} - {{ appointmentBlock.endDate | date: 'hh:mm a' }}</p>
         <p>${ ui.message('uicommons.location') }: {{ appointmentBlock.location.display }}</p>
         <p>${ ui.message('uicommons.provider') }: {{ appointmentBlock.provider.person.display }}</p>
-        <p><a ng-click="showAppointmentBlockForm=true;showCalendar=false">${ ui.message('uicommons.edit')}</a>  <a ng-click="showDeleteAppointmentBlockModal = true">${ ui.message('uicommons.delete') }</a></p>
+        <p><a class="tooltip-button" ng-click="showAppointmentBlockForm=true;showCalendar=false">${ ui.message('uicommons.edit')}</a>  <a class="tooltip-button" ng-click="showDeleteAppointmentBlockModal()">${ ui.message('uicommons.delete') }</a></p>
     </div>
 
 </div>

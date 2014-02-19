@@ -11,7 +11,6 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
         $scope.providerFilter;
         $scope.locations = [];
 
-        $scope.showDeleteAppointmentBlockModal = false;
         $scope.showCalendar = true;
         $scope.showAppointmentBlockForm = false;
 
@@ -45,8 +44,8 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                             event: 'click'
                         },
                         hide: {
-                            event: 'unfocus',
-                            effect: false
+                            event: 'unfocus click',
+                            target: jq('.tooltip-button')
                         },
                         content: {
                             text: function (event, api) {
@@ -191,15 +190,29 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                 })
         }
 
-        // TODO should first check if the appointment block has any appointments? otherwise this will fail with unhelpful error message
-        $scope.deleteAppointmentBlock = function(appointmentBlockUuid) {
-            AppointmentService.deleteAppointmentBlock(appointmentBlockUuid).then(function() {
-                $scope.refreshCalendarEvents();
-                $scope.showDeleteAppointmentBlockModal = false;
-            }).catch(function () {
-                    // TODO get this message resolve properly
-                    // error callback
-                    emr.errorMessage("appointmentschedulingui.scheduleProviders.errorDeletingAppointmentBlock");
-                })
+        $scope.showDeleteAppointmentBlockModal = function () {
+
+            var deleteAppointmentBlockModal = emr.setupConfirmationDialog({
+                selector: '#delete-appointment-block-modal',
+                actions: {
+                    confirm: function() {
+                        AppointmentService.deleteAppointmentBlock($scope.appointmentBlock.uuid).then(function() {
+                            deleteAppointmentBlockModal.close();
+                            $scope.refreshCalendarEvents();
+                        }).catch(function () {
+                                // TODO get this message resolve properly
+                                // error callback
+                                emr.errorMessage("appointmentschedulingui.scheduleProviders.errorDeletingAppointmentBlock");
+                                deleteAppointmentBlockModal.close();
+                            })
+                    },
+                    cancel: function() {
+                        deleteAppointmentBlockModal.close();
+                    }
+                }
+            });
+
+            deleteAppointmentBlockModal.show();
         }
+
     });
