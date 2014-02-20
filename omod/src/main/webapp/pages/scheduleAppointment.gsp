@@ -46,7 +46,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
 <div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl">
 
-   <div>
+   <div ng-show="showScheduleAppointment">
         <h2> ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") } </h2>
 
         <% if ( (upcomingAppointmentList == null)
@@ -158,9 +158,9 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
    </div>
 
    <div ng-show="showConfirmAppointment" id="confirmAppointment" class="container">
-        <h3>
+        <h2>
             ${ ui.message("appointmentschedulingui.scheduleAppointment.confirmAppointment") }
-        </h3>
+        </h2>
 
          <div>
             <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.date") }:
