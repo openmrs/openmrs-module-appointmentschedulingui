@@ -49,53 +49,43 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
    <div>
         <h2> ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") } </h2>
 
-        <table id="scheduledAppointmentTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
-            <thead>
-            <tr>
-                <th style="width: 30%">${ ui.message("appointmentschedulingui.scheduleAppointment.date") }</th>
-                <th style="width: 30%">${ ui.message("appointmentschedulingui.appointmenttype.title") }</th>
-                <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
-                <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.location") }</th>
-                <th style="width: 10%">${ ui.message("appointmentschedulingui.appointmenttype.actions") }</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <% if ( (upcomingAppointmentList == null)
-                    || (upcomingAppointmentList!= null && upcomingAppointmentList.size() == 0)) { %>
-            <tr>
-                <td>${ ui.message("uicommons.dataTable.emptyTable") }</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <% } %>
-
-            <% upcomingAppointmentList.each { appointment -> %>
-
-            <tr>
-                <td>${ ui.format(appointment.timeSlot.startDate.format('dd MMM yyyy'))}
-                    | ${ ui.format(appointment.timeSlot.startDate.format('h:mm a'))} -
-                    ${ ui.format(appointment.timeSlot.endDate.format('h:mm a')) }</td>
-                <td>${ ui.format(appointment.appointmentType) }</td>
-                <td>${ ui.format(appointment.timeSlot.appointmentBlock.provider.name)}</td>
-                <td>${ ui.format(appointment.timeSlot.appointmentBlock.location.name)}</td>
-                <td class="align-center">
-                    <span>
-                        <i class="editAppointmentType delete-item icon-pencil"
-                           data-edit-url='${ui.pageLink("appointmentschedulingui", "appointmentType")}'
-                           title="${ ui.message("coreapps.edit") }"></i>
-                        <i class="deleteAppointmentType delete-item icon-remove"
-                           title="${ ui.message("coreapps.delete") }"></i>
-                    </span>
-                </td>
-            </tr>
-            <% } %>
-            </tbody>
-        </table>
+        <% if ( (upcomingAppointmentList == null)
+               || (upcomingAppointmentList!= null && upcomingAppointmentList.size() == 0)) { %>
+            ${ ui.message("appointmentschedulingui.scheduleAppointment.noAppointments") }
+        <% } else {%>
+            <table id="scheduledAppointmentTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
+                <thead>
+                    <tr>
+                        <th style="width: 30%">${ ui.message("appointmentschedulingui.scheduleAppointment.date") }</th>
+                        <th style="width: 30%">${ ui.message("appointmentschedulingui.appointmenttype.title") }</th>
+                        <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
+                        <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.location") }</th>
+                        <th style="width: 10%">${ ui.message("appointmentschedulingui.appointmenttype.actions") }</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% upcomingAppointmentList.each { appointment -> %>
+                        <tr>
+                            <td>${ ui.format(appointment.timeSlot.startDate.format('dd MMM yyyy'))}
+                                | ${ ui.format(appointment.timeSlot.startDate.format('h:mm a'))} -
+                                ${ ui.format(appointment.timeSlot.endDate.format('h:mm a')) }</td>
+                            <td>${ ui.format(appointment.appointmentType) }</td>
+                            <td>${ ui.format(appointment.timeSlot.appointmentBlock.provider.name)}</td>
+                            <td>${ ui.format(appointment.timeSlot.appointmentBlock.location.name)}</td>
+                            <td class="align-center">
+                                <span>
+                                    <i class="editAppointmentType delete-item icon-pencil"
+                                       data-edit-url='${ui.pageLink("appointmentschedulingui", "appointmentType")}'
+                                       title="${ ui.message("coreapps.edit") }"></i>
+                                    <i class="deleteAppointmentType delete-item icon-remove"
+                                       title="${ ui.message("coreapps.delete") }"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+       <% } %>
     </div>
 
    <div ng-show="showScheduleAppointment">
