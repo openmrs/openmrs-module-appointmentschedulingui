@@ -3,7 +3,14 @@ describe('AppointmentService tests', function() {
 
     var appointmentService;
     var q;
-    var deferred;
+
+    var deferredAppointmentTypeQuery;
+    var deferredTimeSlotQuery;
+    var deferredTimeSlotSave;
+    var deferredAppointmentBlockQuery;
+    var deferredAppointmentBlockSave;
+    var deferredAppointmentSave;
+
 
     beforeEach(module('appointmentscheduling.appointmentService'));
 
@@ -11,10 +18,10 @@ describe('AppointmentService tests', function() {
     var mockAppointmentType = jasmine.createSpyObj('AppointmentType', ['query']);
     mockAppointmentType.query.andCallFake(function() {
 
-        deferred = q.defer();
+        deferredAppointmentTypeQuery = q.defer();
 
         var promise_mock = {
-            $promise: deferred.promise
+            $promise: deferredAppointmentBlockQuery.promise
         };
 
         return promise_mock;
@@ -24,36 +31,47 @@ describe('AppointmentService tests', function() {
     var mockTimeSlot = jasmine.createSpyObj('TimeSlot', ['query']);
     mockTimeSlot.query.andCallFake(function() {
 
-        deferred = q.defer();
+        deferredTimeSlotQuery = q.defer();
 
         var promise_mock = {
-            $promise: deferred.promise
+            $promise: deferredTimeSlotQuery.promise
         };
 
         return promise_mock;
     });
 
     // create mock AppointmentBlock resource
-    var mockAppointmentBlock = jasmine.createSpyObj('AppointmentBlock', ['query']);
+    var mockAppointmentBlock = jasmine.createSpyObj('AppointmentBlock', ['query', 'save']);
     mockAppointmentBlock.query.andCallFake(function() {
 
-        deferred = q.defer();
+        deferredAppointmentBlockQuery = q.defer();
 
         var promise_mock = {
-            $promise: deferred.promise
+            $promise: deferredAppointmentBlockQuery.promise
+        }
+
+        return promise_mock;
+    })
+    mockAppointmentBlock.save.andCallFake(function() {
+
+        deferredAppointmentBlockSave = q.defer();
+
+        var promise_mock = {
+            $promise: deferredAppointmentBlockSave.promise
         }
 
         return promise_mock;
     })
 
+
     // create mock Appointment resource
     var mockAppointment = jasmine.createSpyObj('Appointment', ['save']);
     mockAppointment.save.andCallFake(function() {
 
-        deferred = q.defer();
+        deferredAppointmentSave = q.defer();
 
         var promise_mock = {
-            $promise: deferred.promise
+            $promise: deferredAppointmentBlockSave.promise
         }
 
         return promise_mock;

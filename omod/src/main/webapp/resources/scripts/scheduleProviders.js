@@ -1,24 +1,38 @@
 angular.module('appointmentscheduling.scheduleProviders', ['appointmentscheduling.appointmentService', 'providerService','locationService','ui.bootstrap', 'ui.calendar' ])
-    .controller('ScheduleProvidersCtrl', function ($scope, $timeout, $compile, AppointmentService, ProviderService, LocationService) {
+    .controller('ScheduleProvidersCtrl', function ($scope, $filter, AppointmentService, ProviderService, LocationService) {
 
-        // model
+        /**
+         * Model
+         */
 
-        // used to store the appointment block we are currently creating/editing/viewing
+        // stores the appointment block we are currently creating/editing/viewing
         $scope.appointmentBlock = {};
 
-        $scope.appointmentType;
+        // bound to the location and provider filters on the calendar view
         $scope.locationFilter;
         $scope.providerFilter;
-        $scope.locations = [];
 
+        // bound to the appointmentType typeahead in the appointment block form
+        $scope.appointmentType;
+
+        // locations to display in the locations drop-down
+        $scope.locations = [];
+        // TODO: limit to mirebalais hospital location
+        LocationService.getLocations().then(function (result) {
+            $scope.locations = result;
+        });
+
+        // control booleans for show/hide the calendar the appointment block form views
         $scope.showCalendar = true;
         $scope.showAppointmentBlockForm = false;
 
-        // appointment blocks
+        // stores all appointment blocks events within the current calendar view
         var appointmentBlocks = [];
 
         /* config object */
         $scope.uiConfig = {
+
+            // configure the calendar
             calendar:{
                 editable: false,
                 header:{
@@ -28,7 +42,9 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                 },
                 allDaySlot: false,
 
-                dayClick: function(date) { $scope.createAppointmentBlock(date) },
+                dayClick: function(date) {
+                    $scope.createAppointmentBlock(date)
+                },
 
                 eventClick: function(event, element) {
                     $scope.appointmentBlock = event.appointmentBlock;
@@ -41,31 +57,27 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                             at: 'center'
                         },
                         show: {
-                            event: 'click'
+                            event: 'click'   // show a tooltip when an event is clicked
                         },
                         hide: {
-                            event: 'unfocus click',
-                            target: jq('.tooltip-button')
+                            event: 'unfocus click', // hide a tooltip when it loses focus or when one of the links within the tool-tip is clicked
+                            target: jq('.tooltip-link')
                         },
                         content: {
+                            // every time a tooltip is loaded, populate it's content with the content of the tooltip div (which is bound to $scope.appointmentBlock, which is updated on eventClick)
                             text: function (event, api) {
                                 return jq('#tooltip');
                             },
                             button: true
                         }
                     });
-
-                    $timeout(function () {$compile(element)($scope);})
                 }
             }
         };
 
-        // initialize all locations into array
-        // TODO: limit to mirebalais hospital location
-        LocationService.getLocations().then(function (result) {
-            $scope.locations = result;
-        });
 
+        // model for the calendar, which is an array of sources for the calendar
+        // in this case, we have a single source function that fetches matching blocks via REST
         $scope.appointmentBlocksSource = [ function (start, end, callback) {
 
             var params = { fromDate: moment(start).format(),
@@ -92,12 +104,12 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                         allDay: false} )
                 })
 
-                callback(appointmentBlocks);
+                callback(appointmentBlocks);  // this callback actually does the rendering
             })
         } ];
 
         $scope.refreshCalendarEvents = function() {
-            $scope.calendar.fullCalendar('refetchEvents');
+            $scope.calendar.fullCalendar('refetchEvents');    // triggers a refresh of the calendar model (i.e., the function in the appointmentBlocksSource is called to regenerate the events)
         };
 
         // sort-of hack to make sure we refresh when providerFilter is cleared
@@ -139,12 +151,16 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
         }
 
         $scope.createAppointmentBlock = function(date) {
-            $scope.appointmentBlock.uuid = undefined;
-            $scope.appointmentBlock.startDate = date;
-            $scope.appointmentBlock.endDate = date;
-            $scope.appointmentBlock.provider = $scope.providerFilter;
-            $scope.appointmentBlock.location = $scope.locationFilter;
-            $scope.appointmentBlock.types = [];
+
+            $scope.appointmentBlock = {
+                uuid: undefined,
+                startDate: date,
+                endDate: date,
+                provider: $scope.providerFilter,
+                location: $scope.locationFilter,
+                types: []
+            }
+
             $scope.showCalendar = false;
             $scope.showAppointmentBlockForm = true;
         }
@@ -158,6 +174,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                 appointmentTypeUuids.push(type.uuid);
             });
 
+            // create the object we want to send back via REST
             var appointmentBlockToUpdate = { 'types': appointmentTypeUuids,
                 'location': $scope.appointmentBlock.location.uuid,
                 'startDate': moment($scope.appointmentBlock.startDate).hours(moment($scope.appointmentBlock.startDate).hours()).minutes(moment($scope.appointmentBlock.startDate).minutes()).format(),
@@ -173,10 +190,8 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                 appointmentBlockToUpdate.uuid = $scope.appointmentBlock.uuid;
             }
 
-
             // zero out current appointment block reference
             $scope.appointmentBlock = {}
-
 
             AppointmentService.saveAppointmentBlock(appointmentBlockToUpdate).then(function() {
                 $scope.refreshCalendarEvents();
@@ -207,6 +222,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                             })
                     },
                     cancel: function() {
+                        // TODO cancelling seems to kill our tooltips for some reason
                         deleteAppointmentBlockModal.close();
                     }
                 }

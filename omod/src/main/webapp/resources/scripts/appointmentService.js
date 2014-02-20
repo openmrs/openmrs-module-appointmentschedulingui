@@ -14,7 +14,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              * @returns $promise of array of matching appointment types (REST ref representation by default)
              */
             getAppointmentTypes: function(searchString) {
-                return AppointmentType.query({"q":searchString}).$promise
+                return AppointmentType.query({'q':searchString}).$promise
                     .then(function(res) {
                         return res.results;
                     });
@@ -56,7 +56,6 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
 
             },
 
-            // TODO service method to create time slot for appointment block? make sure this works properly with editing
             // TODO what about the bug Dave saw when editing appointment blocks?
 
             saveAppointmentBlock: function(appointmentBlock) {

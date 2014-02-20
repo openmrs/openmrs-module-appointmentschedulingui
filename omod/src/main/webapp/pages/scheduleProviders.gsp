@@ -7,6 +7,10 @@
     ui.includeJavascript("uicommons", "i18n/angular-locale_" + angularLocale + ".js")
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.6.0.min.js")
+    ui.includeJavascript("uicommons", "angular-ui/calendar.js")
+    ui.includeJavascript("uicommons", "fullcalendar/fullcalendar.min.js")
+    ui.includeJavascript("uicommons", "fullcalendar/gcal.js")
+    ui.includeCss("uicommons", "fullcalendar/fullcalendar.css")
     ui.includeJavascript("uicommons", "moment.min.js")
     ui.includeJavascript("uicommons", "emr.js")
 
@@ -18,12 +22,6 @@
     ui.includeJavascript("appointmentschedulingui", "scheduleProviders.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
-
-    // TODO move to ui commons module
-    ui.includeJavascript("appointmentschedulingui", "angular-ui-calendar/calendar.js")
-    ui.includeJavascript("appointmentschedulingui", "fullcalendar/fullcalendar.min.js")
-    ui.includeJavascript("appointmentschedulingui", "fullcalendar/gcal.js")
-    ui.includeCss("appointmentschedulingui", "fullcalendar/fullcalendar.css")
 
     ui.includeJavascript("appointmentschedulingui", "qtip/jquery.qtip.min.js")
     ui.includeCss("appointmentschedulingui", "qtip/jquery.qtip.min.css")
@@ -150,7 +148,7 @@
         <p>{{ appointmentBlock.startDate | date: 'MMM d' }}, {{ appointmentBlock.startDate | date: 'hh:mm a' }} - {{ appointmentBlock.endDate | date: 'hh:mm a' }}</p>
         <p>${ ui.message('uicommons.location') }: {{ appointmentBlock.location.display }}</p>
         <p>${ ui.message('uicommons.provider') }: {{ appointmentBlock.provider.person.display }}</p>
-        <p><a class="tooltip-button" ng-click="showAppointmentBlockForm=true;showCalendar=false">${ ui.message('uicommons.edit')}</a>  <a class="tooltip-button" ng-click="showDeleteAppointmentBlockModal()">${ ui.message('uicommons.delete') }</a></p>
+        <p><a class="tooltip-link" ng-click="showAppointmentBlockForm=true;showCalendar=false">${ ui.message('uicommons.edit')}</a>  <a class="tooltip-link" ng-click="showDeleteAppointmentBlockModal()">${ ui.message('uicommons.delete') }</a></p>
     </div>
 
 </div>

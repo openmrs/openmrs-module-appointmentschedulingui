@@ -28,7 +28,7 @@ appointmentResource.factory('Appointment', function($resource) {
 });
 
 appointmentResource.factory('AppointmentBlock', function($resource) {
-    return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/appointmentblock/:uuid", {
+    return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/appointmentblockwithtimeslot/:uuid", {
         'uuid' : '@uuid'
     },{
         query: { method:'GET' }     // override query method to specify that it isn't an array that is returned

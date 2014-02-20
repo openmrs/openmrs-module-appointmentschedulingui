@@ -31,7 +31,7 @@ describe('ProviderService tests', function() {
 
     it('should call Provider resource with query value', function() {
         providerService.getProviders("abc")
-        expect(mockProvider.query).toHaveBeenCalledWith({ "q": "abc" });
+        expect(mockProvider.query).toHaveBeenCalledWith({ 'q': 'abc', 'v': 'default' });
     });
 
 
