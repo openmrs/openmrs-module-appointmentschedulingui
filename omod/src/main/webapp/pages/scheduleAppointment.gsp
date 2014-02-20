@@ -77,9 +77,9 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             <% upcomingAppointmentList.each { appointment -> %>
 
             <tr>
-                <td>${ ui.format(appointment.timeSlot.appointmentBlock.startDate.format('dd MMM yyyy'))}
-                    | ${ ui.format(appointment.timeSlot.appointmentBlock.startDate.format('HH:mm a'))} -
-                    ${ ui.format(appointment.timeSlot.appointmentBlock.endDate.format('HH:mm a')) }</td>
+                <td>${ ui.format(appointment.timeSlot.startDate.format('dd MMM yyyy'))}
+                    | ${ ui.format(appointment.timeSlot.startDate.format('h:mm a'))} -
+                    ${ ui.format(appointment.timeSlot.endDate.format('h:mm a')) }</td>
                 <td>${ ui.format(appointment.appointmentType) }</td>
                 <td>${ ui.format(appointment.timeSlot.appointmentBlock.provider.name)}</td>
                 <td>${ ui.format(appointment.timeSlot.appointmentBlock.location.name)}</td>
