@@ -97,7 +97,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 ${ ui.message("uicommons.search") }</button>
         </div>
 
-       <div id="filter">
+       <div id="filter" ng-show="showTimeSlotsGrid">
             ${ ui.message("appointmentschedulingui.scheduleAppointment.filter") } <input type="text" ng-model="filterText" ng-change="updateFilter()"/>
        </div>
 
