@@ -23,7 +23,7 @@
             }
         ],
         "config": {
-            "afterSelectedUrl": "/appointmentschedulingui/patient.page?patientId={{patientId}}",
+            "afterSelectedUrl": "/appointmentschedulingui/scheduleAppointment.page?patientId={{patientId}}",
             "label": "appointmentschedulingui.scheduleAppointment.title",
             "heading": "appointmentschedulingui.scheduleAppointment.title"
         },

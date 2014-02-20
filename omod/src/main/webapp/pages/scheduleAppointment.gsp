@@ -33,7 +33,7 @@
 <script type="text/javascript">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("appointmentschedulingui.scheduleAppointment.title")}",
+        { label: "${ ui.message("appointmentschedulingui.scheduleAppointment.buttonTitle")}",
             link: '${ui.pageLink("coreapps", "findpatient/findPatient", [ app: 'appointmentschedulingui.schedulingAppointmentApp'])}' },
         { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" }
     ];
@@ -47,10 +47,52 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 <div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl">
 
    <div ng-show="showScheduleAppointment">
+        <h2> ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") } </h2>
 
-       <h1>
+        <% if ( (upcomingAppointmentList == null)
+               || (upcomingAppointmentList!= null && upcomingAppointmentList.size() == 0)) { %>
+            ${ ui.message("appointmentschedulingui.scheduleAppointment.noAppointments") }
+        <% } else {%>
+            <table id="scheduledAppointmentTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
+                <thead>
+                    <tr>
+                        <th style="width: 30%">${ ui.message("appointmentschedulingui.scheduleAppointment.date") }</th>
+                        <th style="width: 30%">${ ui.message("appointmentschedulingui.appointmenttype.title") }</th>
+                        <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
+                        <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.location") }</th>
+                        <th style="width: 10%">${ ui.message("appointmentschedulingui.appointmenttype.actions") }</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% upcomingAppointmentList.each { appointment -> %>
+                        <tr>
+                            <td>${ ui.format(appointment.timeSlot.startDate.format('dd MMM yyyy'))}
+                                | ${ ui.format(appointment.timeSlot.startDate.format('h:mm a'))} -
+                                ${ ui.format(appointment.timeSlot.endDate.format('h:mm a')) }</td>
+                            <td>${ ui.format(appointment.appointmentType) }</td>
+                            <td>${ ui.format(appointment.timeSlot.appointmentBlock.provider.name)}</td>
+                            <td>${ ui.format(appointment.timeSlot.appointmentBlock.location.name)}</td>
+                            <td class="align-center">
+                                <span>
+                                    <i class="editAppointmentType delete-item icon-pencil"
+                                       data-edit-url='${ui.pageLink("appointmentschedulingui", "appointmentType")}'
+                                       title="${ ui.message("coreapps.edit") }"></i>
+                                    <i class="deleteAppointmentType delete-item icon-remove"
+                                       title="${ ui.message("coreapps.delete") }"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+       <% } %>
+    </div>
+
+   <div ng-show="showScheduleAppointment">
+
+       <h2 class="scheduleAppointmentTitle">
            ${ ui.message("appointmentschedulingui.scheduleAppointment.title") }
-       </h1>
+       </h2>
 
        <!-- modal for showing full list of appointment types -->
        <div id="allAppointmentTypesModal" class="dialog" ng-show="showAllAppointmentTypesModal">
@@ -97,7 +139,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 ${ ui.message("uicommons.search") }</button>
         </div>
 
-       <div id="filter">
+       <div id="filter" ng-show="showTimeSlotsGrid">
             ${ ui.message("appointmentschedulingui.scheduleAppointment.filter") } <input type="text" ng-model="filterText" ng-change="updateFilter()"/>
        </div>
 
@@ -115,10 +157,10 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
    </div>
 
-    <div ng-show="showConfirmAppointment" id="confirmAppointment" class="container">
-        <h3>
+   <div ng-show="showConfirmAppointment" id="confirmAppointment" class="container">
+        <h2>
             ${ ui.message("appointmentschedulingui.scheduleAppointment.confirmAppointment") }
-        </h3>
+        </h2>
 
          <div>
             <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.date") }:
@@ -134,7 +176,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         <div>
             <button class="cancel" ng-click="cancelConfirmAppointment()" ng-disabled="confirmAppointmentButtonsDisabled">
                 ${ ui.message("appointmentschedulingui.scheduleAppointment.back") }</button>
-            <button class="confirm" ng-click="confirmAppointment()" ng-disabled="confirmAppointmentButtonsDisabled">
+            <button class="confirm right" ng-click="confirmAppointment()" ng-disabled="confirmAppointmentButtonsDisabled">
                 ${ ui.message("uicommons.next") }</button>
         </div>
     </div>
