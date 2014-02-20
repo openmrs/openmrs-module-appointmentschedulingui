@@ -54,8 +54,9 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             <tr>
                 <th style="width: 30%">${ ui.message("appointmentschedulingui.scheduleAppointment.date") }</th>
                 <th style="width: 30%">${ ui.message("appointmentschedulingui.appointmenttype.title") }</th>
-                <th style="width: 20%">${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
-                <th style="width: 20%">${ ui.message("appointmentschedulingui.scheduleAppointment.location") }</th>
+                <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
+                <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.location") }</th>
+                <th style="width: 10%">${ ui.message("appointmentschedulingui.appointmenttype.actions") }</th>
             </tr>
             </thead>
             <tbody>
@@ -82,6 +83,15 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 <td>${ ui.format(appointment.appointmentType) }</td>
                 <td>${ ui.format(appointment.timeSlot.appointmentBlock.provider.name)}</td>
                 <td>${ ui.format(appointment.timeSlot.appointmentBlock.location.name)}</td>
+                <td class="align-center">
+                    <span>
+                        <i class="editAppointmentType delete-item icon-pencil"
+                           data-edit-url='${ui.pageLink("appointmentschedulingui", "appointmentType")}'
+                           title="${ ui.message("coreapps.edit") }"></i>
+                        <i class="deleteAppointmentType delete-item icon-remove"
+                           title="${ ui.message("coreapps.delete") }"></i>
+                    </span>
+                </td>
             </tr>
             <% } %>
             </tbody>
@@ -157,7 +167,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
    </div>
 
-    <div ng-show="showConfirmAppointment" id="confirmAppointment" class="container">
+   <div ng-show="showConfirmAppointment" id="confirmAppointment" class="container">
         <h3>
             ${ ui.message("appointmentschedulingui.scheduleAppointment.confirmAppointment") }
         </h3>
