@@ -46,7 +46,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
 <div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl">
 
-   <div id="scheduleAppointment">
+   <div>
         <h2> ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") } </h2>
 
         <table id="scheduledAppointmentTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
@@ -100,7 +100,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
    <div ng-show="showScheduleAppointment">
 
-       <h2>
+       <h2 class="scheduleAppointmentTitle">
            ${ ui.message("appointmentschedulingui.scheduleAppointment.title") }
        </h2>
 
