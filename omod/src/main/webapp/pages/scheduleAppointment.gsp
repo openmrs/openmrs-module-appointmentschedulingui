@@ -33,7 +33,7 @@
 <script type="text/javascript">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("appointmentschedulingui.scheduleAppointment.title")}",
+        { label: "${ ui.message("appointmentschedulingui.scheduleAppointment.buttonTitle")}",
             link: '${ui.pageLink("coreapps", "findpatient/findPatient", [ app: 'appointmentschedulingui.schedulingAppointmentApp'])}' },
         { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" }
     ];
@@ -46,11 +46,53 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
 <div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl">
 
+   <div id="scheduleAppointment">
+        <h2> ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") } </h2>
+
+        <table id="scheduledAppointmentTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
+            <thead>
+            <tr>
+                <th style="width: 30%">${ ui.message("appointmentschedulingui.scheduleAppointment.date") }</th>
+                <th style="width: 30%">${ ui.message("appointmentschedulingui.appointmenttype.title") }</th>
+                <th style="width: 20%">${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
+                <th style="width: 20%">${ ui.message("appointmentschedulingui.scheduleAppointment.location") }</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <% if ( (upcomingAppointmentList == null)
+                    || (upcomingAppointmentList!= null && upcomingAppointmentList.size() == 0)) { %>
+            <tr>
+                <td>${ ui.message("uicommons.dataTable.emptyTable") }</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <% } %>
+
+            <% upcomingAppointmentList.each { appointment -> %>
+
+            <tr>
+                <td>${ ui.format(appointment.timeSlot.appointmentBlock.startDate.format('dd MMM yyyy'))}
+                    | ${ ui.format(appointment.timeSlot.appointmentBlock.startDate.format('HH:mm a'))} -
+                    ${ ui.format(appointment.timeSlot.appointmentBlock.endDate.format('HH:mm a')) }</td>
+                <td>${ ui.format(appointment.appointmentType) }</td>
+                <td>${ ui.format(appointment.timeSlot.appointmentBlock.provider.name)}</td>
+                <td>${ ui.format(appointment.timeSlot.appointmentBlock.location.name)}</td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
+
    <div ng-show="showScheduleAppointment">
 
-       <h1>
+       <h2>
            ${ ui.message("appointmentschedulingui.scheduleAppointment.title") }
-       </h1>
+       </h2>
 
        <!-- modal for showing full list of appointment types -->
        <div id="allAppointmentTypesModal" class="dialog" ng-show="showAllAppointmentTypesModal">
