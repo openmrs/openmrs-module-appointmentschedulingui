@@ -182,3 +182,15 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     </div>
 
 </div>
+
+${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#scheduledAppointmentTable",
+        options: [
+                bFilter: false,
+                bJQueryUI: true,
+                bLengthChange: false,
+                iDisplayLength: 10,
+                sPaginationType: '\"full_numbers\"',
+                bSort: false,
+                sDom: '\'ft<\"fg-toolbar ui-toolbar ui-corner-bl ui-corner-br ui-helper-clearfix datatables-info-and-pg \"ip>\''
+        ]
+]) }
