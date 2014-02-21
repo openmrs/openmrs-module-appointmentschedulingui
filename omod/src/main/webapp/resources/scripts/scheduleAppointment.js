@@ -51,14 +51,40 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
 
         $scope.now = new Date();
 
+        $scope.pagingOptions = {
+            pageSizes: [5,10,20],
+            pageSize: 5,
+            currentPage: 1
+        };
+        $scope.totalServerItems = 0;
+        $scope.filterOptions = {
+            filterText: "",
+            useExternalFilter: true
+        };
         $scope.timeSlotOptions = {
             data: 'filteredTimeSlots',
+            enablePaging: true,
+            showFooter: true,
+            totalServerItems: 'totalServerItems',
+            pagingOptions: $scope.pagingOptions,
             multiSelect: false,
             enableSorting: false,
             selectedItems: [],
             columnDefs: [   { field: 'date', displayName: emr.message("appointmentschedulingui.scheduleAppointment.timeSlot") },
                             { field: 'appointmentBlock.provider.person.display', displayName: emr.message("uicommons.provider") },
                             { field: 'appointmentBlock.location.display', displayName: emr.message("uicommons.location") } ]
+        };
+        $scope.setPagingData = function(){
+            var page = $scope.pagingOptions.currentPage,
+                pageSize = $scope.pagingOptions.pageSize,
+                data = $scope.filteredTimeSlots;
+
+            var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+            $scope.filteredTimeSlots = pagedData;
+            $scope.totalServerItems = $scope.timeSlots.length;
+            if (!$scope.$$phase) {
+                $scope.$apply();
+            }
         };
 
         $scope.getAppointmentTypes = function(searchString) {
@@ -108,7 +134,11 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                 return row.appointmentBlock.location.display.toLowerCase().indexOf($scope.filterText.toLowerCase()) != -1
                     || row.appointmentBlock.provider.person.display.toLowerCase().indexOf($scope.filterText.toLowerCase()) != -1;
             });
+
+            $scope.setPagingData();
         }
+
+        $scope.$watch('pagingOptions', $scope.updateFilter, true);
 
         $scope.selectTimeSlot = function() {
             $scope.selectedTimeSlot = $scope.timeSlotOptions.selectedItems[0];
