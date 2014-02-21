@@ -1,7 +1,11 @@
 .gridStyle {
   border-collapse: collapse;
-  border-spacing: 0;
-  margin: 0 auto;
+  border: 1px solid rgb(212,212,212);
+  margin: 0;
+}
+
+.ngViewport {
+  height: auto;
 }
 
 .ngHeaderCell {
@@ -52,6 +56,7 @@
 
 .ngFooterPanel {
   background: #FFFFFF;
+  font-size: 0.9em;
 }
 
 
