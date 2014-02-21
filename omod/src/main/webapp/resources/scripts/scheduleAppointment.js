@@ -1,4 +1,3 @@
-
 angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap', 'ngGrid'])
     .controller('ScheduleAppointmentCtrl', function ($scope, AppointmentService, filterFilter) {
 
@@ -70,8 +69,8 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
             multiSelect: false,
             enableSorting: false,
             selectedItems: [],
-            columnDefs: [   { field: 'date', displayName: emr.message("appointmentschedulingui.scheduleAppointment.timeSlot") },
-                            { field: 'appointmentBlock.provider.person.display', displayName: emr.message("uicommons.provider") },
+            columnDefs: [   { field: 'date', displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") },
+                            { field: 'appointmentBlock.provider.person.display', displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.provider") },
                             { field: 'appointmentBlock.location.display', displayName: emr.message("uicommons.location") } ]
         };
         $scope.setPagingData = function(){

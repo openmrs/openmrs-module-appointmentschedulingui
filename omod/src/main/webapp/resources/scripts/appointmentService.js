@@ -1,7 +1,5 @@
-
-
 angular.module('appointmentscheduling.appointmentService', ['appointmentscheduling.appointmentResources'])
-    .factory('AppointmentService', function(Appointment, AppointmentType, AppointmentBlock, TimeSlot) {
+    .factory('AppointmentService', function(Appointment, AppointmentType, AppointmentBlock, TimeSlot, ScheduledAppointmentBlock) {
 
         return {
 
@@ -85,6 +83,12 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              */
             saveAppointment: function(appointment) {
                 return Appointment.save(appointment).$promise
+            },
+
+            getScheduledAppointmentBlocks: function(params){
+                return ScheduledAppointmentBlock.query(params).$promise.then(function(res){
+                    return res.results;
+                });
             }
         };
 
