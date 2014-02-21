@@ -138,7 +138,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                 // filter out any types that have already been selected
                 return $filter('filter')(results, function(result) {
                     var include = true;
-                    angular.forEach($scope.appointmentBlock.appointmentTypes, function(appointmentType) {
+                    angular.forEach($scope.appointmentBlock.types, function(appointmentType) {
                         if (appointmentType.uuid == result.uuid) {
                             include = false;
                         }
