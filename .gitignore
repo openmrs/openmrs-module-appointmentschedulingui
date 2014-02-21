@@ -14,7 +14,10 @@ omod/.settings/
 omod/target/
 
 omod/src/main/compass/sass-external/
+
 *.css
+!jquery.qtip.min.css
+
 *.DS_Store
 .idea/
 *.iml
