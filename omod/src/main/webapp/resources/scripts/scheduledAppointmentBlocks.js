@@ -9,10 +9,26 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
             '{{data}}' +
             '</div></div>';
 
+    $scope.pagingOptions = {
+        pageSizes: [5,10,20],
+        pageSize: 5,
+        currentPage: 1
+    };
+    $scope.totalScheduledAppointmentBlocks = [];
+    $scope.totalServerItems = 0;
+    $scope.filterOptions = {
+        filterText: "",
+        useExternalFilter: true
+    };
+
     $scope.scheduledAppointmentBlocksOptions = {
             data: 'scheduledAppointmentBlocks',
             multiSelect: false,
             enableSorting: false,
+            enablePaging: true,
+            showFooter: true,
+            totalServerItems: 'totalServerItems',
+            pagingOptions: $scope.pagingOptions,
             selectedItems: [],
             columnDefs: [   { field: 'date', width: '20%', displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") },
                 { field: 'appointmentBlock.provider.person.display', width: '20%', displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.provider") },
@@ -20,6 +36,19 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                 { field: 'patientsIdentifierPrimary', width: '15%', displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId"), cellTemplate: templateCell},
                 { field: 'patientsIdentifierDossier', width: '14%', displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.dossierNumber"), cellTemplate: templateCell}]
      };
+
+    $scope.setPagingData = function(){
+        var page = $scope.pagingOptions.currentPage,
+            pageSize = $scope.pagingOptions.pageSize,
+            data = $scope.totalScheduledAppointmentBlocks;
+
+        var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+        $scope.scheduledAppointmentBlocks = pagedData;
+        $scope.totalServerItems = $scope.totalScheduledAppointmentBlocks.length;
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+    };
 
     $scope.getScheduledAppointmentBlocks = function(){
         var params = { 'date' : "2014-02-28", 'location' : "787a2422-a7a2-400e-bdbb-5c54b2691af5"};
@@ -34,7 +63,6 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                 });
 
                result['patients'] = patients;
-               console.log(result['patients']);
 
                var patientsIdentifierPrimary = [];
                var patientsIdentifierDossier = [];
@@ -55,8 +83,10 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
            })
 
            $scope.scheduledAppointmentBlocks = results;
-
-           console.log(results);
+           $scope.totalScheduledAppointmentBlocks = results;
+           $scope.setPagingData();
         });
     }
+
+    $scope.$watch('pagingOptions', $scope.setPagingData, true);
 });
