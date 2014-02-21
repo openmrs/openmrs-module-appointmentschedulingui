@@ -1,7 +1,39 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
     ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
+
+    def angularLocale = context.locale.toString().toLowerCase();
+
+    ui.includeJavascript("uicommons", "angular.min.js")
+    ui.includeJavascript("uicommons", "i18n/angular-locale_" + angularLocale + ".js")
+    ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.6.0.min.js")
+    ui.includeJavascript("uicommons", "angular-ui/ng-grid-2.0.7.min.js")
+    ui.includeJavascript("uicommons", "angular-resource.min.js")
+    ui.includeJavascript("uicommons", "moment.min.js")
+    ui.includeJavascript("uicommons", "emr.js")
+    ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
+
+    ui.includeJavascript("appointmentschedulingui", "scheduleAppointment.js")
+    ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
+    ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
+    ui.includeJavascript("appointmentschedulingui", "scheduledAppointmentBlocks.js")
+    ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
+
 %>
+
+
+
+<%= ui.includeFragment("appui", "messages", [ codes: [
+        'appointmentschedulingui.dailyScheduledAppointments.timeBlock',
+        'appointmentschedulingui.dailyScheduledAppointments.provider',
+        'appointmentschedulingui.dailyScheduledAppointments.patientName',
+        'appointmentschedulingui.scheduleAppointment.errorSavingAppointment',
+        'appointmentschedulingui.dailyScheduledAppointments.patientId',
+        'appointmentschedulingui.dailyScheduledAppointments.dossierNumber'
+].flatten()
+]) %>
+
+
 
 <script type="text/javascript">
     var breadcrumbs = [
@@ -9,70 +41,22 @@
         { label: "${ ui.message("appointmentschedulingui.scheduleAppointment.title") }", link: "${ ui.pageLink("appointmentschedulingui", "dailyScheduledAppointments") }" }];
 </script>
 
-<div class="container">
+<div class="container"ng-app="appointmentscheduling.scheduleAppointment"  ng-controller="ScheduledAppointmentBlockController">
 
     <h1>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }</h1>
     <div class="appointment-filters">
         <i class="icon-arrow-left icon-large"></i>
         <span>${ ui.format(new java.util.Date().format("dd MMM yyyy"))}</span>
         <i class="icon-arrow-right icon-large"></i>
+
+        <button class="confirm" ng-click="getScheduledAppointmentBlocks()">
+            ${ ui.message("uicommons.search") }</button>
+
     </div>
 
-    <table id="dailyScheduledAppointments" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
-        <thead>
-        <tr>
-            <th style="width: 20%">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") }</th>
-            <th style="width: 20%">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.provider") }</th>
-            <th style="width: 30%">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.patientName") }</th>
-            <th style="width: 10%">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.patientId") }</th>
-            <th style="width: 20%">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.dossierNumber") }</th>
-        </tr>
-        </thead>
-        <tbody>
 
-        <% if ( (scheduledAppointmentBlocks == null)
-                || (scheduledAppointmentBlocks!= null && scheduledAppointmentBlocks.size() == 0)) { %>
-        <tr>
-            <td>${ ui.message("uicommons.dataTable.emptyTable") }</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <% } %>
+        <div class="gridStyle" ng-grid="scheduledAppointmentBlocksOptions" id="scheduledAppointmentBlocksOptions"></div>
 
-
-        <% scheduledAppointmentBlocks.each { scheduledAppointmentBlock -> %>
-
-        <tr>
-            <td>${ ui.format(scheduledAppointmentBlock.startDate.format("HH:mm a"))} -
-                ${ ui.format(scheduledAppointmentBlock.endDate.format('HH:mm a')) }
-            </td>
-            <td>${ ui.format(scheduledAppointmentBlock.provider) }</td>
-            <td>
-                <% scheduledAppointmentBlock.appointments.each { appointment -> %>
-                <div> ${ ui.format(appointment.patient.givenName)}      ${ ui.format(appointment.patient.familyName)}
-                        (  ${ ui.format(appointment.appointmentType.name)} )</div>
-                <% } %>
-            </td>
-            <td>
-                <% scheduledAppointmentBlock.appointments.each { appointment -> %>
-                <div>  ${appointment.patient.getPatientIdentifier(primaryPatientIdentifierType).identifier} </div>
-                <% } %>
-            </td>
-            <td>
-                <% scheduledAppointmentBlock.appointments.each { appointment ->
-                    def dossierIdentifier = appointment.patient.getPatientIdentifier(dossierPatientIdentifierType);
-                %>
-                <div>
-                <%= dossierIdentifier != null ? dossierIdentifier.identifier : ui.message("appointmentschedulingui.dailyScheduledAppointments.dossierNumber.notFound") %>
-                </div>
-                <% } %>
-            </td>
-        </tr>
-        <% } %>
-        </tbody>
-    </table>
 </div>
 
 ${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#dailyScheduledAppointments",
