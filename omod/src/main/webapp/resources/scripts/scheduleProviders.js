@@ -18,6 +18,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
         // locations to display in the locations drop-down
         $scope.locations = [];
         // TODO: limit to mirebalais hospital location
+        // TODO: default to current location
         LocationService.getLocations().then(function (result) {
             $scope.locations = result;
         });
@@ -97,7 +98,14 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                 appointmentBlocks = [];
 
                 angular.forEach(results, function(result) {
-                    appointmentBlocks.push( { title: (result.provider ? result.provider.person.display : "") + ", " + result.location.display,
+
+                    var title = (result.provider ? result.provider.person.display + ", " : "");
+                    angular.forEach(result.types, function(type) {
+                        title = title + type.display + ", "
+                    })
+                    title = title.slice(0,-2); // remove trailing comma
+
+                    appointmentBlocks.push( { title: title,
                         start: result.startDate,
                         end: result.endDate,
                         appointmentBlock: result,
@@ -146,8 +154,8 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
             $scope.appointmentType = undefined;
         }
 
-        $scope.removeAppointmentType = function(appointmentType) {
-            $scope.appointmentBlock.types = $filter('filter')($scope.appointmentTypes, "!" + appointmentType.uuid);
+        $scope.removeAppointmentType = function(type) {
+            $scope.appointmentBlock.types = $filter('filter')($scope.appointmentBlock.types, "!" + type.uuid);
         }
 
         $scope.createAppointmentBlock = function(date) {
@@ -161,10 +169,16 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                 types: []
             }
 
+            $scope.appointmentType = '';
             $scope.showCalendar = false;
             $scope.showAppointmentBlockForm = true;
         }
 
+        $scope.editAppointmentBlock = function() {
+            $scope.appointmentType = '';
+            $scope.showCalendar = false;
+            $scope.showAppointmentBlockForm = true;
+        }
         // TODO validation--check for overbookings
 
         $scope.saveAppointmentBlock = function() {

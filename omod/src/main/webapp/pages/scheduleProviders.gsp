@@ -54,9 +54,7 @@
             <tr>
                 <td>
                     <label>${ ui.message("uicommons.location") }</label>
-                    <select ng-model="locationFilter" ng-options="l.display for l in locations" ng-change="refreshCalendarEvents()">
-                        <option value=""></option>
-                    </select>
+                    <select ng-model="locationFilter" ng-options="l.display for l in locations" ng-change="refreshCalendarEvents()" />
                 </td>
                 <td>
                     <label>${ ui.message("uicommons.provider") }</label>
@@ -145,9 +143,9 @@
 
     <div id="tooltip" class="hidden" >
         <p>{{ appointmentBlock.startDate | date: 'MMM d' }}, {{ appointmentBlock.startDate | date: 'hh:mm a' }} - {{ appointmentBlock.endDate | date: 'hh:mm a' }}</p>
-        <p>${ ui.message('uicommons.location') }: {{ appointmentBlock.location.display }}</p>
         <p>${ ui.message('uicommons.provider') }: {{ appointmentBlock.provider.person.display }}</p>
-        <p><a class="tooltip-link" ng-click="showAppointmentBlockForm=true;showCalendar=false">${ ui.message('uicommons.edit')}</a>  <a class="tooltip-link" ng-click="showDeleteAppointmentBlockModal()">${ ui.message('uicommons.delete') }</a></p>
+        <p>${ ui.message('appointmentschedulingui.appointmenttypes') }: <span ng-repeat="type in appointmentBlock.types"> {{ type.display }}{{ !\$last ? ', ' : '' }}</span> </p>
+        <p><a class="tooltip-link" ng-click="editAppointmentBlock()">${ ui.message('uicommons.edit')}</a>  <a class="tooltip-link" ng-click="showDeleteAppointmentBlockModal()">${ ui.message('uicommons.delete') }</a></p>
     </div>
 
 </div>
