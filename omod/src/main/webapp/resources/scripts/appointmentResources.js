@@ -28,6 +28,7 @@ appointmentResource.factory('Appointment', function($resource) {
 });
 
 appointmentResource.factory('AppointmentBlock', function($resource) {
+    // note that we are using the appointmentblockwithtimeslot resource to keep the timeslot in sync with the appointment block
     return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/appointmentblockwithtimeslot/:uuid", {
         'uuid' : '@uuid'
     },{

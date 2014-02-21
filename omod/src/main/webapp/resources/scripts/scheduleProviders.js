@@ -121,7 +121,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
         $scope.getProviders = function (searchString) {
             // TODO sort???
-            return ProviderService.getProviders(searchString);
+            return ProviderService.getProviders({'q': searchString, 'v': 'default'});
         }
 
         $scope.getAppointmentTypes = function(searchString) {

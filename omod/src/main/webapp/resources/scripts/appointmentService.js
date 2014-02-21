@@ -60,10 +60,11 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
 
             saveAppointmentBlock: function(appointmentBlock) {
 
+                // need to pull the uuid off the object because OpenMRS API doesn't like getting it
+                // we should be able to remove all this once we start using REST 2.5 (because it will include RESTWS-418)
                 var params = {};
                 var postData = angular.copy(appointmentBlock);
 
-                // need to pull the uuid off the object because OpenMRS API doesn't like getting it
                 if (postData.uuid) {
                     params = { uuid: appointmentBlock.uuid };
                     delete postData.uuid;
@@ -83,9 +84,6 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              * @returns $promise with results
              */
             saveAppointment: function(appointment) {
-
-                // TODO add the same stuff here as I've added to saveAppointmentBlock?
-
                 return Appointment.save(appointment).$promise
             }
         };

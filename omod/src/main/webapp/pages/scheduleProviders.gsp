@@ -8,16 +8,15 @@
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.6.0.min.js")
     ui.includeJavascript("uicommons", "angular-ui/calendar.js")
+
     ui.includeJavascript("uicommons", "fullcalendar/fullcalendar.min.js")
     ui.includeJavascript("uicommons", "fullcalendar/gcal.js")
     ui.includeCss("uicommons", "fullcalendar/fullcalendar.css")
     ui.includeJavascript("uicommons", "moment.min.js")
-    ui.includeJavascript("uicommons", "emr.js")
 
-    ui.includeJavascript("appointmentschedulingui", "providerResource.js")
-    ui.includeJavascript("appointmentschedulingui", "providerService.js")
-    ui.includeJavascript("appointmentschedulingui", "locationResource.js")
-    ui.includeJavascript("appointmentschedulingui", "locationService.js")
+    ui.includeJavascript("uicommons", "emr.js")
+    ui.includeJavascript("uicommons", "services/providerService.js")
+    ui.includeJavascript("uicommons", "services/locationService.js")
 
     ui.includeJavascript("appointmentschedulingui", "scheduleProviders.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
