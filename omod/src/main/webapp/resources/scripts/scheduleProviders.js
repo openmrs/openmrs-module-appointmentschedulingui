@@ -236,8 +236,8 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                             })
                     },
                     cancel: function() {
-                        // TODO cancelling seems to kill our tooltips for some reason
                         deleteAppointmentBlockModal.close();
+                        $scope.refreshCalendarEvents();  // this isn't technically necessary, but for some reason if we don't do this the edit/delete buttons on the tooltips no longer work
                     }
                 }
             });
