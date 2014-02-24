@@ -75,7 +75,11 @@
   min-height: 0px;
 }
 
-#scheduledAppointmentBlocksOptions .ngCell  {
+#scheduledAppointmentBlocksGrid .ngTopPanel{
+  z-index: 0;
+}
+
+#scheduledAppointmentBlocksGrid .ngCell  {
   display : table-cell;
   height: auto !important;
   overflow: visible;
@@ -84,13 +88,13 @@
   border-bottom: 1px solid #d4d4d4;
 }
 
-#scheduledAppointmentBlocksOptions .ngRow {
+#scheduledAppointmentBlocksGrid .ngRow {
   display : table-row;
   height: auto !important;
   position: static;
 }
 
-#scheduledAppointmentBlocksOptions .ngCellText {
+#scheduledAppointmentBlocksGrid .ngCellText {
   height: auto !important;
   white-space: normal;
   overflow:visible;
