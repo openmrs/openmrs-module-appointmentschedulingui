@@ -10,7 +10,7 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
             '</div></div>';
 
     $scope.pagingOptions = {
-        pageSizes: [5,10,20],
+        pageSizes: [5],
         pageSize: 5,
         currentPage: 1
     };
