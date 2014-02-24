@@ -6,10 +6,13 @@
 
 
 <script type="text/javascript">
+
+// TODO: configure breadcrumbs to be dynamic as we may not always like back to system administration section
+
 var breadcrumbs = [
-{ icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-{ label: "${ ui.message("emr.app.systemAdministration.label")}", link: '${ui.pageLink("emr", "systemAdministration")}' },
-{ label: "${ ui.message("appointmentschedulingui.appointmenttype.label")}" }
+    { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
+    { label: "${ ui.message("emr.app.systemAdministration.label")}", link: '${ui.pageLink("emr", "systemAdministration")}' },
+    { label: "${ ui.message("appointmentschedulingui.appointmenttype.label")}" }
 ];
 
 jq( function(){
