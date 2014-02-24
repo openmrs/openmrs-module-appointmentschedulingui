@@ -6,6 +6,57 @@
   left: 0;
   bottom: 0;
   right: 0;
-  height: 200px;
+  height: 120px;
   z-index: 99;
+}
+
+#delete-appointment-block-modal-buttons {
+  padding: 10px;
+}
+
+#filter-parameters {
+  display: inline-block;
+}
+
+#filter-provider {
+  display: inline-block;
+}
+
+.inline-box {
+  display: inline-block;
+  padding: 3px;
+}
+
+#start-time, #end-time {
+  input {
+    width: 30px;
+  }
+
+  tr {
+    border: none;
+
+    td {
+      border: none;
+      padding: 2px 2px;
+
+      button {
+        padding: 2px 2px;
+      }
+    }
+  }
+}
+
+#appointment-block-form-buttons {
+  padding: 10px;
+}
+
+/* class of the calendar header */
+.fc-header {
+  tr {
+    border: none;
+
+    td {
+      border: none;
+    }
+  }
 }

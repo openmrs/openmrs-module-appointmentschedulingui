@@ -162,8 +162,8 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
             $scope.appointmentBlock = {
                 uuid: undefined,
-                startDate: date,
-                endDate: date,
+                startDate: new Date(date).setHours(8),
+                endDate: new Date(date).setHours(11),
                 provider: $scope.providerFilter,
                 location: $scope.locationFilter,
                 types: []
