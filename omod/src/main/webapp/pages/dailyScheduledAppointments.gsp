@@ -18,7 +18,7 @@
     ui.includeJavascript("appointmentschedulingui", "scheduledAppointmentBlocks.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentSchedulingParser.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentHelper.js")
-    ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
+    ui.includeCss("appointmentschedulingui", "scheduledAppointmentBlock.css")
 %>
 
 <%= ui.includeFragment("appui", "messages", [ codes: [

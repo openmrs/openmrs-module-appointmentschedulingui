@@ -1,0 +1,30 @@
+#scheduledAppointmentBlocksGrid.gridStyle {
+  border: 1px solid rgb(212,212,212);
+  width: 100%;
+  height: 400px;
+}
+
+#scheduledAppointmentBlocksGrid .ngTopPanel{
+  z-index: 0;
+}
+
+#scheduledAppointmentBlocksGrid .ngCell  {
+  display : table-cell;
+  height: auto !important;
+  overflow: visible;
+  position: static;
+  border-left: 1px solid #d4d4d4;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+#scheduledAppointmentBlocksGrid .ngRow {
+  display : table-row;
+  height: auto !important;
+  position: static;
+}
+
+#scheduledAppointmentBlocksGrid .ngCellText {
+  height: auto !important;
+  white-space: normal;
+  overflow:visible;
+}
