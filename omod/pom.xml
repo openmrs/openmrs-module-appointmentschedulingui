@@ -245,17 +245,15 @@
                     <jsSrcDir>${project.basedir}/src/main/webapp/resources/scripts</jsSrcDir>
                     <jsTestSrcDir>${project.basedir}/src/test/webapp/resources/scripts</jsTestSrcDir>
                     <preloadSources>
+                        <source>${project.basedir}/src/test/webapp/provided/scripts/jquery-1.8.3.min.js</source>
                         <source>${project.basedir}/src/test/webapp/provided/scripts/angular.min.js</source>
                         <source>${project.basedir}/src/test/webapp/provided/scripts/angular-resource.min.js</source>
                         <source>${project.basedir}/src/test/webapp/provided/scripts/angular-mocks.js</source>
                         <source>${project.basedir}/src/test/webapp/provided/scripts/ui-bootstrap-tpls-0.6.0.min.js</source>
-                        <source>${project.basedir}/src/test/webapp/provided/scripts/jquery-1.8.3.min.js</source>
                         <source>${project.basedir}/src/test/webapp/provided/scripts/moment.min.js</source>
                         <source>${project.basedir}/src/test/webapp/provided/scripts/ng-grid-2.0.7.min.js</source>
                     </preloadSources>
                     <serverPort>7234</serverPort>
-                    <!-- TODO: figure out why tests aren't running properly through maven and then re-enable-->
-                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
 

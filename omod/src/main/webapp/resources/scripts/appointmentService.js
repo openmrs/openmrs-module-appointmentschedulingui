@@ -3,8 +3,6 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
 
         return {
 
-            // TODO write up the various tests?
-
             /**
              * Fetches Appointment Types
              *

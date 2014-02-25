@@ -1,12 +1,16 @@
 
+
+
 describe('AppointmentService tests', function() {
 
+    OPENMRS_CONTEXT_PATH = '';     // mock openmrs_context_path global variable
+
+    var mockAppointmentResources;
     var appointmentService;
     var q;
 
     var deferredAppointmentTypeQuery;
     var deferredTimeSlotQuery;
-    var deferredTimeSlotSave;
     var deferredAppointmentBlockQuery;
     var deferredAppointmentBlockSave;
     var deferredAppointmentSave;
@@ -21,7 +25,7 @@ describe('AppointmentService tests', function() {
         deferredAppointmentTypeQuery = q.defer();
 
         var promise_mock = {
-            $promise: deferredAppointmentBlockQuery.promise
+            $promise: deferredAppointmentTypeQuery.promise
         };
 
         return promise_mock;
@@ -71,11 +75,13 @@ describe('AppointmentService tests', function() {
         deferredAppointmentSave = q.defer();
 
         var promise_mock = {
-            $promise: deferredAppointmentBlockSave.promise
+            $promise: deferredAppointmentSave.promise
         }
 
         return promise_mock;
     })
+
+    beforeEach(module('appointmentscheduling.appointmentService'));
 
     beforeEach(module(function($provide) {
         $provide.value('AppointmentType', mockAppointmentType);
