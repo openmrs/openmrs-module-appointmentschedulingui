@@ -37,7 +37,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
             calendar:{
                 editable: false,
                 header:{
-                    left: 'month agendaWeek agendaDay',
+                    left: 'month basicWeek basicDay',
                     center: 'title',
                     right: 'today prev,next'
                 },
