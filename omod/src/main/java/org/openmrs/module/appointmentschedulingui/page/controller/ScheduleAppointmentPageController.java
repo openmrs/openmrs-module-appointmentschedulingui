@@ -3,7 +3,6 @@ package org.openmrs.module.appointmentschedulingui.page.controller;
 import org.openmrs.Patient;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
-import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.InjectBeans;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
@@ -15,7 +14,6 @@ public class ScheduleAppointmentPageController {
 
     public Object controller(@RequestParam("patientId") Patient patient,
                              PageModel model,
-                             UiUtils ui,
                              @InjectBeans PatientDomainWrapper patientDomainWrapper,
                              @SpringBean("appointmentService") AppointmentService appointmentService) {
 

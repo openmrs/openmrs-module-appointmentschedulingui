@@ -74,9 +74,6 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                             <td>${ ui.format(appointment.timeSlot.appointmentBlock.location.name)}</td>
                             <td class="align-center">
                                 <span>
-                                    <i class="editAppointmentType delete-item icon-pencil"
-                                       data-edit-url='${ui.pageLink("appointmentschedulingui", "appointmentType")}'
-                                       title="${ ui.message("coreapps.edit") }"></i>
                                     <i class="deleteAppointmentType delete-item icon-remove"
                                        title="${ ui.message("coreapps.delete") }"></i>
                                 </span>

@@ -78,6 +78,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>uicommons-api</artifactId>
+            <version>${uicommonsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- required by emrapi so we need this for tests -->
         <dependency>
             <groupId>org.openmrs.module</groupId>
