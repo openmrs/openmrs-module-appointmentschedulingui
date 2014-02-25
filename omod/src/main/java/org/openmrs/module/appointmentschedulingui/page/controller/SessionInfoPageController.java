@@ -11,6 +11,10 @@ import javax.servlet.http.HttpSession;
 
 public class SessionInfoPageController {
 
+    /**
+     * This controller was created in order to include the session information that will be used in the next page
+     * to display a toast message informing that a scheduled appointment was created.
+     */
     public String get( UiUtils ui,
                        @RequestParam("patientUuid") String patientUuid,
                        @SpringBean("patientService") PatientService patientService,
@@ -18,6 +22,7 @@ public class SessionInfoPageController {
 
         Patient patient = patientService.getPatientByUuid(patientUuid);
         String patientName = patient.getGivenName() +" "+ patient.getFamilyName();
+
         session.setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_INFO_MESSAGE,
                 ui.message("appointmentschedulingui.scheduleAppointment.appointmentScheduled")+" "+patientName);
         session.setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
