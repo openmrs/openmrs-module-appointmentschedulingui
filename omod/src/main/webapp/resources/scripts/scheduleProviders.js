@@ -36,6 +36,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
             // configure the calendar
             calendar:{
                 editable: false,
+                weekends: false,
                 header:{
                     left: 'month basicWeek basicDay',
                     center: 'title',
