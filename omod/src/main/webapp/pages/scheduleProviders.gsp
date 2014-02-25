@@ -108,12 +108,12 @@
         <div id="appointment-block-form-time">
             <div id="start-time" class="inline-box">
                 <p>${ ui.message("appointmentschedulingui.startTime") }</p>
-                <timepicker ng-model="appointmentBlock.startDate" minute-step="15"/>
+                <timepicker ng-model="appointmentBlock.startDate" minute-step="15" ng-change="validateStartTime()"/>
             </div>
 
             <div id="end-time" class="inline-box">
                 <p>${ ui.message("appointmentschedulingui.endTime") }</p>
-                <timepicker ng-model="appointmentBlock.endDate"  minute-step="15"/>
+                <timepicker ng-model="appointmentBlock.endDate"  minute-step="15" ng-change="validateEndTime()"/>
             </div>
         </div>
 

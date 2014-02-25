@@ -245,4 +245,16 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
             deleteAppointmentBlockModal.show();
         }
 
+        $scope.validateStartTime = function () {
+            if ($scope.appointmentBlock.startDate > $scope.appointmentBlock.endDate) {
+                $scope.appointmentBlock.startDate = new Date($scope.appointmentBlock.endDate);
+            }
+        }
+
+        $scope.validateEndTime = function () {
+            if ($scope.appointmentBlock.endDate < $scope.appointmentBlock.startDate) {
+                $scope.appointmentBlock.endDate = new Date($scope.appointmentBlock.startDate);
+            }
+        }
+
     });
