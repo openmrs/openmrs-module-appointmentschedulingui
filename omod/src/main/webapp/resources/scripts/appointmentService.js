@@ -56,19 +56,8 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
 
             // TODO what about the bug Dave saw when editing appointment blocks?
 
-            saveAppointmentBlock: function(appointmentBlock) {
-
-                // need to pull the uuid off the object because OpenMRS API doesn't like getting it
-                // we should be able to remove all this once we start using REST 2.5 (because it will include RESTWS-418)
-                var params = {};
-                var postData = angular.copy(appointmentBlock);
-
-                if (postData.uuid) {
-                    params = { uuid: appointmentBlock.uuid };
-                    delete postData.uuid;
-                }
-
-                return AppointmentBlock.save(params, postData).$promise
+            saveAppointmentBlock: function(appointmentBlock)  {
+                return AppointmentBlock.save(appointmentBlock).$promise
             },
 
             deleteAppointmentBlock: function(appointmentBlockUuid) {

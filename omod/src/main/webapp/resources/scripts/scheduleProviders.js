@@ -105,6 +105,10 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                     })
                     title = title.slice(0,-2); // remove trailing comma
 
+                    // parse the dates from strings into data objects
+                    result.startDate = new Date(result.startDate);
+                    result.endDate = new Date(result.endDate);
+
                     appointmentBlocks.push( { title: title,
                         start: result.startDate,
                         end: result.endDate,
