@@ -165,22 +165,14 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
 
                 // success callback
                 emr.navigateTo({
-                    provider: 'coreapps',
-                    page: 'findpatient/findPatient',
-                    query: { app: 'appointmentschedulingui.schedulingAppointmentApp' }
+                    provider: 'appointmentschedulingui',
+                    page: 'sessionInfo',
+                    query: { patientUuid: patientUuid }
                 });
             }).catch(function () {
                 // error callback
                 emr.errorMessage("appointmentschedulingui.scheduleAppointment.errorSavingAppointment");
             })
-        }
-
-        $scope.backToPatientSearch = function() {
-            emr.navigateTo({
-                provider: 'coreapps',
-                page: 'findpatient/findPatient',
-                query: { app: 'appointmentschedulingui.schedulingAppointmentApp' }
-            });
         }
 
         $scope.selectAppointmentType = function(type) {
