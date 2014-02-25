@@ -39,6 +39,16 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                     });
             },
 
+            /**
+             * Fetches Appointment Blocks based on parameters in param map
+             *
+             * @param appointmentType - uuid of type of the appointment this block must support
+             * @param fromDate - (optional) earliest start date.
+             * @param toDate - (optional) latest start date.
+             * @param provider - (optional) uuid of the appointment block's provider.
+             * @param location - (optional) uuid of the appointment block's location. (or predecessor location)
+             * @returns $promise of array of matching appointment blocks (REST default representation by default)
+             */
             getAppointmentBlocks: function(params) {
 
                 if (params['v'] == undefined) {
@@ -52,18 +62,28 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
 
             },
 
-            // TODO what about the bug Dave saw when editing appointment blocks?
-
+            /**
+             * Saves the passed in Appointment Block
+             *
+             * @param appointmentBlock
+             * @returns $promise with the result of the save
+             */
             saveAppointmentBlock: function(appointmentBlock)  {
                 return AppointmentBlock.save(appointmentBlock).$promise
             },
 
+            /**
+             * Deletes the passed Appointment Block
+             *
+             * @param appointmentBlockUuid
+             * @returns $promise with result of the delete
+             */
             deleteAppointmentBlock: function(appointmentBlockUuid) {
                 return AppointmentBlock.delete({ 'uuid': appointmentBlockUuid }).$promise;
             },
 
             /**
-             * Saves an appointment
+             * Saves an Appointment
              *
              * @param appointment to save
              * @returns $promise with results
