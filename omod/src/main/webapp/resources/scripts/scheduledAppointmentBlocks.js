@@ -1,7 +1,20 @@
 angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap', 'ngGrid'])
     .controller('ScheduledAppointmentBlockController', function ($scope, AppointmentService, filterFilter) {
 
-    $scope.scheduledAppointmentBlocks = [];
+    $scope.filterDate = Date.now();
+    $scope.datePicker = {
+        opened: false,
+        open: function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.datePicker.opened = true;
+        }
+    };
+
+    $scope.showScheduledAppointmentBlocksGrid = false;
+    $scope.showNoScheduledAppointmentBlocks = false;
+    $scope.showLoadingMessage = false;
 
     var templateCell = '<div ng-repeat=' +
             '"data in row.getProperty(col.field) track by $index">' +
@@ -14,14 +27,12 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         pageSize: 5,
         currentPage: 1
     };
+
+    $scope.scheduledAppointmentBlocks = [];
     $scope.totalScheduledAppointmentBlocks = [];
     $scope.totalServerItems = 0;
-    $scope.filterOptions = {
-        filterText: "",
-        useExternalFilter: true
-    };
 
-    $scope.scheduledAppointmentBlocksOptions = {
+    $scope.scheduledAppointmentBlocksGrid = {
             data: 'scheduledAppointmentBlocks',
             multiSelect: false,
             enableSorting: false,
@@ -51,42 +62,32 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
     };
 
     $scope.getScheduledAppointmentBlocks = function(){
-        var params = { 'date' : "2014-02-28", 'location' : "787a2422-a7a2-400e-bdbb-5c54b2691af5"};
+        var date = new Date($scope.filterDate);
+        var params = { 'date' : moment(date).format('YYYY-MM-DD'), 'location' : "787a2422-a7a2-400e-bdbb-5c54b2691af5"};
+        $scope.showNoScheduledAppointmentBlocks = false;
+        $scope.showLoadingMessage= true;
+
         AppointmentService.getScheduledAppointmentBlocks(params).then( function(results){
-           angular.forEach(results, function(result) {
-                result['date'] = moment(result.appointmentBlock.startDate).format("HH:mm a") +
-                    " - " + moment(result.appointmentBlock.endDate).format("HH:mm a");
+            parseScheduledAppointmentBlocks(results);
 
-                var patients = [];
-                result.appointments.forEach( function( apppointment, index){
-                    patients.push(apppointment.patient.person.display + " (" + apppointment.appointmentType.display + ")");
-                });
+            $scope.scheduledAppointmentBlocks = results;
+            $scope.totalScheduledAppointmentBlocks = results;
+            $scope.showLoadingMessage = false;
 
-               result['patients'] = patients;
+            if($scope.totalScheduledAppointmentBlocks.length == 0)  {
+               $scope.showNoScheduledAppointmentBlocks = true;
+            }else{
+                $scope.showScheduledAppointmentBlocksGrid = true;
+                $scope.showNoScheduledAppointmentBlocks = false;
+            }
 
-               var patientsIdentifierPrimary = [];
-               var patientsIdentifierDossier = [];
-
-               result.appointments.forEach( function(appointment, index){
-                   appointment.patient.identifiers.forEach(function(identifier, index){
-                        if (identifier.display.indexOf("ZL EMR ID") > -1 ) {
-                            patientsIdentifierPrimary.push(identifier.display.split("=")[1].trim());
-                        } else if (identifier.display.indexOf("Nimewo Dosye") > -1 ) {
-                            patientsIdentifierDossier.push(identifier.display.split("=")[1].trim());
-                        }
-
-                   });
-               });
-
-               result['patientsIdentifierPrimary'] = patientsIdentifierPrimary;
-               result['patientsIdentifierDossier'] = patientsIdentifierDossier;
-           })
-
-           $scope.scheduledAppointmentBlocks = results;
-           $scope.totalScheduledAppointmentBlocks = results;
-           $scope.setPagingData();
+            $scope.setPagingData();
         });
-    }
+
+
+    };
 
     $scope.$watch('pagingOptions', $scope.setPagingData, true);
+    $scope.$watch('filterDate', $scope.getScheduledAppointmentBlocks, true);
+
 });

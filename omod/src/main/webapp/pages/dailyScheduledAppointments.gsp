@@ -17,6 +17,7 @@
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
     ui.includeJavascript("appointmentschedulingui", "scheduledAppointmentBlocks.js")
+    ui.includeJavascript("appointmentschedulingui", "appointmentSchedulingParser.js")
     ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
 
 %>
@@ -33,8 +34,6 @@
 ].flatten()
 ]) %>
 
-
-
 <script type="text/javascript">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
@@ -45,17 +44,16 @@
 
     <h1>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }</h1>
     <div class="appointment-filters">
-        <i class="icon-arrow-left icon-large"></i>
-        <span>${ ui.format(new java.util.Date().format("dd MMM yyyy"))}</span>
-        <i class="icon-arrow-right icon-large"></i>
-
-        <button class="confirm" ng-click="getScheduledAppointmentBlocks()">
-            ${ ui.message("uicommons.search") }</button>
-
+        <span class="angular-datepicker">
+            <input type="text" is-open="datePicker.opened" ng-model="filterDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
+            <i class="icon-calendar small add-on" ng-click="datePicker.open(\$event)" ></i>
+        </span>
     </div>
 
+    <div id="noScheduledAppointmentBlocks" ng-show="showNoScheduledAppointmentBlocks">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.noScheduledAppointmentBlocks") }</div>
+    <div id="loadingMessage" ng-show="showLoadingMessage">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.loading") }</div>
+    <div class="gridStyle" ng-grid="scheduledAppointmentBlocksGrid" id="scheduledAppointmentBlocksGrid" ng-show="showScheduledAppointmentBlocksGrid"></div>
 
-        <div class="gridStyle" ng-grid="scheduledAppointmentBlocksOptions" id="scheduledAppointmentBlocksOptions"></div>
 
 </div>
 
