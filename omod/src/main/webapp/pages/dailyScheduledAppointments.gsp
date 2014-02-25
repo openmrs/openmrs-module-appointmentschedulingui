@@ -13,16 +13,13 @@
     ui.includeJavascript("uicommons", "emr.js")
     ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
 
-    ui.includeJavascript("appointmentschedulingui", "scheduleAppointment.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
     ui.includeJavascript("appointmentschedulingui", "scheduledAppointmentBlocks.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentSchedulingParser.js")
+    ui.includeJavascript("appointmentschedulingui", "appointmentHelper.js")
     ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
-
 %>
-
-
 
 <%= ui.includeFragment("appui", "messages", [ codes: [
         'appointmentschedulingui.dailyScheduledAppointments.timeBlock',
@@ -50,9 +47,10 @@
         </span>
     </div>
 
+    <input id="currentLocationUuid" type="hidden" value="${currentLocationUuid}" />
     <div id="noScheduledAppointmentBlocks" ng-show="showNoScheduledAppointmentBlocks">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.noScheduledAppointmentBlocks") }</div>
     <div id="loadingMessage" ng-show="showLoadingMessage">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.loading") }</div>
-    <div class="gridStyle" ng-grid="scheduledAppointmentBlocksGrid" id="scheduledAppointmentBlocksGrid" ng-show="showScheduledAppointmentBlocksGrid"></div>
+    <div class="gridStyle" ng-grid="scheduledAppointmentBlocksGrid" id="scheduledAppointmentBlocksGrid"></div>
 
 
 </div>

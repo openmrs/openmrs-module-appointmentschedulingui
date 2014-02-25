@@ -1,4 +1,6 @@
-var parseScheduledAppointmentBlocks = function(results){
+var appointmentParser = appointmentParser || {}
+
+appointmentParser.parseScheduledAppointmentBlocks = function(results){
 
     var parseAppointmentBlockDate = function(data){
         return  moment(data.startDate).format("HH:mm a") + " - " + moment(data.endDate).format("HH:mm a");
@@ -41,7 +43,6 @@ var parseScheduledAppointmentBlocks = function(results){
 
     return results;
 }
-
 
 
 
