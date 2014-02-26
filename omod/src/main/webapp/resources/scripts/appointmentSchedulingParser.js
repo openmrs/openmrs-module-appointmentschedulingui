@@ -2,8 +2,10 @@ var appointmentParser = appointmentParser || {}
 
 appointmentParser.parseScheduledAppointmentBlocks = function(results){
 
+    // parse the dates from strings into data objects, **ignoring the time zone, since we always want to display in the server's time zone**
     var parseAppointmentBlockDate = function(data){
-        return  moment(data.startDate).format("HH:mm a") + " - " + moment(data.endDate).format("HH:mm a");
+        return  moment(data.startDate, "YYYY-MM-DDTHH:mm:ss.SSS").format("HH:mm a") + " - "
+            + moment(data.endDate, "YYYY-MM-DDTHH:mm:ss.SSS").format("HH:mm a");
     };
 
     var parsePatients = function(data){

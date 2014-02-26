@@ -35,6 +35,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
             // configure the calendar
             calendar:{
+                ignoreTimezone: true,  // does this parameter do anything? we want to ignore the time zone since we always want the schedule to be relative to the *server* time
                 editable: false,
                 weekends: false,
                 header:{
@@ -82,8 +83,9 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
         // in this case, we have a single source function that fetches matching blocks via REST
         $scope.appointmentBlocksSource = [ function (start, end, callback) {
 
-            var params = { fromDate: moment(start).format(),
-                            toDate: moment(end).format(),
+            // note that we *do not* send the associated time zone because we always want to operate on "server time"
+            var params = { fromDate: moment(start).format("YYYY-MM-DDTHH:mm:ss.SSS"),
+                            toDate: moment(end).format("YYYY-MM-DDTHH:mm:ss.SSS"),
                             limit:100 }            // TODO need to increase this limit?
 
             if ($scope.providerFilter) {
@@ -106,9 +108,9 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                     })
                     title = title.slice(0,-2); // remove trailing comma
 
-                    // parse the dates from strings into data objects
-                    result.startDate = new Date(result.startDate);
-                    result.endDate = new Date(result.endDate);
+                    // parse the dates from strings into data objects, **ignoring the time zone, since we always want to display in the server's time zone**
+                    result.startDate = moment(result.startDate, "YYYY-MM-DDTHH:mm:ss.SSS").toDate();
+                    result.endDate = moment(result.endDate, "YYYY-MM-DDTHH:mm:ss.SSS").toDate();
 
                     appointmentBlocks.push( { title: title,
                         start: result.startDate,
@@ -194,20 +196,18 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
             });
 
             // create the object we want to send back via REST
-
-            // we need to manually format here becauset the default moment format displays a time zone offset as -5:00 (which is ISO 6801)
-            // but currently WS-REST only accepts the format -500 (RFC 822) (the 'ZZ' instead of 'Z' specifies this format)
+            // note that we *do not* send the associated time zone because we always want to operate on "server time"
 
             var appointmentBlockToUpdate = { 'types': appointmentTypeUuids,
                 'location': $scope.appointmentBlock.location.uuid,
                 'startDate': moment($scope.appointmentBlock.startDate)
                     .hours(moment($scope.appointmentBlock.startDate).hours())
                     .minutes(moment($scope.appointmentBlock.startDate).minutes())
-                    .format("YYYY-MM-DDTHH:mm:ss.SSSZZ"),
+                    .format("YYYY-MM-DDTHH:mm:ss.SSS"),
                 'endDate': moment($scope.appointmentBlock.startDate)
                     .hours(moment($scope.appointmentBlock.endDate).hours())
                     .minutes(moment($scope.appointmentBlock.endDate).minutes())
-                    .format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
+                    .format("YYYY-MM-DDTHH:mm:ss.SSS")
             };
 
             // add provider and uuid if specified
