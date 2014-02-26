@@ -194,10 +194,20 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
             });
 
             // create the object we want to send back via REST
+
+            // we need to manually format here becauset the default moment format displays a time zone offset as -5:00 (which is ISO 6801)
+            // but currently WS-REST only accepts the format -500 (RFC 822) (the 'ZZ' instead of 'Z' specifies this format)
+
             var appointmentBlockToUpdate = { 'types': appointmentTypeUuids,
                 'location': $scope.appointmentBlock.location.uuid,
-                'startDate': moment($scope.appointmentBlock.startDate).hours(moment($scope.appointmentBlock.startDate).hours()).minutes(moment($scope.appointmentBlock.startDate).minutes()).format(),
-                'endDate': moment($scope.appointmentBlock.startDate).hours(moment($scope.appointmentBlock.endDate).hours()).minutes(moment($scope.appointmentBlock.endDate).minutes()).format()
+                'startDate': moment($scope.appointmentBlock.startDate)
+                    .hours(moment($scope.appointmentBlock.startDate).hours())
+                    .minutes(moment($scope.appointmentBlock.startDate).minutes())
+                    .format("YYYY-MM-DDTHH:mm:ss.SSSZZ"),
+                'endDate': moment($scope.appointmentBlock.startDate)
+                    .hours(moment($scope.appointmentBlock.endDate).hours())
+                    .minutes(moment($scope.appointmentBlock.endDate).minutes())
+                    .format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
             };
 
             // add provider and uuid if specified
