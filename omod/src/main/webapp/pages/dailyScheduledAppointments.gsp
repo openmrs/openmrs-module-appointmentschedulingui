@@ -37,6 +37,8 @@
         { label: "${ ui.message("appointmentschedulingui.scheduleAppointment.title") }", link: "${ ui.pageLink("appointmentschedulingui", "dailyScheduledAppointments") }" }];
 </script>
 
+<%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
+
 <div class="container"ng-app="appointmentscheduling.scheduleAppointment"  ng-controller="ScheduledAppointmentBlockController">
 
     <h1>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }</h1>

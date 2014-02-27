@@ -44,6 +44,8 @@
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
+<%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
+
 <div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl">
 
    <div ng-show="showScheduleAppointment">

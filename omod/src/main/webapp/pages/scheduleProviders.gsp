@@ -50,6 +50,8 @@
 
 </script>
 
+<%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
+
 <div class="schedule-providers" ng-app="appointmentscheduling.scheduleProviders" ng-controller="ScheduleProvidersCtrl">
 
     <div ng-show="showCalendar">
