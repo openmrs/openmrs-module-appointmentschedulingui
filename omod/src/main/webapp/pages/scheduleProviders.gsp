@@ -45,6 +45,9 @@
         { label: "${ ui.message("emr.app.systemAdministration.label")}", link: '${ui.pageLink("emr", "systemAdministration")}' },
         { label: "${ ui.message("appointmentschedulingui.scheduleProviders.manageAppointmentBlocks")}" }
     ];
+
+    var supportsAppointmentsTagUuid = '${ supportsAppointmentsTagUuid }';
+
 </script>
 
 <div class="schedule-providers" ng-app="appointmentscheduling.scheduleProviders" ng-controller="ScheduleProvidersCtrl">

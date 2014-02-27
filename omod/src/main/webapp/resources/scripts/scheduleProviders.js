@@ -17,9 +17,15 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
         // locations to display in the locations drop-down
         $scope.locations = [];
-        // TODO: limit to mirebalais hospital location
+
+
         // TODO: default to current location
-        LocationService.getLocations().then(function (result) {
+        // initialize the location list
+        var locationSearchParams = {};
+        if (supportsAppointmentsTagUuid) {
+            locationSearchParams['tag'] = supportsAppointmentsTagUuid;
+        }
+        LocationService.getLocations(locationSearchParams).then(function (result) {
             $scope.locations = result;
         });
 
