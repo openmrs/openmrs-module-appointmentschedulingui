@@ -210,4 +210,9 @@ describe('AppointmentService tests', function() {
         expect(mockAppointment.save).toHaveBeenCalledWith({ 'timeSlot': '123abc', 'patient': '456def', 'reason': 'someReason'});
     });
 
+    it('should call Appointment resource save to cancel an appointment', function() {
+        appointmentService.cancelAppointment({ 'uuid': 'uuid' });
+        expect(mockAppointment.save).toHaveBeenCalledWith({ 'uuid': 'uuid', 'status': 'CANCELLED' });
+    });
+
 })

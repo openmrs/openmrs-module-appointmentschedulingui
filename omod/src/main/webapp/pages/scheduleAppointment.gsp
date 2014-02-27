@@ -76,8 +76,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                             <td>${ ui.format(appointment.timeSlot.appointmentBlock.location.name)}</td>
                             <td class="align-center">
                                 <span>
-                                    <i class="deleteAppointmentType delete-item icon-remove"
-                                       title="${ ui.message("coreapps.delete") }"></i>
+                                    <i class="delete-item icon-remove" ng-click="confirmCancelAppointment('${ appointment.uuid }')"
+                                       title="${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointment.tooltip") }"></i>
                                 </span>
                             </td>
                         </tr>
@@ -85,6 +85,19 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 </tbody>
             </table>
        <% } %>
+    </div>
+
+    <div id="confirm-cancel-appointment" class="dialog" ng-show="appointmentToCancel">
+        <div class="dialog-header">
+            <h3>${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointment.title") }</h3>
+        </div>
+        <div class="dialog-content">
+            ${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointment.confirm.text") }
+            <br/>
+            <br/>
+            <button class="button confirm right" ng-click="doCancelAppointment()"> ${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointment.confirm.yes") }</button>
+            <button class="button cancel" ng-click="doNotCancelAppointment()"> ${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointment.confirm.no") }</button>
+        </div>
     </div>
 
    <div ng-show="showScheduleAppointment">

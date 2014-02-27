@@ -92,6 +92,15 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return Appointment.save(appointment).$promise
             },
 
+            /**
+             * Marks an appointment as CANCELLED
+             * @param appointment
+             */
+            cancelAppointment: function(appointment) {
+                appointment.status = 'CANCELLED';
+                return Appointment.save(appointment).$promise
+            },
+
             getScheduledAppointmentBlocks: function(params){
                 return ScheduledAppointmentBlock.query(params).$promise.then(function(res){
                     return res.results;

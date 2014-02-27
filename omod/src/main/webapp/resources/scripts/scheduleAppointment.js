@@ -1,5 +1,5 @@
 angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap', 'ngGrid'])
-    .controller('ScheduleAppointmentCtrl', function ($scope, AppointmentService, filterFilter) {
+    .controller('ScheduleAppointmentCtrl', function ($scope, $timeout, AppointmentService, filterFilter) {
 
         // model
         $scope.appointmentType = undefined;
@@ -47,6 +47,8 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         $scope.showAllAppointmentTypesModal = false;
         $scope.searchButtonDisabled = false;
         $scope.confirmAppointmentButtonsDisabled = false;
+
+        $scope.appointmentToCancel = null;
 
         $scope.now = new Date();
 
@@ -188,4 +190,25 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
             });
         }
 
+        $scope.confirmCancelAppointment = function(uuid) {
+            $scope.appointmentToCancel = { uuid: uuid };
+            $timeout(function() {
+                angular.element('#confirm-cancel-appointment .confirm').focus();
+            });
+        }
+
+        $scope.doCancelAppointment = function() {
+            AppointmentService.cancelAppointment($scope.appointmentToCancel).then(function() {
+                // success callback
+                location.href = location.href;
+            }).catch(function () {
+                // error callback
+                emr.errorMessage("appointmentschedulingui.scheduleAppointment.errorCancelingAppointment");
+            })
+            $scope.appointmentToCancel = null;
+        }
+
+        $scope.doNotCancelAppointment = function() {
+            $scope.appointmentToCancel = null;
+        }
     });
