@@ -1,4 +1,4 @@
-var appointmentParser = appointmentParser || {}
+var appointmentParser = appointmentParser || {};
 
 appointmentParser.parseScheduledAppointmentBlocks = function(results){
 
@@ -23,10 +23,10 @@ appointmentParser.parseScheduledAppointmentBlocks = function(results){
         var patientsIdentifierDossier = [];
 
         data.forEach(function(appointment){
+            patientsIdentifierPrimary.push(appointment.patient.display.split("-")[0].trim());
+
             appointment.patient.identifiers.forEach(function(identifier){
-                if (identifier.display.indexOf("ZL EMR ID") > -1 ) {
-                    patientsIdentifierPrimary.push(identifier.display.split("=")[1].trim());
-                } else if (identifier.display.indexOf("Nimewo Dosye") > -1 ) {
+                if (identifier.display.indexOf("Nimewo Dosye") > -1 ) {
                     patientsIdentifierDossier.push(identifier.display.split("=")[1].trim());
                 }
             });
@@ -36,15 +36,15 @@ appointmentParser.parseScheduledAppointmentBlocks = function(results){
     };
 
     results.forEach(function(result){
-        result['date'] = parseAppointmentBlockDate(result.appointmentBlock)
-        result['patients'] = parsePatients(result.appointments);
+        result.date = parseAppointmentBlockDate(result.appointmentBlock)
+        result.patients = parsePatients(result.appointments);
         var patientIdentifiers = parsePatientsIdentifiers(result.appointments);
-        result['patientsIdentifierPrimary'] = patientIdentifiers['primary'];
-        result['patientsIdentifierDossier'] = patientIdentifiers['dossier'];
+        result.patientsIdentifierPrimary = patientIdentifiers.primary;
+        result.patientsIdentifierDossier = patientIdentifiers.dossier;
     });
 
     return results;
-}
+};
 
 
 
