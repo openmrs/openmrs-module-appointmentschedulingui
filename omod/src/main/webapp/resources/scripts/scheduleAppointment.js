@@ -100,19 +100,17 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                            'v': 'custom:(uuid,startDate,endDate,appointmentBlock:(provider:(person:ref),location:ref))' }
 
             if ($scope.fromDate) {
-                params['fromDate'] = moment($scope.fromDate).format("YYYY-MM-DDTHH:mm:ss.SSS");     // note that we *do not* send the associated time zone because we always want to operate on "server time"
+                params['fromDate'] = moment($scope.fromDate).format();
             }
 
             if ($scope.toDate) {
-                params['toDate'] = moment($scope.toDate).endOf('day').format("YYYY-MM-DDTHH:mm:ss.SSS");   // note that we *do not* send the associated time zone because we always want to operate on "server time"
+                params['toDate'] = moment($scope.toDate).endOf('day').format();
             }
 
             AppointmentService.getTimeSlots(params).then(function (results) {
                 angular.forEach(results, function(result) {
-                    // parse the dates from strings into data objects, **ignoring the time zone, since we always want to display in the server's time zone**
-                    result['date'] = moment(result.startDate, "YYYY-MM-DDTHH:mm:ss.SSS").format("DD MMM YYYY") + ", "
-                            + moment(result.startDate, "YYYY-MM-DDTHH:mm:ss.SSS").format("h:mm a")
-                            + " - " + moment(result.endDate, "YYYY-MM-DDTHH:mm:ss.SSS").format("h:mm a");
+                    result['date'] = moment(result.startDate).format("DD MMM YYYY") + ", "
+                          + moment(result.startDate).format("h:mm a") + " - " + moment(result.endDate).format("h:mm a");
                 })
 
                 $scope.showLoadingMessage = false;
