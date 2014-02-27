@@ -468,7 +468,9 @@ describe('AppointmentSchedulingParser tests', function() {
         var parsedScheduledAppointmentBlocks = appointmentParser.parseScheduledAppointmentBlocks(appointmentScheduling);
 
         expect(parsedScheduledAppointmentBlocks.length).toBe(1);
-        expect(parsedScheduledAppointmentBlocks[0].date).toBe("16:00 pm - 21:00 pm");
+
+        expect(parsedScheduledAppointmentBlocks[0].date).toBe(moment("2014-02-14T16:00:00.000-0200").format("HH:mm a")
+            + " - " + moment("2014-02-14T21:00:00.000-0200").format("HH:mm a"));
         expect(parsedScheduledAppointmentBlocks[0].patients.length).toBe(2);
         expect(parsedScheduledAppointmentBlocks[0].patients[0]).toBe("pamela pamela (Charles)");
         expect(parsedScheduledAppointmentBlocks[0].patients[1]).toBe("Mario Areias (Charles)");
