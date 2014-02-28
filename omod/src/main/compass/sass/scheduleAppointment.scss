@@ -50,7 +50,8 @@
 }
 
 #allAppointmentTypesModal {
-  position:absolute;
+  position: absolute;
+  z-index: 999;
 }
 
 .notes {
@@ -59,7 +60,6 @@
 .appointment-filters{
   margin-bottom:20px;
 }
-
 
 .scheduleAppointmentTitle {
   margin-top: 40px;
