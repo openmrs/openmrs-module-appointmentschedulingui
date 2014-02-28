@@ -2,6 +2,40 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
     .controller('ScheduleProvidersCtrl', function ($scope, $filter, AppointmentService, ProviderService, LocationService) {
 
         /**
+         * Private Utility methods
+         */
+
+        var initializeLocationFilter = function () {
+
+            // initialize the location list
+            var locationSearchParams = {};
+            if (supportsAppointmentsTagUuid) {
+                locationSearchParams['tag'] = supportsAppointmentsTagUuid;
+            }
+
+            LocationService.getLocations(locationSearchParams).then(function (result) {
+                $scope.locations = result;
+
+                // set the default filter location to the session location if session location in list
+                if (sessionLocationUuid) {
+                    angular.forEach($scope.locations, function(location) {
+                        if (location.uuid == sessionLocationUuid) {
+                            $scope.locationFilter = location;
+                        }
+                    })
+                }
+                // if no match, just set the default filter to the first option (we never want to display *all* blocks)
+                if (!$scope.locationFilter && $scope.locations && $scope.locations.length > 0) {
+                    $scope.locationFilter = $scope.locations[0];
+                }
+
+                // need to refresh the calendar after this
+                $scope.refreshCalendarEvents();
+            });
+
+        }
+
+        /**
          * Model
          */
 
@@ -12,22 +46,12 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
         $scope.locationFilter;
         $scope.providerFilter;
 
-        // bound to the appointmentType typeahead in the appointment block form
-        $scope.appointmentType;
-
         // locations to display in the locations drop-down
         $scope.locations = [];
+        initializeLocationFilter();
 
-
-        // TODO: default to current location
-        // initialize the location list
-        var locationSearchParams = {};
-        if (supportsAppointmentsTagUuid) {
-            locationSearchParams['tag'] = supportsAppointmentsTagUuid;
-        }
-        LocationService.getLocations(locationSearchParams).then(function (result) {
-            $scope.locations = result;
-        });
+        // bound to the appointmentType typeahead in the appointment block form
+        $scope.appointmentType;
 
         // control booleans for show/hide the calendar the appointment block form views
         $scope.showCalendar = true;
@@ -277,5 +301,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                 $scope.appointmentBlock.endDate = new Date($scope.appointmentBlock.startDate);
             }
         }
+
+
 
     });

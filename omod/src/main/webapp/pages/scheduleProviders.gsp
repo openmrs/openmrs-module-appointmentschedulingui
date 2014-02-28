@@ -47,6 +47,7 @@
     ];
 
     var supportsAppointmentsTagUuid = '${ supportsAppointmentsTagUuid }';
+    var sessionLocationUuid = '${ sessionLocationUuid }'
 
 </script>
 
