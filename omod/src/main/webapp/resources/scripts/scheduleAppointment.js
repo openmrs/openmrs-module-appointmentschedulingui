@@ -1,38 +1,17 @@
-angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap', 'ngGrid'])
-    .controller('ScheduleAppointmentCtrl', function ($scope, $timeout, AppointmentService, filterFilter) {
+var scheduleAppointmentApp = angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap', 'ngGrid', 'timeframePickerApp']);
+
+scheduleAppointmentApp.controller('ScheduleAppointmentCtrl', function ($scope, $timeout, AppointmentService, filterFilter) {
+        $scope.$on('timeframePickerApp.changeFromDate', function (event, date) { $scope.fromDate = date; });
+        $scope.$on('timeframePickerApp.changeEndDate', function (event, date) { $scope.toDate = date; });
 
         // model
         $scope.appointmentType = undefined;
-        $scope.fromDate = undefined;
-        $scope.toDate = undefined;
         $scope.filterText = '';
         $scope.timeSlots = [];
         $scope.filteredTimeSlots = [];
         $scope.selectedTimeSlot = undefined;
         $scope.appointmentReason = '';
         $scope.allAppointmentTypes = [];
-        $scope.timeframe= {
-            end: {
-                opened: false,
-                open: function($event) {
-                    $event.preventDefault();
-                    $event.stopPropagation();
-
-                    $scope.timeframe.end.opened = true;
-                    $scope.timeframe.start.opened = false;
-                }
-            },
-            start: {
-                opened: false,
-                open: function($event) {
-                    $event.preventDefault();
-                    $event.stopPropagation();
-
-                    $scope.timeframe.start.opened = true;
-                    $scope.timeframe.end.opened = false;
-                }
-            }
-        }
 
         // initialize all appointment types array
         AppointmentService.getAppointmentTypes().then(function (result) {
@@ -49,8 +28,6 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         $scope.confirmAppointmentButtonsDisabled = false;
 
         $scope.appointmentToCancel = null;
-
-        $scope.now = new Date();
 
         $scope.pagingOptions = {
             pageSizes: [5,10,20],

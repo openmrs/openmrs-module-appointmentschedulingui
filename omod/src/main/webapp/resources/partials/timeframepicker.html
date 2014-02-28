@@ -1,0 +1,11 @@
+<div id="selectTimeframe" class="inlineBox">
+    <p> {{headermessage}} </p>
+    <span class="angular-datepicker">
+        <input type="text" is-open="startDateOptions.opened" ng-model="startDate" min="now" max="endDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
+        <i class="icon-calendar small add-on" ng-click="startDateOptions.open($event)" ></i>
+    </span>
+    <span class="angular-datepicker">
+        <input type="text" is-open="endDateOptions.opened"  ng-model="endDate" min="startDate || now" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
+        <i class="icon-calendar small add-on" ng-click="endDateOptions.open($event)"></i>
+    </span>
+</div>

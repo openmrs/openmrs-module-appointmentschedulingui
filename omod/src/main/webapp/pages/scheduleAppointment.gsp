@@ -10,6 +10,8 @@
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "moment.min.js")
     ui.includeJavascript("uicommons", "emr.js")
+    ui.includeJavascript("appointmentschedulingui", "directives/timeframePicker.js")
+    ui.includeJavascript("appointmentschedulingui", "directives/timeframePicker.js")
     ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
 
     ui.includeJavascript("appointmentschedulingui", "scheduleAppointment.js")
@@ -134,20 +136,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 <a ng-click="showAllAppointmentTypesModal = true">${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }</a>
            </div>
 
-           <div id="selectTimeframe" class="inlineBox">
-               <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") } </p>
-
-               <span class="angular-datepicker">
-                    <input type="text" is-open="timeframe.start.opened" ng-model="fromDate" min="now" max="toDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
-                    <i class="icon-calendar small add-on" ng-click="timeframe.start.open(\$event)" ></i>
-                    <i class="icon-remove small add-on" ng-click="fromDate=''" ></i>
-               </span>
-               <span class="angular-datepicker">
-                   <input type="text" is-open="timeframe.end.opened"  ng-model="toDate" min="fromDate || now" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
-                   <i class="icon-calendar small add-on" ng-click="timeframe.end.open(\$event)"></i>
-                   <i class="icon-remove small add-on" ng-click="toDate=''" ></i>
-               </span>
-           </div>
+           <timeframepicker headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'></timeframepicker>
        </div>
 
         <div id="searchButtons">
