@@ -73,6 +73,7 @@
                        ng-model="providerFilter"
                        typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | filter: \$viewValue | limitTo:8"
                        typeahead-on-select="refreshCalendarEvents()">
+                <i class="icon-remove small add-on" ng-click="providerFilter=''" ></i>
             </div>
         </div>
 

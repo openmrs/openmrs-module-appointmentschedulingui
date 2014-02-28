@@ -137,10 +137,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                <span class="angular-datepicker">
                     <input type="text" is-open="timeframe.start.opened" ng-model="fromDate" min="now" max="toDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
                     <i class="icon-calendar small add-on" ng-click="timeframe.start.open(\$event)" ></i>
+                    <i class="icon-remove small add-on" ng-click="fromDate=''" ></i>
                </span>
                <span class="angular-datepicker">
                    <input type="text" is-open="timeframe.end.opened"  ng-model="toDate" min="fromDate || now" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
                    <i class="icon-calendar small add-on" ng-click="timeframe.end.open(\$event)"></i>
+                   <i class="icon-remove small add-on" ng-click="toDate=''" ></i>
                </span>
            </div>
        </div>
@@ -155,12 +157,10 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             ${ ui.message("appointmentschedulingui.scheduleAppointment.filter") } <input type="text" ng-model="filterText" ng-change="updateFilter()"/>
        </div>
 
+       <div id="noTimeSlots" ng-show="showNoTimeSlotsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noAvailableSlots") }</div>
+       <div id="loadingMessage" ng-show="showLoadingMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.loading") }</div>
 
-        <table id="appointmentTable" class="gridStyle" ng-grid="timeSlotOptions" ng-show="showTimeSlotsGrid"></table>
-
-        <div id="noTimeSlots" ng-show="showNoTimeSlotsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noAvailableSlots") }</div>
-        <div id="loadingMessage" ng-show="showLoadingMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.loading") }</div>
-
+       <table id="appointmentTable" class="gridStyle" ng-grid="timeSlotOptions" ng-show="showTimeSlotsGrid"></table>
 
     <div id="selectAppointment">
             <button class="confirm" ng-click="selectTimeSlot()" ng-show="showTimeSlotsGrid" ng-disabled="timeSlotOptions.selectedItems.length == 0">

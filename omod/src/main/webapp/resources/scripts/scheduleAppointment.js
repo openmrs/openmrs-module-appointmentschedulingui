@@ -96,7 +96,6 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
 
             $scope.searchButtonDisabled = true;
             $scope.showLoadingMessage= true;
-            $scope.showTimeSlotsGrid = false;
 
             var params = { 'appointmentType' : $scope.appointmentType.uuid,
                            'v': 'custom:(uuid,startDate,endDate,appointmentBlock:(provider:(person:ref),location:ref))' }
@@ -118,8 +117,8 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                 $scope.showLoadingMessage = false;
                 $scope.timeSlots = results;
 
-                $scope.showTimeSlotsGrid = results.length > 0;
-                $scope.showNoTimeSlotsMessage = !$scope.showTimeSlotsGrid;
+                $scope.showTimeSlotsGrid = true;
+                $scope.showNoTimeSlotsMessage = results.length == 0;
 
                 $scope.updateFilter();
                 $scope.searchButtonDisabled = false;
