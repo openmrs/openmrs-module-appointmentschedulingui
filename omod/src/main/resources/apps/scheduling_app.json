@@ -25,7 +25,8 @@
         "config": {
             "afterSelectedUrl": "/appointmentschedulingui/scheduleAppointment.page?patientId={{patientId}}",
             "label": "appointmentschedulingui.scheduleAppointment.buttonTitle",
-            "heading": "appointmentschedulingui.scheduleAppointment.buttonTitle"
+            "heading": "appointmentschedulingui.scheduleAppointment.buttonTitle",
+            "showLastViewedPatients": false
         },
         "requiredPrivilege": "App: appointmentschedulingui.scheduleAppointment",
         "featureToggle": "new_appointment_scheduling_ui"
