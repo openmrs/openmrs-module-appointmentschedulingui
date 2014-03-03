@@ -100,7 +100,11 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         $scope.findAvailableTimeSlots = function() {
 
             $scope.searchButtonDisabled = true;
-            $scope.showLoadingMessage= true;
+            $scope.showNoTimeSlotsMessage = false;
+            $scope.showLoadingMessage = true;
+
+            $scope.timeSlots = [];
+            $scope.filteredTimeSlots = [];
 
             var params = { 'appointmentType' : $scope.appointmentType.uuid }
                          //  'v': 'custom:(uuid,startDate,endDate,countOfAppointments,appointmentBlock:(provider:(person:ref),location:ref))' }
@@ -138,7 +142,7 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         $scope.updateFilter = function() {
             $scope.filteredTimeSlots = filterFilter($scope.timeSlots, function(row) {
                 return row.appointmentBlock.location.display.toLowerCase().indexOf($scope.filterText.toLowerCase()) != -1
-                    || row.appointmentBlock.provider.person.display.toLowerCase().indexOf($scope.filterText.toLowerCase()) != -1;
+                    || (row.appointmentBlock.provider && row.appointmentBlock.provider.person.display.toLowerCase().indexOf($scope.filterText.toLowerCase()) != -1);
             });
 
             $scope.setPagingData();
