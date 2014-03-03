@@ -39,7 +39,7 @@
 
 <%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
 
-<div class="container"ng-app="appointmentscheduling.scheduleAppointment"  ng-controller="ScheduledAppointmentBlockController">
+<div class="container"ng-app="appointmentscheduling.scheduledAppointmentBlocks"  ng-controller="ScheduledAppointmentBlockController">
 
     <h1>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }</h1>
     <div class="appointment-filters">

@@ -1,4 +1,4 @@
-angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap', 'ngGrid'])
+angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointmentscheduling.appointmentService','ui.bootstrap', 'ngGrid'])
     .controller('ScheduledAppointmentBlockController', function ($scope, AppointmentService) {
 
     $scope.filterDate = Date.now();

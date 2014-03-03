@@ -25,7 +25,9 @@
     'uicommons.provider',
     'appointmentschedulingui.scheduleAppointment.timeSlot',
     'appointmentschedulingui.scheduleAppointment.errorSavingAppointment',
-    'appointmentschedulingui.scheduleAppointment.invalidSearchParameters'
+    'appointmentschedulingui.scheduleAppointment.invalidSearchParameters',
+    'appointmentschedulingui.scheduleAppointment.scheduled',
+    'appointmentschedulingui.scheduleAppointment.minutesAvailable'
 ].flatten()
 ]) %>
 

@@ -66,14 +66,19 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
             data: 'filteredTimeSlots',
             enablePaging: true,
             showFooter: true,
+            rowHeight: 50,
             totalServerItems: 'totalServerItems',
             pagingOptions: $scope.pagingOptions,
             multiSelect: false,
             enableSorting: false,
             selectedItems: [],
-            columnDefs: [   { field: 'date', displayName: emr.message("appointmentschedulingui.scheduleAppointment.timeSlot") },
-                            { field: 'appointmentBlock.provider.person.display', displayName: emr.message("uicommons.provider") },
-                            { field: 'appointmentBlock.location.display', displayName: emr.message("uicommons.location") } ]
+            columnDefs: [   { field: 'date', displayName: emr.message('appointmentschedulingui.scheduleAppointment.timeSlot'),
+                                    cellTemplate: "<div>{{ row.getProperty(\'dateFormatted\') }}<br/>{{ row.getProperty(\'startTimeFormatted\') }} - {{ row.getProperty(\'endTimeFormatted\') }}<div>"},
+                            { field: 'appointmentBlock.provider.person.display', displayName: emr.message('uicommons.provider') },
+                            { field: 'appointmentBlock.location.display', displayName: emr.message('uicommons.location') },
+                            { field: 'appointments', displayName: emr.message('appointmentschedulingui.scheduleAppointment.appointments'),
+                                    cellTemplate: "<div>{{ row.getProperty(\'countOfAppointments\') }} " + emr.message('appointmentschedulingui.scheduleAppointment.scheduled')
+                                        + "<br/>({{ row.getProperty(\'unallocatedMinutes\') }} " + emr.message('appointmentschedulingui.scheduleAppointment.minutesAvailable') + "</div>" } ]
         };
         $scope.setPagingData = function(){
             var page = $scope.pagingOptions.currentPage,
@@ -97,8 +102,8 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
             $scope.searchButtonDisabled = true;
             $scope.showLoadingMessage= true;
 
-            var params = { 'appointmentType' : $scope.appointmentType.uuid,
-                           'v': 'custom:(uuid,startDate,endDate,appointmentBlock:(provider:(person:ref),location:ref))' }
+            var params = { 'appointmentType' : $scope.appointmentType.uuid }
+                         //  'v': 'custom:(uuid,startDate,endDate,countOfAppointments,appointmentBlock:(provider:(person:ref),location:ref))' }
 
             if ($scope.fromDate) {
                 params['fromDate'] = moment($scope.fromDate).format();
@@ -110,8 +115,9 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
 
             AppointmentService.getTimeSlots(params).then(function (results) {
                 angular.forEach(results, function(result) {
-                    result['date'] = moment(result.startDate).format("DD MMM YYYY") + ", "
-                          + moment(result.startDate).format("h:mm a") + " - " + moment(result.endDate).format("h:mm a");
+                    result['dateFormatted'] = moment(result.startDate).format("DD MMM YYYY");
+                    result['startTimeFormatted'] = moment(result.startDate).format("h:mm A");
+                    result['endTimeFormatted']= moment(result.endDate).format("h:mm A");
                 })
 
                 $scope.showLoadingMessage = false;
