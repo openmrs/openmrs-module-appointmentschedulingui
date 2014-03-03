@@ -78,7 +78,7 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                             { field: 'appointmentBlock.location.display', displayName: emr.message('uicommons.location') },
                             { field: 'appointments', displayName: emr.message('appointmentschedulingui.scheduleAppointment.appointments'),
                                     cellTemplate: "<div>{{ row.getProperty(\'countOfAppointments\') }} " + emr.message('appointmentschedulingui.scheduleAppointment.scheduled')
-                                        + "<br/>({{ row.getProperty(\'unallocatedMinutes\') }} " + emr.message('appointmentschedulingui.scheduleAppointment.minutesAvailable') + "</div>" } ]
+                                        + "<br/>({{ row.getProperty(\'unallocatedMinutes\') }} " + emr.message('appointmentschedulingui.scheduleAppointment.minutesAvailable') + ")</div>" } ]
         };
         $scope.setPagingData = function(){
             var page = $scope.pagingOptions.currentPage,

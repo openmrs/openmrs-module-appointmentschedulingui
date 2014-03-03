@@ -27,7 +27,8 @@
     'appointmentschedulingui.scheduleAppointment.errorSavingAppointment',
     'appointmentschedulingui.scheduleAppointment.invalidSearchParameters',
     'appointmentschedulingui.scheduleAppointment.scheduled',
-    'appointmentschedulingui.scheduleAppointment.minutesAvailable'
+    'appointmentschedulingui.scheduleAppointment.minutesAvailable',
+    'appointmentschedulingui.scheduleAppointment.appointments'
 ].flatten()
 ]) %>
 
@@ -178,7 +179,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
          <div>
             <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.date") }:
-                <span class="confirmAppointmentInfo">{{ selectedTimeSlot.date }} </span> <p/>
+                <span class="confirmAppointmentInfo">{{ selectedTimeSlot.dateFormatted }}, {{ selectedTimeSlot.startTimeFormatted }} - {{ selectedTimeSlot.endTimeFormatted }} </span> <p/>
             <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }:
                 <span class="confirmAppointmentInfo">{{ selectedTimeSlot.appointmentBlock.provider ? selectedTimeSlot.appointmentBlock.provider.person.display : '' }}</span> <p/>
             <p>${ ui.message("appointmentschedulingui.scheduleAppointment.location") }:
