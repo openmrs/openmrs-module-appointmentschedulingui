@@ -32,7 +32,8 @@
         'appointmentschedulingui.scheduleProviders.errorSavingAppointmentBlock',
         'appointmentschedulingui.scheduleProviders.errorDeletingAppointmentBlock',
         'uicommons.location',
-        'uicommons.provider'
+        'uicommons.provider',
+        'appointmentschedulingui.scheduleProviders.startTimeMustBeBeforeEndTime'
 ].flatten()
 ]) %>
 
@@ -82,6 +83,15 @@
 
     <div id="appointment-block-form" ng-show="showAppointmentBlockForm">
 
+        <div id="appointment-block-form-error" class="note-container" ng-show="showAppointmentBlockFormErrorBox">
+            <div class="note error">
+                <div class="text">
+                    <i class="icon-remove medium"></i>
+                    {{ appointmentBlockFormErrorMessage }}
+                </div>
+            </div>
+        </div>
+
         <div id="appointment-block-form-header">
             <h1 ng-show="!appointmentBlock.uuid">
                 ${ ui.message("appointmentschedulingui.scheduleProviders.createAppointmentBlock") }
@@ -115,12 +125,12 @@
         <div id="appointment-block-form-time">
             <div id="start-time" class="inline-box">
                 <p>${ ui.message("appointmentschedulingui.startTime") }</p>
-                <timepicker ng-model="appointmentBlock.startDate" minute-step="15" ng-change="validateStartTime()"/>
+                <timepicker ng-model="appointmentBlock.startDate" minute-step="15" />
             </div>
 
             <div id="end-time" class="inline-box">
                 <p>${ ui.message("appointmentschedulingui.endTime") }</p>
-                <timepicker ng-model="appointmentBlock.endDate"  minute-step="15" ng-change="validateEndTime()"/>
+                <timepicker ng-model="appointmentBlock.endDate"  minute-step="15" />
             </div>
         </div>
 

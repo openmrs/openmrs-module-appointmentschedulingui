@@ -56,6 +56,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
         // control booleans for show/hide the calendar the appointment block form views
         $scope.showCalendar = true;
         $scope.showAppointmentBlockForm = false;
+        $scope.showAppointmentBlockFormErrorBox = false;
 
         // stores all appointment blocks events within the current calendar view
         var appointmentBlocks = [];
@@ -206,17 +207,28 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
             $scope.appointmentType = '';
             $scope.showCalendar = false;
+            $scope.showAppointmentBlockFormErrorBox = false;
             $scope.showAppointmentBlockForm = true;
         }
 
         $scope.editAppointmentBlock = function() {
             $scope.appointmentType = '';
             $scope.showCalendar = false;
+            $scope.showAppointmentBlockFormErrorBox = false;
             $scope.showAppointmentBlockForm = true;
         }
-        // TODO validation--check for overbookings
 
         $scope.saveAppointmentBlock = function() {
+
+            $scope.showAppointmentBlockFormErrorBox = false;
+
+            // perform date validation
+            if ($scope.appointmentBlock.startDate >= $scope.appointmentBlock.endDate) {
+                $scope.appointmentBlockFormErrorMessage =  emr.message('appointmentschedulingui.scheduleProviders.startTimeMustBeBeforeEndTime');
+                $scope.showAppointmentBlockFormErrorBox = true;
+                return;
+            }
+
 
             var appointmentTypeUuids = [];
             angular.forEach($scope.appointmentBlock.types, function(type) {
@@ -289,19 +301,6 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
             deleteAppointmentBlockModal.show();
         }
-
-        $scope.validateStartTime = function () {
-            if ($scope.appointmentBlock.startDate > $scope.appointmentBlock.endDate) {
-                $scope.appointmentBlock.startDate = new Date($scope.appointmentBlock.endDate);
-            }
-        }
-
-        $scope.validateEndTime = function () {
-            if ($scope.appointmentBlock.endDate < $scope.appointmentBlock.startDate) {
-                $scope.appointmentBlock.endDate = new Date($scope.appointmentBlock.startDate);
-            }
-        }
-
 
 
     });
