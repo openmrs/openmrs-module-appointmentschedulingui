@@ -1,6 +1,8 @@
-angular.module('timeframePickerApp', []).directive('timeframepicker', function() {
-    var initializeStartDatePicker = function (scope) {
-        scope.startDateOptions = {
+angular.module('scheduleAppointmentTimeframePickerApp', [])
+    .directive('timeframepicker', function() {
+
+        var initializeStartDatePicker = function (scope) {
+            scope.startDateOptions = {
             opened: false,
             open: function(event) {
                 event.preventDefault();
@@ -12,7 +14,7 @@ angular.module('timeframePickerApp', []).directive('timeframepicker', function()
         };
     }
 
-    var initializeEndDatePicker = function (scope) {
+        var initializeEndDatePicker = function (scope) {
         scope.endDateOptions = {
             opened: false,
             open: function(event) {
@@ -25,7 +27,7 @@ angular.module('timeframePickerApp', []).directive('timeframepicker', function()
         }
     };
 
-    return {
+        return {
         restrict: 'E',
         scope: { headermessage: '@headermessage' },
         templateUrl: '../ms/uiframework/resource/appointmentschedulingui/partials/timeframepicker.html',
@@ -44,4 +46,4 @@ angular.module('timeframePickerApp', []).directive('timeframepicker', function()
         }
     };
 
-});
+    });
