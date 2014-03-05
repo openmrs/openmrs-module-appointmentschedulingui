@@ -10,7 +10,7 @@ appointmentHelper.setupDatePicker = function(scope) {
 
             scope.datePicker.opened = true;
         }
-    }
+    };
 
     return datePicker;
 };
@@ -19,9 +19,17 @@ appointmentHelper.setUpGrid = function(scope){
 
     var templateCell = '<div ng-repeat=' +
         '"data in row.getProperty(col.field) track by $index">' +
-        '<div class="ngCellText" >'  +
-        '{{data}}' +
-        '</div></div>';
+            '<div class="ngCellText" >' +
+                '<div class="patientInformation appointmentSummary">' +
+                    '<div class="patientName">{{data.name}}</div>' +
+                    '<div><small>({{data.serviceType}})</small></div>' +
+                '</div>' +
+                '<div class="patientInformation identifier"><div>{{data.primaryIdentifier}}</div>' +
+                '<div><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId") + '</small></div></div>' +
+                '<div class="patientInformation identifier"><div>{{data.dossierNumber}}</div>' +
+                '<div ng-if="data.dossierNumber.length > 0"><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.dossierNumber") + '</small></div>' +
+            '</div>' +
+        '</div>';
 
     var scheduledAppointmentBlocksGrid = {
         data: 'scheduledAppointmentBlocks',
@@ -32,13 +40,19 @@ appointmentHelper.setUpGrid = function(scope){
         totalServerItems: 'totalServerItems',
         pagingOptions: scope.pagingOptions,
         selectedItems: [],
-        columnDefs: [   { field: 'date', width: '20%', displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") },
-            { field: 'appointmentBlock.provider.person.display', width: '20%', displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.provider") },
-            { field: 'patients', width: '30%', displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.patientName"), cellTemplate: templateCell},
-            { field: 'patientsIdentifierPrimary', width: '15%', displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId"), cellTemplate: templateCell},
-            { field: 'patientsIdentifierDossier', width: '15%', displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.dossierNumber"), cellTemplate: templateCell}]
+        columnDefs: [
+            { field: 'date',
+               width: '20%',
+               displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") },
+            { field: 'appointmentBlock.provider.person.display',
+              width: '20%',
+              displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.provider") },
+            { field: 'patients',
+              width: '60%',
+              displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.patientName"),
+              cellTemplate: templateCell }
+        ]
     };
-
     return scheduledAppointmentBlocksGrid;
 };
 

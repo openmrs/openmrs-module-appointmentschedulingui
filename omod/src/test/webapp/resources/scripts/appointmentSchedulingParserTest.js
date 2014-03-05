@@ -82,13 +82,7 @@ describe('AppointmentSchedulingParser tests', function() {
                                 "display": "MADED - canchanya pamela",
                                 "person": {
                                     "uuid": "f9c8d182-0424-41f4-b9e7-e83beec95245",
-                                    "display": "canchanya pamela",
-                                    "links": [
-                                        {
-                                            "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/f9c8d182-0424-41f4-b9e7-e83beec95245",
-                                            "rel": "self"
-                                        }
-                                    ]
+                                    "display": "canchanya pamela"
                                 },
                                 "identifier": "MADED",
                                 "attributes": [],
@@ -96,25 +90,12 @@ describe('AppointmentSchedulingParser tests', function() {
                                 "resourceVersion": "1.9"
                             },
                             "location": {
-                                "uuid": "787a2422-a7a2-400e-bdbb-5c54b2691af5",
-                                "display": "Biwo Resepsyon",
-                                "links": [
-                                    {
-                                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/location/787a2422-a7a2-400e-bdbb-5c54b2691af5",
-                                        "rel": "self"
-                                    }
-                                ]
+                                "display": "Biwo Resepsyon"
                             },
                             "types": [
                                 {
                                     "uuid": "de4f6849-1b0a-4d7d-9d89-c19b6040bec5",
-                                    "display": "Charles",
-                                    "links": [
-                                        {
-                                            "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmenttype/de4f6849-1b0a-4d7d-9d89-c19b6040bec5",
-                                            "rel": "self"
-                                        }
-                                    ]
+                                    "display": "Charles"
                                 }
                             ],
                             "voided": false,
@@ -472,10 +453,17 @@ describe('AppointmentSchedulingParser tests', function() {
         expect(parsedScheduledAppointmentBlocks[0].date).toBe(moment("2014-02-14T16:00:00.000-0200").format("HH:mm a")
             + " - " + moment("2014-02-14T21:00:00.000-0200").format("HH:mm a"));
         expect(parsedScheduledAppointmentBlocks[0].patients.length).toBe(2);
-        expect(parsedScheduledAppointmentBlocks[0].patients[0]).toBe("pamela pamela (Charles)");
-        expect(parsedScheduledAppointmentBlocks[0].patients[1]).toBe("Mario Areias (Charles)");
-        expect(parsedScheduledAppointmentBlocks[0].patientsIdentifierPrimary.length).toBe(2);
-        expect(parsedScheduledAppointmentBlocks[0].patientsIdentifierDossier.length).toBe(1);
+
+        expect(parsedScheduledAppointmentBlocks[0].patients[0].name).toBe("pamela pamela");
+        expect(parsedScheduledAppointmentBlocks[0].patients[0].serviceType).toBe("Charles");
+        expect(parsedScheduledAppointmentBlocks[0].patients[0].primaryIdentifier).toBe("Y2GAWR");
+        expect(parsedScheduledAppointmentBlocks[0].patients[0].dossierNumber).toBe("A000015");
+
+        expect(parsedScheduledAppointmentBlocks[0].patients[1].name).toBe("Mario Areias");
+        expect(parsedScheduledAppointmentBlocks[0].patients[1].serviceType).toBe("Charles");
+        expect(parsedScheduledAppointmentBlocks[0].patients[1].primaryIdentifier).toBe("Y2GHPW");
+        expect(parsedScheduledAppointmentBlocks[0].patients[1].dossierNumber).toBe("");
+
 
     });
 
