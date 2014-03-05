@@ -1,6 +1,6 @@
 var appointmentParser = appointmentParser || {};
 
-appointmentParser.parseScheduledAppointmentBlocks = function(results){
+appointmentParser.parseScheduledAppointmentBlocks = function(appointmentBlocks){
 
     var parseAppointmentBlockDate = function(data){
         return  moment(data.startDate).format("HH:mm a") + " - " + moment(data.endDate).format("HH:mm a");
@@ -9,39 +9,41 @@ appointmentParser.parseScheduledAppointmentBlocks = function(results){
     var parsePatients = function(data){
         var patients = [];
 
-        data.forEach( function( apppointment){
-            patients.push(apppointment.patient.person.display + " (" + apppointment.appointmentType.display + ")");
+        data.forEach(function(appointment){
+            var patientInformation = {
+                name: appointment.patient.person.display,
+                serviceType: appointment.appointmentType.display,
+                primaryIdentifier: parsePrimaryIdentifier(appointment.patient.display),
+                dossierNumber: parseDossierNumber(appointment.patient.identifiers)
+            };
+
+            patients.push(patientInformation);
         });
 
         return patients;
     };
 
-    var parsePatientsIdentifiers = function(data){
-        var patientsIdentifierPrimary = [];
-        var patientsIdentifierDossier = [];
-
-        data.forEach(function(appointment){
-            patientsIdentifierPrimary.push(appointment.patient.display.split("-")[0].trim());
-
-            appointment.patient.identifiers.forEach(function(identifier){
-                if (identifier.display.indexOf("Nimewo Dosye") > -1 ) {
-                    patientsIdentifierDossier.push(identifier.display.split("=")[1].trim());
-                }
-            });
-        });
-
-        return { primary: patientsIdentifierPrimary, dossier: patientsIdentifierDossier };
+    var parsePrimaryIdentifier = function(data){
+        return data.split("-")[0].trim();
     };
 
-    results.forEach(function(result){
-        result.date = parseAppointmentBlockDate(result.appointmentBlock)
-        result.patients = parsePatients(result.appointments);
-        var patientIdentifiers = parsePatientsIdentifiers(result.appointments);
-        result.patientsIdentifierPrimary = patientIdentifiers.primary;
-        result.patientsIdentifierDossier = patientIdentifiers.dossier;
-    });
+    var parseDossierNumber = function(identifiers){
+        var dossierNumber = "";
 
-    return results;
+        identifiers.forEach(function(identifier){
+            if (identifier.display.indexOf("Nimewo Dosye") > -1 ) {
+                dossierNumber = identifier.display.split("=")[1].trim();
+            }
+        });
+
+        return dossierNumber;
+    };
+
+    appointmentBlocks.forEach(function(block){
+        block.date = parseAppointmentBlockDate(block.appointmentBlock)
+        block.patients = parsePatients(block.appointments);
+    });
+    return appointmentBlocks;
 };
 
 
