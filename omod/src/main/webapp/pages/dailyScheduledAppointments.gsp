@@ -11,6 +11,7 @@
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "moment.min.js")
     ui.includeJavascript("uicommons", "emr.js")
+    ui.includeJavascript("uicommons", "services/locationService.js")
     ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
 
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
@@ -35,21 +36,28 @@
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }", link: "${ ui.pageLink("appointmentschedulingui", "dailyScheduledAppointments") }" }];
+
+    var supportsAppointmentsTagUuid = '${ supportsAppointmentsTagUuid }';
+    var sessionLocationUuid = '${ sessionLocationUuid }'
 </script>
 
-<%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
 
 <div class="container"ng-app="appointmentscheduling.scheduledAppointmentBlocks"  ng-controller="ScheduledAppointmentBlockController">
 
     <h1>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }</h1>
-    <div class="appointment-filters">
-        <span class="angular-datepicker">
+    <div class="appointment-filter">
+        <span class="angular-datepicker inline-box" >
             <input type="text" is-open="datePicker.opened" ng-model="filterDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
             <i class="icon-calendar small add-on" ng-click="datePicker.open(\$event)" ></i>
         </span>
+
+        <div id="filter-location" class="inline-box">
+            <p>${ ui.message("uicommons.location") }</p>
+            <select ng-model="locationFilter" ng-options="l.display for l in locations">
+            </select>
+        </div>
     </div>
 
-    <input id="currentLocationUuid" type="hidden" value="${currentLocationUuid}" />
     <div id="noScheduledAppointmentBlocks" ng-show="showNoScheduledAppointmentBlocks">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.noScheduledAppointmentBlocks") }</div>
     <div id="loadingMessage" ng-show="showLoadingMessage">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.loading") }</div>
     <div class="gridStyle" ng-grid="scheduledAppointmentBlocksGrid" id="scheduledAppointmentBlocksGrid"></div>

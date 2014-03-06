@@ -1,11 +1,49 @@
-angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointmentscheduling.appointmentService','ui.bootstrap', 'ngGrid'])
-    .controller('ScheduledAppointmentBlockController', function ($scope, AppointmentService) {
+angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointmentscheduling.appointmentService', 'locationService', 'ui.bootstrap', 'ngGrid'])
+    .controller('ScheduledAppointmentBlockController', function ($scope, AppointmentService, LocationService) {
 
     $scope.filterDate = Date.now();
     $scope.datePicker = appointmentHelper.setupDatePicker($scope);
 
     $scope.showNoScheduledAppointmentBlocks = false;
     $scope.showLoadingMessage = false;
+
+    function setFilterLocationToSessionLocation(){
+        if( sessionLocationUuid){
+        angular.forEach($scope.locations, function(location) {
+            if (location.uuid == sessionLocationUuid) {
+                $scope.locationFilter = location;
+            }
+        });
+        }
+    }
+
+    function setFilterLocationToDefault(){
+        if( $scope.locations && $scope.locations.length > 0) {
+            $scope.locationFilter = $scope.locations[0];
+        }
+    }
+
+    function setUpLocationFilter() {
+
+        var locationSearchParams = {};
+
+        if (supportsAppointmentsTagUuid) {
+                locationSearchParams['tag'] = supportsAppointmentsTagUuid;
+        };
+
+        LocationService.getLocations(locationSearchParams).then(function (result) {
+            $scope.locations = result;
+
+            setFilterLocationToSessionLocation();
+
+            if (!$scope.locationFilter){
+                setFilterLocationToDefault();
+            }
+        });
+    };
+
+    $scope.locations = [];
+    setUpLocationFilter();
 
     $scope.pagingOptions = {
         pageSizes: [5],
@@ -24,7 +62,8 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
 
     $scope.getScheduledAppointmentBlocks = function(){
         var date = new Date($scope.filterDate);
-        var params = { 'date' : moment(date).format('YYYY-MM-DD'), 'location' : jq("#currentLocationUuid").val()};
+        var params = { 'date' : moment(date).format('YYYY-MM-DD'),
+                       'location' : $scope.locationFilter.uuid};
 
         appointmentHelper.initializeMessages($scope);
 
@@ -41,5 +80,10 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
 
     $scope.$watch('pagingOptions', $scope.updatePagingData, true);
     $scope.$watch('filterDate', $scope.getScheduledAppointmentBlocks, true);
+    $scope.$watch('locationFilter', function(newValue, oldValue) {
+            if (newValue!= oldValue) {
+                $scope.getScheduledAppointmentBlocks();
+            }
+    })
 
 });
