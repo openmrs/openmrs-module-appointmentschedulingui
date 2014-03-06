@@ -223,12 +223,20 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
             $scope.appointmentBlockFormErrorMessages = [];
 
+            var startDate = moment($scope.appointmentBlock.startDate)
+                .hours(moment($scope.appointmentBlock.startDate).hours())
+                .minutes(moment($scope.appointmentBlock.startDate).minutes());
+
+            // we need to update the end date to take the component from the start date, and the time component from the end date
+            var endDate = moment($scope.appointmentBlock.startDate)
+                .hours(moment($scope.appointmentBlock.endDate).hours())
+                .minutes(moment($scope.appointmentBlock.endDate).minutes());
+
             // perform date validation
-            if ($scope.appointmentBlock.startDate >= $scope.appointmentBlock.endDate) {
+            if (startDate >= endDate) {
                 $scope.appointmentBlockFormErrorMessages[0] =  emr.message('appointmentschedulingui.scheduleProviders.startTimeMustBeBeforeEndTime');
                 return;
             }
-
 
             var appointmentTypeUuids = [];
             angular.forEach($scope.appointmentBlock.types, function(type) {
@@ -242,14 +250,8 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
             var appointmentBlockToUpdate = { 'types': appointmentTypeUuids,
                 'location': $scope.appointmentBlock.location.uuid,
-                'startDate': moment($scope.appointmentBlock.startDate)
-                    .hours(moment($scope.appointmentBlock.startDate).hours())
-                    .minutes(moment($scope.appointmentBlock.startDate).minutes())
-                    .format("YYYY-MM-DDTHH:mm:ss.SSSZZ"),
-                'endDate': moment($scope.appointmentBlock.startDate)
-                    .hours(moment($scope.appointmentBlock.endDate).hours())
-                    .minutes(moment($scope.appointmentBlock.endDate).minutes())
-                    .format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
+                'startDate': startDate.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"),
+                'endDate': endDate.format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
             };
 
             // add provider and uuid if specified
