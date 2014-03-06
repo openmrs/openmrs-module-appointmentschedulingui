@@ -454,7 +454,7 @@ describe('AppointmentSchedulingParser tests', function() {
             + " - " + moment("2014-02-14T21:00:00.000-0200").format("HH:mm a"));
         expect(parsedScheduledAppointmentBlocks[0].patients.length).toBe(2);
 
-        expect(parsedScheduledAppointmentBlocks[0].patients[0].name).toBe("pamel pamela");
+        expect(parsedScheduledAppointmentBlocks[0].patients[0].name).toBe("pamela pamela");
         expect(parsedScheduledAppointmentBlocks[0].patients[0].serviceType).toBe("Charles");
         expect(parsedScheduledAppointmentBlocks[0].patients[0].primaryIdentifier).toBe("Y2GAWR");
         expect(parsedScheduledAppointmentBlocks[0].patients[0].dossierNumber).toBe("A000015");
