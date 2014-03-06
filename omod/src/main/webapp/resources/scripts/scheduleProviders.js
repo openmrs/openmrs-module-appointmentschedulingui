@@ -55,11 +55,12 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
         // control booleans for show/hide the calendar the appointment block form views
         $scope.showCalendar = true;
-        $scope.showAppointmentBlockForm = false;
-        $scope.showAppointmentBlockFormErrorBox = false;
 
         // stores all appointment blocks events within the current calendar view
         var appointmentBlocks = [];
+
+        // stores any error messages
+        $scope.appointmentBlockFormErrorMessages = [];
 
         /* config object */
         $scope.uiConfig = {
@@ -207,25 +208,24 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
             $scope.appointmentType = '';
             $scope.showCalendar = false;
-            $scope.showAppointmentBlockFormErrorBox = false;
+            $scope.appointmentBlockFormErrorMessages = [];
             $scope.showAppointmentBlockForm = true;
         }
 
         $scope.editAppointmentBlock = function() {
             $scope.appointmentType = '';
             $scope.showCalendar = false;
-            $scope.showAppointmentBlockFormErrorBox = false;
+            $scope.appointmentBlockFormErrorMessages = [];
             $scope.showAppointmentBlockForm = true;
         }
 
         $scope.saveAppointmentBlock = function() {
 
-            $scope.showAppointmentBlockFormErrorBox = false;
+            $scope.appointmentBlockFormErrorMessages = [];
 
             // perform date validation
             if ($scope.appointmentBlock.startDate >= $scope.appointmentBlock.endDate) {
-                $scope.appointmentBlockFormErrorMessage =  emr.message('appointmentschedulingui.scheduleProviders.startTimeMustBeBeforeEndTime');
-                $scope.showAppointmentBlockFormErrorBox = true;
+                $scope.appointmentBlockFormErrorMessages[0] =  emr.message('appointmentschedulingui.scheduleProviders.startTimeMustBeBeforeEndTime');
                 return;
             }
 
@@ -237,7 +237,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
             // create the object we want to send back via REST
 
-            // we need to manually format here becauset the default moment format displays a time zone offset as -5:00 (which is ISO 6801)
+            // we need to manually format here because the default moment format displays a time zone offset as -5:00 (which is ISO 6801)
             // but currently WS-REST only accepts the format -500 (RFC 822) (the 'ZZ' instead of 'Z' specifies this format)
 
             var appointmentBlockToUpdate = { 'types': appointmentTypeUuids,
@@ -261,18 +261,24 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                 appointmentBlockToUpdate.uuid = $scope.appointmentBlock.uuid;
             }
 
-            // zero out current appointment block reference
-            $scope.appointmentBlock = {}
-
             AppointmentService.saveAppointmentBlock(appointmentBlockToUpdate).then(function() {
+                $scope.appointmentBlock = {}
                 $scope.refreshCalendarEvents();
                 $scope.showAppointmentBlockForm = false;
                 $scope.showCalendar = true;
 
-            }).catch(function () {
-                    // TODO get this message resolve properly
-                    // error callback
-                    emr.errorMessage("appointmentschedulingui.scheduleProviders.errorSavingAppointmentBlock");
+            }).catch(function (response) {
+
+                    // see if we have a response we can format into a display message
+                    var errorMessages = emr.formatRESTErrorResponseIntoDisplayMessages(response);
+
+                    if (errorMessages && errorMessages.length > 0) {
+                        $scope.appointmentBlockFormErrorMessages =  errorMessages;
+                    }
+                    else {
+                        emr.errorMessage("appointmentschedulingui.scheduleProviders.errorSavingAppointmentBlock");
+                    }
+
                 })
         }
 
@@ -286,7 +292,6 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
                             deleteAppointmentBlockModal.close();
                             $scope.refreshCalendarEvents();
                         }).catch(function () {
-                                // TODO get this message resolve properly
                                 // error callback
                                 emr.errorMessage("appointmentschedulingui.scheduleProviders.errorDeletingAppointmentBlock");
                                 deleteAppointmentBlockModal.close();
@@ -301,6 +306,5 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
             deleteAppointmentBlockModal.show();
         }
-
 
     });

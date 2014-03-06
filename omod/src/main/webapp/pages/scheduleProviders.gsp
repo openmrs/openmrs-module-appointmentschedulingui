@@ -83,11 +83,11 @@
 
     <div id="appointment-block-form" ng-show="showAppointmentBlockForm">
 
-        <div id="appointment-block-form-error" class="note-container" ng-show="showAppointmentBlockFormErrorBox">
+        <div id="appointment-block-form-error" class="note-container" ng-repeat="message in appointmentBlockFormErrorMessages">
             <div class="note error">
                 <div class="text">
                     <i class="icon-remove medium"></i>
-                    {{ appointmentBlockFormErrorMessage }}
+                   {{ message }}
                 </div>
             </div>
         </div>
