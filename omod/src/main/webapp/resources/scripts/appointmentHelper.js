@@ -40,6 +40,7 @@ appointmentHelper.setUpGrid = function(scope){
         totalServerItems: 'totalServerItems',
         pagingOptions: scope.pagingOptions,
         selectedItems: [],
+        filterOptions: scope.filterOptions,
         columnDefs: [
             { field: 'date',
                width: '20%',

@@ -41,9 +41,7 @@
     var sessionLocationUuid = '${ sessionLocationUuid }'
 </script>
 
-
 <div class="container"ng-app="appointmentscheduling.scheduledAppointmentBlocks"  ng-controller="ScheduledAppointmentBlockController">
-
     <h1>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }</h1>
     <div class="appointment-filter">
         <span class="angular-datepicker inline-box" >
@@ -53,26 +51,17 @@
 
         <div id="filter-location" class="inline-box">
             <p>${ ui.message("uicommons.location") }</p>
-            <select ng-model="locationFilter" ng-options="l.display for l in locations">
+                <select ng-model="locationFilter" ng-options="l.display for l in locations">
+            </select>
+        </div>
+        <div id="filter-provider" class="inline-box">
+            <p>${ ui.message("uicommons.provider") }</p>
+            <select ng-model="providerFilter" ng-options="provider for provider in providers" ng-change="newSelectedProvider(providerFilter)">
             </select>
         </div>
     </div>
-
     <div id="noScheduledAppointmentBlocks" ng-show="showNoScheduledAppointmentBlocks">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.noScheduledAppointmentBlocks") }</div>
     <div id="loadingMessage" ng-show="showLoadingMessage">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.loading") }</div>
     <div class="gridStyle" ng-grid="scheduledAppointmentBlocksGrid" id="scheduledAppointmentBlocksGrid"></div>
-
-
 </div>
 
-${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#dailyScheduledAppointments",
-        options: [
-                bFilter: false,
-                bJQueryUI: true,
-                bLengthChange: false,
-                iDisplayLength: 10,
-                sPaginationType: '\"full_numbers\"',
-                bSort: false,
-                sDom: '\'ft<\"fg-toolbar ui-toolbar ui-corner-bl ui-corner-br ui-helper-clearfix datatables-info-and-pg \"ip>\''
-        ]
-]) }
