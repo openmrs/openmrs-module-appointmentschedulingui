@@ -1,6 +1,6 @@
 describe('timeframePicker directive', function () {
 
-    describe('the two inputs and icons must be displayed', function () {
+    describe('the components form the template must be correctly displayed', function () {
         var compile, scope, template;
 
         beforeEach(module('scheduleAppointmentTimeframePickerApp'));
