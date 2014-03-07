@@ -17,6 +17,7 @@
     ui.includeJavascript("uicommons", "emr.js")
     ui.includeJavascript("uicommons", "services/providerService.js")
     ui.includeJavascript("uicommons", "services/locationService.js")
+    ui.includeJavascript("uicommons", "rest/restUtils.js")
 
     ui.includeJavascript("appointmentschedulingui", "scheduleProviders.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")

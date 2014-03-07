@@ -1,5 +1,5 @@
-angular.module('appointmentscheduling.scheduleProviders', ['appointmentscheduling.appointmentService', 'providerService','locationService','ui.bootstrap', 'ui.calendar' ])
-    .controller('ScheduleProvidersCtrl', function ($scope, $filter, AppointmentService, ProviderService, LocationService) {
+angular.module('appointmentscheduling.scheduleProviders', ['appointmentscheduling.appointmentService', 'providerService','locationService','uicommons.RESTUtils','ui.bootstrap', 'ui.calendar' ])
+    .controller('ScheduleProvidersCtrl', function ($scope, $filter, AppointmentService, ProviderService, LocationService, RESTErrorResponse) {
 
         /**
          * Private Utility methods
@@ -271,8 +271,10 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
 
             }).catch(function (response) {
 
+                    var errorResponse = new RESTErrorResponse(response);
+
                     // see if we have a response we can format into a display message
-                    var errorMessages = emr.formatRESTErrorResponseIntoDisplayMessages(response);
+                    var errorMessages = errorResponse.getDisplayMessages();
 
                     if (errorMessages && errorMessages.length > 0) {
                         $scope.appointmentBlockFormErrorMessages =  errorMessages;
