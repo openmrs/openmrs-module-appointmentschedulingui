@@ -59,6 +59,11 @@
             <select ng-model="providerFilter" ng-options="provider for provider in providers" ng-change="newSelectedProvider(providerFilter)">
             </select>
         </div>
+        <div id="filter-service" class="inline-box">
+            <p>${ ui.message("appointmentschedulingui.scheduleAppointment.serviceTypes") }</p>
+            <select ng-model="serviceFilter" ng-options="service for service in services" ng-change="newSelectedServiceType(serviceFilter)">
+            </select>
+        </div>
     </div>
     <div id="noScheduledAppointmentBlocks" ng-show="showNoScheduledAppointmentBlocks">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.noScheduledAppointmentBlocks") }</div>
     <div id="loadingMessage" ng-show="showLoadingMessage">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.loading") }</div>

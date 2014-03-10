@@ -25,13 +25,26 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
         var providersWithAppointments = [];
         providersWithAppointments.push("All providers");
         angular.forEach($scope.scheduledAppointmentBlocks, function(block) {
-            providersWithAppointments.push(block.appointmentBlock.provider.person.display);
+            providersWithAppointments.push(block.provider);
         });
         $scope.providers = providersWithAppointments;
         $scope.providerFilter = $scope.providers[0];
     }
 
+    var getServices = function () {
+        var services = [];
+        var servicesByBlock;
+        services.push("All service types");
+        angular.forEach($scope.scheduledAppointmentBlocks, function (scheduledAppointmentBlock) {
+            servicesByBlock = scheduledAppointmentBlock.servicesWithAppointments();
+            services = services.concat(servicesByBlock);
+        });
+        $scope.services = services;
+    }
+
+
     $scope.providers = [];
+    $scope.services = [];
 
     $scope.showNoScheduledAppointmentBlocks = false;
     $scope.showLoadingMessage = false;
@@ -58,6 +71,11 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
         else $scope.filterOptions.filterText = 'provider: ' + provider + ';';
     };
 
+    $scope.newSelectedServiceType = function(serviceType){
+        if(serviceType == 'All service types') $scope.filterOptions.filterText = '';
+        else $scope.filterOptions.filterText = 'patient:' + serviceType;
+    }
+
     $scope.pagingOptions = {
         pageSizes: [5],
         pageSize: 5,
@@ -81,13 +99,14 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
         appointmentHelper.initializeMessages($scope);
 
         AppointmentService.getScheduledAppointmentBlocks(params).then( function(results){
-            appointmentParser.parseScheduledAppointmentBlocks(results);
-            $scope.scheduledAppointmentBlocks = results;
-            $scope.totalScheduledAppointmentBlocks = results;
+            parsedScheduledAppointmentBlocks =  appointmentParser.parseScheduledAppointmentBlocks(results);
+            $scope.scheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
+            $scope.totalScheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
             getProviders();
+            getServices();
+            $scope.serviceFilter = $scope.services[0];
             appointmentHelper.manageMessages($scope);
             appointmentHelper.setPagingData($scope);
-
         });
     };
 

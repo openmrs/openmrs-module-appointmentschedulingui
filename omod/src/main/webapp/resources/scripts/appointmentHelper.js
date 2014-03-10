@@ -41,11 +41,12 @@ appointmentHelper.setUpGrid = function(scope){
         pagingOptions: scope.pagingOptions,
         selectedItems: [],
         filterOptions: scope.filterOptions,
+        showFilter: true,
         columnDefs: [
             { field: 'date',
                width: '20%',
                displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") },
-            { field: 'appointmentBlock.provider.person.display',
+            { field: 'provider',
               width: '20%',
               displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.provider") },
             { field: 'patients',

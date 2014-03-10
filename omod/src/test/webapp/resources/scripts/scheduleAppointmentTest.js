@@ -1,4 +1,3 @@
-
 describe('ScheduleAppointment tests', function() {
 
     var q;

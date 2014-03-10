@@ -1,6 +1,3 @@
-
-
-
 describe('AppointmentService tests', function() {
 
     OPENMRS_CONTEXT_PATH = '';     // mock openmrs_context_path global variable
