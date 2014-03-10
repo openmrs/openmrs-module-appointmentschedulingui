@@ -474,7 +474,7 @@ describe('AppointmentSchedulingParser tests', function() {
     it('should return service types with scheduled appointments', function() {
 
         var expected = ["Charles"];
-        expect(parsedScheduledAppointmentBlocks[0].servicesWithAppointments()).toBe(expected);
+        expect(parsedScheduledAppointmentBlocks[0].servicesWithAppointments()).toEqual(expected);
     });
 
 });
