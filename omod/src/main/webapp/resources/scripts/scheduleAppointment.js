@@ -1,8 +1,6 @@
-var scheduleAppointmentApp = angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap', 'ngGrid', 'timeframePickerApp']);
-
-scheduleAppointmentApp.controller('ScheduleAppointmentCtrl', function ($scope, $timeout, AppointmentService, filterFilter) {
-        $scope.$on('timeframePickerApp.changeFromDate', function (event, date) { $scope.fromDate = date; });
-        $scope.$on('timeframePickerApp.changeEndDate', function (event, date) { $scope.toDate = date; });
+angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap', 'ngGrid', 'scheduleAppointmentTimeframePickerApp'])
+    .controller('ScheduleAppointmentCtrl', function ($scope, $timeout, AppointmentService, filterFilter, timeframePickerEventListener) {
+        timeframePickerEventListener.subscribe($scope);
 
         // model
         $scope.appointmentType = undefined;
