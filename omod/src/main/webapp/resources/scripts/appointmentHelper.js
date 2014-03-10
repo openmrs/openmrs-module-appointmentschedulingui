@@ -11,8 +11,20 @@ appointmentHelper.setupDatePicker = function(scope) {
             scope.datePicker.opened = true;
         }
     };
-
     return datePicker;
+};
+
+appointmentHelper.setUpLocationFilter = function(scope) {
+    if( sessionLocationUuid){
+        angular.forEach(scope.locations, function(location) {
+            if (location.uuid == sessionLocationUuid) {
+                scope.locationFilter = location;
+            }
+        });
+    }
+    else if( scope.locations && scope.locations.length > 0){
+        scope.locationFilter = scope.locations[0];
+    }
 };
 
 appointmentHelper.setUpGrid = function(scope){
@@ -41,7 +53,6 @@ appointmentHelper.setUpGrid = function(scope){
         pagingOptions: scope.pagingOptions,
         selectedItems: [],
         filterOptions: scope.filterOptions,
-        showFilter: true,
         columnDefs: [
             { field: 'date',
                width: '20%',
@@ -85,4 +96,29 @@ appointmentHelper.manageMessages = function(scope) {
         scope.showNoScheduledAppointmentBlocks = false;
     }
 };
+
+appointmentHelper.findProvidersFromGrid = function(scope) {
+    angular.forEach(scope.scheduledAppointmentBlocks, function(block) {
+        var index = scope.providers.indexOf(block.provider);
+        if(index == -1)
+        scope.providers.push(block.provider);
+    });
+};
+
+appointmentHelper.findServiceTypesFromGrid = function (scope) {
+    angular.forEach(scope.scheduledAppointmentBlocks, function (scheduledAppointmentBlock) {
+        var servicesByBlock = scheduledAppointmentBlock.servicesWithAppointments();
+        scope.services = scope.services.concat(servicesByBlock);
+    });
+}
+
+appointmentHelper.findAppointmentBlockFromGrid = function (scope) {
+    angular.forEach(scope.scheduledAppointmentBlocks, function (scheduledAppointmentBlock) {
+        var index = scope.appointmentBlocks.indexOf(scheduledAppointmentBlock.date);
+        if(index == -1)
+            scope.appointmentBlocks.push(scheduledAppointmentBlock.date);
+    })
+}
+
+
 

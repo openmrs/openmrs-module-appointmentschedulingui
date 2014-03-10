@@ -59,9 +59,14 @@
             <select ng-model="providerFilter" ng-options="provider for provider in providers" ng-change="newSelectedProvider(providerFilter)">
             </select>
         </div>
-        <div id="filter-service" class="inline-box">
+        <div id="filter-serviceType" class="inline-box">
             <p>${ ui.message("appointmentschedulingui.scheduleAppointment.serviceTypes") }</p>
             <select ng-model="serviceFilter" ng-options="service for service in services" ng-change="newSelectedServiceType(serviceFilter)">
+            </select>
+        </div>
+        <div id="filter-appointmentBlock" class="inline-box">
+            <p>${ ui.message("appointmentschedulingui.scheduleAppointment.serviceTypes") }</p>
+            <select ng-model="appointmentBlockFilter" ng-options="apppointmentBlock for apppointmentBlock in appointmentBlocks" ng-change="newSelectedAppointmentBlock(appointmentBlockFilter)">
             </select>
         </div>
     </div>
