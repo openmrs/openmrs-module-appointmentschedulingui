@@ -64,31 +64,9 @@ describe('AppointmentSchedulingParser tests', function() {
                                     "display": "Charles"
                                 }
                             ],
-                            "voided": false,
-                            "links": [
-                                {
-                                    "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmentblockwithtimeslot/d4f488c4-7660-4e8b-9b77-9de6f7a6371b",
-                                    "rel": "self"
-                                },
-                                {
-                                    "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmentblockwithtimeslot/d4f488c4-7660-4e8b-9b77-9de6f7a6371b?v=full",
-                                    "rel": "full"
-                                }
-                            ],
-                            "resourceVersion": "1.8"
+                            "voided": false
                         },
-                        "voided": false,
-                        "links": [
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/timeslot/1f32a270-f4cd-4228-ae33-0fcec259948b",
-                                "rel": "self"
-                            },
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/timeslot/1f32a270-f4cd-4228-ae33-0fcec259948b?v=full",
-                                "rel": "full"
-                            }
-                        ],
-                        "resourceVersion": "1.8"
+                        "voided": false
                     },
                     "visit": null,
                     "patient": {
@@ -97,23 +75,11 @@ describe('AppointmentSchedulingParser tests', function() {
                         "identifiers": [
                             {
                                 "uuid": "0ba3dcd2-929b-4800-9557-a9cbcb7bef98",
-                                "display": "ZL EMR ID = Y2GAWR",
-                                "links": [
-                                    {
-                                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/patient/3abda79b-809a-4eca-b428-67f606fbae42/identifier/0ba3dcd2-929b-4800-9557-a9cbcb7bef98",
-                                        "rel": "self"
-                                    }
-                                ]
+                                "display": "ZL EMR ID = Y2GAWR"
                             },
                             {
                                 "uuid": "7255195d-de1d-42a2-ae8b-e5fa5d594de2",
-                                "display": "Nimewo Dosye = A000015",
-                                "links": [
-                                    {
-                                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/patient/3abda79b-809a-4eca-b428-67f606fbae42/identifier/7255195d-de1d-42a2-ae8b-e5fa5d594de2",
-                                        "rel": "self"
-                                    }
-                                ]
+                                "display": "Nimewo Dosye = A000015"
                             }
                         ],
                         "person": {
@@ -158,31 +124,9 @@ describe('AppointmentSchedulingParser tests', function() {
                                     ]
                                 }
                             ],
-                            "voided": false,
-                            "links": [
-                                {
-                                    "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/3abda79b-809a-4eca-b428-67f606fbae42",
-                                    "rel": "self"
-                                },
-                                {
-                                    "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/3abda79b-809a-4eca-b428-67f606fbae42?v=full",
-                                    "rel": "full"
-                                }
-                            ],
-                            "resourceVersion": "1.8"
+                            "voided": false
                         },
-                        "voided": false,
-                        "links": [
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/patient/3abda79b-809a-4eca-b428-67f606fbae42",
-                                "rel": "self"
-                            },
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/patient/3abda79b-809a-4eca-b428-67f606fbae42?v=full",
-                                "rel": "full"
-                            }
-                        ],
-                        "resourceVersion": "1.8"
+                        "voided": false
                     },
                     "status": "SCHEDULED",
                     "reason": "I'm to sick",
@@ -252,34 +196,16 @@ describe('AppointmentSchedulingParser tests', function() {
                             "causeOfDeath": null,
                             "preferredName": {
                                 "uuid": "6c33a8f8-498f-4d5c-8b0f-0bf181cf2623",
-                                "display": "Mario Areias",
-                                "links": [
-                                    {
-                                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/28f84d05-2ed7-416d-8d7b-3ac1d118a21c/name/6c33a8f8-498f-4d5c-8b0f-0bf181cf2623",
-                                        "rel": "self"
-                                    }
-                                ]
+                                "display": "Mario Areias"
                             },
                             "preferredAddress": {
                                 "uuid": "aaa341c8-cdac-4100-8152-a1d589fb8b70",
-                                "display": "Cange",
-                                "links": [
-                                    {
-                                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/28f84d05-2ed7-416d-8d7b-3ac1d118a21c/address/aaa341c8-cdac-4100-8152-a1d589fb8b70",
-                                        "rel": "self"
-                                    }
-                                ]
+                                "display": "Cange"
                             },
                             "attributes": [
                                 {
                                     "uuid": "5e11cda8-6755-4cbe-bc1d-5b6a68b82bbe",
-                                    "display": "Telephone Number = 123123123",
-                                    "links": [
-                                        {
-                                            "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/28f84d05-2ed7-416d-8d7b-3ac1d118a21c/attribute/5e11cda8-6755-4cbe-bc1d-5b6a68b82bbe",
-                                            "rel": "self"
-                                        }
-                                    ]
+                                    "display": "Telephone Number = 123123123"
                                 }
                             ],
                             "voided": false
@@ -305,37 +231,15 @@ describe('AppointmentSchedulingParser tests', function() {
             "provider": null,
             "location": {
             "uuid": "4f2d9af1-7eec-4228-bbd6-7b0774c6c267",
-                "display": "Dantis",
-                "links": [
-                {
-                    "uri": "NEED-TO-CONFIGURE/ws/rest/v1/location/4f2d9af1-7eec-4228-bbd6-7b0774c6c267",
-                    "rel": "self"
-                }
-            ]
+                "display": "Dantis"
         },
         "types": [
             {
                 "uuid": "e0524fbf-37ae-4444-828e-8067a3533011",
-                "display": "Dental - Extraction",
-                "links": [
-                    {
-                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmenttype/e0524fbf-37ae-4444-828e-8067a3533011",
-                        "rel": "self"
-                    }
-                ]
+                "display": "Dental - Extraction"
             }
         ],
             "voided": false,
-            "links": [
-            {
-                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmentblockwithtimeslot/08cb1ff1-57d5-4379-a241-172773239feb",
-                "rel": "self"
-            },
-            {
-                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmentblockwithtimeslot/08cb1ff1-57d5-4379-a241-172773239feb?v=full",
-                "rel": "full"
-            }
-        ],
             "resourceVersion": "1.8"
     },
             "appointments": [
@@ -355,53 +259,19 @@ describe('AppointmentSchedulingParser tests', function() {
                     "provider": null,
                     "location": {
                         "uuid": "4f2d9af1-7eec-4228-bbd6-7b0774c6c267",
-                        "display": "Dantis",
-                        "links": [
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/location/4f2d9af1-7eec-4228-bbd6-7b0774c6c267",
-                                "rel": "self"
-                            }
-                        ]
+                        "display": "Dantis"
                     },
                     "types": [
                         {
                             "uuid": "e0524fbf-37ae-4444-828e-8067a3533011",
-                            "display": "Dental - Extraction",
-                            "links": [
-                                {
-                                    "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmenttype/e0524fbf-37ae-4444-828e-8067a3533011",
-                                    "rel": "self"
-                                }
-                            ]
+                            "display": "Dental - Extraction"
                         }
                     ],
-                    "voided": false,
-                    "links": [
-                        {
-                            "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmentblockwithtimeslot/08cb1ff1-57d5-4379-a241-172773239feb",
-                            "rel": "self"
-                        },
-                        {
-                            "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmentblockwithtimeslot/08cb1ff1-57d5-4379-a241-172773239feb?v=full",
-                            "rel": "full"
-                        }
-                    ],
-                    "resourceVersion": "1.8"
+                    "voided": false
                 },
                 "countOfAppointments": 2,
                 "unallocatedMinutes": 180,
-                "voided": false,
-                "links": [
-                    {
-                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/timeslot/7135721f-1fe0-496e-9370-f8d59bbeb0a4",
-                        "rel": "self"
-                    },
-                    {
-                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/timeslot/7135721f-1fe0-496e-9370-f8d59bbeb0a4?v=full",
-                        "rel": "full"
-                    }
-                ],
-                "resourceVersion": "1.8"
+                "voided": false
             },
             "visit": null,
             "patient": {
@@ -410,23 +280,11 @@ describe('AppointmentSchedulingParser tests', function() {
                 "identifiers": [
                     {
                         "uuid": "d12cedb5-6c20-4f82-b74e-c2dd3333fe83",
-                        "display": "ZL EMR ID = Y2APTX",
-                        "links": [
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/patient/10cb80ee-a5cb-40ad-9772-090ceaaff28d/identifier/d12cedb5-6c20-4f82-b74e-c2dd3333fe83",
-                                "rel": "self"
-                            }
-                        ]
+                        "display": "ZL EMR ID = Y2APTX"
                     },
                     {
                         "uuid": "b9ad83d3-5b58-43f9-896d-3da33ad83573",
-                        "display": "Nimewo Dosye = A000099",
-                        "links": [
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/patient/10cb80ee-a5cb-40ad-9772-090ceaaff28d/identifier/b9ad83d3-5b58-43f9-896d-3da33ad83573",
-                                "rel": "self"
-                            }
-                        ]
+                        "display": "Nimewo Dosye = A000099"
                     }
                 ],
                 "person": {
@@ -441,86 +299,29 @@ describe('AppointmentSchedulingParser tests', function() {
                     "causeOfDeath": null,
                     "preferredName": {
                         "uuid": "46bbd3ba-98d3-4eb5-9bca-d74048503a7d",
-                        "display": "Glauber Ramos",
-                        "links": [
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/10cb80ee-a5cb-40ad-9772-090ceaaff28d/name/46bbd3ba-98d3-4eb5-9bca-d74048503a7d",
-                                "rel": "self"
-                            }
-                        ]
+                        "display": "Glauber Ramos"
                     },
                     "preferredAddress": {
                         "uuid": "2c3b014d-d730-40f1-ab83-0295090cae6e",
-                        "display": "des",
-                        "links": [
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/10cb80ee-a5cb-40ad-9772-090ceaaff28d/address/2c3b014d-d730-40f1-ab83-0295090cae6e",
-                                "rel": "self"
-                            }
-                        ]
+                        "display": "des"
                     },
                     "attributes": [
                         {
                             "uuid": "da3a0769-72d9-4c48-a22d-6af90684932d",
-                            "display": "Telephone Number = 123123",
-                            "links": [
-                                {
-                                    "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/10cb80ee-a5cb-40ad-9772-090ceaaff28d/attribute/da3a0769-72d9-4c48-a22d-6af90684932d",
-                                    "rel": "self"
-                                }
-                            ]
+                            "display": "Telephone Number = 123123"
                         }
                     ],
-                    "voided": false,
-                    "links": [
-                        {
-                            "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/10cb80ee-a5cb-40ad-9772-090ceaaff28d",
-                            "rel": "self"
-                        },
-                        {
-                            "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/10cb80ee-a5cb-40ad-9772-090ceaaff28d?v=full",
-                            "rel": "full"
-                        }
-                    ],
-                    "resourceVersion": "1.8"
+                    "voided": false
                 },
-                "voided": false,
-                "links": [
-                    {
-                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/patient/10cb80ee-a5cb-40ad-9772-090ceaaff28d",
-                        "rel": "self"
-                    },
-                    {
-                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/patient/10cb80ee-a5cb-40ad-9772-090ceaaff28d?v=full",
-                        "rel": "full"
-                    }
-                ],
-                "resourceVersion": "1.8"
+                "voided": false
             },
             "status": "SCHEDULED",
             "reason": null,
             "appointmentType": {
                 "uuid": "e0524fbf-37ae-4444-828e-8067a3533011",
-                "display": "Dental - Extraction",
-                "links": [
-                    {
-                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmenttype/e0524fbf-37ae-4444-828e-8067a3533011",
-                        "rel": "self"
-                    }
-                ]
+                "display": "Dental - Extraction"
             },
-            "voided": false,
-            "links": [
-                {
-                    "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointment/a87a42b5-5bc2-4e1f-ab62-f25e13c56974",
-                    "rel": "self"
-                },
-                {
-                    "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointment/a87a42b5-5bc2-4e1f-ab62-f25e13c56974?v=full",
-                    "rel": "full"
-                }
-            ],
-            "resourceVersion": "1.8"
+            "voided": false
         },
         {
             "uuid": "e7cc4637-85a4-487d-8998-681fb916efde",
@@ -538,13 +339,7 @@ describe('AppointmentSchedulingParser tests', function() {
                     "provider": null,
                     "location": {
                         "uuid": "4f2d9af1-7eec-4228-bbd6-7b0774c6c267",
-                        "display": "Dantis",
-                        "links": [
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/location/4f2d9af1-7eec-4228-bbd6-7b0774c6c267",
-                                "rel": "self"
-                            }
-                        ]
+                        "display": "Dantis"
                     },
                     "types": [
                         {
@@ -558,33 +353,11 @@ describe('AppointmentSchedulingParser tests', function() {
                             ]
                         }
                     ],
-                    "voided": false,
-                    "links": [
-                        {
-                            "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmentblockwithtimeslot/08cb1ff1-57d5-4379-a241-172773239feb",
-                            "rel": "self"
-                        },
-                        {
-                            "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmentblockwithtimeslot/08cb1ff1-57d5-4379-a241-172773239feb?v=full",
-                            "rel": "full"
-                        }
-                    ],
-                    "resourceVersion": "1.8"
+                    "voided": false
                 },
                 "countOfAppointments": 2,
                 "unallocatedMinutes": 180,
-                "voided": false,
-                "links": [
-                    {
-                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/timeslot/7135721f-1fe0-496e-9370-f8d59bbeb0a4",
-                        "rel": "self"
-                    },
-                    {
-                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/timeslot/7135721f-1fe0-496e-9370-f8d59bbeb0a4?v=full",
-                        "rel": "full"
-                    }
-                ],
-                "resourceVersion": "1.8"
+                "voided": false
             },
             "visit": null,
             "patient": {
@@ -593,23 +366,11 @@ describe('AppointmentSchedulingParser tests', function() {
                 "identifiers": [
                     {
                         "uuid": "d6e8775f-cdb5-40cf-9ddc-e60f20c2b4f3",
-                        "display": "ZL EMR ID = Y2AEHR",
-                        "links": [
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/patient/4e1068b6-e5c7-4178-b1b2-c2a6816a5a37/identifier/d6e8775f-cdb5-40cf-9ddc-e60f20c2b4f3",
-                                "rel": "self"
-                            }
-                        ]
+                        "display": "ZL EMR ID = Y2AEHR"
                     },
                     {
                         "uuid": "cb7e022d-6c4d-436c-a0e0-580555bb850f",
-                        "display": "Nimewo Dosye = A000397",
-                        "links": [
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/patient/4e1068b6-e5c7-4178-b1b2-c2a6816a5a37/identifier/cb7e022d-6c4d-436c-a0e0-580555bb850f",
-                                "rel": "self"
-                            }
-                        ]
+                        "display": "Nimewo Dosye = A000397"
                     }
                 ],
                 "person": {
@@ -624,86 +385,29 @@ describe('AppointmentSchedulingParser tests', function() {
                     "causeOfDeath": null,
                     "preferredName": {
                         "uuid": "a356a3d9-346c-4056-b9f0-6e56ae3d71f9",
-                        "display": "Neissi Orser",
-                        "links": [
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/4e1068b6-e5c7-4178-b1b2-c2a6816a5a37/name/a356a3d9-346c-4056-b9f0-6e56ae3d71f9",
-                                "rel": "self"
-                            }
-                        ]
+                        "display": "Neissi Orser"
                     },
                     "preferredAddress": {
                         "uuid": "54575e07-a6da-4a67-8304-facdd9f9ad7a",
-                        "display": "Mirebalais",
-                        "links": [
-                            {
-                                "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/4e1068b6-e5c7-4178-b1b2-c2a6816a5a37/address/54575e07-a6da-4a67-8304-facdd9f9ad7a",
-                                "rel": "self"
-                            }
-                        ]
+                        "display": "Mirebalais"
                     },
                     "attributes": [
                         {
                             "uuid": "8ff515a0-7891-474e-a0ca-4951d6ebc0e6",
-                            "display": "Telephone Number = 11111111",
-                            "links": [
-                                {
-                                    "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/4e1068b6-e5c7-4178-b1b2-c2a6816a5a37/attribute/8ff515a0-7891-474e-a0ca-4951d6ebc0e6",
-                                    "rel": "self"
-                                }
-                            ]
+                            "display": "Telephone Number = 11111111"
                         }
                     ],
-                    "voided": false,
-                    "links": [
-                        {
-                            "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/4e1068b6-e5c7-4178-b1b2-c2a6816a5a37",
-                            "rel": "self"
-                        },
-                        {
-                            "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/4e1068b6-e5c7-4178-b1b2-c2a6816a5a37?v=full",
-                            "rel": "full"
-                        }
-                    ],
-                    "resourceVersion": "1.8"
+                    "voided": false
                 },
-                "voided": false,
-                "links": [
-                    {
-                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/patient/4e1068b6-e5c7-4178-b1b2-c2a6816a5a37",
-                        "rel": "self"
-                    },
-                    {
-                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/patient/4e1068b6-e5c7-4178-b1b2-c2a6816a5a37?v=full",
-                        "rel": "full"
-                    }
-                ],
-                "resourceVersion": "1.8"
+                "voided": false
             },
             "status": "SCHEDULED",
             "reason": null,
             "appointmentType": {
                 "uuid": "e0524fbf-37ae-4444-828e-8067a3533011",
-                "display": "Dental - Extraction",
-                "links": [
-                    {
-                        "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointmenttype/e0524fbf-37ae-4444-828e-8067a3533011",
-                        "rel": "self"
-                    }
-                ]
+                "display": "Dental - Extraction"
             },
-            "voided": false,
-            "links": [
-                {
-                    "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointment/e7cc4637-85a4-487d-8998-681fb916efde",
-                    "rel": "self"
-                },
-                {
-                    "uri": "NEED-TO-CONFIGURE/ws/rest/v1/appointmentscheduling/appointment/e7cc4637-85a4-487d-8998-681fb916efde?v=full",
-                    "rel": "full"
-                }
-            ],
-            "resourceVersion": "1.8"
+            "voided": false
         }
     ]
         }
@@ -753,5 +457,4 @@ describe('AppointmentSchedulingParser tests', function() {
         var expected = ["Charles"];
         expect(parsedScheduledAppointmentBlocks[0].servicesWithAppointments()).toEqual(expected);
     });
-
 });
