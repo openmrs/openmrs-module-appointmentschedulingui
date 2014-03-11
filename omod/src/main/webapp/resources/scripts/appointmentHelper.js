@@ -98,6 +98,8 @@ appointmentHelper.manageMessages = function(scope) {
 };
 
 appointmentHelper.findProvidersFromGrid = function(scope) {
+    scope.providers = ["All providers"];
+    scope.providerFilter = scope.providers[0];
     angular.forEach(scope.scheduledAppointmentBlocks, function(block) {
         var index = scope.providers.indexOf(block.provider);
         if(index == -1)
@@ -106,13 +108,21 @@ appointmentHelper.findProvidersFromGrid = function(scope) {
 };
 
 appointmentHelper.findServiceTypesFromGrid = function (scope) {
+    scope.services = ["All service types"];
+    scope.serviceFilter = scope.services[0];
     angular.forEach(scope.scheduledAppointmentBlocks, function (scheduledAppointmentBlock) {
         var servicesByBlock = scheduledAppointmentBlock.servicesWithAppointments();
-        scope.services = scope.services.concat(servicesByBlock);
+        angular.forEach(servicesByBlock, function (service) {
+           var index = scope.services.indexOf(service);
+           if(index == -1)
+           scope.services.push(service);
+        });
     });
 }
 
 appointmentHelper.findAppointmentBlockFromGrid = function (scope) {
+    scope.appointmentBlocks = ["All appointment blocks"];
+    scope.appointmentBlockFilter = scope.appointmentBlocks[0];
     angular.forEach(scope.scheduledAppointmentBlocks, function (scheduledAppointmentBlock) {
         var index = scope.appointmentBlocks.indexOf(scheduledAppointmentBlock.date);
         if(index == -1)

@@ -1,8 +1,6 @@
 angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointmentscheduling.appointmentService', 'locationService', 'ui.bootstrap', 'ngGrid'])
     .controller('ScheduledAppointmentBlockController', function ($scope, AppointmentService, LocationService) {
 
-
-
     var locationSearchParams = {};
     if (supportsAppointmentsTagUuid) {
         locationSearchParams['tag'] = supportsAppointmentsTagUuid;
@@ -13,16 +11,8 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
             appointmentHelper.setUpLocationFilter($scope);
     });
 
-    appointmentHelper.setUpLocationFilter($scope);
-
     $scope.filterDate = Date.now();
     $scope.datePicker = appointmentHelper.setupDatePicker($scope);
-    $scope.providers = ["All providers"];
-    $scope.services = ["All service types"];
-    $scope.appointmentBlocks = ["All appointment blocks"];
-    $scope.providerFilter = $scope.providers[0];
-    $scope.serviceFilter = $scope.services[0];
-    $scope.appointmentBlockFilter = $scope.appointmentBlocks[0];
 
     $scope.showNoScheduledAppointmentBlocks = false;
     $scope.showLoadingMessage = false;
@@ -37,7 +27,7 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
 
     $scope.newSelectedServiceType = function(serviceType){
         if(serviceType == 'All service types') $scope.filterOptions.filterText = '';
-        else $scope.filterOptions.filterText = 'patient:' + serviceType + ';';
+        else $scope.filterOptions.filterText = 'patient: ' + serviceType + ';';
     };
 
     $scope.newSelectedAppointmentBlock = function(appointmentBlock){
@@ -71,7 +61,7 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
         appointmentHelper.initializeMessages($scope);
 
         AppointmentService.getScheduledAppointmentBlocks(params).then( function(results){
-            parsedScheduledAppointmentBlocks =  appointmentParser.parseScheduledAppointmentBlocks(results);
+            parsedScheduledAppointmentBlocks = appointmentParser.parseScheduledAppointmentBlocks(results);
             $scope.scheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
             $scope.totalScheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
             appointmentHelper.findProvidersFromGrid($scope);
