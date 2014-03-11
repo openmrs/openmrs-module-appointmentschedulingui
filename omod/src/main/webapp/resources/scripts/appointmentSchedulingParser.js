@@ -40,7 +40,8 @@ appointmentParser.parseScheduledAppointmentBlocks = function(scheduledAppointmen
     };
 
     var parseAppointmentBlockProvider = function (data){
-        return data.provider.person.display;
+        if(data.provider) return data.provider.person.display;
+        else return 'No provider assigned';
     }
 
     var findServicesWithAppointments = function () {
