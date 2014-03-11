@@ -1,5 +1,7 @@
-angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap', 'ngGrid', 'scheduleAppointmentTimeframePickerApp'])
-    .controller('ScheduleAppointmentCtrl', function ($scope, $timeout, AppointmentService, filterFilter, timeframePickerEventListener) {
+angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap',
+        'ngGrid', 'scheduleAppointmentTimeframePickerApp', 'ngGridPaginationApp'])
+    .controller('ScheduleAppointmentCtrl', function ($scope, $timeout, AppointmentService, filterFilter,
+                                                     timeframePickerEventListener, ngGridPaginationFactory) {
         timeframePickerEventListener.subscribe($scope);
 
         // model
@@ -27,23 +29,13 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
 
         $scope.appointmentToCancel = null;
 
-        $scope.pagingOptions = {
-            pageSizes: [5,10,20],
-            pageSize: 5,
-            currentPage: 1
-        };
-        $scope.totalServerItems = 0;
         $scope.filterOptions = {
             filterText: "",
             useExternalFilter: true
         };
         $scope.timeSlotOptions = {
             data: 'filteredTimeSlots',
-            enablePaging: true,
-            showFooter: true,
             rowHeight: 50,
-            totalServerItems: 'totalServerItems',
-            pagingOptions: $scope.pagingOptions,
             multiSelect: false,
             enableSorting: false,
             selectedItems: [],
@@ -54,18 +46,6 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                             { field: 'appointments', displayName: emr.message('appointmentschedulingui.scheduleAppointment.appointments'),
                                     cellTemplate: "<div>{{ row.getProperty(\'countOfAppointments\') }} " + emr.message('appointmentschedulingui.scheduleAppointment.scheduled')
                                         + "<br/>({{ row.getProperty(\'unallocatedMinutes\') }} " + emr.message('appointmentschedulingui.scheduleAppointment.minutesAvailable') + ")</div>" } ]
-        };
-        $scope.setPagingData = function(){
-            var page = $scope.pagingOptions.currentPage,
-                pageSize = $scope.pagingOptions.pageSize,
-                data = $scope.filteredTimeSlots;
-
-            var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-            $scope.filteredTimeSlots = pagedData;
-            $scope.totalServerItems = $scope.timeSlots.length;
-            if (!$scope.$$phase) {
-                $scope.$apply();
-            }
         };
 
         $scope.getAppointmentTypes = function(searchString) {
@@ -120,10 +100,17 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
                     || (row.appointmentBlock.provider && row.appointmentBlock.provider.person.display.toLowerCase().indexOf($scope.filterText.toLowerCase()) != -1);
             });
 
-            $scope.setPagingData();
+            $scope.updatePagination();
         }
 
-        $scope.$watch('pagingOptions', $scope.updateFilter, true);
+        $scope.updatePagination = function () {
+            $scope.filteredTimeSlots = $scope.setPagingData($scope.filteredTimeSlots);
+            if (!$scope.$$phase) {
+                $scope.$apply();
+            }
+        }
+
+        ngGridPaginationFactory.includePagination($scope, $scope.timeSlotOptions, $scope.updateFilter);
 
         $scope.selectTimeSlot = function() {
             $scope.selectedTimeSlot = $scope.timeSlotOptions.selectedItems[0];

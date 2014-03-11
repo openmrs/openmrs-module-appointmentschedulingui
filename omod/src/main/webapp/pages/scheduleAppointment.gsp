@@ -17,6 +17,7 @@
     ui.includeJavascript("appointmentschedulingui", "controllers/timeframePickerController.js")
     ui.includeJavascript("appointmentschedulingui", "directives/timeframePicker.js")
     ui.includeJavascript("appointmentschedulingui", "services/timeframePickerEventListener.js")
+    ui.includeJavascript("appointmentschedulingui", "services/ngGridPagination.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "scheduleAppointment.js")
 
