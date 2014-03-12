@@ -28,7 +28,8 @@
         'appointmentschedulingui.dailyScheduledAppointments.patientName',
         'appointmentschedulingui.scheduleAppointment.errorSavingAppointment',
         'appointmentschedulingui.dailyScheduledAppointments.patientId',
-        'appointmentschedulingui.dailyScheduledAppointments.dossierNumber'
+        'appointmentschedulingui.dailyScheduledAppointments.dossierNumber',
+        'appointmentschedulingui.dailyScheduledAppointments.appointmentBlock'
 ].flatten()
 ]) %>
 
@@ -44,10 +45,13 @@
 <div class="container"ng-app="appointmentscheduling.scheduledAppointmentBlocks"  ng-controller="ScheduledAppointmentBlockController">
     <h1>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }</h1>
     <div class="appointment-filter">
-        <span class="angular-datepicker inline-box" >
+        <div id="filter-date" class="inline-box">
+        <p>${ ui.message("appointmentschedulingui.scheduleAppointment.date")}</p>
+        <span class="angular-datepicker" >
             <input type="text" is-open="datePicker.opened" ng-model="filterDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
             <i class="icon-calendar small add-on" ng-click="datePicker.open(\$event)" ></i>
         </span>
+        </div>
 
         <div id="filter-location" class="inline-box">
             <p>${ ui.message("uicommons.location") }</p>
@@ -65,7 +69,7 @@
             </select>
         </div>
         <div id="filter-appointmentBlock" class="inline-box">
-            <p>${ ui.message("appointmentschedulingui.scheduleAppointment.serviceTypes") }</p>
+            <p>${ ui.message("appointmentschedulingui.scheduleAppointment.appointmentBlock") }</p>
             <select ng-model="appointmentBlockFilter" ng-options="apppointmentBlock for apppointmentBlock in appointmentBlocks" ng-change="newSelectedAppointmentBlock(appointmentBlockFilter)">
             </select>
         </div>
