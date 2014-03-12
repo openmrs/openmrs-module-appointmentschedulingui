@@ -17,26 +17,36 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
     $scope.showNoScheduledAppointmentBlocks = false;
     $scope.showLoadingMessage = false;
     $scope.filterOptions = {
-      filterText: ''
+      filterText: ''  ,
+      useExternalFilter: false
     };
 
+    $scope.filterObjects = { provider: "", serviceType: "", appointmentBlock: ""};
+
     $scope.newSelectedProvider = function(provider){
-        if(provider == 'All providers') $scope.filterOptions.filterText = '';
-        else $scope.filterOptions.filterText = 'provider:' + provider + ';';
+        if(provider == 'All providers') $scope.filterObjects.provider = '';
+        else $scope.filterObjects.provider = 'provider:' + provider + ';';
+        $scope.updateFilters();
     };
 
     $scope.newSelectedServiceType = function(serviceType){
-        if(serviceType == 'All service types') $scope.filterOptions.filterText = '';
-        else $scope.filterOptions.filterText = 'patient: ' + serviceType + ';';
+        if(serviceType == 'All service types') $scope.filterObjects.serviceType = '';
+        else $scope.filterObjects.serviceType = 'service: ' + serviceType + ';';
+        $scope.updateFilters();
     };
 
     $scope.newSelectedAppointmentBlock = function(appointmentBlock){
-        if(appointmentBlock == 'All appointment blocks') $scope.filterOptions.filterText = '';
+        if(appointmentBlock == 'All appointment blocks') $scope.filterObjects.appointmentBlock = '';
         else {
             var filterTextAppointmentBlock =  appointmentBlock.replace(/:/g, "\\x3a");
-            $scope.filterOptions.filterText = 'time:' + filterTextAppointmentBlock + ';';
+            $scope.filterObjects.appointmentBlock = 'time:' + filterTextAppointmentBlock + ';';
         }
+        $scope.updateFilters();
     };
+
+    $scope.updateFilters = function () {
+        $scope.filterOptions.filterText = $scope.filterObjects.provider + $scope.filterObjects.serviceType + $scope.filterObjects.appointmentBlock;
+    }
 
     $scope.pagingOptions = {
         pageSizes: [5],
