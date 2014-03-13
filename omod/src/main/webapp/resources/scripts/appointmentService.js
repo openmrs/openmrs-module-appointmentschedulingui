@@ -83,6 +83,31 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
             },
 
             /**
+             * Fetches Appointments based on parameters in params map
+             *
+             * @param fromDate (optional) - The appointment start date
+             * @param toDate (optional) - The appointment end date
+             * @param location (optional) - The appointment location
+             * @param provider (optional) - The appointment provider
+             * @param appointmentType (optional) - The appointment type
+             * @param status (optional) - The appointment status
+             * @param patient (optional) - The patient
+             * @return  $promise of array of matching appointment (REST default representation by default)
+             */
+            getAppointments: function(params) {
+
+                if (params['v'] == undefined) {
+                    params['v'] = 'default';
+                }
+
+                return Appointment.query(params).$promise
+                    .then(function(res) {
+                        return res.results;
+                    });
+
+            },
+
+            /**
              * Saves an Appointment
              *
              * @param appointment to save

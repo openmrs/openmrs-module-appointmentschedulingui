@@ -11,6 +11,7 @@ describe('AppointmentService tests', function() {
     var deferredAppointmentBlockQuery;
     var deferredAppointmentBlockSave;
     var deferredAppointmentBlockDelete;
+    var deferredAppointmentQuery;
     var deferredAppointmentSave;
 
 
@@ -77,7 +78,17 @@ describe('AppointmentService tests', function() {
 
 
     // create mock Appointment resource
-    var mockAppointment = jasmine.createSpyObj('Appointment', ['save']);
+    var mockAppointment = jasmine.createSpyObj('Appointment', ['query','save']);
+    mockAppointment.query.andCallFake(function() {
+
+        deferredAppointmentQuery = q.defer();
+
+        var promise_mock = {
+            $promise: deferredAppointmentQuery.promise
+        }
+
+        return promise_mock;
+    })
     mockAppointment.save.andCallFake(function() {
 
         deferredAppointmentSave = q.defer();
@@ -211,5 +222,24 @@ describe('AppointmentService tests', function() {
         appointmentService.cancelAppointment({ 'uuid': 'uuid' });
         expect(mockAppointment.save).toHaveBeenCalledWith({ 'uuid': 'uuid', 'status': 'CANCELLED' });
     });
+
+    it('should call Appointment resource with query value and default representation', inject(function($rootScope) {
+        var appointments;
+        appointmentService.getAppointments({ 'appointmentType' : '123abc' }).then(function(result) {
+            appointments = result;
+        });
+
+        deferredAppointmentQuery.resolve({
+            results: [
+                { "display": "some_appointment" }
+            ]
+        })
+
+        $rootScope.$apply(); // see testing section of http://docs.angularjs.org/api/ng/service/$q
+
+        expect(mockAppointment.query).toHaveBeenCalledWith({ 'appointmentType' : '123abc', 'v': 'default'  });
+        expect(appointments.length).toBe(1);
+        expect(appointments[0].display).toBe("some_appointment");
+    }));
 
 })
