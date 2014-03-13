@@ -1,5 +1,4 @@
-angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap',
-        'ngGrid', 'scheduleAppointmentTimeframePickerApp', 'ngGridPaginationApp'])
+angular.module('appointmentscheduling.scheduleAppointment')
     .controller('ScheduleAppointmentCtrl', function ($scope, $timeout, AppointmentService, filterFilter,
                                                      timeframePickerEventListener, ngGridPaginationFactory) {
         timeframePickerEventListener.subscribe($scope);
@@ -12,6 +11,7 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         $scope.selectedTimeSlot = undefined;
         $scope.appointmentReason = '';
         $scope.allAppointmentTypes = [];
+        $scope.appointmentReason = '';
 
         // initialize all appointment types array
         AppointmentService.getAppointmentTypes().then(function (result) {
@@ -27,7 +27,7 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
         $scope.searchButtonDisabled = false;
         $scope.confirmAppointmentButtonsDisabled = false;
 
-        $scope.appointmentToCancel = null;
+
 
         $scope.filterOptions = {
             filterText: "",
@@ -161,25 +161,5 @@ angular.module('appointmentscheduling.scheduleAppointment', ['appointmentschedul
             });
         }
 
-        $scope.confirmCancelAppointment = function(uuid) {
-            $scope.appointmentToCancel = { uuid: uuid };
-            $timeout(function() {
-                angular.element('#confirm-cancel-appointment .confirm').focus();
-            });
-        }
 
-        $scope.doCancelAppointment = function() {
-            AppointmentService.cancelAppointment($scope.appointmentToCancel).then(function() {
-                // success callback
-                location.href = location.href;
-            }).catch(function () {
-                // error callback
-                emr.errorMessage("appointmentschedulingui.scheduleAppointment.errorCancelingAppointment");
-            })
-            $scope.appointmentToCancel = null;
-        }
-
-        $scope.doNotCancelAppointment = function() {
-            $scope.appointmentToCancel = null;
-        }
     });
