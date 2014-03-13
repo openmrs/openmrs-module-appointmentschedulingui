@@ -1,18 +1,16 @@
 angular.module('appointmentscheduling.scheduleAppointment')
-    .controller('ScheduleAppointmentCtrl',['$scope', '$timeout', 'AppointmentService', 'filterFilter',
-        'timeframePickerEventListener', 'ngGridPaginationFactory', function ($scope, $timeout, AppointmentService, filterFilter,
+    .controller('ScheduleAppointmentCtrl',['$scope', 'AppointmentService', 'filterFilter',
+        'timeframePickerEventListener', 'ngGridPaginationFactory', function ($scope, AppointmentService, filterFilter,
                                                      timeframePickerEventListener, ngGridPaginationFactory) {
+
         timeframePickerEventListener.subscribe($scope);
 
         // model
-        $scope.appointmentType = undefined;
         $scope.filterText = '';
         $scope.timeSlots = [];
         $scope.filteredTimeSlots = [];
-        $scope.selectedTimeSlot = undefined;
-        $scope.appointmentReason = '';
+
         $scope.allAppointmentTypes = [];
-        $scope.appointmentReason = '';
 
         // initialize all appointment types array
         AppointmentService.getAppointmentTypes().then(function (result) {
@@ -23,7 +21,6 @@ angular.module('appointmentscheduling.scheduleAppointment')
         $scope.showNoTimeSlotsMessage = false;
         $scope.showLoadingMessage = false;
         $scope.showScheduleAppointment = true;
-        $scope.showConfirmAppointment = false;
         $scope.showAllAppointmentTypesModal = false;
         $scope.searchButtonDisabled = false;
         $scope.confirmAppointmentButtonsDisabled = false;
@@ -116,37 +113,6 @@ angular.module('appointmentscheduling.scheduleAppointment')
         $scope.selectTimeSlot = function() {
             $scope.selectedTimeSlot = $scope.timeSlotOptions.selectedItems[0];
             $scope.showScheduleAppointment = false;
-            $scope.showConfirmAppointment = true;
-        }
-
-        $scope.cancelConfirmAppointment = function () {
-            $scope.showConfirmAppointment = false;
-            $scope.showScheduleAppointment = true;
-        }
-
-        $scope.confirmAppointment = function() {
-
-            $scope.confirmAppointmentButtonsDisabled = true;
-
-            var appointment = { 'appointmentType': $scope.appointmentType.uuid,
-                                'status': 'SCHEDULED',
-                                'timeSlot': $scope.selectedTimeSlot.uuid,
-                                'reason': $scope.appointmentReason,
-                                'patient': patientUuid  // from global scope, defined in scheduleAppointment.gsp
-                                };
-
-            AppointmentService.saveAppointment(appointment).then(function() {
-
-                // success callback
-                emr.navigateTo({
-                    provider: 'appointmentschedulingui',
-                    page: 'sessionInfo',
-                    query: { patientUuid: patientUuid }
-                });
-            }).catch(function () {
-                // error callback
-                emr.errorMessage("appointmentschedulingui.scheduleAppointment.errorSavingAppointment");
-            })
         }
 
         $scope.selectAppointmentType = function(type) {
@@ -162,5 +128,8 @@ angular.module('appointmentscheduling.scheduleAppointment')
             });
         }
 
+        $scope.cancelConfirmAppointment = function () {
+            $scope.showScheduleAppointment = true;
+        }
 
     }]);

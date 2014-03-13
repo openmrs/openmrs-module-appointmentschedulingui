@@ -22,6 +22,7 @@
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "scheduleAppointment.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/cancelAppointmentController.js")
+    ui.includeJavascript("appointmentschedulingui", "controllers/confirmAppointmentController.js")
 
     ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
     ui.includeCss("appointmentschedulingui", "manageAppointments.css")
@@ -162,14 +163,14 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
        <table id="appointmentTable" class="gridStyle" ng-grid="timeSlotOptions" ng-show="showTimeSlotsGrid"></table>
 
-    <div id="selectAppointment">
+       <div id="selectAppointment">
             <button class="confirm" ng-click="selectTimeSlot()" ng-show="showTimeSlotsGrid" ng-disabled="timeSlotOptions.selectedItems.length == 0">
                 ${ ui.message("uicommons.next") }</button>
        </div>
 
    </div>
 
-   <div ng-show="showConfirmAppointment" id="confirmAppointment" class="container">
+   <div ng-hide="showScheduleAppointment" id="confirmAppointment" class="container" ng-controller="ConfirmAppointmentCtrl">
         <h2>
             ${ ui.message("appointmentschedulingui.scheduleAppointment.confirmAppointment") }
         </h2>
