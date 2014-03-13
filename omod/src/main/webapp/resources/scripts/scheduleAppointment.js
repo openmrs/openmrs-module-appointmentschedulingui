@@ -1,5 +1,6 @@
 angular.module('appointmentscheduling.scheduleAppointment')
-    .controller('ScheduleAppointmentCtrl', function ($scope, $timeout, AppointmentService, filterFilter,
+    .controller('ScheduleAppointmentCtrl',['$scope', '$timeout', 'AppointmentService', 'filterFilter',
+        'timeframePickerEventListener', 'ngGridPaginationFactory', function ($scope, $timeout, AppointmentService, filterFilter,
                                                      timeframePickerEventListener, ngGridPaginationFactory) {
         timeframePickerEventListener.subscribe($scope);
 
@@ -162,4 +163,4 @@ angular.module('appointmentscheduling.scheduleAppointment')
         }
 
 
-    });
+    }]);

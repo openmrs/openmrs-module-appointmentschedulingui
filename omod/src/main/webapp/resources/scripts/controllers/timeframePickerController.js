@@ -1,5 +1,5 @@
-angular.module('scheduleAppointmentTimeframePickerApp', [])
-    .controller('timeframePickerController', function($scope){
+angular.module('scheduleAppointmentTimeframePickerApp')
+    .controller('timeframePickerController', ['$scope', function($scope){
         $scope.now = new Date();
 
         var initializeStartDatePicker = function () {
@@ -37,4 +37,4 @@ angular.module('scheduleAppointmentTimeframePickerApp', [])
         $scope.$watch('endDate', function(newValue) {
             $scope.$emit('timeframePickerApp.changeEndDate', newValue);
         });
-    });
+    }]);
