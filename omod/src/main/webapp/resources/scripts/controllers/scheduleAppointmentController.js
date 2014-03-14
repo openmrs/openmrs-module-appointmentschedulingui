@@ -80,8 +80,14 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 $scope.showLoadingMessage = false;
                 $scope.timeSlots = results;
 
-                $scope.showTimeSlotsGrid = true;
-                $scope.showNoTimeSlotsMessage = results.length == 0;
+                if(results.length == 0) {
+                    $scope.showNoTimeSlotsMessage = true;
+                    $scope.showTimeSlotsGrid = false;
+                } else {
+                    $scope.showTimeSlotsGrid = true;
+                }
+
+
 
                 $scope.updateFilter();
                 $scope.searchButtonDisabled = false;
