@@ -14,9 +14,13 @@
 package org.openmrs.module.appointmentschedulingui;
 
 
-import org.apache.commons.logging.Log; 
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.ModuleActivator;
+import org.openmrs.module.ModuleFactory;
+import org.openmrs.module.appointmentschedulingui.htmlformentry.AppointmentCheckInTagHandler;
+import org.openmrs.module.htmlformentry.HtmlFormEntryService;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -50,6 +54,13 @@ public class AppointmentSchedulingUIActivator implements ModuleActivator {
 	 * @see ModuleActivator#started()
 	 */
 	public void started() {
+
+        if (ModuleFactory.isModuleStarted("htmlformentry")) {
+            HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
+            AppointmentCheckInTagHandler appointmentCheckInTagHandler = new AppointmentCheckInTagHandler();
+            htmlFormEntryService.addHandler(AppointmentSchedulingUIProperties.APPOINTMENT_CHECK_IN_TAG_NAME, appointmentCheckInTagHandler);
+        }
+
 		log.info("Appointment Scheduling UI Module started");
 	}
 	
@@ -64,6 +75,14 @@ public class AppointmentSchedulingUIActivator implements ModuleActivator {
 	 * @see ModuleActivator#stopped()
 	 */
 	public void stopped() {
+
+        try {
+            HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
+            htmlFormEntryService.getHandlers().remove(AppointmentSchedulingUIProperties.APPOINTMENT_CHECK_IN_TAG_NAME);
+        } catch (Exception ex) {
+            // pass
+        }
+
 		log.info("Appointment Scheduling UI Module stopped");
 	}
 		

@@ -2,10 +2,6 @@ angular.module('appointmentscheduling.appointmentCheckInTag', ['appointmentsched
     .controller('AppointmentCheckInTagCtrl', function ($scope, AppointmentService) {
 
         /**
-         * Private variables
-         */
-
-        /**
          * Private utility methods
          */
         var getAppointmentsForPatientOnDate = function() {
@@ -13,10 +9,10 @@ angular.module('appointmentscheduling.appointmentCheckInTag', ['appointmentsched
             $scope.appointmentsToCheckIn = [];
             $scope.otherAppointmentsOnSameDay = [];
 
-            // get the query parameters from the global variables defined in the gsp
+            // get the query parameters
             var patientUuid = appointmentCheckInTagPatientUuid;
-            var date = appointmentCheckInTagDate;
-            var locationUuid = appointmentCheckInTagLocationUuid;
+            var date = getValue('encounterDate.value') ? getValue('encounterDate.value') : appointmentCheckInTagDate;
+            var locationUuid = getValue('encounterLocation.value') ? locationIdToUuidMap[getValue('encounterLocation.value')] : appointmentCheckInTagLocationUuid;
 
             // we need to manually format here because the default moment format displays a time zone offset as -5:00 (which is ISO 6801)
             // but currently WS-REST only accepts the format -500 (RFC 822) (the 'ZZ' instead of 'Z' specifies this format)
@@ -41,6 +37,16 @@ angular.module('appointmentscheduling.appointmentCheckInTag', ['appointmentsched
             });
         }
 
+        var registerEventHandlers = function () {
+
+            jq(getField('encounterLocation.value')).change(function() {
+                getAppointmentsForPatientOnDate();
+            });
+            jq(getField('encounterDate.value')).change(function() {
+                getAppointmentsForPatientOnDate();
+            })
+
+        }
 
         /**
          * Model
@@ -55,6 +61,7 @@ angular.module('appointmentscheduling.appointmentCheckInTag', ['appointmentsched
 
         $scope.init = function () {
             getAppointmentsForPatientOnDate();
+            registerEventHandlers();
         }
 
         $scope.init();
