@@ -2,8 +2,6 @@ angular.module('appointmentscheduling.scheduleAppointment')
     .controller('ConfirmAppointmentCtrl', ['$scope', 'AppointmentService', function ($scope, AppointmentService) {
         $scope.appointmentReason = '';
 
-
-
         $scope.confirmAppointment = function() {
 
             $scope.confirmAppointmentButtonsDisabled = true;
