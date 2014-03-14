@@ -8,12 +8,14 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
 
     LocationService.getLocations(locationSearchParams).then(function (result){
             $scope.locations = result;
-            appointmentHelper.setUpLocationFilter($scope);
+            scheduledAppointmentBlocksHelper.setUpLocationFilter($scope);
     });
 
     $scope.filterDate = Date.now();
-    $scope.datePicker = appointmentHelper.setupDatePicker($scope);
-
+    $scope.datePicker = scheduledAppointmentBlocksHelper.setupDatePicker($scope);
+    $scope.services = [{name: emr.message("appointmentschedulingui.dailyScheduledAppointments.allServiceTypes"), uuid: null}];
+    $scope.serviceFilter = $scope.services[0];
+    $scope.serviceFilterChange = false;
     $scope.showNoScheduledAppointmentBlocks = false;
     $scope.showLoadingMessage = false;
     $scope.filterOptions = {
@@ -24,22 +26,22 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
     $scope.filterObjects = { provider: "", serviceType: "", appointmentBlock: ""};
 
     $scope.newSelectedProvider = function(provider){
-        if(provider == 'All providers') $scope.filterObjects.provider = '';
-        else $scope.filterObjects.provider = 'provider:' + provider + ';';
+        if(provider == emr.message("appointmentschedulingui.dailyScheduledAppointments.allProviders"))
+            $scope.filterObjects.provider = '';
+        else $scope.filterObjects.provider = emr.message("appointmentschedulingui.dailyScheduledAppointments.provider") + ':' + provider + ';';
         $scope.updateFilters();
     };
 
-    $scope.newSelectedServiceType = function(serviceType){
-        if(serviceType == 'All service types') $scope.filterObjects.serviceType = '';
-        else $scope.filterObjects.serviceType = 'service: ' + serviceType + ';';
-        $scope.updateFilters();
+    $scope.newSelectedServiceType = function(){
+        $scope.serviceFilterChange =true;
     };
 
     $scope.newSelectedAppointmentBlock = function(appointmentBlock){
-        if(appointmentBlock == 'All appointment blocks') $scope.filterObjects.appointmentBlock = '';
+        if(appointmentBlock == emr.message("appointmentschedulingui.dailyScheduledAppointments.allAppointmentBlocks"))
+            $scope.filterObjects.appointmentBlock = '';
         else {
             var filterTextAppointmentBlock =  appointmentBlock.replace(/:/g, "\\x3a");
-            $scope.filterObjects.appointmentBlock = 'time:' + filterTextAppointmentBlock + ';';
+            $scope.filterObjects.appointmentBlock = emr.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") + ':' + filterTextAppointmentBlock + ';';
         }
         $scope.updateFilters();
     };
@@ -54,31 +56,36 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
         currentPage: 1
     };
 
-    $scope.scheduledAppointmentBlocksGrid = appointmentHelper.setUpGrid($scope);
+    $scope.scheduledAppointmentBlocksGrid = scheduledAppointmentBlocksHelper.setUpGrid($scope);
     $scope.scheduledAppointmentBlocks = [];
     $scope.totalScheduledAppointmentBlocks = [];
     $scope.totalServerItems = 0;
     $scope.updatePagingData = function() {
-        appointmentHelper.setPagingData($scope);
+        scheduledAppointmentBlocksHelper.setPagingData($scope);
     };
 
     $scope.getScheduledAppointmentBlocks = function(){
         var date = new Date($scope.filterDate);
         var location = $scope.locationFilter;
+        var serviceType = $scope.serviceFilter;
         var params = { 'date' : moment(date).format('YYYY-MM-DD'),
-                       'location' : location.uuid};
+                       'location' : location.uuid,
+                       'appointmentType' : serviceType.uuid};
 
-        appointmentHelper.initializeMessages($scope);
+        scheduledAppointmentBlocksHelper.initializeMessages($scope);
 
         AppointmentService.getScheduledAppointmentBlocks(params).then( function(results){
             parsedScheduledAppointmentBlocks = appointmentParser.parseScheduledAppointmentBlocks(results);
             $scope.scheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
             $scope.totalScheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
-            appointmentHelper.findProvidersFromGrid($scope);
-            appointmentHelper.findServiceTypesFromGrid($scope);
-            appointmentHelper.findAppointmentBlockFromGrid($scope);
-            appointmentHelper.manageMessages($scope);
-            appointmentHelper.setPagingData($scope);
+            scheduledAppointmentBlocksHelper.findProvidersFromGrid($scope);
+            scheduledAppointmentBlocksHelper.findAppointmentBlockFromGrid($scope);
+
+            if(!$scope.serviceFilterChange)
+            scheduledAppointmentBlocksHelper.findServiceTypesFromGrid($scope);
+
+            scheduledAppointmentBlocksHelper.manageMessages($scope);
+            scheduledAppointmentBlocksHelper.setPagingData($scope);
         });
     };
 
@@ -88,6 +95,7 @@ angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointment
             if (newValue!= oldValue) {
                 $scope.getScheduledAppointmentBlocks();
             }
-    })
+    });
+    $scope.$watch('serviceFilter', $scope.getScheduledAppointmentBlocks, true);
 
 });

@@ -434,12 +434,14 @@ describe('AppointmentSchedulingParser tests', function() {
         expect(patientsScheduled.length).toBe(2);
 
         expect(patientsScheduled[0].name).toBe("pamela pamela");
-        expect(patientsScheduled[0].serviceType).toBe("Charles");
+        expect(patientsScheduled[0].serviceType.name).toBe("Charles");
+        expect(patientsScheduled[0].serviceType.uuid).toBe("de4f6849-1b0a-4d7d-9d89-c19b6040bec5");
         expect(patientsScheduled[0].primaryIdentifier).toBe("Y2GAWR");
         expect(patientsScheduled[0].dossierNumber).toBe("A000015");
 
         expect(patientsScheduled[1].name).toBe("Mario Areias");
-        expect(patientsScheduled[1].serviceType).toBe("Charles");
+        expect(patientsScheduled[1].serviceType.name).toBe("Charles");
+        expect(patientsScheduled[1].serviceType.uuid).toBe("de4f6849-1b0a-4d7d-9d89-c19b6040bec5");
         expect(patientsScheduled[1].primaryIdentifier).toBe("Y2GHPW");
         expect(patientsScheduled[1].dossierNumber).toBe("");
     });
@@ -453,8 +455,4 @@ describe('AppointmentSchedulingParser tests', function() {
         expect(parsedScheduledAppointmentBlocks[1].provider).toBe(expected);
     });
 
-    it('should return service types with scheduled appointments', function() {
-        var expected = ["Charles"];
-        expect(parsedScheduledAppointmentBlocks[0].servicesWithAppointments()).toEqual(expected);
-    });
 });
