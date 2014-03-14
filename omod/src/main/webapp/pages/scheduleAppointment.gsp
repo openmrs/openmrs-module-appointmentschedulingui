@@ -20,7 +20,7 @@
     ui.includeJavascript("appointmentschedulingui", "services/timeframePickerEventListener.js")
     ui.includeJavascript("appointmentschedulingui", "services/ngGridPagination.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
-    ui.includeJavascript("appointmentschedulingui", "scheduleAppointment.js")
+    ui.includeJavascript("appointmentschedulingui", "controllers/scheduleAppointmentController.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/cancelAppointmentController.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/confirmAppointmentController.js")
 
