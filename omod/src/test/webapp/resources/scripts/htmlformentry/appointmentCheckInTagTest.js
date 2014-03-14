@@ -4,12 +4,19 @@ describe('AppointmentCheckInTagCtrl', function() {
     appointmentCheckInTagLocationUuid = 'abc';
     appointmentCheckInTagDate = new Date();
 
+    // mock the HFE getValue and getField functions
+    getValue = function() { return null }
+    getField = function() { return null }
+
+    // create mock jquery resource
+    jq = function() { return { change: function () { return null } } }
+
     var $scope;
     var $rootScope;
     var $controller;
     var createController;
     var q;
-    var deferredGetAppointments;
+    var deferredGetAppointments;;
 
     beforeEach(module('appointmentscheduling.appointmentCheckInTag'));
 
@@ -37,7 +44,6 @@ describe('AppointmentCheckInTagCtrl', function() {
         deferredGetAppointments = q.defer();
         return deferredGetAppointments.promise;
     })
-
 
     it('should initialize appointment information', function() {
 
