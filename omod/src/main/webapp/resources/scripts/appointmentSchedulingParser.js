@@ -23,7 +23,15 @@ appointmentParser.parseScheduledAppointmentBlocks = function(scheduledAppointmen
             patients.push(patientInformation);
         });
 
-        return patients;
+        function comparePatientsName(patientA,patientB) {
+            if (patientA.name < patientB.name)
+                return -1;
+            if (patientA.name > patientB.name)
+                return 1;
+            return 0;
+        }
+
+        return patients.sort(comparePatientsName);
     };
 
     var parsePrimaryIdentifier = function(data){
