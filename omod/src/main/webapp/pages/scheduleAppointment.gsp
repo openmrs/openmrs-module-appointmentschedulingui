@@ -26,6 +26,7 @@
 
     ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
     ui.includeCss("appointmentschedulingui", "manageAppointments.css")
+    ui.includeCss("appointmentschedulingui", "dateRangePicker.css")
 %>
 
 <%= ui.includeFragment("appui", "messages", [ codes: [
