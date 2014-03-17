@@ -19,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
+import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.appointmentschedulingui.htmlformentry.AppointmentCheckInTagHandler;
 import org.openmrs.module.htmlformentry.HtmlFormEntryService;
 
@@ -57,8 +58,9 @@ public class AppointmentSchedulingUIActivator implements ModuleActivator {
 
         if (ModuleFactory.isModuleStarted("htmlformentry")) {
             HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
-            AppointmentCheckInTagHandler appointmentCheckInTagHandler = new AppointmentCheckInTagHandler();
-            htmlFormEntryService.addHandler(AppointmentSchedulingUIProperties.APPOINTMENT_CHECK_IN_TAG_NAME, appointmentCheckInTagHandler);
+            AppointmentService appointmentService = Context.getService(AppointmentService.class);
+            htmlFormEntryService.addHandler(AppointmentSchedulingUIProperties.APPOINTMENT_CHECK_IN_TAG_NAME,
+                    createAppointmentCheckInTagHandler(appointmentService));
         }
 
 		log.info("Appointment Scheduling UI Module started");
@@ -85,5 +87,10 @@ public class AppointmentSchedulingUIActivator implements ModuleActivator {
 
 		log.info("Appointment Scheduling UI Module stopped");
 	}
-		
+
+    public static AppointmentCheckInTagHandler createAppointmentCheckInTagHandler(AppointmentService appointmentService) {
+        AppointmentCheckInTagHandler appointmentCheckInTagHandler = new AppointmentCheckInTagHandler();
+        appointmentCheckInTagHandler.setAppointmentService(appointmentService);
+        return appointmentCheckInTagHandler;
+    }
 }
