@@ -1,9 +1,9 @@
-describe('timeframePicker directive', function () {
+describe('dateRangePicker directive', function () {
 
     describe('the components form the template must be correctly displayed', function () {
         var compile, scope, template;
 
-        beforeEach(module('scheduleAppointmentTimeframePickerApp'));
+        beforeEach(module('scheduleAppointmentDateRangePickerApp'));
 
         beforeEach(inject(function ($rootScope, $compile, $templateCache) {
             template = '<div id="selectTimeframe" class="inlineBox">'+
@@ -18,7 +18,7 @@ describe('timeframePicker directive', function () {
                 '</span>'+
             '</div>';
 
-            $templateCache.put('../ms/uiframework/resource/appointmentschedulingui/partials/timeframepicker.html', template);
+            $templateCache.put('../ms/uiframework/resource/appointmentschedulingui/partials/daterangepicker.html', template);
 
             scope = $rootScope;
             compile= $compile;
@@ -30,7 +30,7 @@ describe('timeframePicker directive', function () {
             var endDatePickerInput = '<input type="text" is-open="endDateOptions.opened" ng-model="endDate" min="startDate || now"';
             var endDatePickerIcon = '<i class="icon-calendar small add-on" ng-click="endDateOptions.open($event)"';
 
-            var element = compile(angular.element('<timeframepicker/>'))(scope);
+            var element = compile(angular.element('<daterangepicker/>'))(scope);
             scope.$digest();
 
             expect(element.html()).toContain(startDatePickerInput);
@@ -41,7 +41,7 @@ describe('timeframePicker directive', function () {
 
         it('should display the custom header message according to the headermessage parameter', function () {
 
-            var element = compile(angular.element('<timeframepicker headermessage="Custom header"/>'))(scope);
+            var element = compile(angular.element('<daterangepicker headermessage="Custom header"/>'))(scope);
             scope.$digest();
 
             expect(element.html()).toContain('Custom header');

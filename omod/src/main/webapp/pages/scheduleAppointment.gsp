@@ -15,9 +15,9 @@
     ui.includeJavascript("appointmentschedulingui","app.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
 
-    ui.includeJavascript("appointmentschedulingui", "controllers/timeframePickerController.js")
-    ui.includeJavascript("appointmentschedulingui", "directives/timeframePickerDirective.js")
-    ui.includeJavascript("appointmentschedulingui", "services/timeframePickerEventListener.js")
+    ui.includeJavascript("appointmentschedulingui", "controllers/dateRangePickerController.js")
+    ui.includeJavascript("appointmentschedulingui", "directives/dateRangePickerDirective.js")
+    ui.includeJavascript("appointmentschedulingui", "services/dateRangePickerEventListener.js")
     ui.includeJavascript("appointmentschedulingui", "services/ngGridPagination.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/scheduleAppointmentController.js")
@@ -145,7 +145,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 <a ng-click="showAllAppointmentTypesModal = true">${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }</a>
            </div>
 
-           <timeframepicker headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'></timeframepicker>
+           <daterangepicker headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'></daterangepicker>
        </div>
 
         <div id="searchButtons">

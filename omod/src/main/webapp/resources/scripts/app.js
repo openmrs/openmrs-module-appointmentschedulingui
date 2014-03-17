@@ -2,8 +2,8 @@
 // dependency problems between controllers, directives and services will be resolved.
 
 angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap',
-    'ngGrid', 'scheduleAppointmentTimeframePickerApp', 'ngGridPaginationApp']);
+    'ngGrid', 'scheduleAppointmentDateRangePickerApp', 'ngGridPaginationApp']);
 
-angular.module('scheduleAppointmentTimeframePickerApp', [] );
+angular.module('scheduleAppointmentDateRangePickerApp', [] );
 
 angular.module('ngGridPaginationApp', []);

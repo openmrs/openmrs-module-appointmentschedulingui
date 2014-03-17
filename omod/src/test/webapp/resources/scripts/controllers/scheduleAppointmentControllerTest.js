@@ -3,7 +3,7 @@ describe('ScheduleAppointment tests', function() {
     var scope,
         mockAppointmentService,
         mockFilterFilter,
-        mockTimeframePickerEventListener,
+        mockDateRangePickerEventListener,
         mockNgGridPaginationFactory,
         deferred,
         promise;
@@ -19,14 +19,14 @@ describe('ScheduleAppointment tests', function() {
 
         mockFilterFilter = jasmine.createSpy('filterFilter');
 
-        mockTimeframePickerEventListener = jasmine.createSpyObj('timeframePickerEventListener', ['subscribe']);
+        mockDateRangePickerEventListener = jasmine.createSpyObj('dateRangePickerEventListener', ['subscribe']);
 
         mockNgGridPaginationFactory = jasmine.createSpyObj('ngGridPaginationFactory', ['includePagination']);
 
         scope = $rootScope.$new();
 
         $controller('ScheduleAppointmentCtrl', {$scope: scope, AppointmentService: mockAppointmentService,
-            filterFilter: mockFilterFilter, timeframePickerEventListener: mockTimeframePickerEventListener,
+            filterFilter: mockFilterFilter, dateRangePickerEventListener: mockDateRangePickerEventListener,
             ngGridPaginationFactory: mockNgGridPaginationFactory});
     }));
 
@@ -42,8 +42,8 @@ describe('ScheduleAppointment tests', function() {
        });
     });
 
-    it('must call the subscribe method from the timeframePickerEventListener service when the controller is created', function () {
-        expect(mockTimeframePickerEventListener.subscribe).toHaveBeenCalledWith(scope);
+    it('must call the subscribe method from the dateRangePickerEventListener service when the controller is created', function () {
+        expect(mockDateRangePickerEventListener.subscribe).toHaveBeenCalledWith(scope);
     });
 
     describe('it must get all the appointments and apply filters', function () {

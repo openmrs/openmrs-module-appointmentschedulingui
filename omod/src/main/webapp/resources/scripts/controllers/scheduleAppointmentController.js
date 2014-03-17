@@ -1,7 +1,7 @@
 angular.module('appointmentscheduling.scheduleAppointment')
     .controller('ScheduleAppointmentCtrl',['$scope', 'AppointmentService', 'filterFilter',
-        'timeframePickerEventListener', 'ngGridPaginationFactory', function ($scope, AppointmentService, filterFilter,
-                                                     timeframePickerEventListener, ngGridPaginationFactory) {
+        'dateRangePickerEventListener', 'ngGridPaginationFactory', function ($scope, AppointmentService, filterFilter,
+                                                     dateRangePickerEventListener, ngGridPaginationFactory) {
         $scope.filterText = '';
         $scope.timeSlots = [];
         $scope.filteredTimeSlots = [];
@@ -35,7 +35,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                                         + "<br/>({{ row.getProperty(\'unallocatedMinutes\') }} " + emr.message('appointmentschedulingui.scheduleAppointment.minutesAvailable') + ")</div>" } ]
         };
 
-        timeframePickerEventListener.subscribe($scope);
+        dateRangePickerEventListener.subscribe($scope);
 
         AppointmentService.getAppointmentTypes().then(function (result) {
             $scope.allAppointmentTypes = result;

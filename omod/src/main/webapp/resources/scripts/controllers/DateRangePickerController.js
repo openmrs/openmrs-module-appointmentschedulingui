@@ -1,5 +1,5 @@
-angular.module('scheduleAppointmentTimeframePickerApp')
-    .controller('timeframePickerController', ['$scope', function($scope){
+angular.module('scheduleAppointmentDateRangePickerApp')
+    .controller('dateRangePickerController', ['$scope', function($scope){
         $scope.now = new Date();
 
         var initializeStartDatePicker = function () {
@@ -32,9 +32,9 @@ angular.module('scheduleAppointmentTimeframePickerApp')
         initializeEndDatePicker();
 
         $scope.$watch('startDate', function(newValue) {
-            $scope.$emit('timeframePickerApp.changeFromDate', newValue);
+            $scope.$emit('dateRangePickerApp.changeStartDate', newValue);
         });
         $scope.$watch('endDate', function(newValue) {
-            $scope.$emit('timeframePickerApp.changeEndDate', newValue);
+            $scope.$emit('dateRangePickerApp.changeEndDate', newValue);
         });
     }]);
