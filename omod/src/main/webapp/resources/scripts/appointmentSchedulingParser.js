@@ -3,7 +3,7 @@ var appointmentParser = appointmentParser || {};
 appointmentParser.parseScheduledAppointmentBlocks = function(scheduledAppointmentBlocks){
 
     var parseAppointmentBlockDate = function(data){
-        return  moment(data.startDate).format("HH:mm a") + " - " + moment(data.endDate).format("HH:mm a");
+        return  moment(data.startDate).format("hh:mm a") + " - " + moment(data.endDate).format("hh:mm a");
     };
 
     var parsePatients = function(data){

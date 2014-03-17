@@ -424,8 +424,8 @@ describe('AppointmentSchedulingParser tests', function() {
     });
 
     it('should parse date range of a scheduled appointment block', function (){
-        expect(parsedScheduledAppointmentBlocks[0].date).toBe(moment("2014-02-14T16:00:00.000-0200").format("HH:mm a")
-            + " - " + moment("2014-02-14T21:00:00.000-0200").format("HH:mm a"));
+        expect(parsedScheduledAppointmentBlocks[0].date).toBe(moment("2014-02-14T16:00:00.000-0200").format("hh:mm a")
+            + " - " + moment("2014-02-14T21:00:00.000-0200").format("hh:mm a"));
     })
 
     it('should parse patient information of a scheduled appointment block', function() {
