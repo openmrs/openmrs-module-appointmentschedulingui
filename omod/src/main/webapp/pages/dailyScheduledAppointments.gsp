@@ -18,7 +18,7 @@
     ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
     ui.includeJavascript("appointmentschedulingui", "scheduledAppointmentBlocks.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentSchedulingParser.js")
-    ui.includeJavascript("appointmentschedulingui", "appointmentHelper.js")
+    ui.includeJavascript("appointmentschedulingui", "scheduledAppointmentBlocksHelper.js")
     ui.includeCss("appointmentschedulingui", "scheduledAppointmentBlock.css")
 %>
 
@@ -28,7 +28,10 @@
         'appointmentschedulingui.dailyScheduledAppointments.patientName',
         'appointmentschedulingui.scheduleAppointment.errorSavingAppointment',
         'appointmentschedulingui.dailyScheduledAppointments.patientId',
-        'appointmentschedulingui.dailyScheduledAppointments.dossierNumber'
+        'appointmentschedulingui.dailyScheduledAppointments.dossierNumber',
+        'appointmentschedulingui.dailyScheduledAppointments.allProviders',
+        'appointmentschedulingui.dailyScheduledAppointments.allAppointmentBlocks',
+        'appointmentschedulingui.dailyScheduledAppointments.allServiceTypes'
 ].flatten()
 ]) %>
 
@@ -64,7 +67,7 @@
         </div>
         <div id="filter-serviceType" class="inline-box">
             <p>${ ui.message("appointmentschedulingui.scheduleAppointment.serviceTypes") }</p>
-            <select ng-model="serviceFilter" ng-options="service for service in services" ng-change="newSelectedServiceType(serviceFilter)">
+                <select ng-model="serviceFilter" ng-options="service.name for service in services" ng-change="newSelectedServiceType()">
             </select>
         </div>
         <div id="filter-appointmentBlock" class="inline-box">

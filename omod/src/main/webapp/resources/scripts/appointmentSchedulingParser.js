@@ -3,7 +3,7 @@ var appointmentParser = appointmentParser || {};
 appointmentParser.parseScheduledAppointmentBlocks = function(scheduledAppointmentBlocks){
 
     var parseAppointmentBlockDate = function(data){
-        return  moment(data.startDate).format("HH:mm a") + " - " + moment(data.endDate).format("HH:mm a");
+        return  moment(data.startDate).format("hh:mm a") + " - " + moment(data.endDate).format("hh:mm a");
     };
 
     var parsePatients = function(data){
@@ -12,7 +12,10 @@ appointmentParser.parseScheduledAppointmentBlocks = function(scheduledAppointmen
         data.forEach(function(appointment){
             var patientInformation = {
                 name: appointment.patient.person.display,
-                serviceType: appointment.appointmentType.display,
+                serviceType: {
+                    name: appointment.appointmentType.display,
+                    uuid: appointment.appointmentType.uuid
+                },
                 primaryIdentifier: parsePrimaryIdentifier(appointment.patient.display),
                 dossierNumber: parseDossierNumber(appointment.patient.identifiers)
             };
@@ -44,17 +47,6 @@ appointmentParser.parseScheduledAppointmentBlocks = function(scheduledAppointmen
         else return 'No provider assigned';
     }
 
-    var findServicesWithAppointments = function () {
-        var services = [];
-        this.patients.forEach(function (patient) {
-          var service = patient.serviceType;
-          var indexService = services.indexOf(service);
-           if(indexService == -1)
-          services.push(patient.serviceType);
-        });
-        return services;
-    }
-
     var parsedScheduledAppointmentBlocks = [];
 
     scheduledAppointmentBlocks.forEach(function(block){
@@ -62,7 +54,6 @@ appointmentParser.parseScheduledAppointmentBlocks = function(scheduledAppointmen
         parsedScheduledAppointmentBlock.date = parseAppointmentBlockDate(block.appointmentBlock);
         parsedScheduledAppointmentBlock.provider = parseAppointmentBlockProvider(block.appointmentBlock);
         parsedScheduledAppointmentBlock.patients = parsePatients(block.appointments);
-        parsedScheduledAppointmentBlock.servicesWithAppointments = findServicesWithAppointments;
         parsedScheduledAppointmentBlocks.push(parsedScheduledAppointmentBlock);
     });
     return parsedScheduledAppointmentBlocks;

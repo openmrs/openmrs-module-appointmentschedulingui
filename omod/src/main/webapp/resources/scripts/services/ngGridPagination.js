@@ -1,4 +1,4 @@
-angular.module('ngGridPaginationApp', [])
+angular.module('ngGridPaginationApp')
     .factory('ngGridPaginationFactory', function () {
        return {
            includePagination: function (scope, ngGridOptions, updatePagingMethod) {

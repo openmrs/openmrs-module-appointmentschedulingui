@@ -243,6 +243,10 @@
                 </executions>
                 <configuration>
                     <jsSrcDir>${project.basedir}/src/main/webapp/resources/scripts</jsSrcDir>
+                    <sourceIncludes>
+                        <include>app.js</include>
+                        <include>**/*.js</include>
+                    </sourceIncludes>
                     <jsTestSrcDir>${project.basedir}/src/test/webapp/resources/scripts</jsTestSrcDir>
                     <preloadSources>
                         <!-- note that I think the jquery include must happen before the angular includes or we get an obscure error -->

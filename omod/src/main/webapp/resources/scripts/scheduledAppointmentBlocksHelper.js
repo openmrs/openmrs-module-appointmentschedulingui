@@ -1,6 +1,6 @@
-var appointmentHelper = appointmentHelper || {}
+var scheduledAppointmentBlocksHelper = scheduledAppointmentBlocksHelper || {}
 
-appointmentHelper.setupDatePicker = function(scope) {
+scheduledAppointmentBlocksHelper.setupDatePicker = function(scope) {
 
     var datePicker = {
         opened: false,
@@ -14,7 +14,7 @@ appointmentHelper.setupDatePicker = function(scope) {
     return datePicker;
 };
 
-appointmentHelper.setUpLocationFilter = function(scope) {
+scheduledAppointmentBlocksHelper.setUpLocationFilter = function(scope) {
     if( sessionLocationUuid){
         angular.forEach(scope.locations, function(location) {
             if (location.uuid == sessionLocationUuid) {
@@ -27,14 +27,15 @@ appointmentHelper.setUpLocationFilter = function(scope) {
     }
 };
 
-appointmentHelper.setUpGrid = function(scope){
+scheduledAppointmentBlocksHelper.setUpGrid = function(scope){
 
-    var templateCell = '<div ng-repeat=' +
+    var templateCell =
+        '<div ng-repeat=' +
         '"data in row.getProperty(col.field) track by $index">' +
             '<div class="ngCellText" >' +
                 '<div class="patientInformation appointmentSummary">' +
                     '<div class="patientName">{{data.name}}</div>' +
-                    '<div><small>({{data.serviceType}})</small></div>' +
+                    '<div><small>({{data.serviceType.name}})</small></div>' +
                 '</div>' +
                 '<div class="patientInformation identifier"><div>{{data.primaryIdentifier}}</div>' +
                 '<div><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId") + '</small></div></div>' +
@@ -69,7 +70,7 @@ appointmentHelper.setUpGrid = function(scope){
     return scheduledAppointmentBlocksGrid;
 };
 
-appointmentHelper.setPagingData = function(scope){
+scheduledAppointmentBlocksHelper.setPagingData = function(scope){
     var page = scope.pagingOptions.currentPage,
         pageSize = scope.pagingOptions.pageSize,
         data = scope.totalScheduledAppointmentBlocks;
@@ -83,12 +84,12 @@ appointmentHelper.setPagingData = function(scope){
     }
 };
 
-appointmentHelper.initializeMessages = function(scope){
+scheduledAppointmentBlocksHelper.initializeMessages = function(scope){
     scope.showLoadingMessage = true;
     scope.showNoScheduledAppointmentBlocks = false;
 };
 
-appointmentHelper.manageMessages = function(scope) {
+scheduledAppointmentBlocksHelper.manageMessages = function(scope) {
     scope.showLoadingMessage = false;
     if (scope.totalScheduledAppointmentBlocks.length == 0) {
         scope.showNoScheduledAppointmentBlocks = true;
@@ -97,8 +98,8 @@ appointmentHelper.manageMessages = function(scope) {
     }
 };
 
-appointmentHelper.findProvidersFromGrid = function(scope) {
-    scope.providers = ["All providers"];
+scheduledAppointmentBlocksHelper.findProvidersFromGrid = function(scope) {
+    scope.providers = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allProviders")];
     scope.providerFilter = scope.providers[0];
     angular.forEach(scope.scheduledAppointmentBlocks, function(block) {
         var index = scope.providers.indexOf(block.provider);
@@ -107,21 +108,33 @@ appointmentHelper.findProvidersFromGrid = function(scope) {
     });
 };
 
-appointmentHelper.findServiceTypesFromGrid = function (scope) {
-    scope.services = ["All service types"];
+scheduledAppointmentBlocksHelper.findServiceTypesFromGrid = function (scope) {
+    scope.services = [{name: emr.message("appointmentschedulingui.dailyScheduledAppointments.allServiceTypes"), uuid: null}];
     scope.serviceFilter = scope.services[0];
+
+    var serviceTypesScheduled = {};
+
     angular.forEach(scope.scheduledAppointmentBlocks, function (scheduledAppointmentBlock) {
-        var servicesByBlock = scheduledAppointmentBlock.servicesWithAppointments();
-        angular.forEach(servicesByBlock, function (service) {
-           var index = scope.services.indexOf(service);
-           if(index == -1)
-           scope.services.push(service);
-        });
+       angular.forEach(scheduledAppointmentBlock.patients, function (scheduledPatient){
+          scope.services.push(scheduledPatient.serviceType);
+       });
     });
+
+    var removeDuplicatedServicesFound = function (services) {
+        var servicesObject = {};
+        var i;
+
+        for(i = 0; i<services.length; i ++) servicesObject[services[i].uuid] = services[i];
+        var uniqueServices = [];
+
+        for(service in servicesObject)  uniqueServices.push(servicesObject[service]);
+        return uniqueServices;
+    }
+    scope.services = removeDuplicatedServicesFound(scope.services);
 }
 
-appointmentHelper.findAppointmentBlockFromGrid = function (scope) {
-    scope.appointmentBlocks = ["All appointment blocks"];
+scheduledAppointmentBlocksHelper.findAppointmentBlockFromGrid = function (scope) {
+    scope.appointmentBlocks = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allAppointmentBlocks")];
     scope.appointmentBlockFilter = scope.appointmentBlocks[0];
     angular.forEach(scope.scheduledAppointmentBlocks, function (scheduledAppointmentBlock) {
         var index = scope.appointmentBlocks.indexOf(scheduledAppointmentBlock.date);
@@ -129,6 +142,10 @@ appointmentHelper.findAppointmentBlockFromGrid = function (scope) {
             scope.appointmentBlocks.push(scheduledAppointmentBlock.date);
     })
 }
+
+
+
+
 
 
 
