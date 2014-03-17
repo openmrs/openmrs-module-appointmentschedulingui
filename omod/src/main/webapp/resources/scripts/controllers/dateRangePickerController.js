@@ -11,6 +11,12 @@ angular.module('scheduleAppointmentDateRangePickerApp')
 
                     $scope.startDateOptions.opened = true;
                     $scope.endDateOptions.opened = false;
+                },
+                clear: function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    $scope.startDate = '';
                 }
             };
         };
@@ -24,6 +30,12 @@ angular.module('scheduleAppointmentDateRangePickerApp')
 
                     $scope.startDateOptions.opened = false;
                     $scope.endDateOptions.opened = true;
+                },
+                clear: function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    $scope.endDate = '';
                 }
             };
         };
