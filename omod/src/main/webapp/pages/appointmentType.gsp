@@ -32,6 +32,7 @@
                 label: ui.message("appointmentschedulingui.appointmenttype.name"),
                 formFieldName: "name",
                 id: "name",
+                maxLength: 100,
                 initialValue: (appointmentType.name ?: '')
         ])}
 
