@@ -37,9 +37,15 @@ angular.module('appointmentscheduling.scheduleAppointment')
 
         dateRangePickerEventListener.subscribe($scope);
 
+        // initialize allAppointmentTypes variable
         AppointmentService.getAppointmentTypes().then(function (result) {
             $scope.allAppointmentTypes = result;
         });
+
+        // backing functional for the appointment type autocomplete
+        $scope.getAppointmentTypes = function(searchString) {
+            return AppointmentService.getAppointmentTypes(searchString);
+        }
 
         $scope.findAvailableTimeSlots = function() {
             initializeMessagesBeforeSearch();
