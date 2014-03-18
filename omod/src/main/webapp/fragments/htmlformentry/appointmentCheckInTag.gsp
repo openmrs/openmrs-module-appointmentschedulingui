@@ -38,7 +38,7 @@
         ${ ui.message("appointmentschedulingui.appointmentCheckInTag.appointmentsToCheckIn") }:
         <ul>
             <li ng-repeat="appointment in appointmentsToCheckIn">
-                {{ appointment.appointmentType.display }} - {{ appointment.timeSlot.appointmentBlock.provider.person.display }} - {{ appointment.timeSlot.startDate | date: 'hh:mm a' }}
+                {{ appointment.appointmentType.display }}, {{ appointment.timeSlot.appointmentBlock.provider.person.display }}{{ appointment.timeSlot.appointmentBlock.provider ? ', ' : '' }}{{ appointment.timeSlot.startDate | date: 'hh:mm a' }} - {{ appointment.timeSlot.endDate | date: 'hh:mm a' }}
             </li>
         </ul>
 
@@ -47,7 +47,7 @@
         ${ ui.message("appointmentschedulingui.appointmentCheckInTag.otherAppointmentsOnSameDay") }:
         <ul>
             <li ng-repeat="appointment in otherAppointmentsOnSameDay">
-                {{ appointment.appointmentType.display }} - {{ appointment.timeSlot.appointmentBlock.provider.person.display }} - {{ appointment.timeSlot.appointmentBlock.location.display}} - {{ appointment.timeSlot.startDate | date: 'hh:mm a' }}
+                {{ appointment.appointmentType.display }}, {{ appointment.timeSlot.appointmentBlock.provider.person.display }}{{ appointment.timeSlot.appointmentBlock.provider ? ', ' : '' }}{{ appointment.timeSlot.appointmentBlock.location.display}}, {{ appointment.timeSlot.startDate | date: 'hh:mm a' }} - {{ appointment.timeSlot.endDate | date: 'hh:mm a' }}
             </li>
         </ul>
     </div>
