@@ -1,6 +1,7 @@
 angular.module('appointmentscheduling.scheduleAppointment')
     .controller('CancelAppointmentCtrl', ['$scope', '$timeout', 'AppointmentService', function ($scope, $timeout, AppointmentService) {
         $scope.appointmentToCancel = null;
+        $scope.appointmentCancelReason = '';
 
         $scope.confirmCancelAppointment = function(uuid) {
             $scope.appointmentToCancel = { uuid: uuid };
@@ -10,6 +11,9 @@ angular.module('appointmentscheduling.scheduleAppointment')
         }
 
         $scope.doCancelAppointment = function() {
+            if ($scope.appointmentCancelReason.length > 0 ) {
+                $scope.appointmentToCancel.cancelReason = $scope.appointmentCancelReason;
+            }
             AppointmentService.cancelAppointment($scope.appointmentToCancel).then(function() {
                 // success callback
                 location.href = location.href;
