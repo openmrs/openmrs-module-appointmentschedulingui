@@ -14,8 +14,10 @@
     ui.includeJavascript("uicommons", "services/locationService.js")
     ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
 
+    ui.includeJavascript("appointmentschedulingui", "app.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
+    ui.includeJavascript("appointmentschedulingui", "services/ngGridPagination.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/scheduledAppointmentBlocksController.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentSchedulingParser.js")
     ui.includeJavascript("appointmentschedulingui", "scheduledAppointmentBlocksHelper.js")

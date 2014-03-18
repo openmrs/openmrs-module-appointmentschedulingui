@@ -67,21 +67,7 @@ scheduledAppointmentBlocksHelper.setUpGrid = function(scope){
               cellTemplate: templateCell }
         ]
     };
-    return scheduledAppointmentBlocksGrid;
-};
-
-scheduledAppointmentBlocksHelper.setPagingData = function(scope){
-    var page = scope.pagingOptions.currentPage,
-        pageSize = scope.pagingOptions.pageSize,
-        data = scope.totalScheduledAppointmentBlocks;
-
-    var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-
-    scope.scheduledAppointmentBlocks = pagedData;
-    scope.totalServerItems = scope.totalScheduledAppointmentBlocks.length;
-    if (!scope.$$phase) {
-        scope.$apply();
-    }
+        return scheduledAppointmentBlocksGrid;
 };
 
 scheduledAppointmentBlocksHelper.initializeMessages = function(scope){
