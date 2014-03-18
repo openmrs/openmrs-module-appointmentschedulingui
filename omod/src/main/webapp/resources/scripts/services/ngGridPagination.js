@@ -31,6 +31,12 @@ angular.module('ngGridPaginationApp')
                         updatePagingMethod();
                    }
                );
+
+               scope.$watch(
+                   "pagingOption.pageSize",
+                   function() {
+                       scope.pagingOptions.currentPage = 1;
+               });
            }
        };
     });

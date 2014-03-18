@@ -25,6 +25,12 @@ describe('ScheduleAppointment tests', function() {
 
         scope = $rootScope.$new();
 
+        scope.pagingOptions = {
+            pageSizes: [5,10,20],
+            pageSize: 10,
+            currentPage: 1
+        };
+
         $controller('ScheduleAppointmentCtrl', {$scope: scope, AppointmentService: mockAppointmentService,
             filterFilter: mockFilterFilter, dateRangePickerEventListener: mockDateRangePickerEventListener,
             ngGridPaginationFactory: mockNgGridPaginationFactory});
@@ -44,6 +50,14 @@ describe('ScheduleAppointment tests', function() {
 
     it('must call the subscribe method from the dateRangePickerEventListener service when the controller is created', function () {
         expect(mockDateRangePickerEventListener.subscribe).toHaveBeenCalledWith(scope);
+    });
+
+    it('must set the current page to 1 when the filter text changes', function () {
+        scope.pagingOptions.currentPage = 2;
+        scope.filterText = "Test";
+        scope.$apply();
+
+        expect(scope.pagingOptions.currentPage).toBe(1);
     });
 
     describe('it must get all the appointments and apply filters', function () {

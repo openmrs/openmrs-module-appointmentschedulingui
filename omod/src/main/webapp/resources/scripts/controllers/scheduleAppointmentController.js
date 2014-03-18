@@ -60,6 +60,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 initializeMessagesAfterSearch(results);
                 $scope.updateFilter();
                 $scope.searchButtonDisabled = false;
+                $scope.pagingOptions.currentPage = 1;
             })
             .catch(function() {
                 emr.errorMessage("appointmentschedulingui.scheduleAppointment.invalidSearchParameters");
@@ -133,4 +134,11 @@ angular.module('appointmentscheduling.scheduleAppointment')
         $scope.cancelConfirmAppointment = function () {
             $scope.showScheduleAppointment = true;
         }
+
+        $scope.$watch(
+            "filterText",
+            function() {
+                $scope.pagingOptions.currentPage = 1;
+            }
+        );
     }]);

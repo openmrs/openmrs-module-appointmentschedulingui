@@ -54,6 +54,13 @@ describe('ngGridPagination Factory', function () {
             expect(updatePagingMock).toHaveBeenCalled();
         });
 
+        it('should reset the current page to 1 when the page size changes', function () {
+            scope.pagingOptions.pageSizes = 5;
+            scope.$digest();
+
+            expect(scope.pagingOptions.currentPage).toBe(1);
+        });
+
 
     });
 
