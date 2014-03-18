@@ -16,7 +16,7 @@
 
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
-    ui.includeJavascript("appointmentschedulingui", "scheduledAppointmentBlocks.js")
+    ui.includeJavascript("appointmentschedulingui", "controllers/scheduledAppointmentBlocksController.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentSchedulingParser.js")
     ui.includeJavascript("appointmentschedulingui", "scheduledAppointmentBlocksHelper.js")
     ui.includeCss("appointmentschedulingui", "scheduledAppointmentBlock.css")
