@@ -13,6 +13,7 @@ describe('AppointmentService tests', function() {
     var deferredAppointmentBlockDelete;
     var deferredAppointmentQuery;
     var deferredAppointmentSave;
+    var deferredScheduledAppointmentBlockQuery;
 
 
     beforeEach(module('appointmentscheduling.appointmentService'));
@@ -100,6 +101,18 @@ describe('AppointmentService tests', function() {
         return promise_mock;
     })
 
+    var mockScheduledAppointmentBlock = jasmine.createSpyObj('ScheduledAppointmentBlock', ['query']);
+    mockScheduledAppointmentBlock.query.andCallFake(function () {
+
+        deferredScheduledAppointmentBlockQuery = q.defer();
+
+        var promise_mock = {
+            $promise: deferredScheduledAppointmentBlockQuery.promise
+        };
+
+        return promise_mock;
+    });
+
     beforeEach(module('appointmentscheduling.appointmentService'));
 
     beforeEach(module(function($provide) {
@@ -107,6 +120,7 @@ describe('AppointmentService tests', function() {
         $provide.value('TimeSlot', mockTimeSlot);
         $provide.value('Appointment', mockAppointment)
         $provide.value('AppointmentBlock', mockAppointmentBlock);
+        $provide.value('ScheduledAppointmentBlock', mockScheduledAppointmentBlock);
     }));
 
     // inject necessary dependencies
@@ -240,6 +254,35 @@ describe('AppointmentService tests', function() {
         expect(mockAppointment.query).toHaveBeenCalledWith({ 'appointmentType' : '123abc', 'v': 'default'  });
         expect(appointments.length).toBe(1);
         expect(appointments[0].display).toBe("some_appointment");
+    }));
+
+    it('should call ScheduledAppointmentBlock resource with query value', inject(function($rootScope) {
+        var scheduledAppointmentBlocks;
+        appointmentService.getScheduledAppointmentBlocks({date: "2014-03-01", location: "uuidLocation"}).then(function(results) {
+            scheduledAppointmentBlocks = results;
+        });
+
+        deferredScheduledAppointmentBlockQuery.resolve({
+            results: [
+                {
+                    appointmentBlock: {
+                        display: "Display some appointment block"
+                    },
+                    appointments: [
+                        {
+                         appointment: {
+                             display: "Display some appointment"
+                         }
+                        }
+                    ]
+                }
+            ]
+        });
+
+        $rootScope.$apply();
+        expect(mockScheduledAppointmentBlock.query).toHaveBeenCalledWith({ 'date': '2014-03-01', 'location': 'uuidLocation'});
+        expect(scheduledAppointmentBlocks.length).toBe(1);
+        expect(scheduledAppointmentBlocks[0].appointmentBlock.display).toBe("Display some appointment block");
     }));
 
 })

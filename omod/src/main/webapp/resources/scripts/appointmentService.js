@@ -127,9 +127,9 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
             },
 
             getScheduledAppointmentBlocks: function(params){
-                return ScheduledAppointmentBlock.query(params).$promise.then(function(res){
-                    return res.results;
-                });
+                    return ScheduledAppointmentBlock.query(params).$promise.then(function(res){
+                        return res.results;
+                    });
             }
         };
 
