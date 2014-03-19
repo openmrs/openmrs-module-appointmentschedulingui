@@ -1,11 +1,12 @@
 angular.module('appointmentscheduling.scheduledAppointmentBlocks')
     .controller('ScheduledAppointmentBlockController', ['$scope','AppointmentService',
-           'LocationService', 'ngGridPaginationFactory',
-function ($scope, AppointmentService, LocationService, ngGridPaginationFactory) {
+           'LocationService', 'ngGridPaginationFactory', 'filterFilter',
+function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, filterFilter) {
     $scope.showNoScheduledAppointmentBlocks = false;
     $scope.showLoadingMessage = false;
     $scope.scheduledAppointmentBlocks = [];
     $scope.totalScheduledAppointmentBlocks = [];
+    $scope.filteredScheduledAppointmentBlocks = [];
     $scope.scheduledAppointmentBlocksGrid = scheduledAppointmentBlocksHelper.setUpGrid($scope);
 
     $scope.filterDate = Date.now();
@@ -14,8 +15,9 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory) 
     $scope.serviceFilter = $scope.services[0];
     $scope.serviceFilterChange = false
 
-    $scope.filterOptions = { filterText: '', useExternalFilter: false};
-    $scope.filterObjects = { provider: "", serviceType: "", appointmentBlock: ""};
+    $scope.initializeFilterObject = function (){
+        $scope.filterObjects = { provider: "", serviceType: "", appointmentBlock: ""};
+    }
 
     var locationSearchParams = {};
     if (supportsAppointmentsTagUuid) {
@@ -29,8 +31,7 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory) 
 
     $scope.updatePagingData = function(){
 
-        $scope.scheduledAppointmentBlocks =  $scope.setPagingData($scope.totalScheduledAppointmentBlocks);
-        $scope.totalServerItems = $scope.totalScheduledAppointmentBlocks.length;
+        $scope.filteredScheduledAppointmentBlocks =  $scope.setPagingData($scope.filteredScheduledAppointmentBlocks);
         if (!$scope.$$phase) {
             $scope.$apply();
         }
@@ -65,7 +66,8 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory) 
                     scheduledAppointmentBlocksHelper.findServiceTypesFromGrid($scope);
 
                 scheduledAppointmentBlocksHelper.manageMessages($scope);
-                $scope.updatePagingData();
+                $scope.initializeFilterObject();
+                $scope.updateFilter();
             })
             .catch(function() {
                  emr.errorMessage("appointmentschedulingui.scheduleAppointment.invalidSearchParameters");
@@ -77,11 +79,17 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory) 
 
     };
 
+    $scope.updateFilter = function() {
+        $scope.filteredScheduledAppointmentBlocks = filterFilter($scope.scheduledAppointmentBlocks,
+            {date: $scope.filterObjects.appointmentBlock, provider: $scope.filterObjects.provider });
+        $scope.updatePagingData();
+    }
+
     $scope.newSelectedProvider = function(provider){
         if(provider == emr.message("appointmentschedulingui.dailyScheduledAppointments.allProviders"))
             $scope.filterObjects.provider = '';
-        else $scope.filterObjects.provider = emr.message("appointmentschedulingui.dailyScheduledAppointments.provider") + ':' + provider + ';';
-        $scope.updateFilters();
+        else $scope.filterObjects.provider =  provider;
+        $scope.updateFilter();
     };
 
     $scope.newSelectedServiceType = function(){
@@ -91,16 +99,9 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory) 
     $scope.newSelectedAppointmentBlock = function(appointmentBlock){
         if(appointmentBlock == emr.message("appointmentschedulingui.dailyScheduledAppointments.allAppointmentBlocks"))
             $scope.filterObjects.appointmentBlock = '';
-        else {
-            var filterTextAppointmentBlock =  appointmentBlock.replace(/:/g, "\\x3a");
-            $scope.filterObjects.appointmentBlock = emr.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") + ':' + filterTextAppointmentBlock + ';';
-        }
-        $scope.updateFilters();
+        else $scope.filterObjects.appointmentBlock =  appointmentBlock ;
+        $scope.updateFilter();
     };
-
-    $scope.updateFilters = function () {
-        $scope.filterOptions.filterText = $scope.filterObjects.provider + $scope.filterObjects.serviceType + $scope.filterObjects.appointmentBlock;
-    }
 
     $scope.$watch('filterDate', $scope.getScheduledAppointmentBlocks,true);
     $scope.$watch('locationFilter', $scope.getScheduledAppointmentBlocks,true);
