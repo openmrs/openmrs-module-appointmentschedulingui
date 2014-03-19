@@ -38,33 +38,21 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory) 
 
     ngGridPaginationFactory.includePagination($scope, $scope.scheduledAppointmentBlocksGrid, $scope.updatePagingData);
 
+    var getSearchParams = function () {
+        var params = {};
+        params.date =  moment(new Date($scope.filterDate)).format('YYYY-MM-DD');
+        params.location = $scope.locationFilter.uuid;
+        params.appointmentType = $scope.serviceFilter.uuid;
+        return params;
+    }
+
     $scope.getScheduledAppointmentBlocks = function(){
-
-        var getDateParam = function () {
-            var date = new Date(Date.now());
-            if($scope.filterDate)
-                date = new Date($scope.filterDate);
-            return moment(date).format('YYYY-MM-DD');
-        };
-
-        var getLocationParam = function (){
-            return $scope.locationFilter.uuid;
-        };
-
-        var getServiceTypeParam = function () {
-            return $scope.serviceFilter.uuid;
-        };
 
         if($scope.filterDate && $scope.locationFilter){
 
-            var params = {};
-            params.date =  getDateParam();
-            params.location = getLocationParam();
-            params.appointmentType = getServiceTypeParam();
-
             scheduledAppointmentBlocksHelper.initializeMessages($scope);
 
-            AppointmentService.getScheduledAppointmentBlocks(params).then( function(results){
+            AppointmentService.getScheduledAppointmentBlocks(getSearchParams()).then( function(results){
                 parsedScheduledAppointmentBlocks = appointmentParser.parseScheduledAppointmentBlocks(results);
 
                 $scope.scheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
@@ -118,7 +106,4 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory) 
     $scope.$watch('locationFilter', $scope.getScheduledAppointmentBlocks,true);
     $scope.$watch('serviceFilter', $scope.getScheduledAppointmentBlocks,true);
 
-    var filtersDateAndLocationInitialized = function(){
-        return $scope.filterDate && $scope.locationFilter;
-    }
 }]);
