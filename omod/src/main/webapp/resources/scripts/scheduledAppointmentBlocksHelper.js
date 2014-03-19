@@ -45,15 +45,11 @@ scheduledAppointmentBlocksHelper.setUpGrid = function(scope){
         '</div>';
 
     var scheduledAppointmentBlocksGrid = {
-        data: 'scheduledAppointmentBlocks',
+        data: 'filteredScheduledAppointmentBlocks',
         multiSelect: false,
         enableSorting: false,
-        enablePaging: true,
-        showFooter: true,
-        totalServerItems: 'totalServerItems',
-        pagingOptions: scope.pagingOptions,
         selectedItems: [],
-        filterOptions: scope.filterOptions,
+        filterOptions: { filterText: '', useExternalFilter: true},
         columnDefs: [
             { field: 'date',
                width: '20%',
