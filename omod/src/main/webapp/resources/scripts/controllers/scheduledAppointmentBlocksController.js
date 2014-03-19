@@ -10,9 +10,10 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory) 
 
     $scope.filterDate = Date.now();
     $scope.datePicker = scheduledAppointmentBlocksHelper.setupDatePicker($scope);
-    $scope.services = [{name: emr.message("appointmentschedulingui.dailyScheduledAppointments.allServiceTypes"), uuid: null}];
+    $scope.services = [{name: emr.message("appointmentschedulingui.dailyScheduledAppointments.allServiceTypes"), uuid: ""}];
     $scope.serviceFilter = $scope.services[0];
-    $scope.serviceFilterChange = false;
+    $scope.serviceFilterChange = false
+
     $scope.filterOptions = { filterText: '', useExternalFilter: false};
     $scope.filterObjects = { provider: "", serviceType: "", appointmentBlock: ""};
 
@@ -38,30 +39,54 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory) 
     ngGridPaginationFactory.includePagination($scope, $scope.scheduledAppointmentBlocksGrid, $scope.updatePagingData);
 
     $scope.getScheduledAppointmentBlocks = function(){
-        var date = new Date($scope.filterDate);
-        var location = $scope.locationFilter;
-        var serviceType = $scope.serviceFilter;
-        var params = { 'date' : moment(date).format('YYYY-MM-DD'),
-            'location' : location.uuid,
-            'appointmentType' : serviceType.uuid};
 
-        scheduledAppointmentBlocksHelper.initializeMessages($scope);
+        var getDateParam = function () {
+            var date = new Date(Date.now());
+            if($scope.filterDate)
+                date = new Date($scope.filterDate);
+            return moment(date).format('YYYY-MM-DD');
+        };
 
-        AppointmentService.getScheduledAppointmentBlocks(params).then( function(results){
-            parsedScheduledAppointmentBlocks = appointmentParser.parseScheduledAppointmentBlocks(results);
-            $scope.scheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
-            $scope.totalScheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
-            scheduledAppointmentBlocksHelper.findProvidersFromGrid($scope);
-            scheduledAppointmentBlocksHelper.findAppointmentBlockFromGrid($scope);
+        var getLocationParam = function (){
+            return $scope.locationFilter.uuid;
+        };
 
-            if(!$scope.serviceFilterChange)
-                scheduledAppointmentBlocksHelper.findServiceTypesFromGrid($scope);
+        var getServiceTypeParam = function () {
+            return $scope.serviceFilter.uuid;
+        };
 
-            scheduledAppointmentBlocksHelper.manageMessages($scope);
-            $scope.updatePagingData();
-        });
+        if($scope.filterDate && $scope.locationFilter){
 
-        $scope.pagingOptions.currentPage = 1;
+            var params = {};
+            params.date =  getDateParam();
+            params.location = getLocationParam();
+            params.appointmentType = getServiceTypeParam();
+
+            scheduledAppointmentBlocksHelper.initializeMessages($scope);
+
+            AppointmentService.getScheduledAppointmentBlocks(params).then( function(results){
+                parsedScheduledAppointmentBlocks = appointmentParser.parseScheduledAppointmentBlocks(results);
+
+                $scope.scheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
+                $scope.totalScheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
+
+                scheduledAppointmentBlocksHelper.findProvidersFromGrid($scope);
+                scheduledAppointmentBlocksHelper.findAppointmentBlockFromGrid($scope);
+
+                if(!$scope.serviceFilterChange)
+                    scheduledAppointmentBlocksHelper.findServiceTypesFromGrid($scope);
+
+                scheduledAppointmentBlocksHelper.manageMessages($scope);
+                $scope.updatePagingData();
+            })
+            .catch(function() {
+                 emr.errorMessage("appointmentschedulingui.scheduleAppointment.invalidSearchParameters");
+                 scheduledAppointmentBlocksHelper.manageMessages($scope);
+             });
+
+            $scope.pagingOptions.currentPage = 1;
+        }
+
     };
 
     $scope.newSelectedProvider = function(provider){
@@ -89,12 +114,11 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory) 
         $scope.filterOptions.filterText = $scope.filterObjects.provider + $scope.filterObjects.serviceType + $scope.filterObjects.appointmentBlock;
     }
 
-    $scope.$watch('serviceFilter', $scope.getScheduledAppointmentBlocks, true);
-    $scope.$watch('filterDate', $scope.getScheduledAppointmentBlocks, true);
-    $scope.$watch('locationFilter', function(newValue, oldValue) {
-        if (newValue!= oldValue) {
-            $scope.getScheduledAppointmentBlocks();
-        }
-    });
+    $scope.$watch('filterDate', $scope.getScheduledAppointmentBlocks,true);
+    $scope.$watch('locationFilter', $scope.getScheduledAppointmentBlocks,true);
+    $scope.$watch('serviceFilter', $scope.getScheduledAppointmentBlocks,true);
 
+    var filtersDateAndLocationInitialized = function(){
+        return $scope.filterDate && $scope.locationFilter;
+    }
 }]);
