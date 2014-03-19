@@ -8,6 +8,7 @@ angular.module('ngGridPaginationApp')
                    currentPage: 1
                };
 
+               scope.selectedPageSize = scope.pagingOptions.pageSize;
                scope.totalServerItems = 0;
 
                ngGridOptions.totalServerItems = 'totalServerItems'
@@ -28,15 +29,13 @@ angular.module('ngGridPaginationApp')
                scope.$watchCollection(
                    "pagingOptions",
                    function() {
-                        updatePagingMethod();
+                       if(scope.selectedPageSize !== scope.pagingOptions.pageSize) {
+                           scope.pagingOptions.currentPage = 1;
+                           scope.selectedPageSize = scope.pagingOptions.pageSize;
+                       }
+                       updatePagingMethod();
                    }
                );
-
-               scope.$watch(
-                   "pagingOption.pageSize",
-                   function() {
-                       scope.pagingOptions.currentPage = 1;
-               });
            }
        };
     });
