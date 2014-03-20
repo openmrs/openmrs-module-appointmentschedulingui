@@ -12,6 +12,7 @@
     ui.includeJavascript("uicommons", "moment.min.js")
     ui.includeJavascript("uicommons", "emr.js")
     ui.includeJavascript("uicommons", "services/locationService.js")
+    ui.includeJavascript("uicommons", "rest/restUtils.js")
     ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
 
     ui.includeJavascript("appointmentschedulingui", "app.js")
@@ -33,7 +34,8 @@
         'appointmentschedulingui.dailyScheduledAppointments.dossierNumber',
         'appointmentschedulingui.dailyScheduledAppointments.allProviders',
         'appointmentschedulingui.dailyScheduledAppointments.allAppointmentBlocks',
-        'appointmentschedulingui.dailyScheduledAppointments.allServiceTypes'
+        'appointmentschedulingui.dailyScheduledAppointments.allServiceTypes',
+        'appointmentscheduling.AppointmentBlock.error.scheduledAppointmentBlocks'
 ].flatten()
 ]) %>
 

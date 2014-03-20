@@ -9,4 +9,4 @@ angular.module('scheduleAppointmentDateRangePickerApp', [] );
 angular.module('ngGridPaginationApp', []);
 
 angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointmentscheduling.appointmentService', 'locationService',
-    'ui.bootstrap', 'ngGrid', 'ngGridPaginationApp']);
+    'ui.bootstrap', 'ngGrid', 'ngGridPaginationApp', 'uicommons.RESTUtils']);

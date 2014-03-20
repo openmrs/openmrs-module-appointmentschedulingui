@@ -1,7 +1,7 @@
 angular.module('appointmentscheduling.scheduledAppointmentBlocks')
     .controller('ScheduledAppointmentBlockController', ['$scope','AppointmentService',
-           'LocationService', 'ngGridPaginationFactory', 'filterFilter',
-function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, filterFilter) {
+           'LocationService', 'ngGridPaginationFactory', 'filterFilter',  'RESTErrorResponse',
+function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, filterFilter, RESTErrorResponse) {
     $scope.showNoScheduledAppointmentBlocks = false;
     $scope.showLoadingMessage = false;
     $scope.scheduledAppointmentBlocks = [];
@@ -69,8 +69,10 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
                 $scope.initializeFilterObject();
                 $scope.updateFilter();
             })
-            .catch(function() {
-                 emr.errorMessage("appointmentschedulingui.scheduleAppointment.invalidSearchParameters");
+            .catch(function(response) {
+                    var errorResponse = new RESTErrorResponse(response);
+                    var message = errorResponse.response.data.exception.message;
+                    emr.errorMessage(message);
                  scheduledAppointmentBlocksHelper.manageMessages($scope);
              });
 
