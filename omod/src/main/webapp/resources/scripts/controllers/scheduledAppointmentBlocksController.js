@@ -1,7 +1,7 @@
 angular.module('appointmentscheduling.scheduledAppointmentBlocks')
     .controller('ScheduledAppointmentBlockController', ['$scope','AppointmentService',
-           'LocationService', 'ngGridPaginationFactory', 'filterFilter',  'RESTErrorResponse',
-function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, filterFilter, RESTErrorResponse) {
+           'LocationService', 'ngGridPaginationFactory', 'filterFilter',  'RESTErrorResponse', 'Parse' ,
+function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, filterFilter, RESTErrorResponse, Parse) {
     $scope.showNoScheduledAppointmentBlocks = false;
     $scope.showLoadingMessage = false;
     $scope.scheduledAppointmentBlocks = [];
@@ -26,7 +26,7 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
 
     LocationService.getLocations(locationSearchParams).then(function (result){
         $scope.locations = result;
-        scheduledAppointmentBlocksHelper.setUpLocationFilter($scope);
+        $scope.locationFilter = scheduledAppointmentBlocksHelper.selectLocationToFilter($scope.locations);
     });
 
     $scope.updatePagingData = function(){
@@ -54,7 +54,7 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
             scheduledAppointmentBlocksHelper.initializeMessages($scope);
 
             AppointmentService.getScheduledAppointmentBlocks(getSearchParams()).then( function(results){
-                parsedScheduledAppointmentBlocks = appointmentParser.parseScheduledAppointmentBlocks(results);
+                parsedScheduledAppointmentBlocks = Parse.scheduledAppointmentBlocks(results);
 
                 $scope.scheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
                 $scope.totalScheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;

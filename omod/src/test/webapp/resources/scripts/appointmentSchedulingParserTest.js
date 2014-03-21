@@ -414,9 +414,16 @@ describe('AppointmentSchedulingParser tests', function() {
     ];
 
     var parsedScheduledAppointmentBlocks = [];
+    var scope, parse;
 
-    beforeEach( function () {
-        parsedScheduledAppointmentBlocks = appointmentParser.parseScheduledAppointmentBlocks(appointmentScheduling);
+    beforeEach( function() {
+
+        module('appointmentSchedulingParse');
+        inject(function ($rootScope, $injector) {
+            scope = $rootScope.$new();
+            parse = $injector.get('Parse');
+        });
+        parsedScheduledAppointmentBlocks = parse.scheduledAppointmentBlocks(appointmentScheduling);
     });
 
     it('should parse scheduled appointment blocks', function () {

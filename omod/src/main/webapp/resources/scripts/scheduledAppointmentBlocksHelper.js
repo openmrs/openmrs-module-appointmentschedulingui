@@ -14,17 +14,21 @@ scheduledAppointmentBlocksHelper.setupDatePicker = function(scope) {
     return datePicker;
 };
 
-scheduledAppointmentBlocksHelper.setUpLocationFilter = function(scope) {
+scheduledAppointmentBlocksHelper.selectLocationToFilter = function(locations) {
+    var selectedLocation = {};
+
     if( sessionLocationUuid){
-        angular.forEach(scope.locations, function(location) {
+        angular.forEach(locations, function(location) {
             if (location.uuid == sessionLocationUuid) {
-                scope.locationFilter = location;
+                selectedLocation = location;
             }
         });
     }
-    else if( scope.locations && scope.locations.length > 0){
-        scope.locationFilter = scope.locations[0];
+    else if( locations && locations.length > 0){
+        selectedLocation = scope.locations[0];
     }
+
+    return selectedLocation;
 };
 
 scheduledAppointmentBlocksHelper.setUpGrid = function(scope){
