@@ -1,7 +1,7 @@
 angular.module('appointmentscheduling.scheduledAppointmentBlocks')
     .controller('ScheduledAppointmentBlockController', ['$scope','AppointmentService',
-           'LocationService', 'ngGridPaginationFactory', 'filterFilter',  'RESTErrorResponse', 'Parse' ,
-function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, filterFilter, RESTErrorResponse, Parse) {
+           'LocationService', 'ngGridPaginationFactory', 'filterFilter',  'RESTErrorResponse', 'Parse', 'scheduledAppointmentBlocksHelper' ,
+function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, filterFilter, RESTErrorResponse, Parse, scheduledAppointmentBlocksHelper) {
     $scope.showNoScheduledAppointmentBlocks = false;
     $scope.showLoadingMessage = false;
     $scope.scheduledAppointmentBlocks = [];

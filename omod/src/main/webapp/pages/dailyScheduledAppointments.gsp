@@ -21,7 +21,7 @@
     ui.includeJavascript("appointmentschedulingui", "services/ngGridPagination.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/scheduledAppointmentBlocksController.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentSchedulingParser.js")
-    ui.includeJavascript("appointmentschedulingui", "scheduledAppointmentBlocksHelper.js")
+    ui.includeJavascript("appointmentschedulingui", "appointmentSchedulingHelper.js")
     ui.includeCss("appointmentschedulingui", "scheduledAppointmentBlock.css")
 %>
 

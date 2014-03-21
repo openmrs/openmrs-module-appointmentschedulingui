@@ -1,9 +1,0 @@
-describe('Appointment helper tests', function() {
-   it('should get a list of time range from scheduled appointment blocks', function () {
-      var expected = ["9:00 am - 12:00 pm", "14:00 pm 19:00 pm"];
-
-      var appointmentBlocks =  scheduledAppointmentBlocksHelper.findAppointmentBlockFromGrid();
-
-      expect(appointmentBlocks.size).toBe(expected.size);
-   });
-});
