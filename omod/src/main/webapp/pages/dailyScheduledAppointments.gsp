@@ -71,7 +71,7 @@
         </div>
         <div id="filter-serviceType" class="inline-box">
             <p>${ ui.message("appointmentschedulingui.scheduleAppointment.serviceTypes") }</p>
-                <select ng-model="serviceFilter" ng-options="service.name for service in services" ng-change="newSelectedServiceType()">
+                <select ng-model="serviceFilter" ng-options="service.name for service in services">
             </select>
         </div>
         <div id="filter-appointmentBlock" class="inline-box">

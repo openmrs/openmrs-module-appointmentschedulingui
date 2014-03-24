@@ -82,8 +82,6 @@ angular.module('appointmentSchedulingHelper')
                }
            },
            findProvidersFromGrid: function(scope) {
-               scope.providers = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allProviders")];
-               scope.providerFilter = scope.providers[0];
                angular.forEach(scope.scheduledAppointmentBlocks, function(block) {
                    var index = scope.providers.indexOf(block.provider);
                    if(index == -1)
@@ -92,9 +90,6 @@ angular.module('appointmentSchedulingHelper')
            },
 
            findServiceTypesFromGrid:  function (scope) {
-               scope.services = [{name: emr.message("appointmentschedulingui.dailyScheduledAppointments.allServiceTypes"), uuid: null}];
-               scope.serviceFilter = scope.services[0];
-
                var serviceTypesScheduled = {};
 
                angular.forEach(scope.scheduledAppointmentBlocks, function (scheduledAppointmentBlock) {
@@ -117,8 +112,6 @@ angular.module('appointmentSchedulingHelper')
            },
 
            findAppointmentBlockFromGrid: function (scope) {
-                scope.appointmentBlocks = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allAppointmentBlocks")];
-                scope.appointmentBlockFilter = scope.appointmentBlocks[0];
                 angular.forEach(scope.scheduledAppointmentBlocks, function (scheduledAppointmentBlock) {
                     var index = scope.appointmentBlocks.indexOf(scheduledAppointmentBlock.date);
                     if(index == -1)
