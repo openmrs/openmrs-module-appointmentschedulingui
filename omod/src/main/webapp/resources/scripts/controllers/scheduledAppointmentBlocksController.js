@@ -70,11 +70,11 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
                 scheduledAppointmentBlocksHelper.findProvidersFromGrid($scope);
                 scheduledAppointmentBlocksHelper.findAppointmentBlockFromGrid($scope);
 
-                if(!$scope.serviceFilterChange)
+                if($scope.filterDateOrLocationChanged) {
                     scheduledAppointmentBlocksHelper.findServiceTypesFromGrid($scope);
+                }
 
                 scheduledAppointmentBlocksHelper.manageMessages($scope);
-                $scope.initializeFilterObject();
                 $scope.updateFilter();
             })
             .catch(function(response) {
