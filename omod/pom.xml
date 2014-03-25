@@ -259,7 +259,6 @@
                         <source>${project.basedir}/src/test/webapp/provided/scripts/ui-bootstrap-tpls-0.6.0.min.js</source>
                         <source>${project.basedir}/src/test/webapp/provided/scripts/moment.min.js</source>
                         <source>${project.basedir}/src/test/webapp/provided/scripts/ng-grid-2.0.7.min.js</source>
-                        <source>${project.basedir}/src/test/webapp/provided/scripts/locationService.js</source>
                     </preloadSources>
                     <serverPort>7234</serverPort>
                 </configuration>
