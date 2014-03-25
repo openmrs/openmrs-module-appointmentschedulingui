@@ -7,6 +7,7 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
     $scope.scheduledAppointmentBlocks = [];
     $scope.totalScheduledAppointmentBlocks = [];
     $scope.filteredScheduledAppointmentBlocks = [];
+    $scope.paginatedScheduledAppointmentBlocks = [];
     $scope.scheduledAppointmentBlocksGrid = scheduledAppointmentBlocksHelper.setUpGrid($scope);
 
     $scope.filterDate = Date.now();
@@ -39,7 +40,7 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
 
     $scope.updatePagingData = function(){
 
-        $scope.filteredScheduledAppointmentBlocks =  $scope.setPagingData($scope.filteredScheduledAppointmentBlocks);
+        $scope.paginatedScheduledAppointmentBlocks =  $scope.setPagingData($scope.filteredScheduledAppointmentBlocks);
         if (!$scope.$$phase) {
             $scope.$apply();
         }

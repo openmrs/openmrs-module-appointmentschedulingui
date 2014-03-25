@@ -49,7 +49,7 @@ angular.module('appointmentSchedulingHelper')
                        '</div>';
 
                var scheduledAppointmentBlocksGrid = {
-                   data: 'filteredScheduledAppointmentBlocks',
+                   data: 'paginatedScheduledAppointmentBlocks',
                    multiSelect: false,
                    enableSorting: false,
                    selectedItems: [],
