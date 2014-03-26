@@ -247,6 +247,7 @@
                         <include>app.js</include>
                         <include>**/*.js</include>
                     </sourceIncludes>
+                    <jsTestSrcDir>${project.basedir}/src/test/webapp/resources/scripts</jsTestSrcDir>
                     <specExcludes>
                         <exclude>**/controllers/scheduledAppointmentBlocksControllerTest.js</exclude>
                     </specExcludes>
