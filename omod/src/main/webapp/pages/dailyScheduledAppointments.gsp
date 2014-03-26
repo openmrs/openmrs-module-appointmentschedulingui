@@ -45,7 +45,8 @@
         { label: "${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }", link: "${ ui.pageLink("appointmentschedulingui", "dailyScheduledAppointments") }" }];
 
     var supportsAppointmentsTagUuid = '${ supportsAppointmentsTagUuid }';
-    var sessionLocationUuid = '${ sessionLocationUuid }'
+    var sessionLocationUuid = '${ sessionLocationUuid }' ;
+    var telephoneAttributeTypeName = '${ telephoneAttributeTypeName}';
 </script>
 
 <div class="container"ng-app="appointmentscheduling.scheduledAppointmentBlocks"  ng-controller="ScheduledAppointmentBlockController">

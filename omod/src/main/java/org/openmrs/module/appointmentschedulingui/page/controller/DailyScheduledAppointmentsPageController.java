@@ -4,6 +4,7 @@ import org.openmrs.Location;
 import org.openmrs.LocationTag;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIProperties;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 
@@ -17,6 +18,8 @@ public class DailyScheduledAppointmentsPageController {
        LocationTag supportsAppointmentsTag =  properties.getSupportsAppointmentsTag();
        pageModel.addAttribute("supportsAppointmentsTagUuid",
                supportsAppointmentsTag != null ? supportsAppointmentsTag.getUuid() : "");
-       pageModel.addAttribute("sessionLocationUuid", location.getUuid() );
+       pageModel.addAttribute("sessionLocationUuid", location.getUuid());
+       String telephoneAttributeTypeName = EmrApiConstants.TELEPHONE_ATTRIBUTE_TYPE_NAME;
+       pageModel.addAttribute("telephoneAttributeTypeName", telephoneAttributeTypeName);
     }
 }
