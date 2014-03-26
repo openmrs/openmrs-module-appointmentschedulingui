@@ -6,6 +6,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
         $scope.timeSlots = [];
         $scope.filteredTimeSlots = [];
         $scope.allAppointmentTypes = [];
+        $scope.includeFull = false;
 
         $scope.showTimeSlotsGrid = false;
         $scope.showNoTimeSlotsMessage = false;
@@ -26,19 +27,20 @@ angular.module('appointmentscheduling.scheduleAppointment')
             multiSelect: false,
             enableSorting: false,
             selectedItems: [],
+            rowTemplate: "<div ng-class=\"{ highlighted: row.getProperty(\'full') }\"><div ng-style=\"{ 'cursor': row.cursor }\" ng-repeat=\"col in renderedColumns\" ng-class=\"col.colIndex()\" class=\"ngCell {{col.cellClass}}\"><div class=\"ngVerticalBar\" ng-style=\"{height: rowHeight}\" ng-class=\"{ ngVerticalBarVisible: !$last }\">&nbsp;</div><div ng-cell></div></div></div>",   // just the standard row template but with a wrapped div for adding row highlighting when a slot is full
             columnDefs: [   { field: 'date', displayName: emr.message('appointmentschedulingui.scheduleAppointment.timeSlot'),
                                     cellTemplate: "<div>{{ row.getProperty(\'dateFormatted\') }}<br/>{{ row.getProperty(\'startTimeFormatted\') }} - {{ row.getProperty(\'endTimeFormatted\') }}<div>"},
                             { field: 'appointmentBlock.provider.person.display', displayName: emr.message('uicommons.provider') },
                             { field: 'appointmentBlock.location.display', displayName: emr.message('uicommons.location') },
                             { field: 'appointments', displayName: emr.message('appointmentschedulingui.scheduleAppointment.appointments'),
                                     cellTemplate: "<div>{{ row.getProperty(\'countOfAppointments\') }} " + emr.message('appointmentschedulingui.scheduleAppointment.scheduled')
-                                        + "<br/>({{ row.getProperty(\'unallocatedMinutes\') }} " + emr.message('appointmentschedulingui.scheduleAppointment.minutesAvailable') + ")</div>" } ]
+                                        + "<br/>({{ row.getProperty(\'unallocatedMinutesAbsValue\') }} {{ row.getProperty(\'minutesMessage\') }})</div>" } ]
         };
 
         dateRangePickerEventListener.subscribe($scope);
 
         // initialize allAppointmentTypes variable
-        AppointmentService.getAppointmentTypes().then(function (result) {
+        AppointmentService.getAppointmentTypes({'v': 'full'}).then(function (result) {
             $scope.allAppointmentTypes = result;
         });
 
@@ -56,6 +58,11 @@ angular.module('appointmentscheduling.scheduleAppointment')
                     result['dateFormatted'] = moment(result.startDate).format("DD MMM YYYY");
                     result['startTimeFormatted'] = moment(result.startDate).format("h:mm A");
                     result['endTimeFormatted']= moment(result.endDate).format("h:mm A");
+                    result['full'] = result.unallocatedMinutes <= 0;
+                    result['unallocatedMinutesAbsValue'] = Math.abs(result.unallocatedMinutes);
+                    result['minutesMessage'] = (result.unallocatedMinutes < 0
+                        ? emr.message('appointmentschedulingui.scheduleAppointment.minutesOverbooked')
+                        : emr.message('appointmentschedulingui.scheduleAppointment.minutesAvailable'));
                 })
                 initializeMessagesAfterSearch(results);
                 $scope.updateFilter();
@@ -80,7 +87,8 @@ angular.module('appointmentscheduling.scheduleAppointment')
         };
 
         var getSearchParams = function () {
-            var params = { 'appointmentType' : $scope.appointmentType.uuid };
+            var params = { 'appointmentType' : $scope.appointmentType.uuid,
+                           'includeFull' : $scope.includeFull };
             if ($scope.fromDate) { params['fromDate'] = moment($scope.fromDate).format();}
             if ($scope.toDate) { params['toDate'] = moment($scope.toDate).endOf('day').format(); }
             return params;

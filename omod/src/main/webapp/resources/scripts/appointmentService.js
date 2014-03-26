@@ -1,5 +1,5 @@
 angular.module('appointmentscheduling.appointmentService', ['appointmentscheduling.appointmentResources'])
-    .factory('AppointmentService', function(Appointment, AppointmentType, AppointmentBlock, TimeSlot, ScheduledAppointmentBlock) {
+    .factory('AppointmentService', function(Appointment, AppointmentType, AppointmentBlock, TimeSlot, ScheduledAppointmentBlock, AppointmentAllowingOverbook) {
 
         return {
 
@@ -7,10 +7,10 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              * Fetches Appointment Types
              *
              * @param searchString a string to search against
-             * @returns $promise of array of matching appointment types (REST ref representation by default)
+             * @returns $promise of array of matching appointment types (REST full representation by default)
              */
             getAppointmentTypes: function(searchString) {
-                return AppointmentType.query({'q':searchString}).$promise
+                return AppointmentType.query({'q':searchString, 'v': 'full'}).$promise
                     .then(function(res) {
                         return res.results;
                     });
@@ -113,8 +113,13 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              * @param appointment to save
              * @returns $promise with results
              */
-            saveAppointment: function(appointment) {
-                return Appointment.save(appointment).$promise
+            saveAppointment: function(appointment, allowOverbook) {
+                if (allowOverbook) {
+                    return AppointmentAllowingOverbook.save(appointment).$promise
+                }
+                else {
+                    return Appointment.save(appointment).$promise
+                }
             },
 
             /**

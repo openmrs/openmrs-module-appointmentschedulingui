@@ -6,6 +6,33 @@ angular.module('appointmentscheduling.scheduleAppointment')
 
             $scope.confirmAppointmentButtonsDisabled = true;
 
+            if ($scope.selectedTimeSlot.full) {
+
+                var confirmOverbook = emr.setupConfirmationDialog({
+                    selector: '#confirm-overbook-dialog',
+                    actions: {
+                        confirm: function() {
+                            saveAppointment();
+                        },
+                        cancel: function() {
+                            $scope.cancelConfirmAppointment();
+                            $scope.confirmAppointmentButtonsDisabled = false;
+                            $scope.$parent.$digest();
+                        }
+
+                    }
+                });
+
+                confirmOverbook.show();
+            }
+            else {
+                saveAppointment();
+            }
+
+        }
+
+        var saveAppointment = function() {
+
             var appointment = { 'appointmentType': $scope.appointmentType.uuid,
                 'status': 'SCHEDULED',
                 'timeSlot': $scope.selectedTimeSlot.uuid,
@@ -13,7 +40,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 'patient': patientUuid  // from global scope, defined in scheduleAppointment.gsp
             };
 
-            AppointmentService.saveAppointment(appointment).then(function() {
+            AppointmentService.saveAppointment(appointment, true).then(function() {
 
                 // success callback
                 emr.navigateTo({

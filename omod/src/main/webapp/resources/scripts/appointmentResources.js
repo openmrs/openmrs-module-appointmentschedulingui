@@ -27,6 +27,15 @@ appointmentResource.factory('Appointment', function($resource) {
     });
 });
 
+appointmentResource.factory('AppointmentAllowingOverbook', function($resource) {
+    return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/appointmentallowingoverbook/:uuid", {
+        'uuid' : '@uuid'
+    },{
+        query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
+    });
+});
+
+
 appointmentResource.factory('AppointmentBlock', function($resource) {
     // note that we are using the appointmentblockwithtimeslot resource to keep the timeslot in sync with the appointment block
     return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/appointmentblockwithtimeslot/:uuid", {

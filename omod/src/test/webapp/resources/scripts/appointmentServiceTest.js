@@ -101,6 +101,20 @@ describe('AppointmentService tests', function() {
         return promise_mock;
     })
 
+    var mockAppointmentAllowingOverbook = jasmine.createSpyObj('AppointmentAllowingOverbook', ['save']);
+    mockAppointmentAllowingOverbook.save.andCallFake(function() {
+
+        deferredAppointmentSave = q.defer();
+
+        var promise_mock = {
+            $promise: deferredAppointmentSave.promise
+        }
+
+        return promise_mock;
+    })
+
+
+
     var mockScheduledAppointmentBlock = jasmine.createSpyObj('ScheduledAppointmentBlock', ['query']);
     mockScheduledAppointmentBlock.query.andCallFake(function () {
 
@@ -118,7 +132,8 @@ describe('AppointmentService tests', function() {
     beforeEach(module(function($provide) {
         $provide.value('AppointmentType', mockAppointmentType);
         $provide.value('TimeSlot', mockTimeSlot);
-        $provide.value('Appointment', mockAppointment)
+        $provide.value('Appointment', mockAppointment);
+        $provide.value('AppointmentAllowingOverbook', mockAppointmentAllowingOverbook);
         $provide.value('AppointmentBlock', mockAppointmentBlock);
         $provide.value('ScheduledAppointmentBlock', mockScheduledAppointmentBlock);
     }));
@@ -143,7 +158,7 @@ describe('AppointmentService tests', function() {
 
         $rootScope.$apply(); // see testing section of http://docs.angularjs.org/api/ng/service/$q
 
-        expect(mockAppointmentType.query).toHaveBeenCalledWith({ "q": "abc" });
+        expect(mockAppointmentType.query).toHaveBeenCalledWith({ "q": "abc", "v": "full" });
         expect(appointmentTypes.length).toBe(1);
         expect(appointmentTypes[0].display).toBe("abc_appointment_type");
 
@@ -163,7 +178,7 @@ describe('AppointmentService tests', function() {
 
         $rootScope.$apply(); // see testing section of http://docs.angularjs.org/api/ng/service/$q
 
-        expect(mockAppointmentType.query).toHaveBeenCalledWith({ "q": "abc" });
+        expect(mockAppointmentType.query).toHaveBeenCalledWith({ "q": "abc", "v": "full" });
         expect(appointmentTypes).toBe(undefined);
         expect(rejectReason).toBe("failure");
     }));
@@ -231,6 +246,12 @@ describe('AppointmentService tests', function() {
         appointmentService.saveAppointment({ 'timeSlot': '123abc', 'patient': '456def', 'reason': 'someReason'});
         expect(mockAppointment.save).toHaveBeenCalledWith({ 'timeSlot': '123abc', 'patient': '456def', 'reason': 'someReason'});
     });
+
+    it('should call AppointmentAllowingOverbook resource save with appointment value', function() {
+        appointmentService.saveAppointment({ 'timeSlot': '123abc', 'patient': '456def', 'reason': 'someReason'}, true);
+        expect(mockAppointmentAllowingOverbook.save).toHaveBeenCalledWith({ 'timeSlot': '123abc', 'patient': '456def', 'reason': 'someReason'});
+    });
+
 
     it('should call Appointment resource save to cancel an appointment', function() {
         appointmentService.cancelAppointment({ 'uuid': 'uuid' });
