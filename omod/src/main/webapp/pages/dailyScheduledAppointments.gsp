@@ -35,7 +35,8 @@
         'appointmentschedulingui.dailyScheduledAppointments.allProviders',
         'appointmentschedulingui.dailyScheduledAppointments.allAppointmentBlocks',
         'appointmentschedulingui.dailyScheduledAppointments.allServiceTypes',
-        'appointmentscheduling.AppointmentBlock.error.scheduledAppointmentBlocks'
+        'appointmentscheduling.AppointmentBlock.error.scheduledAppointmentBlocks',
+        'appointmentschedulingui.dailyScheduledAppointments.phoneNumber'
 ].flatten()
 ]) %>
 

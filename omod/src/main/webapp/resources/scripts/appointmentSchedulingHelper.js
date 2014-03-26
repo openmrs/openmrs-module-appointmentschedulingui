@@ -41,15 +41,15 @@ angular.module('appointmentSchedulingHelper')
                            '<div class="patientName">{{data.name}}</div>' +
                            '<div><small>({{data.serviceType.name}})</small></div>' +
                            '</div>' +
-                           '<div class="patientInformation">' +
+                           '<div class="patientInformation patientAttribute">' +
                            '<div>{{data.phoneNumber}}</div>' +
-                           '<div><small>' + 'Phone Number' + '</small></div>' +
+                           '<div ng-if="data.phoneNumber.length > 0"><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.phoneNumber") + '</small></div>' +
                            '</div>' +
-                           '<div class="patientInformation">' +
+                           '<div class="patientInformation patientAttribute">' +
                            '<div>{{data.primaryIdentifier}}</div>' +
                            '<div><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId") + '</small></div>' +
                            '</div>' +
-                           '<div class="patientInformation">' +
+                           '<div class="patientInformation patientAttribute">' +
                            '<div>{{data.dossierNumber}}</div>' +
                            '<div ng-if="data.dossierNumber.length > 0"><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.dossierNumber") + '</small></div>' +
                            '</div>' +
