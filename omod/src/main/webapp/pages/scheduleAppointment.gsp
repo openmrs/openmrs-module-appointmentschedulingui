@@ -37,6 +37,7 @@
     'appointmentschedulingui.scheduleAppointment.invalidSearchParameters',
     'appointmentschedulingui.scheduleAppointment.scheduled',
     'appointmentschedulingui.scheduleAppointment.minutesAvailable',
+    'appointmentschedulingui.scheduleAppointment.minutesOverbooked',
     'appointmentschedulingui.scheduleAppointment.appointments',
     'appointmentschedulingui.scheduleAppointment.errorCancelingAppointment'
 ].flatten()
@@ -151,6 +152,10 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
            </div>
 
            <daterangepicker headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'></daterangepicker>
+
+           <div id="selectIncludeFull" class="inlineBox">
+               ${ ui.message("appointmentschedulingui.scheduleAppointment.showFullTimeSlots") } <input type="checkbox" ng-model="includeFull"/>
+           </div>
        </div>
 
         <div id="searchButtons">
@@ -199,6 +204,18 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         </div>
     </div>
 
+    <div id="confirm-overbook-dialog" class="dialog" style="display: none">
+        <div class="dialog-header">
+            <i class="icon-info-sign"></i>
+            <h3>${ ui.message("appointmentschedulingui.scheduleAppointment.confirmOverbook") }</h3>
+        </div>
+        <div class="dialog-content">
+            <p class="dialog-instructions">${ ui.message("appointmentschedulingui.scheduleAppointment.confirmOverbookMessage", ['{{ (selectedTimeSlot.unallocatedMinutesAbsValue + appointmentType.duration) }}']) }</p>
+            <button class="confirm right">${ ui.message("emr.confirm") }</button>
+            <button class="cancel">${ ui.message("emr.cancel") }</button>
+        </div>
+    </div>
+
 </div>
 
 ${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#scheduledAppointmentTable",
@@ -212,3 +229,5 @@ ${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#scheduledAppo
                 sDom: '\'ft<\"fg-toolbar ui-toolbar ui-corner-bl ui-corner-br ui-helper-clearfix datatables-info-and-pg \"ip>\''
         ]
 ]) }
+
+

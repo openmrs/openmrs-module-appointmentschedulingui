@@ -30,7 +30,7 @@ describe('ConfirmAppointment Controller', function () {
 
             scope.confirmAppointment();
 
-            expect(appointmentServiceMock.saveAppointment).toHaveBeenCalledWith(appointment);
+            expect(appointmentServiceMock.saveAppointment).toHaveBeenCalledWith(appointment, true);
         });
     });
 })

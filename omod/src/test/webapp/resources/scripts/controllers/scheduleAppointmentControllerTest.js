@@ -75,6 +75,7 @@ describe('ScheduleAppointment tests', function() {
                 startTimeFormatted: '2014-03-27T00:00:00.000-0300',
                 endTimeFormatted: '2014-03-27T01:00:00.000-0300'
             };
+
             var appointment2  = {
                 appointmentBlock: {
                     location: {display: "Bank Pou San"},
@@ -86,16 +87,19 @@ describe('ScheduleAppointment tests', function() {
                 },
                 dateFormatted: '2014-03-28T01:00:00.000-0300',
                 startTimeFormatted: '2014-03-31T02:00:00.000-0300',
-                endTimeFormatted: '2014-03-31T00:00:00.000-0300'};
+                endTimeFormatted: '2014-03-31T00:00:00.000-0300'
+            };
+
             var appointments = [appointment1, appointment2];
             scope.appointmentType = {uuid: 1};
-                scope.setPagingData = function(){};
+            scope.includeFull = true;
+            scope.setPagingData = function(){};
 
             scope.findAvailableTimeSlots();
             deferred.resolve(appointments);
             scope.$apply();
 
-            expect(mockAppointmentService.getTimeSlots).toHaveBeenCalled();
+            expect(mockAppointmentService.getTimeSlots).toHaveBeenCalledWith({ 'appointmentType' : 1, 'includeFull' : true });
             expect(mockFilterFilter).toHaveBeenCalled();
             expect(scope.timeSlots).toBe(appointments);
         });
