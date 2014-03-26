@@ -1,4 +1,4 @@
-angular.module('appointmentSchedulingParse')
+    angular.module('appointmentSchedulingParse')
     .factory('Parse', function () {
     return {
        scheduledAppointmentBlocks: function(scheduledAppointmentBlocks){
@@ -18,7 +18,8 @@ angular.module('appointmentSchedulingParse')
                             uuid: appointment.appointmentType.uuid
                         },
                         primaryIdentifier: parsePrimaryIdentifier(appointment.patient.display),
-                        dossierNumber: parseDossierNumber(appointment.patient.identifiers)
+                        dossierNumber: parseDossierNumber(appointment.patient.identifiers),
+                        phoneNumber: parsePhoneNumber(appointment.patient.person.attributes)
                     };
 
                     patients.push(patientInformation);
@@ -47,9 +48,19 @@ angular.module('appointmentSchedulingParse')
                         dossierNumber = identifier.display.split("=")[1].trim();
                     }
                 });
-
                 return dossierNumber;
             };
+
+            var parsePhoneNumber = function(attributes){
+                var phoneNumber = "";
+
+                attributes.forEach(function(attribute){
+                    if(attribute.display.indexOf(telephoneAttributeTypeName) > -1){
+                        phoneNumber = attribute.display.split("=")[1].trim();
+                    }
+                });
+                return phoneNumber;
+            }
 
             var parseAppointmentBlockProvider = function (data){
                 if(data.provider) return data.provider.person.display;

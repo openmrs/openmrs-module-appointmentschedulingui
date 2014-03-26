@@ -1,3 +1,5 @@
+var telephoneAttributeTypeName = "Telephone Number";
+
 describe('AppointmentSchedulingParser tests', function() {
     var appointmentScheduling =   [
         {
@@ -115,7 +117,7 @@ describe('AppointmentSchedulingParser tests', function() {
                             "attributes": [
                                 {
                                     "uuid": "65dc8128-61ff-40ca-ac22-3fe01bccf68e",
-                                    "display": "Telephone Number = 123123123",
+                                    "display": "Telephone Number = 88855501223",
                                     "links": [
                                         {
                                             "uri": "NEED-TO-CONFIGURE/ws/rest/v1/person/3abda79b-809a-4eca-b428-67f606fbae42/attribute/65dc8128-61ff-40ca-ac22-3fe01bccf68e",
@@ -445,12 +447,14 @@ describe('AppointmentSchedulingParser tests', function() {
         expect(patientsScheduled[0].serviceType.uuid).toBe("de4f6849-1b0a-4d7d-9d89-c19b6040bec5");
         expect(patientsScheduled[0].primaryIdentifier).toBe("Y2GHPW");
         expect(patientsScheduled[0].dossierNumber).toBe("");
+        expect(patientsScheduled[0].phoneNumber).toBe("123123123");
 
         expect(patientsScheduled[1].name).toBe("pamela pamela");
         expect(patientsScheduled[1].serviceType.name).toBe("Charles");
         expect(patientsScheduled[1].serviceType.uuid).toBe("de4f6849-1b0a-4d7d-9d89-c19b6040bec5");
         expect(patientsScheduled[1].primaryIdentifier).toBe("Y2GAWR");
         expect(patientsScheduled[1].dossierNumber).toBe("A000015");
+        expect(patientsScheduled[1].phoneNumber).toBe("88855501223");
     });
 
     it('should parse provider of a scheduled appointment block', function() {
@@ -461,5 +465,7 @@ describe('AppointmentSchedulingParser tests', function() {
         var expected = "No provider assigned";
         expect(parsedScheduledAppointmentBlocks[1].provider).toBe(expected);
     });
+
+
 
 });
