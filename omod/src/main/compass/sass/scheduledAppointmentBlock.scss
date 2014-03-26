@@ -25,21 +25,19 @@
   white-space: normal;
   overflow: visible;
   vertical-align: middle;
+
 }
 
 #scheduledAppointmentBlocksGrid .patientInformation {
   white-space: normal;
   overflow: visible;
   display: inline-block;
+  vertical-align: top;
+  padding-left: 10px;
 }
 
 #scheduledAppointmentBlocksGrid .appointmentSummary {
-  width: 60%;
-}
-
-#scheduledAppointmentBlocksGrid .identifier {
-  vertical-align: top;
-  width: 20%;
+  width: 40%;
 }
 
 .inline-box {

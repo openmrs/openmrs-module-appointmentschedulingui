@@ -37,15 +37,22 @@ angular.module('appointmentSchedulingHelper')
                    '<div ng-repeat=' +
                        '"data in row.getProperty(col.field) track by $index">' +
                        '<div class="ngCellText" >' +
-                       '<div class="patientInformation appointmentSummary">' +
-                       '<div class="patientName">{{data.name}}</div>' +
-                       '<div><small>({{data.serviceType.name}})</small></div>' +
-                       '</div>' +
-                       '<div class="patientInformation identifier"><div>{{data.primaryIdentifier}}</div>' +
-                       '<div><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId") + '</small></div></div>' +
-                       '<div class="patientInformation identifier"><div>{{data.dossierNumber}}</div>' +
-                       '<div ng-if="data.dossierNumber.length > 0"><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.dossierNumber") + '</small></div>' +
-                       '</div>' +
+                           '<div class="patientInformation appointmentSummary">' +
+                           '<div class="patientName">{{data.name}}</div>' +
+                           '<div><small>({{data.serviceType.name}})</small></div>' +
+                           '</div>' +
+                           '<div class="patientInformation">' +
+                           '<div>{{data.phoneNumber}}</div>' +
+                           '<div><small>' + 'Phone Number' + '</small></div>' +
+                           '</div>' +
+                           '<div class="patientInformation">' +
+                           '<div>{{data.primaryIdentifier}}</div>' +
+                           '<div><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId") + '</small></div>' +
+                           '</div>' +
+                           '<div class="patientInformation">' +
+                           '<div>{{data.dossierNumber}}</div>' +
+                           '<div ng-if="data.dossierNumber.length > 0"><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.dossierNumber") + '</small></div>' +
+                           '</div>' +
                        '</div>';
 
                var scheduledAppointmentBlocksGrid = {
