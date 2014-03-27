@@ -1,4 +1,6 @@
+
 var patientUuid = 123;
+var canOverbook;
 
 describe('ConfirmAppointment Controller', function () {
     var scope,
@@ -19,6 +21,27 @@ describe('ConfirmAppointment Controller', function () {
 
     describe('it must save an appointment', function () {
         it('should call saveAppointment method from appointment service with an appointment to be confirmed', function () {
+
+            canOverbook = false;
+            scope.appointmentType = {uuid: 1};
+            scope.selectedTimeSlot = {uuid: 2};
+            var appointment = { 'appointmentType': scope.appointmentType.uuid,
+                'status': 'SCHEDULED',
+                'timeSlot': scope.selectedTimeSlot.uuid,
+                'reason': scope.appointmentReason,
+                'patient': patientUuid  // from global scope, defined in scheduleAppointment.gsp
+            };
+
+            scope.confirmAppointment();
+
+            expect(appointmentServiceMock.saveAppointment).toHaveBeenCalledWith(appointment, false);
+        });
+    });
+
+    describe('it must save an appointment allowing overbook', function () {
+        it('should call saveAppointment method from appointment service with an appointment to be confirmed', function () {
+
+            canOverbook = true;
             scope.appointmentType = {uuid: 1};
             scope.selectedTimeSlot = {uuid: 2};
             var appointment = { 'appointmentType': scope.appointmentType.uuid,
