@@ -210,7 +210,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             <h3>${ ui.message("appointmentschedulingui.scheduleAppointment.confirmOverbook") }</h3>
         </div>
         <div class="dialog-content">
-            <p class="dialog-instructions">${ ui.message("appointmentschedulingui.scheduleAppointment.confirmOverbookMessage", ['{{ (selectedTimeSlot.unallocatedMinutesAbsValue + appointmentType.duration) }}']) }</p>
+            <p class="dialog-instructions">${ ui.message("appointmentschedulingui.scheduleAppointment.confirmOverbookMessage", '{{ (selectedTimeSlot.unallocatedMinutesAbsValue + appointmentType.duration) }}') }</p>
             <button class="confirm right">${ ui.message("emr.confirm") }</button>
             <button class="cancel">${ ui.message("emr.cancel") }</button>
         </div>

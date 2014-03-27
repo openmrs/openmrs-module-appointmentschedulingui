@@ -12,9 +12,11 @@ angular.module('appointmentscheduling.scheduleAppointment')
                     selector: '#confirm-overbook-dialog',
                     actions: {
                         confirm: function() {
+                            confirmOverbook.close();
                             saveAppointment();
                         },
                         cancel: function() {
+                            confirmOverbook.close();
                             $scope.cancelConfirmAppointment();
                             $scope.confirmAppointmentButtonsDisabled = false;
                             $scope.$parent.$digest();
