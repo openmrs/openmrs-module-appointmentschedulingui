@@ -62,5 +62,25 @@
 	</messages>
 	<!-- /Internationalization -->
 
+    <privilege>
+        <name>App: appointmentschedulingui.scheduleAdministration</name>
+        <description>Access to Manage Service Types and Manage Provider Schedules apps</description>
+    </privilege>
+
+    <privilege>
+        <name>App: appointmentschedulingui.viewAppointments</name>
+        <description>Access to Manage Appointments and Daily Scheduled Appointments (but not the ability to book appointments from these pages)</description>
+    </privilege>
+
+    <privilege>
+        <name>Task: appointmentschedulingui.bookAppointments</name>
+        <description>Ability book appointments, cancel appointments, and flag appointments as needs reschedule; Access to the Manage Rescheduled app</description>
+    </privilege>
+
+    <privilege>
+        <name>Task: appointmentschedulingui.overbookAppointments</name>
+        <description>Ability to overbook time slots</description>
+    </privilege>
+
 </module>
 
