@@ -11,7 +11,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIActivator;
-import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIProperties;
+import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
 import org.openmrs.module.htmlformentry.HtmlFormEntryService;
 import org.openmrs.module.htmlformentry.RegressionTestHelper;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -37,7 +37,7 @@ public class AppointmentCheckInTagComponentTest extends BaseModuleContextSensiti
     public void setup() throws Exception {
         executeDataSet("standardAppointmentTestDataset.xml");
         HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
-        htmlFormEntryService.addHandler(AppointmentSchedulingUIProperties.APPOINTMENT_CHECK_IN_TAG_NAME,
+        htmlFormEntryService.addHandler(AppointmentSchedulingUIConstants.APPOINTMENT_CHECK_IN_TAG_NAME,
                 AppointmentSchedulingUIActivator.createAppointmentCheckInTagHandler(appointmentService));
     }
 

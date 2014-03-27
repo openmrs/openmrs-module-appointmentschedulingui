@@ -6,7 +6,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
 
             $scope.confirmAppointmentButtonsDisabled = true;
 
-            if ($scope.selectedTimeSlot.full) {
+            if ($scope.selectedTimeSlot.full && canOverbook) {    // canOverbook is global var from scheduleAppointments.gsp
 
                 var confirmOverbook = emr.setupConfirmationDialog({
                     selector: '#confirm-overbook-dialog',
@@ -42,7 +42,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 'patient': patientUuid  // from global scope, defined in scheduleAppointment.gsp
             };
 
-            AppointmentService.saveAppointment(appointment, true).then(function() {
+            AppointmentService.saveAppointment(appointment, canOverbook).then(function() {    // canOverbook is global var from scheduleAppointments.gsp
 
                 // success callback
                 emr.navigateTo({

@@ -59,7 +59,7 @@ public class AppointmentSchedulingUIActivator implements ModuleActivator {
         if (ModuleFactory.isModuleStarted("htmlformentry")) {
             HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
             AppointmentService appointmentService = Context.getService(AppointmentService.class);
-            htmlFormEntryService.addHandler(AppointmentSchedulingUIProperties.APPOINTMENT_CHECK_IN_TAG_NAME,
+            htmlFormEntryService.addHandler(AppointmentSchedulingUIConstants.APPOINTMENT_CHECK_IN_TAG_NAME,
                     createAppointmentCheckInTagHandler(appointmentService));
         }
 
@@ -80,7 +80,7 @@ public class AppointmentSchedulingUIActivator implements ModuleActivator {
 
         try {
             HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
-            htmlFormEntryService.getHandlers().remove(AppointmentSchedulingUIProperties.APPOINTMENT_CHECK_IN_TAG_NAME);
+            htmlFormEntryService.getHandlers().remove(AppointmentSchedulingUIConstants.APPOINTMENT_CHECK_IN_TAG_NAME);
         } catch (Exception ex) {
             // pass
         }

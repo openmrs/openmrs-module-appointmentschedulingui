@@ -54,6 +54,8 @@
 
    // TODO better way to inject this?
     var patientUuid = '${ patient.patient.uuid }';
+    var canOverbook = ${ canOverbook };
+
 </script>
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
@@ -153,9 +155,11 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
            <daterangepicker headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'></daterangepicker>
 
-           <div id="selectIncludeFull" class="inlineBox">
-               ${ ui.message("appointmentschedulingui.scheduleAppointment.showFullTimeSlots") } <input type="checkbox" ng-model="includeFull"/>
-           </div>
+            <% if (canOverbook) { %>
+               <div id="selectIncludeFull" class="inlineBox">
+                   ${ ui.message("appointmentschedulingui.scheduleAppointment.showFullTimeSlots") } <input type="checkbox" ng-model="includeFull"/>
+               </div>
+            <% } %>
        </div>
 
         <div id="searchButtons">
