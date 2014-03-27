@@ -4,7 +4,7 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 
 public class AppointmentSchedulingUIConstants {
 
-    public static final String PRIVILEGE_SCHEDULE_ADMINISTRATION = EmrApiConstants.PRIVILEGE_PREFIX_APP + "appointmentschedulingui.scheduleAdministration";
+    public static final String PRIVILEGE_SCHEDULE_ADMINISTRATION = EmrApiConstants.PRIVILEGE_PREFIX_APP + "appointmentschedulingui.scheduleAdmin";
 
     public static final String PRIVILEGE_VIEW_APPOINTMENTS = EmrApiConstants.PRIVILEGE_PREFIX_APP + "appointmentschedulingui.viewAppointments";
 

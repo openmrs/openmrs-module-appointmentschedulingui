@@ -63,7 +63,7 @@
 	<!-- /Internationalization -->
 
     <privilege>
-        <name>App: appointmentschedulingui.scheduleAdministration</name>
+        <name>App: appointmentschedulingui.scheduleAdmin</name>
         <description>Access to Manage Service Types and Manage Provider Schedules apps</description>
     </privilege>
 
