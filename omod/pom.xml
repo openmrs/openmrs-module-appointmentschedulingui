@@ -349,6 +349,7 @@
 		     		<executable>bower</executable>
 		     		<arguments>
 		      			<argument>install</argument>
+                        <argument> --allow-root</argument>
 		     		</arguments>
 		     		<workingDirectory>${basedir}/src/main/webapp/resources/scripts/</workingDirectory>
 		   		</configuration>
