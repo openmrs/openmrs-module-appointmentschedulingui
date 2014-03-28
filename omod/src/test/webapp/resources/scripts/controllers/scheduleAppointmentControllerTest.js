@@ -100,7 +100,7 @@ describe('ScheduleAppointment tests', function() {
             deferred.resolve(appointments);
             scope.$apply();
 
-            expect(mockAppointmentService.getTimeSlots).toHaveBeenCalledWith({ 'appointmentType' : 1, "includeSlotsThatRequireOverbook" : true });
+            expect(mockAppointmentService.getTimeSlots).toHaveBeenCalledWith({ 'appointmentType' : 1, "includeFull" : true });
             expect(mockFilterFilter).toHaveBeenCalled();
             expect(scope.timeSlots).toBe(appointments);
         });
