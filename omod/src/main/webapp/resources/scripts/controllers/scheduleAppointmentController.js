@@ -6,7 +6,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
         $scope.timeSlots = [];
         $scope.filteredTimeSlots = [];
         $scope.allAppointmentTypes = [];
-        $scope.includeFull = false;
+        $scope.includeSlotsThatRequireOverbook = false;
 
         $scope.showTimeSlotsGrid = false;
         $scope.showNoTimeSlotsMessage = false;
@@ -27,7 +27,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
             multiSelect: false,
             enableSorting: false,
             selectedItems: [],
-            rowTemplate: "<div ng-class=\"{ highlighted: row.getProperty(\'full') }\"><div ng-style=\"{ 'cursor': row.cursor }\" ng-repeat=\"col in renderedColumns\" ng-class=\"col.colIndex()\" class=\"ngCell {{col.cellClass}}\"><div class=\"ngVerticalBar\" ng-style=\"{height: rowHeight}\" ng-class=\"{ ngVerticalBarVisible: !$last }\">&nbsp;</div><div ng-cell></div></div></div>",   // just the standard row template but with a wrapped div for adding row highlighting when a slot is full
+            rowTemplate: "<div ng-class=\"{ highlighted: row.getProperty(\'requiresOverbook') }\"><div ng-style=\"{ 'cursor': row.cursor }\" ng-repeat=\"col in renderedColumns\" ng-class=\"col.colIndex()\" class=\"ngCell {{col.cellClass}}\"><div class=\"ngVerticalBar\" ng-style=\"{height: rowHeight}\" ng-class=\"{ ngVerticalBarVisible: !$last }\">&nbsp;</div><div ng-cell></div></div></div>",   // just the standard row template but with a wrapped div for adding row highlighting when a slot is full
             columnDefs: [   { field: 'date', displayName: emr.message('appointmentschedulingui.scheduleAppointment.timeSlot'),
                                     cellTemplate: "<div>{{ row.getProperty(\'dateFormatted\') }}<br/>{{ row.getProperty(\'startTimeFormatted\') }} - {{ row.getProperty(\'endTimeFormatted\') }}<div>"},
                             { field: 'appointmentBlock.provider.person.display', displayName: emr.message('uicommons.provider') },
@@ -58,7 +58,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                     result['dateFormatted'] = moment(result.startDate).format("DD MMM YYYY");
                     result['startTimeFormatted'] = moment(result.startDate).format("h:mm A");
                     result['endTimeFormatted']= moment(result.endDate).format("h:mm A");
-                    result['full'] = result.unallocatedMinutes <= 0;
+                    result['requiresOverbook'] = result.unallocatedMinutes - $scope.appointmentType.duration <= 0;
                     result['unallocatedMinutesAbsValue'] = Math.abs(result.unallocatedMinutes);
                     result['minutesMessage'] = (result.unallocatedMinutes < 0
                         ? emr.message('appointmentschedulingui.scheduleAppointment.minutesOverbooked')
@@ -88,7 +88,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
 
         var getSearchParams = function () {
             var params = { 'appointmentType' : $scope.appointmentType.uuid,
-                           'includeFull' : $scope.includeFull };
+                           'includeFull' : $scope.includeSlotsThatRequireOverbook };
             if ($scope.fromDate) { params['fromDate'] = moment($scope.fromDate).format();}
             if ($scope.toDate) { params['toDate'] = moment($scope.toDate).endOf('day').format(); }
             return params;

@@ -6,7 +6,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
 
             $scope.confirmAppointmentButtonsDisabled = true;
 
-            if ($scope.selectedTimeSlot.full && canOverbook) {    // canOverbook is global var from scheduleAppointments.gsp
+            if ($scope.selectedTimeSlot.requiresOverbook && canOverbook) {    // canOverbook is global var from scheduleAppointments.gsp
 
                 var confirmOverbook = emr.setupConfirmationDialog({
                     selector: '#confirm-overbook-dialog',

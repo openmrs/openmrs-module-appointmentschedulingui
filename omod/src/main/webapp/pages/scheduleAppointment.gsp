@@ -156,8 +156,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
            <daterangepicker headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'></daterangepicker>
 
             <% if (canOverbook) { %>
-               <div id="selectIncludeFull" class="inlineBox">
-                   ${ ui.message("appointmentschedulingui.scheduleAppointment.showFullTimeSlots") } <input type="checkbox" ng-model="includeFull"/>
+               <div id="selectIncludeSlotsThatRequireOverbook" class="inlineBox">
+                   ${ ui.message("appointmentschedulingui.scheduleAppointment.showFullTimeSlots") } <input type="checkbox" ng-model="includeSlotsThatRequireOverbook"/>
                </div>
             <% } %>
        </div>
@@ -214,9 +214,9 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             <h3>${ ui.message("appointmentschedulingui.scheduleAppointment.confirmOverbook") }</h3>
         </div>
         <div class="dialog-content">
-            <p class="dialog-instructions">${ ui.message("appointmentschedulingui.scheduleAppointment.confirmOverbookMessage", '{{ (selectedTimeSlot.unallocatedMinutesAbsValue + appointmentType.duration) }}') }</p>
-            <button class="confirm right">${ ui.message("emr.confirm") }</button>
-            <button class="cancel">${ ui.message("emr.cancel") }</button>
+            <p class="dialog-instructions">${ ui.message("appointmentschedulingui.scheduleAppointment.confirmOverbookMessage", '{{ -(selectedTimeSlot.unallocatedMinutes - appointmentType.duration) }}') }</p>
+            <button class="confirm right">${ ui.message("uicommons.confirm") }</button>
+            <button class="cancel">${ ui.message("uicommons.cancel") }</button>
         </div>
     </div>
 

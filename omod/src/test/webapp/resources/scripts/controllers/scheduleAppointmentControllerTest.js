@@ -62,6 +62,7 @@ describe('ScheduleAppointment tests', function() {
 
     describe('it must get all the appointments and apply filters', function () {
         it('should call getTimeSlots method from the appointment service and update the timeSlots field', function () {
+
             var appointment1 = {
                 appointmentBlock: {
                     location: {display: "Achiv Santral"},
@@ -92,14 +93,14 @@ describe('ScheduleAppointment tests', function() {
 
             var appointments = [appointment1, appointment2];
             scope.appointmentType = {uuid: 1};
-            scope.includeFull = true;
+            scope.includeSlotsThatRequireOverbook = true;
             scope.setPagingData = function(){};
 
             scope.findAvailableTimeSlots();
             deferred.resolve(appointments);
             scope.$apply();
 
-            expect(mockAppointmentService.getTimeSlots).toHaveBeenCalledWith({ 'appointmentType' : 1, 'includeFull' : true });
+            expect(mockAppointmentService.getTimeSlots).toHaveBeenCalledWith({ 'appointmentType' : 1, "includeSlotsThatRequireOverbook" : true });
             expect(mockFilterFilter).toHaveBeenCalled();
             expect(scope.timeSlots).toBe(appointments);
         });
