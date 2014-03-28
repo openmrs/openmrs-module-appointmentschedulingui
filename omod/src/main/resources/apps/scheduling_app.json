@@ -28,7 +28,7 @@
             "heading": "appointmentschedulingui.scheduleAppointment.buttonTitle",
             "showLastViewedPatients": false
         },
-        "requiredPrivilege": "App: appointmentschedulingui.scheduleAppointment",
+        "requiredPrivilege": "App: appointmentschedulingui.viewAppointments",
         "featureToggle": "new_appointment_scheduling_ui"
     }
 ]
