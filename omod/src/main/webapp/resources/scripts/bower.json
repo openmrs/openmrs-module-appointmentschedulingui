@@ -1,0 +1,13 @@
+{
+  "name": "mirebalais.apppointmentschedulingui",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "openmrs-uicommons": "master"
+  }
+}
+

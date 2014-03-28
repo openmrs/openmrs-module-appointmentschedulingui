@@ -1,0 +1,25 @@
+{
+  "name": "mirebalais.apppointmentschedulingui",
+  "version": "0.0.1",
+  "description": "Mirebalais - Apppointment Scheduling Ui",
+  "dependencies": {},
+  "devDependencies": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Bhamni/opd.git"
+  },
+  "keywords": [
+    "Mirebalais",
+    "EMR",
+    "openmrs",
+    "HMS",
+    "healthcare"
+  ],
+  "author": "mirebalais@thoughtworks.com",
+  "license": "Apache v2.0",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/Bhamni/opd/issues"
+  }
+}
