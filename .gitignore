@@ -14,7 +14,6 @@ omod/.settings/
 omod/target/
 
 omod/src/main/compass/sass-external/
-omod/src/main/webapp/resources/scripts/bower_components/
 
 *.css
 !jquery.qtip.min.css

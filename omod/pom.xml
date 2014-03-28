@@ -245,23 +245,12 @@
                     <jsSrcDir>${project.basedir}/src/main/webapp/resources/scripts</jsSrcDir>
                     <sourceIncludes>
                         <include>app.js</include>
-                        <include>*.js</include>
-                        <include>controllers/*.js</include>
-                        <include>htmlformentry/*.js</include>
-                        <include>directives/*.js</include>
-                        <include>services/*.js</include>
-                        <include>bower_components/**/locationService.js</include>
-                        <include>bower_components/**/restUtils.js</include>
+                        <include>**/*.js</include>
                     </sourceIncludes>
-
-                    <sourceExcludes>
-                        <exclude>bower_component/**/*.js</exclude>
-                    </sourceExcludes>
-
                     <jsTestSrcDir>${project.basedir}/src/test/webapp/resources/scripts</jsTestSrcDir>
-                    <!--specExcludes>
+                    <specExcludes>
                         <exclude>**/controllers/scheduledAppointmentBlocksControllerTest.js</exclude>
-                    </specExcludes-->
+                    </specExcludes>
                     <preloadSources>
                         <!-- note that I think the jquery include must happen before the angular includes or we get an obscure error -->
                         <source>${project.basedir}/src/test/webapp/provided/scripts/jquery-1.8.3.min.js</source>
@@ -275,84 +264,6 @@
                     <serverPort>7234</serverPort>
                 </configuration>
             </plugin>
-
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.4.1</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>${basedir}/src/main/webapp/resources/scripts/bower_components</directory>
-                            <includes>
-                                <include>**/*</include>
-                            </includes>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
-
-            <plugin>
-			  <artifactId>maven-antrun-plugin</artifactId>
-			  <version>1.7</version>
-			  <executions>
-		      	<execution>
-					<phase>generate-sources</phase>
-					<configuration>
-					    <target name="building">
-					        <echo>
-					<!--  NPM INSTALL  -->
-					        </echo>
-					        <exec executable="cmd" dir="${project.basedir}"
-					        osfamily="windows" failonerror="true">
-					            <arg line="/c npm config set color false"/>
-					        </exec>
-					        <exec executable="npm" dir="${project.basedir}"
-					        osfamily="unix" failonerror="true">
-					            <arg line="config set color false"/>
-					        </exec>
-					        <exec executable="cmd" dir="${project.basedir}"
-					        osfamily="windows" failonerror="true">
-					            <arg line="/c npm install"/>
-					        </exec>
-					        <exec executable="npm" dir="${project.basedir}"
-					        osfamily="unix" failonerror="true">
-					            <arg line="install"/>
-					        </exec>
-					    </target>
-
-					 </configuration>
-				          <goals>
-				              <goal>run</goal>
-				          </goals>
-			      </execution>
-			  </executions>
-			</plugin>
-
-			<plugin>
-	   			<groupId>org.codehaus.mojo</groupId>
-			   	<artifactId>exec-maven-plugin</artifactId>
-			   	<executions>
-		     		<execution>
-	     				<phase>generate-sources</phase>
-		     			<goals>
-		      				<goal>exec</goal>
-		     			</goals>
-		     		</execution>
-			   	</executions>
-   				<configuration>
-			        <echo>
-						<!--  BOWER INSTALL  -->
-			        </echo>
-		     		<executable>bower</executable>
-		     		<arguments>
-		      			<argument>install</argument>
-		     		</arguments>
-		     		<workingDirectory>${basedir}/src/main/webapp/resources/scripts/</workingDirectory>
-		   		</configuration>
-		 	</plugin>
 
 		</plugins>
 	</build>
