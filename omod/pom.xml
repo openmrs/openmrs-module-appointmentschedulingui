@@ -13,6 +13,11 @@
 	<name>Appointment Scheduling UI Module OMOD</name>
 	<description>OMOD project for AppointmentSchedulingUI</description>
 
+    <properties>
+        <projectBowerResources>${project.basedir}/src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts</projectBowerResources>
+    </properties>
+
+
 	<dependencies>
 
         <dependency>
@@ -265,12 +270,12 @@
 
                     <jsTestSrcDir>${project.basedir}/src/test/webapp/resources/scripts</jsTestSrcDir>
                     <preloadSources>
-                        <source>${project.basedir}/src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/jquery-1.8.3.min.js</source>
-                        <source>${project.basedir}/src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/angular.min.js</source>
-                        <source>${project.basedir}/src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/angular-resource.min.js</source>
-                        <source>${project.basedir}/src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/angular-mocks.js</source>
-                        <source>${project.basedir}/src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/angular-ui/ui-bootstrap-tpls-0.6.0.min.js</source>
-                        <source>${project.basedir}/src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/angular-ui/ng-grid-2.0.7.min.js</source>
+                        <source>${projectBowerResources}/jquery-1.8.3.min.js</source>
+                        <source>${projectBowerResources}/angular.min.js</source>
+                        <source>${projectBowerResources}/angular-resource.min.js</source>
+                        <source>${projectBowerResources}/angular-mocks.js</source>
+                        <source>${projectBowerResources}/angular-ui/ui-bootstrap-tpls-0.6.0.min.js</source>
+                        <source>${projectBowerResources}/angular-ui/ng-grid-2.0.7.min.js</source>
                     </preloadSources>
                     <serverPort>7234</serverPort>
                 </configuration>
