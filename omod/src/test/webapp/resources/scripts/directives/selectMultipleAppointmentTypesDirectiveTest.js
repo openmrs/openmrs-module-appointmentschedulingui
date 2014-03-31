@@ -51,9 +51,7 @@ describe('selectmultipleappointmenttypes directive', function () {
         }));
 
         it('should add an input and a link in the view when the directive is added', function () {
-            var selectMultipleInput = '<input type="text" ng-model="appointmentType" typeahead-on-select="addAppointmentType(appointmentType)" '+
-                'typeahead="appointmentType as appointmentType.display for appointmentType in getAppointmentTypes($viewValue) | filter: $viewValue" typeahead-min-length="0"' +
-                ' class="ng-pristine ng-valid">';
+            var selectMultipleInput = '<input type="text" ng-model="appointmentType" typeahead-on-select="addAppointmentType(appointmentType)" ';
             var viewAllLink = '<div id="viewAllAppointmentTypes" class="inline-box">'+
                                 '<a ng-click="showAllAppointmentTypesModal = true" class="ng-binding">View All Appointments</a>' +
                               '</div>';
