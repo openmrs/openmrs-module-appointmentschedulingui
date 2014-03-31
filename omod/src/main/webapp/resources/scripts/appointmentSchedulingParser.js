@@ -19,7 +19,8 @@
                         },
                         primaryIdentifier: parsePrimaryIdentifier(appointment.patient.display),
                         dossierNumber: parseDossierNumber(appointment.patient.identifiers),
-                        phoneNumber: parsePhoneNumber(appointment.patient.person.attributes)
+                        phoneNumber: parsePhoneNumber(appointment.patient.person.attributes),
+                        appointmentStatus: parseAppointmentStatus(appointment.status)
                     };
 
                     patients.push(patientInformation);
@@ -60,6 +61,10 @@
                     }
                 });
                 return phoneNumber;
+            }
+
+            var parseAppointmentStatus = function(status){
+                return status;
             }
 
             var parseAppointmentBlockProvider = function (data){

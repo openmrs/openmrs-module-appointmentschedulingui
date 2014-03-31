@@ -40,6 +40,7 @@ angular.module('appointmentSchedulingHelper')
                            '<div class="patientInformation appointmentSummary">' +
                            '<div class="patientName">{{data.name}}</div>' +
                            '<div><small>({{data.serviceType.name}})</small></div>' +
+                           '<div>{{data.appointmentStatus}}</div>' +
                            '</div>' +
                            '<div class="patientInformation patientAttribute">' +
                            '<div>{{data.phoneNumber}}</div>' +

@@ -437,6 +437,7 @@ describe('AppointmentSchedulingParser tests', function() {
         expect(patientsScheduled[0].primaryIdentifier).toBe("Y2GHPW");
         expect(patientsScheduled[0].dossierNumber).toBe("");
         expect(patientsScheduled[0].phoneNumber).toBe("123123123");
+        expect(patientsScheduled[0].appointmentStatus).toBe("SCHEDULED");
 
         expect(patientsScheduled[1].name).toBe("pamela pamela");
         expect(patientsScheduled[1].serviceType.name).toBe("Charles");
@@ -444,6 +445,7 @@ describe('AppointmentSchedulingParser tests', function() {
         expect(patientsScheduled[1].primaryIdentifier).toBe("Y2GAWR");
         expect(patientsScheduled[1].dossierNumber).toBe("A000015");
         expect(patientsScheduled[1].phoneNumber).toBe("");
+        expect(patientsScheduled[1].appointmentStatus).toBe("SCHEDULED");
     });
 
     it('should parse provider of a scheduled appointment block', function() {
