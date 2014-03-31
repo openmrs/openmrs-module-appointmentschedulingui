@@ -19,6 +19,10 @@
     ui.includeJavascript("uicommons", "services/locationService.js")
     ui.includeJavascript("uicommons", "rest/restUtils.js")
 
+    ui.includeJavascript("appointmentschedulingui", "app.js")
+    ui.includeJavascript("appointmentschedulingui", "controllers/selectMultipleAppointmentTypesController.js")
+    ui.includeJavascript("appointmentschedulingui", "directives/selectMultipleAppointmentTypesDirective.js")
+
     ui.includeJavascript("appointmentschedulingui", "scheduleProviders.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
@@ -77,6 +81,12 @@
                        typeahead-on-select="refreshCalendarEvents()">
                 <i class="icon-remove small add-on" ng-click="providerFilter=''" ></i>
             </div>
+
+            <selectmultipleappointmenttypes headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.selectAppointmentType") }'
+                viewall='${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }'
+                closemessage='${ ui.message("uicommons.close")}'
+                senderid = 'createAppointmentBlock'
+                class="inline-box"></selectmultipleappointmenttypes>
         </div>
 
         <div id="calendar" ui-calendar="uiConfig.calendar" calendar="calendar" ng-model="appointmentBlocksSource"></div>

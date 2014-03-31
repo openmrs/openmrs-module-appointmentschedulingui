@@ -4,6 +4,8 @@
 angular.module('appointmentscheduling.scheduleAppointment', ['appointmentscheduling.appointmentService','ui.bootstrap',
     'ngGrid', 'scheduleAppointmentDateRangePickerApp', 'ngGridPaginationApp']);
 
+angular.module('selectMultipleAppointmentTypesApp', ['appointmentscheduling.appointmentService', 'ui.bootstrap'])
+
 angular.module('scheduleAppointmentDateRangePickerApp', [] );
 
 angular.module('ngGridPaginationApp', []);

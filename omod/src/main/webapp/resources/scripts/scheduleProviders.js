@@ -1,4 +1,5 @@
-angular.module('appointmentscheduling.scheduleProviders', ['appointmentscheduling.appointmentService', 'providerService','locationService','uicommons.RESTUtils','ui.bootstrap', 'ui.calendar' ])
+angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppointmentTypesApp',
+        'appointmentscheduling.appointmentService', 'providerService','locationService','uicommons.RESTUtils','ui.bootstrap', 'ui.calendar' ])
     .controller('ScheduleProvidersCtrl', function ($scope, $filter, AppointmentService, ProviderService, LocationService, RESTErrorResponse) {
 
         /**
@@ -38,6 +39,10 @@ angular.module('appointmentscheduling.scheduleProviders', ['appointmentschedulin
         /**
          * Model
          */
+        $scope.$on('selectMultipleAppointmentTypesApp.selectionChanged', function (event, eventData) {
+            if(eventData.senderd === 'createAppointmentBlock')
+                $scope.fiterAppointmentTypes = eventData.data;
+        });
 
         // stores the appointment block we are currently creating/editing/viewing
         $scope.appointmentBlock = {};
