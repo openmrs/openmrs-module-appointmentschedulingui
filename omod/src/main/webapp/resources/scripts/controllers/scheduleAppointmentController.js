@@ -58,7 +58,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                     result['dateFormatted'] = moment(result.startDate).format("DD MMM YYYY");
                     result['startTimeFormatted'] = moment(result.startDate).format("h:mm A");
                     result['endTimeFormatted']= moment(result.endDate).format("h:mm A");
-                    result['requiresOverbook'] = result.unallocatedMinutes - $scope.appointmentType.duration <= 0;
+                    result['requiresOverbook'] = result.unallocatedMinutes - $scope.appointmentType.duration < 0;
                     result['unallocatedMinutesAbsValue'] = Math.abs(result.unallocatedMinutes);
                     result['minutesMessage'] = (result.unallocatedMinutes < 0
                         ? emr.message('appointmentschedulingui.scheduleAppointment.minutesOverbooked')
