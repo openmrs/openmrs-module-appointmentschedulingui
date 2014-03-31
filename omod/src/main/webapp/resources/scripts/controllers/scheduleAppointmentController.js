@@ -40,7 +40,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
         dateRangePickerEventListener.subscribe($scope);
 
         // initialize allAppointmentTypes variable
-        AppointmentService.getAppointmentTypes({'v': 'full'}).then(function (result) {
+        AppointmentService.getAppointmentTypes().then(function (result) {
             $scope.allAppointmentTypes = result;
         });
 
