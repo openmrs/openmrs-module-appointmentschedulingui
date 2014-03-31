@@ -30,6 +30,7 @@ public class ScheduleAppointmentPageController {
         // TODO do we want/need to add active visit to model?
 
         model.addAttribute("upcomingAppointmentList", appointmentService.getScheduledAppointmentsForPatient(patient));
+        model.addAttribute("canBook", uiSessionContext.getCurrentUser().hasPrivilege(AppointmentSchedulingUIConstants.PRIVILEGE_BOOK_APPOINTMENTS));
         model.addAttribute("canOverbook",uiSessionContext.getCurrentUser().hasPrivilege(AppointmentSchedulingUIConstants.PRIVILEGE_OVERBOOK_APPOINTMENTS));
 
         return null;
