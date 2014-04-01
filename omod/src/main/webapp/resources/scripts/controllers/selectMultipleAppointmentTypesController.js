@@ -17,10 +17,15 @@ angular.module('selectMultipleAppointmentTypesApp')
                 if(!isChecked(appointmentType)) {
                     $scope.selectedAppointmentTypes.push(appointmentType);
                     $scope.selectedAppointentTypesUuids.push(appointmentType.uuid);
+                    removeAppointmentTypeFromDialog(appointmentType);
                     sendSelectedAppointmentTypesEvent();
                 }
-                $scope.appointmentType = ''
-;            }
+                $scope.appointmentType = '';
+            }
+
+            var removeAppointmentTypeFromDialog = function(appointmentType){
+                $scope.allAppointmentTypes.splice($.inArray(appointmentType, $scope.allAppointmentTypes), 1);
+            }
 
             var isChecked = function (appointmentType) {
                 var index = getOptionIndex(appointmentType);
@@ -34,7 +39,12 @@ angular.module('selectMultipleAppointmentTypesApp')
             $scope.removeAppointmentType = function (appointmentTypeToRemove) {
                 $scope.selectedAppointmentTypes.splice(getOptionIndex(appointmentTypeToRemove), 1);
                 $scope.selectedAppointentTypesUuids.splice(getOptionIndex(appointmentTypeToRemove.uuid), 1);
+                addAppointmentTypeToDialog(appointmentTypeToRemove);
                 sendSelectedAppointmentTypesEvent();
+            }
+
+            var addAppointmentTypeToDialog = function (appointmentType) {
+                $scope.allAppointmentTypes.push(appointmentType);
             }
 
             $scope.getAppointmentTypes = function(searchString) {
