@@ -31,6 +31,7 @@
     ui.includeCss("appointmentschedulingui", "qtip/jquery.qtip.min.css")
 
     ui.includeCss("appointmentschedulingui", "scheduleProviders.css")
+    ui.includeCss("appointmentschedulingui", "selectMultipleAppointmentTypes.css")
 %>
 
 <%= ui.includeFragment("appui", "messages", [ codes: [
@@ -82,10 +83,11 @@
                 <i class="icon-remove small add-on" ng-click="providerFilter=''" ></i>
             </div>
 
-            <selectmultipleappointmenttypes headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.selectAppointmentType") }'
+            <selectmultipleappointmenttypes headermessage='${ ui.message("appointmentschedulingui.appointmenttypes") }'
                 viewall='${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }'
                 closemessage='${ ui.message("uicommons.close")}'
                 senderid = 'createAppointmentBlock'
+                placeholdermessage = '${ ui.message("appointmentschedulingui.scheduleProviders.selectMultiplePlaceholder") }'
                 class="inline-box"></selectmultipleappointmenttypes>
         </div>
 
