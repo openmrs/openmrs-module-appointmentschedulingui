@@ -64,46 +64,10 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
 <div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl">
 
-   <div ng-controller='CancelAppointmentCtrl'>
+   <div ng-controller='CancelAppointmentCtrl' ng-init="init('${ patient.patient.uuid }')">
         <div ng-show="showScheduleAppointment">
-            <h2> ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") } </h2>
+            <table id="appointmentGridTable" class="gridStyle" ng-grid="appointmentOptions" ng-show="showAppointmentsGrid"></table>
 
-            <% if ( (upcomingAppointmentList == null)
-                   || (upcomingAppointmentList!= null && upcomingAppointmentList.size() == 0)) { %>
-                ${ ui.message("appointmentschedulingui.scheduleAppointment.noAppointments") }
-            <% } else {%>
-                <table id="scheduledAppointmentTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
-                    <thead>
-                        <tr>
-                            <th style="width: 30%">${ ui.message("appointmentschedulingui.scheduleAppointment.date") }</th>
-                            <th style="width: 30%">${ ui.message("appointmentschedulingui.appointmenttype.title") }</th>
-                            <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
-                            <th style="width: 15%">${ ui.message("appointmentschedulingui.scheduleAppointment.location") }</th>
-                            <th style="width: 10%">${ ui.message("appointmentschedulingui.appointmenttype.actions") }</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% upcomingAppointmentList.each { appointment -> %>
-                            <tr>
-                                <td>${ ui.format(appointment.timeSlot.startDate.format('dd MMM yyyy'))}
-                                    | ${ ui.format(appointment.timeSlot.startDate.format('h:mm a'))} -
-                                    ${ ui.format(appointment.timeSlot.endDate.format('h:mm a')) }</td>
-                                <td>${ ui.format(appointment.appointmentType) }</td>
-                                <td>${ ui.format(appointment.timeSlot.appointmentBlock.provider?.name ?: '')}</td>
-                                <td>${ ui.format(appointment.timeSlot.appointmentBlock.location.name)}</td>
-                                <td class="align-center">
-                                    <% if (canBook) { %>
-                                        <span>
-                                            <i class="delete-item icon-remove" ng-click="confirmCancelAppointment('${ appointment.uuid }')"
-                                               title="${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointment.tooltip") }"></i>
-                                        </span>
-                                    <% } %>
-                                </td>
-                            </tr>
-                        <% } %>
-                    </tbody>
-                </table>
-           <% } %>
        </div>
 
         <div id="confirm-cancel-appointment" class="dialog" ng-show="appointmentToCancel">

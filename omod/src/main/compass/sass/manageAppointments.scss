@@ -27,36 +27,54 @@
   background: #fffdf7;
   color: #555;
 
+  &.selected {
+    background: #007FFF;
+    color: #FFFFFF;
+  }
+
+  &:hover {
+    background: #007FFF;
+    color: #FFFFFF;
+  }
+
 }
 
-.ngRow.odd.selected {
-  background: #007FFF;
-  color: #FFFFFF;
-}
-
-.ngRow.odd:hover {
-  background: #007FFF;
-  color: #FFFFFF;
-}
 
 .ngRow.even {
   background: #FFFFFF;
   color: #555;
-}
 
-.ngRow.even.selected {
-  background: #007FFF;
-  color: #FFFFFF;
-}
+  &.selected {
+    background: #007FFF;
+    color: #FFFFFF;
+  }
 
-.ngRow.even:hover {
-  background: #007FFF;
-  color: #FFFFFF;
+  &:hover {
+    background: #007FFF;
+    color: #FFFFFF;
+  }
 }
 
 .ngFooterPanel {
   background: #FFFFFF;
   font-size: 0.9em;
+}
+
+#appointmentGridTable {
+
+  .ngCell {
+    cursor: initial;
+  }
+
+  .ngRow.even:hover {
+    background: #FFFFFF;
+    color: #555;
+  }
+
+  .ngRow.odd:hover {
+    background: #fffdf7;
+    color: #555;
+  }
 }
 
 
