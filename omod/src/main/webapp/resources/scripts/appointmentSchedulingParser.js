@@ -64,7 +64,21 @@
             }
 
             var parseAppointmentStatus = function(status){
-                return status;
+                var appointmentStatus = [];
+                appointmentStatus.active = status.active;
+
+                if(status.code == "WAITING" || status.code == "INCONSULTATION" || status.code == "WALKIN"){
+                    appointmentStatus.message = "Checked-in";
+                }
+                else if(status.code == "SCHEDULED") {
+                    appointmentStatus.message = "";
+                }
+                else {
+                    appointmentStatus.message = status.message;
+                }
+
+
+                return appointmentStatus;
             }
 
             var parseAppointmentBlockProvider = function (data){

@@ -119,7 +119,12 @@ describe('AppointmentSchedulingParser tests', function() {
                         },
                         "voided": false
                     },
-                    "status": "SCHEDULED",
+                    "status": {
+                        "code": "WAITING",
+                        "name": "Waiting",
+                        "active": true,
+                        "cancelled": false
+                    },
                     "reason": "I'm to sick",
                     "appointmentType": {
                         "uuid": "de4f6849-1b0a-4d7d-9d89-c19b6040bec5",
@@ -203,7 +208,12 @@ describe('AppointmentSchedulingParser tests', function() {
                         },
                         "voided": false
                     },
-                    "status": "SCHEDULED",
+                    "status": {
+                        "code": "SCHEDULED",
+                        "name": "Scheduled",
+                        "active": false,
+                        "cancelled": false
+                    },
                     "reason": "hola doctor",
                     "appointmentType": {
                         "uuid": "de4f6849-1b0a-4d7d-9d89-c19b6040bec5",
@@ -211,6 +221,7 @@ describe('AppointmentSchedulingParser tests', function() {
                     },
                     "voided": false
                 }
+
             ]
         },
         {
@@ -306,7 +317,12 @@ describe('AppointmentSchedulingParser tests', function() {
                 },
                 "voided": false
             },
-            "status": "SCHEDULED",
+            "status": {
+                "code": "SCHEDULED",
+                "name": "Scheduled",
+                "active": false,
+                "cancelled": false
+            },
             "reason": null,
             "appointmentType": {
                 "uuid": "e0524fbf-37ae-4444-828e-8067a3533011",
@@ -392,7 +408,12 @@ describe('AppointmentSchedulingParser tests', function() {
                 },
                 "voided": false
             },
-            "status": "SCHEDULED",
+            "status": {
+                "code": "SCHEDULED",
+                "name": "Scheduled",
+                "active": false,
+                "cancelled": false
+            },
             "reason": null,
             "appointmentType": {
                 "uuid": "e0524fbf-37ae-4444-828e-8067a3533011",
@@ -426,28 +447,6 @@ describe('AppointmentSchedulingParser tests', function() {
             + " - " + moment("2014-02-14T21:00:00.000-0200").format("hh:mm a"));
     })
 
-    it('should parse patient information of a scheduled appointment block', function() {
-        var patientsScheduled = parsedScheduledAppointmentBlocks[0].patients;
-
-        expect(patientsScheduled.length).toBe(2);
-
-        expect(patientsScheduled[0].name).toBe("Mario Areias");
-        expect(patientsScheduled[0].serviceType.name).toBe("Charles");
-        expect(patientsScheduled[0].serviceType.uuid).toBe("de4f6849-1b0a-4d7d-9d89-c19b6040bec5");
-        expect(patientsScheduled[0].primaryIdentifier).toBe("Y2GHPW");
-        expect(patientsScheduled[0].dossierNumber).toBe("");
-        expect(patientsScheduled[0].phoneNumber).toBe("123123123");
-        expect(patientsScheduled[0].appointmentStatus).toBe("SCHEDULED");
-
-        expect(patientsScheduled[1].name).toBe("pamela pamela");
-        expect(patientsScheduled[1].serviceType.name).toBe("Charles");
-        expect(patientsScheduled[1].serviceType.uuid).toBe("de4f6849-1b0a-4d7d-9d89-c19b6040bec5");
-        expect(patientsScheduled[1].primaryIdentifier).toBe("Y2GAWR");
-        expect(patientsScheduled[1].dossierNumber).toBe("A000015");
-        expect(patientsScheduled[1].phoneNumber).toBe("");
-        expect(patientsScheduled[1].appointmentStatus).toBe("SCHEDULED");
-    });
-
     it('should parse provider of a scheduled appointment block', function() {
         expect(parsedScheduledAppointmentBlocks[0].provider).toBe("canchanya pamela");
     });
@@ -457,6 +456,49 @@ describe('AppointmentSchedulingParser tests', function() {
         expect(parsedScheduledAppointmentBlocks[1].provider).toBe(expected);
     });
 
+    describe('when parse patient information of a scheduled appointment block', function() {
+        var patientsScheduled;
+        var firstPatient;
+        var secondPatient;
 
+        beforeEach( function() {
+            patientsScheduled = parsedScheduledAppointmentBlocks[0].patients;
+            firstPatient = patientsScheduled[0];
+            secondPatient = patientsScheduled[1];
+        });
 
+        it('should parse patients', function() {
+            expect(patientsScheduled.length).toBe(2);
+        })
+
+        it('should parse service type of appointment', function() {
+            expect(firstPatient.serviceType.name).toBe("Charles");
+            expect(firstPatient.serviceType.uuid).toBe("de4f6849-1b0a-4d7d-9d89-c19b6040bec5");
+
+            expect(secondPatient.serviceType.name).toBe("Charles");
+            expect(secondPatient.serviceType.uuid).toBe("de4f6849-1b0a-4d7d-9d89-c19b6040bec5");
+        });
+
+        it('should parse personal patient information', function() {
+            expect(firstPatient.name).toBe("Mario Areias");
+            expect(firstPatient.primaryIdentifier).toBe("Y2GHPW");
+            expect(firstPatient.dossierNumber).toBe("");
+            expect(firstPatient.phoneNumber).toBe("123123123");
+
+            expect(secondPatient.name).toBe("pamela pamela");
+            expect(secondPatient.primaryIdentifier).toBe("Y2GAWR");
+            expect(secondPatient.dossierNumber).toBe("A000015");
+            expect(secondPatient.phoneNumber).toBe("");
+        });
+
+        it('appointment message status should be "Checked-in" when status is Waiting, Walking or Consulting', function() {
+            expect(secondPatient.appointmentStatus.message).toBe("Checked-in");
+            expect(secondPatient.appointmentStatus.active).toBe(true);
+        });
+
+        it('appointment message status should be empty when status is Scheduling', function() {
+            expect(firstPatient.appointmentStatus.message).toBe("");
+            expect(firstPatient.appointmentStatus.active).toBe(false);
+        });
+    });
 });
