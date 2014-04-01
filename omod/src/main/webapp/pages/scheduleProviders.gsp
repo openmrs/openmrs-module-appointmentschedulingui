@@ -86,7 +86,7 @@
             <selectmultipleappointmenttypes headermessage='${ ui.message("appointmentschedulingui.appointmenttypes") }'
                 viewall='${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }'
                 closemessage='${ ui.message("uicommons.close")}'
-                senderid = 'createAppointmentBlock'
+                senderid = 'viewAppointmentBlock'
                 placeholdermessage = '${ ui.message("appointmentschedulingui.scheduleProviders.selectMultiplePlaceholder") }'
                 class="inline-box"></selectmultipleappointmenttypes>
         </div>

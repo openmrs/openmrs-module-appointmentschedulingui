@@ -40,7 +40,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
          * Model
          */
         $scope.$on('selectMultipleAppointmentTypesApp.selectionChanged', function (event, eventData) {
-            if(eventData.senderd === 'createAppointmentBlock'){
+            if(eventData.senderd === 'viewAppointmentBlock'){
                 $scope.appointmentTypesFilter = eventData.data;
                 $scope.refreshCalendarEvents();
             }
