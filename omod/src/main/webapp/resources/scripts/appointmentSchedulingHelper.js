@@ -41,8 +41,8 @@ angular.module('appointmentSchedulingHelper')
                            '<div class="patientName">{{data.name}}</div>' +
                            '<div><small>({{data.serviceType.name}})</small></div>' +
                            '<div ng-if="data.appointmentStatus.message.length > 0">' +
-                            '<span ng-if="data.appointmentStatus.type == \'ACTIVE\'" class="status active"></span>' +
-                            '<span ng-if="data.appointmentStatus.type == \'MISSED\'" class="status error"></span>' +
+                            '<span ng-if="data.appointmentStatus.type == \'ACTIVE\' ||data.appointmentStatus.type == \'COMPLETED\'" class="status active"></span>' +
+                            '<span ng-if="data.appointmentStatus.type == \'MISSED\' || data.appointmentStatus.type == \'CANCELLED\'" class="status error"></span>' +
                             '<em>{{data.appointmentStatus.message}}</em></div>' +
                            '</div>' +
                            '<div class="patientInformation patientAttribute">' +

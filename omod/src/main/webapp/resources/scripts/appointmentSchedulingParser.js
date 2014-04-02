@@ -94,8 +94,6 @@
                 parsedScheduledAppointmentBlock.patients = parsePatients(block.appointments);
                 parsedScheduledAppointmentBlocks.push(parsedScheduledAppointmentBlock);
             });
-
-            console.log(parsedScheduledAppointmentBlocks);
             return parsedScheduledAppointmentBlocks;
        }
     }
