@@ -32,7 +32,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 { field: 'timeSlot.appointmentBlock.provider.person.display', displayName: "Provider" },
                 { field: 'timeSlot.appointmentBlock.location.display', displayName: "Location" },
                 { field: 'status', width: '15%',displayName: "Status" },
-                { displayName: "Actions", width: '10%',cellTemplate: '<span class="upcomingAppointmentsActions"><i class="delete-item icon-remove" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
+                { displayName: "Actions", width: '10%',cellTemplate: '<span><i class="delete-item icon-remove" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
                     'title="tooltip"></i></span>'  }
             ]};
 
