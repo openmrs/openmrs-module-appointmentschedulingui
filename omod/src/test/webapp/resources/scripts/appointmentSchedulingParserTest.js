@@ -122,8 +122,7 @@ describe('AppointmentSchedulingParser tests', function() {
                     "status": {
                         "code": "WAITING",
                         "name": "Waiting",
-                        "active": true,
-                        "cancelled": false
+                        "type": "ACTIVE"
                     },
                     "reason": "I'm to sick",
                     "appointmentType": {
@@ -211,8 +210,7 @@ describe('AppointmentSchedulingParser tests', function() {
                     "status": {
                         "code": "SCHEDULED",
                         "name": "Scheduled",
-                        "active": false,
-                        "cancelled": false
+                        "type": "SCHEDULED"
                     },
                     "reason": "hola doctor",
                     "appointmentType": {
@@ -320,8 +318,7 @@ describe('AppointmentSchedulingParser tests', function() {
             "status": {
                 "code": "SCHEDULED",
                 "name": "Scheduled",
-                "active": false,
-                "cancelled": false
+                "type": "SCHEDULED"
             },
             "reason": null,
             "appointmentType": {
@@ -411,8 +408,7 @@ describe('AppointmentSchedulingParser tests', function() {
             "status": {
                 "code": "SCHEDULED",
                 "name": "Scheduled",
-                "active": false,
-                "cancelled": false
+                "type": "SCHEDULED"
             },
             "reason": null,
             "appointmentType": {
@@ -493,12 +489,12 @@ describe('AppointmentSchedulingParser tests', function() {
 
         it('appointment message status should be "Checked-in" when status is Waiting, Walking or Consulting', function() {
             expect(secondPatient.appointmentStatus.message).toBe("Checked-in");
-            expect(secondPatient.appointmentStatus.active).toBe(true);
+            expect(secondPatient.appointmentStatus.type).toBe("active");
         });
 
         it('appointment message status should be empty when status is Scheduling', function() {
             expect(firstPatient.appointmentStatus.message).toBe("");
-            expect(firstPatient.appointmentStatus.active).toBe(false);
+            expect(firstPatient.appointmentStatus.type).toBe("scheduled");
         });
     });
 });
