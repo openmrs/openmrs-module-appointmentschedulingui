@@ -11,8 +11,9 @@ angular.module('appointmentscheduling.scheduleAppointment')
         $scope.pagingOptions = {};
         $scope.fromDate = new Date();
 
-        $scope.init = function(patientUuid) {
+        $scope.init = function(patientUuid, canOverBook) {
             $scope.patient = patientUuid;
+            $scope.canOverBook = canOverBook;
             $scope.findAppointments();
         }
 
@@ -33,7 +34,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 { field: 'timeSlot.appointmentBlock.provider.person.display', displayName: "Provider" },
                 { field: 'timeSlot.appointmentBlock.location.display', displayName: "Location" },
                 { field: 'status.name', width: '15%', displayName: "Status" },
-                { displayName: "Actions", cellTemplate: '<span><i class="delete-item icon-remove" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
+                { displayName: "Actions", cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canOverBook" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
                     'title="tooltip"></i></span>'  }
             ]};
 
