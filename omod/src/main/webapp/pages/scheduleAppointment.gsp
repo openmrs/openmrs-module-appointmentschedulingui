@@ -64,11 +64,13 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
 <div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl">
 
-   <div ng-controller='UpcomingAppointmentsCtrl' ng-init="init('${ patient.patient.uuid }')">
+   <div id="upcomingAppointments" ng-controller='UpcomingAppointmentsCtrl' ng-init="init('${ patient.patient.uuid }')">
+
         <div ng-show="showScheduleAppointment">
             <h2>
                 ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") }
             </h2>
+
             <daterangepicker
                     headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'
                     startdate="{{ fromDate.toDateString() }}"

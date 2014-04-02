@@ -39,6 +39,11 @@
 
 }
 
+#upcomingAppointments {
+  .angular-datepicker {
+    margin-bottom: 5%;
+  }
+}
 
 .ngRow.even {
   background: #FFFFFF;
@@ -65,8 +70,8 @@
     text-align:center;
   }
 
-  .ngCell {
-    cursor: initial;
+  .ngCell, .ngCellText {
+    cursor: initial !important;
   }
 
   .ngRow.even{
