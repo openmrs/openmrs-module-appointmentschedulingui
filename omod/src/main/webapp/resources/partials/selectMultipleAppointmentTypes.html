@@ -1,16 +1,18 @@
 <div id="select-appointment-types-typeahead">
     <p>{{ headermessage }}</p>
 
-    <div ng-repeat="appointmentTypeSelected in selectedAppointmentTypes">
+    <div class="selectedAppointmentTypesList" ng-repeat="appointmentTypeSelected in selectedAppointmentTypes">
         <span>{{ appointmentTypeSelected.display }}</span>
         <i class="icon-remove small add-on"  ng-click="removeAppointmentType(appointmentTypeSelected)"></i>
     </div>
 
     <div class="inline-block">
-        <input type="text" ng-model="appointmentType" typeahead-on-select="addAppointmentType(appointmentType)"
+        <input id={{senderId}}
+               type="text" ng-model="appointmentType" typeahead-on-select="addAppointmentType(appointmentType)"
                typeahead="appointmentType as appointmentType.display for appointmentType in getAppointmentTypes($viewValue) | filter: $viewValue"
-               typeahead-min-length='0'>
-        <div id="viewAllAppointmentTypes" class="inline-box">
+               typeahead-min-length='0'
+               placeholder={{placeholderMessage}}>
+        <div class="inline-box viewAllAppointmentTypes">
             <a ng-click="showAllAppointmentTypesModal = true">{{ viewall }}</a>
         </div>
     </div>

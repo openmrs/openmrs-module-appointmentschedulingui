@@ -19,7 +19,8 @@
                         },
                         primaryIdentifier: parsePrimaryIdentifier(appointment.patient.display),
                         dossierNumber: parseDossierNumber(appointment.patient.identifiers),
-                        phoneNumber: parsePhoneNumber(appointment.patient.person.attributes)
+                        phoneNumber: parsePhoneNumber(appointment.patient.person.attributes),
+                        appointmentStatus: parseAppointmentStatus(appointment.status)
                     };
 
                     patients.push(patientInformation);
@@ -60,6 +61,24 @@
                     }
                 });
                 return phoneNumber;
+            }
+
+            var parseAppointmentStatus = function(status){
+                var appointmentStatus = [];
+                appointmentStatus.active = status.active;
+
+                if(status.code == "WAITING" || status.code == "INCONSULTATION" || status.code == "WALKIN"){
+                    appointmentStatus.message = "Checked-in";
+                }
+                else if(status.code == "SCHEDULED") {
+                    appointmentStatus.message = "";
+                }
+                else {
+                    appointmentStatus.message = status.message;
+                }
+
+
+                return appointmentStatus;
             }
 
             var parseAppointmentBlockProvider = function (data){

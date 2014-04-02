@@ -6,6 +6,7 @@ angular.module('selectMultipleAppointmentTypesApp')
                 headermessage: '@headermessage',
                 viewall: '@viewall',
                 closemessage: '@closemessage',
+                placeholderMessage : '@placeholdermessage',
                 senderId : '@senderid'
             },
             templateUrl: '../ms/uiframework/resource/appointmentschedulingui/partials/selectMultipleAppointmentTypes.html',

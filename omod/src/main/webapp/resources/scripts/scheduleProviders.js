@@ -40,8 +40,10 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
          * Model
          */
         $scope.$on('selectMultipleAppointmentTypesApp.selectionChanged', function (event, eventData) {
-            if(eventData.senderd === 'createAppointmentBlock')
-                $scope.fiterAppointmentTypes = eventData.data;
+            if(eventData.senderd === 'createAppointmentBlock'){
+                $scope.appointmentTypesFilter = eventData.data;
+                $scope.refreshCalendarEvents();
+            }
         });
 
         // stores the appointment block we are currently creating/editing/viewing
@@ -50,6 +52,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
         // bound to the location and provider filters on the calendar view
         $scope.locationFilter;
         $scope.providerFilter;
+        $scope.appointmentTypesFilter;
 
         // locations to display in the locations drop-down
         $scope.locations = [];
@@ -129,6 +132,10 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
 
             if ($scope.locationFilter) {
                 params['location'] = $scope.locationFilter.uuid;
+            }
+
+            if ($scope.appointmentTypesFilter) {
+                params['appointmentType'] = $scope.appointmentTypesFilter;
             }
 
             AppointmentService.getAppointmentBlocks(params).then(function (results) {
