@@ -1,4 +1,5 @@
 var telephoneAttributeTypeName = "Telephone Number";
+var emr = jasmine.createSpyObj('emr', ['message']);
 
 describe('AppointmentSchedulingParser tests', function() {
     var appointmentScheduling =   [
@@ -430,6 +431,9 @@ describe('AppointmentSchedulingParser tests', function() {
         inject(function ($rootScope, $injector) {
             scope = $rootScope.$new();
             parse = $injector.get('Parse');
+            emr.message.andCallFake( function () {
+                return "Checked-in";
+            });
         });
         parsedScheduledAppointmentBlocks = parse.scheduledAppointmentBlocks(appointmentScheduling);
     });
@@ -490,6 +494,7 @@ describe('AppointmentSchedulingParser tests', function() {
         it('appointment message status should be "Checked-in" when status is Waiting, Walking or Consulting', function() {
             expect(secondPatient.appointmentStatus.message).toBe("Checked-in");
             expect(secondPatient.appointmentStatus.type).toBe("ACTIVE");
+            expect(emr.message).toHaveBeenCalledWith('appointmentschedulingui.dailyScheduledAppointments.statusActive');
         });
 
         it('appointment message status should be empty when status is Scheduling', function() {
