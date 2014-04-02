@@ -31,15 +31,16 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 { field: 'appointmentType.display', displayName: "Service Type" },
                 { field: 'timeSlot.appointmentBlock.provider.person.display', displayName: "Provider" },
                 { field: 'timeSlot.appointmentBlock.location.display', displayName: "Location" },
-                { field: 'status', width: '15%',displayName: "Status" },
-                { displayName: "Actions", width: '10%',cellTemplate: '<span><i class="delete-item icon-remove" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
+                { field: 'status.name', width: '15%', displayName: "Status" },
+                { displayName: "Actions", cellTemplate: '<span><i class="delete-item icon-remove" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
                     'title="tooltip"></i></span>'  }
             ]};
 
 
         var getSearchParams = function () {
             var params = { 'patient' : $scope.patient,
-                'status' : 'SCHEDULED' };
+                'status' : ['SCHEDULED', 'RESCHEDULED']
+             };
             if ($scope.fromDate) { params['fromDate'] = moment($scope.fromDate).format();}
             if ($scope.toDate) { params['toDate'] = moment($scope.toDate).endOf('day').format(); }
             return params;
