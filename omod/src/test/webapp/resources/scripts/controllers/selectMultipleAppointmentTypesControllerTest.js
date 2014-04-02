@@ -74,4 +74,45 @@ describe('select Multiple Appointment Types controller', function() {
             expect(listener).toHaveBeenCalled();
         });
     });
+
+    describe('the controller must listen for an event informing to clear the selected appointment types list', function () {
+        var appointmentType1 = {
+            appointmenttype: {
+                uuid: '0c186cdd-44c4-49d7-8694-1880d955101c',
+                display: 'type 1'
+            }
+        };
+
+        var appointmentType2 = {
+            appointmenttype: {
+                uuid: '0c186cdd-44c4-49d7-8694-1880d955101b',
+                display: 'type 2'
+            }
+        };;
+
+        it('must clear the selected appointment types list when selectMultipleAppointmentTypesApp.clearSelectedList event is received and has the same senderId', function () {
+            scope.senderId = "sender 1";
+            scope.selectedAppointmentTypes = [appointmentType1];
+            scope.allAppointmentTypes = [appointmentType2];
+            var eventData = {senderId: scope.senderId};
+
+            scope.$broadcast('selectMultipleAppointmentTypesApp.clearSelectedList', eventData);
+
+            expect(scope.selectedAppointmentTypes.length).toBe(0);
+            expect(scope.allAppointmentTypes.length).toBe(2);
+        });
+
+        it('must not clear the selected appointment types list when selectMultipleAppointmentTypesApp.clearSelectedList event is received and has other senderId', function () {
+            scope.senderId = "sender 1";
+            scope.selectedAppointmentTypes = [appointmentType1];
+            scope.allAppointmentTypes = [appointmentType2];
+            var eventData = {senderId: "sender 2"};
+
+            scope.$broadcast('selectMultipleAppointmentTypesApp.clearSelectedList', eventData);
+
+            expect(scope.selectedAppointmentTypes.length).toBe(1);
+            expect(scope.allAppointmentTypes.length).toBe(1);
+
+        });
+    });
 })

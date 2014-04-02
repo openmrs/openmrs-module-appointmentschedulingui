@@ -147,15 +147,12 @@
             </div>
         </div>
 
-        <div id="appointment-block-form-appointment-types">
-            <div id="select-appointment-types-typeahead">
-                <p>${ ui.message("appointmentschedulingui.appointmenttypes") }</p>
-                <input type="text" ng-model="appointmentType" typeahead-on-select="addAppointmentType()" typeahead="appointmentType as appointmentType.display for appointmentType in getAppointmentTypes(\$viewValue) | filter: \$viewValue | limitTo:8" >
-            </div>
-            <div id="select-appointment-types-list" ng-repeat="type in appointmentBlock.types">
-                <a ng-click="removeAppointmentType(type)">{{ type.display }}</a>
-            </div>
-        </div>
+        <selectmultipleappointmenttypes headermessage='${ ui.message("appointmentschedulingui.appointmenttypes") }'
+                                        viewall='${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }'
+                                        closemessage='${ ui.message("uicommons.close")}'
+                                        senderid = 'createAppointmentBlock'
+                                        placeholdermessage = '${ ui.message("appointmentschedulingui.scheduleProviders.selectMultiplePlaceholder") }'
+                                        class="inline-box"></selectmultipleappointmenttypes>
 
         <div id="appointment-block-form-buttons">
             <button class="cancel" ng-click="showAppointmentBlockForm=false;showCalendar=true;refreshCalendarEvents()"> ${ ui.message("uicommons.cancel") }</button>

@@ -3,7 +3,6 @@ angular.module('selectMultipleAppointmentTypesApp')
         function ($scope, AppointmentService, filterFilter) {
             $scope.allAppointmentTypes = [];
             $scope.selectedAppointmentTypes = [];
-            $scope.selectedAppointentTypesUuids = [];
             $scope.openList = "none";
             $scope.showAllAppointmentTypesModal = false;
 
@@ -16,7 +15,6 @@ angular.module('selectMultipleAppointmentTypesApp')
             $scope.addAppointmentType = function(appointmentType) {
                 if(!isChecked(appointmentType)) {
                     $scope.selectedAppointmentTypes.push(appointmentType);
-                    $scope.selectedAppointentTypesUuids.push(appointmentType.uuid);
                     removeAppointmentTypeFromDialog(appointmentType);
                     sendSelectedAppointmentTypesEvent();
                 }
@@ -38,7 +36,6 @@ angular.module('selectMultipleAppointmentTypesApp')
 
             $scope.removeAppointmentType = function (appointmentTypeToRemove) {
                 $scope.selectedAppointmentTypes.splice(getOptionIndex(appointmentTypeToRemove), 1);
-                $scope.selectedAppointentTypesUuids.splice(getOptionIndex(appointmentTypeToRemove.uuid), 1);
                 addAppointmentTypeToDialog(appointmentTypeToRemove);
                 sendSelectedAppointmentTypesEvent();
             }
@@ -57,8 +54,21 @@ angular.module('selectMultipleAppointmentTypesApp')
             var sendSelectedAppointmentTypesEvent = function() {
                 var eventData = {
                     senderd: $scope.senderId,
-                    data : $scope.selectedAppointentTypesUuids
+                    data : $scope.selectedAppointmentTypes
                 };
                 $scope.$emit('selectMultipleAppointmentTypesApp.selectionChanged', eventData);
             }
+
+            $scope.$on('selectMultipleAppointmentTypesApp.clearSelectedList', function (event, eventData) {
+                if(eventData.senderId === $scope.senderId){
+                    clearSelectedAppointmentTypesList();
+                }
+            });
+
+            var clearSelectedAppointmentTypesList = function () {
+                for (var index = 0; index < $scope.selectedAppointmentTypes.length; index++) {
+                    $scope.removeAppointmentType($scope.selectedAppointmentTypes[index]);
+                }
+            }
+
         }]);
