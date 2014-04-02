@@ -59,7 +59,11 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
         var clearAppointmentTypeMultiselectList = function (senderId) {
             var eventData = {senderId: senderId};
             $scope.$broadcast('selectMultipleAppointmentTypesApp.clearSelectedList', eventData);
-            console.log("broadcast sent");
+        }
+
+        var addSelectedAppointmentTypesToMultiselectList = function (senderId, selectedList) {
+            var eventData = {senderId: senderId, data: selectedList};
+            $scope.$broadcast('selectMultipleAppointmentTypesApp.addToSelectedList', eventData);
         }
 
         // stores the appointment block we are currently creating/editing/viewing
@@ -225,21 +229,20 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
                 types: []
             }
 
-            $scope.appointmentType = '';
             $scope.showCalendar = false;
             $scope.appointmentBlockFormErrorMessages = [];
             $scope.showAppointmentBlockForm = true;
         }
 
-        $scope.editAppointmentBlock = function() {
-            $scope.appointmentType = '';
+        $scope.editAppointmentBlock = function(appointmentTypesList) {
             $scope.showCalendar = false;
             $scope.appointmentBlockFormErrorMessages = [];
             $scope.showAppointmentBlockForm = true;
+            addSelectedAppointmentTypesToMultiselectList('createAppointmentBlock', appointmentTypesList);
+
         }
 
         $scope.saveAppointmentBlock = function() {
-            clearAppointmentTypeMultiselectList('createAppointmentBlock');
             $scope.appointmentBlockFormErrorMessages = [];
 
             var startDate = moment($scope.appointmentBlock.startDate)
@@ -303,6 +306,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
                     }
 
                 })
+            clearAppointmentTypeMultiselectList('createAppointmentBlock');
         }
 
         $scope.showDeleteAppointmentBlockModal = function () {

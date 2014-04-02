@@ -176,7 +176,7 @@
         <p>{{ appointmentBlock.startDate | date: 'MMM d' }}, {{ appointmentBlock.startDate | date: 'hh:mm a' }} - {{ appointmentBlock.endDate | date: 'hh:mm a' }}</p>
         <p>${ ui.message('uicommons.provider') }: {{ appointmentBlock.provider.person.display }}</p>
         <p>${ ui.message('appointmentschedulingui.appointmenttypes') }: <span ng-repeat="type in appointmentBlock.types"> {{ type.display }}{{ !\$last ? ', ' : '' }}</span> </p>
-        <p><a class="tooltip-link" ng-click="editAppointmentBlock()">${ ui.message('uicommons.edit')}</a>  <a class="tooltip-link" ng-click="showDeleteAppointmentBlockModal()">${ ui.message('uicommons.delete') }</a></p>
+        <p><a class="tooltip-link" ng-click="editAppointmentBlock(appointmentBlock.types)">${ ui.message('uicommons.edit')}</a>  <a class="tooltip-link" ng-click="showDeleteAppointmentBlockModal()">${ ui.message('uicommons.delete') }</a></p>
     </div>
 
 </div>

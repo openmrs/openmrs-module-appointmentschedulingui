@@ -66,8 +66,23 @@ angular.module('selectMultipleAppointmentTypesApp')
             });
 
             var clearSelectedAppointmentTypesList = function () {
-                for (var index = 0; index < $scope.selectedAppointmentTypes.length; index++) {
-                    $scope.removeAppointmentType($scope.selectedAppointmentTypes[index]);
+                while($scope.selectedAppointmentTypes.length > 0) {
+                    $scope.removeAppointmentType($scope.selectedAppointmentTypes[0]);
+                }
+            }
+
+            $scope.$on('selectMultipleAppointmentTypesApp.addToSelectedList', function (event, eventData) {
+                if(eventData.senderId === $scope.senderId){
+                    addAppointmentTypesToSelectedList(eventData.data);
+                }
+            });
+
+            var addAppointmentTypesToSelectedList = function (appointmentTypesList) {
+                while(appointmentTypesList.length > 0) {
+                    var appointmentType = appointmentTypesList[0];
+                    $scope.selectedAppointmentTypes.push(appointmentType);
+                    $scope.allAppointmentTypes = $scope.allAppointmentTypes.filter(function(type) { return type.display !== appointmentType.display; });
+                    appointmentTypesList.splice($.inArray(appointmentType, appointmentTypesList), 1);
                 }
             }
 
