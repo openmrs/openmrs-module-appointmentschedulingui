@@ -65,7 +65,6 @@
 
             var parseAppointmentStatus = function(status){
                 var appointmentStatus = [];
-                appointmentStatus.type = status.type;
 
                 if(status.type == "ACTIVE"){
                     appointmentStatus.message = "Checked-in";
@@ -74,9 +73,10 @@
                     appointmentStatus.message = "";
                 }
                 else {
-                    appointmentStatus.message = status.name;
+                    appointmentStatus.message = status.message;
                 }
 
+                appointmentStatus.type = status.type.toLowerCase();
                 return appointmentStatus;
             }
 
@@ -94,8 +94,6 @@
                 parsedScheduledAppointmentBlock.patients = parsePatients(block.appointments);
                 parsedScheduledAppointmentBlocks.push(parsedScheduledAppointmentBlock);
             });
-
-            console.log(parsedScheduledAppointmentBlocks);
             return parsedScheduledAppointmentBlocks;
        }
     }
