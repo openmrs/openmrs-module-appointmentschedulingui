@@ -15,7 +15,7 @@ describe('CancelAppointment controller', function () {
         scope = $rootScope.$new();
         $timeout = _$timeout_;
 
-        var controller =  $controller('CancelAppointmentCtrl', {$scope: scope, $timeout: $timeout, AppointmentService: appointmentServiceMock});
+        var controller =  $controller('UpcomingAppointmentsCtrl', {$scope: scope, $timeout: $timeout, AppointmentService: appointmentServiceMock});
     }));
 
     describe('it must cancel an appointment', function () {
