@@ -3,6 +3,10 @@ angular.module('scheduleAppointmentDateRangePickerApp')
         $scope.now = new Date();
 
         var initializeStartDatePicker = function () {
+            if ($scope.fromDate){
+                $scope.startDate = new Date($scope.fromDate);
+            }
+
             $scope.startDateOptions = {
                 opened: false,
                 open: function(event) {
