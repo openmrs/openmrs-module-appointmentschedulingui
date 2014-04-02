@@ -127,7 +127,10 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                     <a ng-click="showAllAppointmentTypesModal = true">${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }</a>
                </div>
 
-               <daterangepicker headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'></daterangepicker>
+               <daterangepicker
+                   senderid="scheduleAppointment"
+                   headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'>
+               </daterangepicker>
 
                 <% if (canOverbook) { %>
                    <div id="selectIncludeSlotsThatRequireOverbook" class="inlineBox">

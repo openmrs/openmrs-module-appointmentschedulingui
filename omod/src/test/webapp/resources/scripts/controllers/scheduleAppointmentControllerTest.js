@@ -49,7 +49,7 @@ describe('ScheduleAppointment tests', function() {
     });
 
     it('must call the subscribe method from the dateRangePickerEventListener service when the controller is created', function () {
-        expect(mockDateRangePickerEventListener.subscribe).toHaveBeenCalledWith(scope);
+        expect(mockDateRangePickerEventListener.subscribe).toHaveBeenCalledWith(scope, 'scheduleAppointment');
     });
 
     it('must set the current page to 1 when the filter text changes', function () {

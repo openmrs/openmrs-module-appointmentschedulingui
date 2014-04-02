@@ -28,29 +28,45 @@ describe('date range picker controller', function() {
 
     describe('when a date changes a notification is sent', function () {
         it('sends a notification when the start date changes', function () {
+            scope.senderId = "sender 1";
             var newDate = 'new date';
+            var eventData = {
+                senderId: scope.senderId,
+                data:newDate
+            };
+
             var startDateListener = jasmine.createSpy('startDateListener');
             scope.$on('dateRangePickerApp.changeStartDate', startDateListener);
 
             scope.startDate = newDate;
             scope.$apply();
 
-            expect(startDateListener).toHaveBeenCalledWith(jasmine.any(Object), newDate);
+            expect(startDateListener).toHaveBeenCalledWith(jasmine.any(Object), eventData);
         });
 
         it('sends a notification when the end date changes', function () {
+            scope.senderId = "sender 1";
             var newDate = 'new date';
+            var eventData = {
+                senderId: scope.senderId,
+                data:newDate
+            };
             var endDateListener = jasmine.createSpy('endDateListener');
             scope.$on('dateRangePickerApp.changeEndDate', endDateListener);
 
             scope.endDate = newDate;
             scope.$apply();
 
-            expect(endDateListener).toHaveBeenCalledWith(jasmine.any(Object), newDate);
+            expect(endDateListener).toHaveBeenCalledWith(jasmine.any(Object), eventData);
         });
 
         it('sends a notification with empty date when start clear date is selected', function () {
             scope.startDate = 'old date';
+            scope.senderId = "sender 1";
+            var eventData = {
+                senderId: scope.senderId,
+                data:''
+            };
             var startDateListener = jasmine.createSpy('startDateListener');
             scope.$on('dateRangePickerApp.changeStartDate', startDateListener);
             var fakeEvent = jasmine.createSpyObj('fakeEvent', ['preventDefault', 'stopPropagation']);
@@ -58,12 +74,17 @@ describe('date range picker controller', function() {
             scope.startDateOptions.clear(fakeEvent);
             scope.$apply();
 
-            expect(startDateListener).toHaveBeenCalledWith(jasmine.any(Object), '');
+            expect(startDateListener).toHaveBeenCalledWith(jasmine.any(Object), eventData);
             expect(scope.startDate).toBe('');
         });
 
         it('sends a notification with empty date when end clear date is selected', function () {
             scope.endDate = 'old date';
+            scope.senderId = "sender 1";
+            var eventData = {
+                senderId: scope.senderId,
+                data:''
+            };
             var endDateListener = jasmine.createSpy('endDateListener');
             scope.$on('dateRangePickerApp.changeEndDate', endDateListener);
             var fakeEvent = jasmine.createSpyObj('fakeEvent', ['preventDefault', 'stopPropagation']);
@@ -71,7 +92,7 @@ describe('date range picker controller', function() {
             scope.endDateOptions.clear(fakeEvent);
             scope.$apply();
 
-            expect(endDateListener).toHaveBeenCalledWith(jasmine.any(Object), '');
+            expect(endDateListener).toHaveBeenCalledWith(jasmine.any(Object), eventData);
             expect(scope.endDate).toBe('');
 
         });
