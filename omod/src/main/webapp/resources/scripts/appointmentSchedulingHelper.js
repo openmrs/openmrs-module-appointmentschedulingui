@@ -32,30 +32,7 @@ angular.module('appointmentSchedulingHelper')
 
                return selectedLocation;
            },
-           setUpGrid: function(scope){
-               var templateCell =
-                   '<div ng-repeat=' +
-                       '"data in row.getProperty(col.field) track by $index">' +
-                       '<div class="ngCellText" >' +
-                           '<div class="patientInformation appointmentSummary">' +
-                           '<div class="patientName">{{data.name}}</div>' +
-                           '<div><small>({{data.serviceType.name}})</small></div>' +
-                           '<div><span ng-if="data.appointmentStatus.active" class="status active"></span><em>{{data.appointmentStatus.message}}</em></div>' +
-                           '</div>' +
-                           '<div class="patientInformation patientAttribute">' +
-                           '<div>{{data.phoneNumber}}</div>' +
-                           '<div ng-if="data.phoneNumber.length > 0"><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.phoneNumber") + '</small></div>' +
-                           '</div>' +
-                           '<div class="patientInformation patientAttribute">' +
-                           '<div>{{data.primaryIdentifier}}</div>' +
-                           '<div><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId") + '</small></div>' +
-                           '</div>' +
-                           '<div class="patientInformation patientAttribute">' +
-                           '<div>{{data.dossierNumber}}</div>' +
-                           '<div ng-if="data.dossierNumber.length > 0"><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.dossierNumber") + '</small></div>' +
-                           '</div>' +
-                       '</div>';
-
+           setUpGrid: function(){
                var scheduledAppointmentBlocksGrid = {
                    data: 'paginatedScheduledAppointmentBlocks',
                    multiSelect: false,
@@ -72,7 +49,7 @@ angular.module('appointmentSchedulingHelper')
                        { field: 'patients',
                            width: '60%',
                            displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.patientName"),
-                           cellTemplate: templateCell }
+                           cellTemplate: '../ms/uiframework/resource/appointmentschedulingui/partials/patientAppointmentInformation.html' }
                    ]
                };
                return scheduledAppointmentBlocksGrid;

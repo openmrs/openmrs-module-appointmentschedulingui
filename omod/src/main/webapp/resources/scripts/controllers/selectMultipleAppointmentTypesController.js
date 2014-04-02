@@ -3,7 +3,6 @@ angular.module('selectMultipleAppointmentTypesApp')
         function ($scope, AppointmentService, filterFilter) {
             $scope.allAppointmentTypes = [];
             $scope.selectedAppointmentTypes = [];
-            $scope.selectedAppointentTypesUuids = [];
             $scope.openList = "none";
             $scope.showAllAppointmentTypesModal = false;
 
@@ -16,7 +15,6 @@ angular.module('selectMultipleAppointmentTypesApp')
             $scope.addAppointmentType = function(appointmentType) {
                 if(!isChecked(appointmentType)) {
                     $scope.selectedAppointmentTypes.push(appointmentType);
-                    $scope.selectedAppointentTypesUuids.push(appointmentType.uuid);
                     removeAppointmentTypeFromDialog(appointmentType);
                     sendSelectedAppointmentTypesEvent();
                 }
@@ -38,7 +36,6 @@ angular.module('selectMultipleAppointmentTypesApp')
 
             $scope.removeAppointmentType = function (appointmentTypeToRemove) {
                 $scope.selectedAppointmentTypes.splice(getOptionIndex(appointmentTypeToRemove), 1);
-                $scope.selectedAppointentTypesUuids.splice(getOptionIndex(appointmentTypeToRemove.uuid), 1);
                 addAppointmentTypeToDialog(appointmentTypeToRemove);
                 sendSelectedAppointmentTypesEvent();
             }
@@ -57,8 +54,36 @@ angular.module('selectMultipleAppointmentTypesApp')
             var sendSelectedAppointmentTypesEvent = function() {
                 var eventData = {
                     senderd: $scope.senderId,
-                    data : $scope.selectedAppointentTypesUuids
+                    data : $scope.selectedAppointmentTypes
                 };
                 $scope.$emit('selectMultipleAppointmentTypesApp.selectionChanged', eventData);
             }
+
+            $scope.$on('selectMultipleAppointmentTypesApp.clearSelectedList', function (event, eventData) {
+                if(eventData.senderId === $scope.senderId){
+                    clearSelectedAppointmentTypesList();
+                }
+            });
+
+            var clearSelectedAppointmentTypesList = function () {
+                while($scope.selectedAppointmentTypes.length > 0) {
+                    $scope.removeAppointmentType($scope.selectedAppointmentTypes[0]);
+                }
+            }
+
+            $scope.$on('selectMultipleAppointmentTypesApp.addToSelectedList', function (event, eventData) {
+                if(eventData.senderId === $scope.senderId){
+                    addAppointmentTypesToSelectedList(eventData.data);
+                }
+            });
+
+            var addAppointmentTypesToSelectedList = function (appointmentTypesList) {
+                while(appointmentTypesList.length > 0) {
+                    var appointmentType = appointmentTypesList[0];
+                    $scope.selectedAppointmentTypes.push(appointmentType);
+                    $scope.allAppointmentTypes = $scope.allAppointmentTypes.filter(function(type) { return type.display !== appointmentType.display; });
+                    appointmentTypesList.splice($.inArray(appointmentType, appointmentTypesList), 1);
+                }
+            }
+
         }]);

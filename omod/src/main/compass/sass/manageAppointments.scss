@@ -39,6 +39,11 @@
 
 }
 
+#upcomingAppointments {
+  .angular-datepicker {
+    margin-bottom: 5%;
+  }
+}
 
 .ngRow.even {
   background: #FFFFFF;
@@ -61,20 +66,36 @@
 }
 
 #appointmentGridTable {
-
-  .ngCell {
-    cursor: initial;
+  .col5{
+    text-align:center;
   }
 
-  .ngRow.even:hover {
-    background: #FFFFFF;
-    color: #555;
+  .ngCell, .ngCellText {
+    cursor: initial !important;
   }
 
-  .ngRow.odd:hover {
-    background: #fffdf7;
-    color: #555;
+  .ngRow.even{
+    &:hover {
+      background: #FFFFFF;
+      color: #555;
+    }
+    &.selected {
+      background: #FFFFFF;
+      color: #555;
+    }
+  }
+
+  .ngRow.odd{
+    &:hover {
+      background: #fffdf7;
+      color: #555;
+    }
+    &.selected {
+      background: #fffdf7;
+      color: #555;
+    }
   }
 }
+
 
 

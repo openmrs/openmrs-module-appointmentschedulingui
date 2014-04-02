@@ -37,7 +37,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                                         + "<br/>({{ row.getProperty(\'unallocatedMinutesAbsValue\') }} {{ row.getProperty(\'minutesMessage\') }})</div>" } ]
         };
 
-        dateRangePickerEventListener.subscribe($scope);
+        dateRangePickerEventListener.subscribe($scope, 'scheduleAppointment');
 
         // initialize allAppointmentTypes variable
         AppointmentService.getAppointmentTypes().then(function (result) {

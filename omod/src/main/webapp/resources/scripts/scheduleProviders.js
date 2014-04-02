@@ -40,11 +40,31 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
          * Model
          */
         $scope.$on('selectMultipleAppointmentTypesApp.selectionChanged', function (event, eventData) {
-            if(eventData.senderd === 'createAppointmentBlock'){
-                $scope.appointmentTypesFilter = eventData.data;
+            if(eventData.senderd === 'viewAppointmentBlock'){
+                $scope.appointmentTypesFilter = getUuidsListFromAppointmentTypesList(eventData.data);
                 $scope.refreshCalendarEvents();
+            } else if (eventData.senderd === 'createAppointmentBlock') {
+                $scope.appointmentBlock.types = eventData.data;
             }
         });
+
+        var getUuidsListFromAppointmentTypesList = function (appointmentTypesList) {
+            var appointmentTypeUuidsList = [];
+            for (var index = 0; index < appointmentTypesList.length; index++) {
+                appointmentTypeUuidsList.push(appointmentTypesList[index].uuid);
+            }
+            return appointmentTypeUuidsList;
+        }
+
+        var clearAppointmentTypeMultiselectList = function (senderId) {
+            var eventData = {senderId: senderId};
+            $scope.$broadcast('selectMultipleAppointmentTypesApp.clearSelectedList', eventData);
+        }
+
+        var addSelectedAppointmentTypesToMultiselectList = function (senderId, selectedList) {
+            var eventData = {senderId: senderId, data: selectedList};
+            $scope.$broadcast('selectMultipleAppointmentTypesApp.addToSelectedList', eventData);
+        }
 
         // stores the appointment block we are currently creating/editing/viewing
         $scope.appointmentBlock = {};
@@ -198,15 +218,6 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
             });
         }
 
-        $scope.addAppointmentType = function() {
-            $scope.appointmentBlock.types.push($scope.appointmentType);
-            $scope.appointmentType = undefined;
-        }
-
-        $scope.removeAppointmentType = function(type) {
-            $scope.appointmentBlock.types = $filter('filter')($scope.appointmentBlock.types, "!" + type.uuid);
-        }
-
         $scope.createAppointmentBlock = function(date) {
 
             $scope.appointmentBlock = {
@@ -218,21 +229,20 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
                 types: []
             }
 
-            $scope.appointmentType = '';
             $scope.showCalendar = false;
             $scope.appointmentBlockFormErrorMessages = [];
             $scope.showAppointmentBlockForm = true;
         }
 
-        $scope.editAppointmentBlock = function() {
-            $scope.appointmentType = '';
+        $scope.editAppointmentBlock = function(appointmentTypesList) {
             $scope.showCalendar = false;
             $scope.appointmentBlockFormErrorMessages = [];
             $scope.showAppointmentBlockForm = true;
+            addSelectedAppointmentTypesToMultiselectList('createAppointmentBlock', appointmentTypesList);
+
         }
 
         $scope.saveAppointmentBlock = function() {
-
             $scope.appointmentBlockFormErrorMessages = [];
 
             var startDate = moment($scope.appointmentBlock.startDate)
@@ -296,6 +306,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
                     }
 
                 })
+            clearAppointmentTypeMultiselectList('createAppointmentBlock');
         }
 
         $scope.showDeleteAppointmentBlockModal = function () {

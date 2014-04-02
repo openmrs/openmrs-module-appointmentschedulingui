@@ -65,18 +65,17 @@
 
             var parseAppointmentStatus = function(status){
                 var appointmentStatus = [];
-                appointmentStatus.active = status.active;
+                appointmentStatus.type = status.type;
 
-                if(status.code == "WAITING" || status.code == "INCONSULTATION" || status.code == "WALKIN"){
+                if(status.type == "ACTIVE"){
                     appointmentStatus.message = "Checked-in";
                 }
-                else if(status.code == "SCHEDULED") {
+                else if(status.type == "SCHEDULED") {
                     appointmentStatus.message = "";
                 }
                 else {
-                    appointmentStatus.message = status.message;
+                    appointmentStatus.message = status.name;
                 }
-
 
                 return appointmentStatus;
             }

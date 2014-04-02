@@ -1,6 +1,6 @@
 angular.module('appointmentscheduling.scheduleAppointment')
-    .controller('CancelAppointmentCtrl', ['$scope', '$timeout', 'AppointmentService','filterFilter', 'ngGridPaginationFactory',
-                                 function ($scope, $timeout, AppointmentService, filterFilter, ngGridPaginationFactory) {
+    .controller('UpcomingAppointmentsCtrl', ['$scope', '$timeout', 'AppointmentService','filterFilter', 'ngGridPaginationFactory', 'dateRangePickerEventListener',
+                                 function ($scope, $timeout, AppointmentService, filterFilter, ngGridPaginationFactory, dateRangePickerEventListener) {
         $scope.appointmentToCancel = null;
         $scope.appointmentCancelReason = '';
 
@@ -9,9 +9,11 @@ angular.module('appointmentscheduling.scheduleAppointment')
         $scope.allAppointments = [];
         $scope.patient = {};
         $scope.pagingOptions = {};
+        $scope.fromDate = new Date();
 
-        $scope.init = function(patientUuid) {
+        $scope.init = function(patientUuid, canOverBook) {
             $scope.patient = patientUuid;
+            $scope.canOverBook = canOverBook;
             $scope.findAppointments();
         }
 
@@ -31,15 +33,16 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 { field: 'appointmentType.display', displayName: "Service Type" },
                 { field: 'timeSlot.appointmentBlock.provider.person.display', displayName: "Provider" },
                 { field: 'timeSlot.appointmentBlock.location.display', displayName: "Location" },
-                { field: 'status', displayName: "Status" },
-                { displayName: "Actions", cellTemplate: '<span><i class="delete-item icon-remove" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
+                { field: 'status.name', width: '15%', displayName: "Status" },
+                { displayName: "Actions", cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canOverBook" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
                     'title="tooltip"></i></span>'  }
             ]};
 
 
         var getSearchParams = function () {
             var params = { 'patient' : $scope.patient,
-                'status' : 'SCHEDULED' };
+                'status' : ['SCHEDULED', 'RESCHEDULED']
+             };
             if ($scope.fromDate) { params['fromDate'] = moment($scope.fromDate).format();}
             if ($scope.toDate) { params['toDate'] = moment($scope.toDate).endOf('day').format(); }
             return params;
@@ -47,6 +50,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
 
         $scope.findAppointments = function() {
             clearPreviousResults();
+            $scope.showLoadingAppointmentsGrid = true;
 
             AppointmentService.getAppointments(getSearchParams()).then(function (results) {
                 angular.forEach(results, function(result) {
@@ -54,9 +58,9 @@ angular.module('appointmentscheduling.scheduleAppointment')
                     result['startTimeFormatted'] = moment(result.timeSlot.appointmentBlock.startDate).format("h:mm A");
                     result['endTimeFormatted']= moment(result.timeSlot.appointmentBlock.endDate).format("h:mm A");
                 })
-                $scope.allAppointments = results;
+
+                initializeMessagesAfterSearch(results);
                 $scope.pagingOptions.currentPage = 1;
-                $scope.showAppointmentsGrid = true;
                 $scope.updateFilter();
             })
             .catch(function(e) {
@@ -64,6 +68,20 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 emr.errorMessage("appointmentschedulingui.scheduleAppointment.invalidSearchParameters");
             });
         }
+
+
+        var initializeMessagesAfterSearch = function (results) {
+            $scope.showLoadingAppointmentsGrid = false;
+            $scope.allAppointments = results;
+
+            if(results.length == 0) {
+                $scope.showNoAppointmentsMessage = true;
+                $scope.showAppointmentsGrid = false;
+            } else {
+                $scope.showAppointmentsGrid = true;
+            }
+        };
+
 
         var clearPreviousResults = function () {
             $scope.allAppointments = [];
@@ -83,6 +101,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
         }
 
         ngGridPaginationFactory.includePagination($scope, $scope.appointmentOptions, $scope.updateFilter);
+        dateRangePickerEventListener.subscribe($scope, 'upcomingAppointments');
 
         $scope.confirmCancelAppointment = function(uuid) {
             $scope.appointmentToCancel = { uuid: uuid };
@@ -109,6 +128,16 @@ angular.module('appointmentscheduling.scheduleAppointment')
         $scope.doNotCancelAppointment = function() {
             $scope.appointmentToCancel = null;
         }
+
+        $scope.$watch(
+            "fromDate",
+            $scope.findAppointments
+        );
+
+        $scope.$watch(
+            "toDate",
+            $scope.findAppointments
+        );
 
     }])
 

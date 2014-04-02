@@ -23,6 +23,7 @@ describe('dateRangePicker directive', function () {
             $templateCache.put('../ms/uiframework/resource/appointmentschedulingui/partials/daterangepicker.html', template);
 
             scope = $rootScope;
+            scope.senderId = "sender 1";
             compile= $compile;
         }));
 

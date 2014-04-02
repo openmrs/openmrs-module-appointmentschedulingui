@@ -21,7 +21,7 @@
     ui.includeJavascript("appointmentschedulingui", "services/ngGridPagination.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/scheduleAppointmentController.js")
-    ui.includeJavascript("appointmentschedulingui", "controllers/cancelAppointmentController.js")
+    ui.includeJavascript("appointmentschedulingui", "controllers/upcomingAppointmentsController.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/confirmAppointmentController.js")
 
     ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
@@ -64,11 +64,24 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
 <div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl">
 
-   <div ng-controller='CancelAppointmentCtrl' ng-init="init('${ patient.patient.uuid }')">
-        <div ng-show="showScheduleAppointment">
-            <table id="appointmentGridTable" class="gridStyle" ng-grid="appointmentOptions" ng-show="showAppointmentsGrid"></table>
+   <div id="upcomingAppointments" ng-controller='UpcomingAppointmentsCtrl' ng-init="init('${ patient.patient.uuid }', false)">
 
-       </div>
+        <div ng-show="showScheduleAppointment">
+            <h2>
+                ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") }
+            </h2>
+
+            <daterangepicker
+                    headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'
+                    startdate="{{ fromDate.toDateString() }}"
+                    senderid="upcomingAppointments" >
+            </daterangepicker>
+
+            <div id="noUpcomingAppointment" ng-show="showNoAppointmentsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noUpcomingAppointments") }</div>
+            <div id="loadingUpcomingAppointmentsMessage" ng-show="showLoadingAppointmentsGrid">${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointmentsLoading") }</div>
+
+            <table id="appointmentGridTable" class="gridStyle" ng-grid="appointmentOptions" ng-show="showAppointmentsGrid"></table>
+        </div>
 
         <div id="confirm-cancel-appointment" class="dialog" ng-show="appointmentToCancel">
             <div class="dialog-header">
@@ -121,7 +134,10 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                     <a ng-click="showAllAppointmentTypesModal = true">${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }</a>
                </div>
 
-               <daterangepicker headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'></daterangepicker>
+               <daterangepicker
+                   senderid="scheduleAppointment"
+                   headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'>
+               </daterangepicker>
 
                 <% if (canOverbook) { %>
                    <div id="selectIncludeSlotsThatRequireOverbook" class="inlineBox">
@@ -190,17 +206,5 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
    <% } %>
 
 </div>
-
-${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#scheduledAppointmentTable",
-        options: [
-                bFilter: false,
-                bJQueryUI: true,
-                bLengthChange: false,
-                iDisplayLength: 10,
-                sPaginationType: '\"full_numbers\"',
-                bSort: false,
-                sDom: '\'ft<\"fg-toolbar ui-toolbar ui-corner-bl ui-corner-br ui-helper-clearfix datatables-info-and-pg \"ip>\''
-        ]
-]) }
 
 

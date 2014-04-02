@@ -12,24 +12,51 @@ describe('dateRangePickerEventListener Factory', function () {
     });
 
     describe('it must listen for a dateRangePickerApp.changeStartDate event', function () {
-        it('should update the fromDate field with the new value, when a dateRangePickerApp.changeStartDate event is received', function () {
-           var date = '15';
+        var senderId = "sender 1";
+        var date = '15';
+        var eventData = {
+            senderId: senderId,
+            data: date
+        };
 
-           factory.subscribe(scope);
-           scope.$emit('dateRangePickerApp.changeStartDate', date);
+        it('should update the fromDate field with the new value, when a dateRangePickerApp.changeStartDate event from the same sender id is received', function () {
+           factory.subscribe(scope, senderId);
+           scope.$emit('dateRangePickerApp.changeStartDate', eventData);
 
            expect(scope.fromDate).toBe(date);
-        })
+        });
+        it('should not update the fromDate field with the new value, when a dateRangePickerApp.changeStartDate event from different sender id is received', function () {
+            scope.fromDate = "1"
+
+            factory.subscribe(scope, "sender 2");
+            scope.$emit('dateRangePickerApp.changeStartDate', eventData);
+
+            expect(scope.fromDate).toBe("1");
+        });
+
     });
 
     describe('it must listen for a dateRangePickerApp.changeEndDate event', function () {
-        it('should update the toDate field with the new value, when a dateRangePickerApp.changeEndDate event is reveiced', function () {
-            var date = '10';
+        var senderId = "sender 1";
+        var date = '10';
+        var eventData = {
+            senderId: senderId,
+            data: date
+        };
 
-            factory.subscribe(scope);
-            scope.$emit('dateRangePickerApp.changeEndDate', date);
+        it('should update the toDate field with the new value, when a dateRangePickerApp.changeEndDate event from the same sender id is received', function () {
+            factory.subscribe(scope, senderId);
+            scope.$emit('dateRangePickerApp.changeEndDate', eventData);
 
             expect(scope.toDate).toBe(date);
+        });
+        it('should not update the toDate field with the new value, when a dateRangePickerApp.changeEndDate event from different sender id is received', function () {
+            scope.toDate = "2"
+
+            factory.subscribe(scope, "sender 2");
+            scope.$emit('dateRangePickerApp.changeStartDate', eventData);
+
+            expect(scope.toDate).toBe("2");
         });
     });
 })

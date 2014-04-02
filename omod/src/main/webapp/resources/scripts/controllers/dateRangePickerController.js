@@ -3,6 +3,10 @@ angular.module('scheduleAppointmentDateRangePickerApp')
         $scope.now = new Date();
 
         var initializeStartDatePicker = function () {
+            if ($scope.fromDate){
+                $scope.startDate = new Date($scope.fromDate);
+            }
+
             $scope.startDateOptions = {
                 opened: false,
                 open: function(event) {
@@ -44,9 +48,17 @@ angular.module('scheduleAppointmentDateRangePickerApp')
         initializeEndDatePicker();
 
         $scope.$watch('startDate', function(newValue) {
-            $scope.$emit('dateRangePickerApp.changeStartDate', newValue);
+            var eventData = {
+                senderId : $scope.senderId,
+                data : newValue
+            };
+            $scope.$emit('dateRangePickerApp.changeStartDate', eventData);
         });
         $scope.$watch('endDate', function(newValue) {
-            $scope.$emit('dateRangePickerApp.changeEndDate', newValue);
+            var eventData = {
+                senderId: $scope.senderId,
+                data: newValue
+            };
+            $scope.$emit('dateRangePickerApp.changeEndDate', eventData);
         });
     }]);
