@@ -66,9 +66,15 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
    <div ng-controller='CancelAppointmentCtrl' ng-init="init('${ patient.patient.uuid }')">
         <div ng-show="showScheduleAppointment">
-            <table id="appointmentGridTable" class="gridStyle" ng-grid="appointmentOptions" ng-show="showAppointmentsGrid"></table>
+            <h2>
+                ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") }
+            </h2>
 
-       </div>
+            <div id="noUpcomingAppointment" ng-show="showNoAppointmentsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noUpcomingAppointments") }</div>
+            <div id="loadingUpcomingAppointmentsMessage" ng-show="showLoadingAppointmentsGrid">${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointmentsLoading") }</div>
+
+            <table id="appointmentGridTable" class="gridStyle" ng-grid="appointmentOptions" ng-show="showAppointmentsGrid"></table>
+        </div>
 
         <div id="confirm-cancel-appointment" class="dialog" ng-show="appointmentToCancel">
             <div class="dialog-header">
@@ -190,17 +196,5 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
    <% } %>
 
 </div>
-
-${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#scheduledAppointmentTable",
-        options: [
-                bFilter: false,
-                bJQueryUI: true,
-                bLengthChange: false,
-                iDisplayLength: 10,
-                sPaginationType: '\"full_numbers\"',
-                bSort: false,
-                sDom: '\'ft<\"fg-toolbar ui-toolbar ui-corner-bl ui-corner-br ui-helper-clearfix datatables-info-and-pg \"ip>\''
-        ]
-]) }
 
 

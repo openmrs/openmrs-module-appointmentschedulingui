@@ -47,6 +47,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
 
         $scope.findAppointments = function() {
             clearPreviousResults();
+            $scope.showLoadingAppointmentsGrid = true;
 
             AppointmentService.getAppointments(getSearchParams()).then(function (results) {
                 angular.forEach(results, function(result) {
@@ -54,9 +55,9 @@ angular.module('appointmentscheduling.scheduleAppointment')
                     result['startTimeFormatted'] = moment(result.timeSlot.appointmentBlock.startDate).format("h:mm A");
                     result['endTimeFormatted']= moment(result.timeSlot.appointmentBlock.endDate).format("h:mm A");
                 })
-                $scope.allAppointments = results;
+
+                initializeMessagesAfterSearch(results);
                 $scope.pagingOptions.currentPage = 1;
-                $scope.showAppointmentsGrid = true;
                 $scope.updateFilter();
             })
             .catch(function(e) {
@@ -64,6 +65,20 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 emr.errorMessage("appointmentschedulingui.scheduleAppointment.invalidSearchParameters");
             });
         }
+
+
+        var initializeMessagesAfterSearch = function (results) {
+            $scope.showLoadingAppointmentsGrid = false;
+            $scope.allAppointments = results;
+
+            if(results.length == 0) {
+                $scope.showNoAppointmentsMessage = true;
+                $scope.showAppointmentsGrid = false;
+            } else {
+                $scope.showAppointmentsGrid = true;
+            }
+        };
+
 
         var clearPreviousResults = function () {
             $scope.allAppointments = [];
