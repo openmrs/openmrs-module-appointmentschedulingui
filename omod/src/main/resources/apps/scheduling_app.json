@@ -54,7 +54,7 @@
         "extensions":[
             {
                 "id": "appointmentschedulingui.manageAppointmentTypes.systemAdminLink",
-                "extensionPointId": "systemAdministration.apps",
+                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
                 "type": "link",
                 "label": "appointmentschedulingui.appointmenttype.label",
                 "url": "appointmentschedulingui/manageAppointmentTypes.page",
@@ -70,7 +70,7 @@
         "extensions":[
             {
                 "id": "appointmentschedulingui.scheduleProviders.systemAdminLink",
-                "extensionPointId": "systemAdministration.apps",
+                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
                 "type": "link",
                 "label": "appointmentschedulingui.scheduleProviders.app.title",
                 "url": "appointmentschedulingui/scheduleProviders.page",
