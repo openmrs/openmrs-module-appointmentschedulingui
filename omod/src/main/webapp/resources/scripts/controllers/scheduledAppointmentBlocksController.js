@@ -8,7 +8,10 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
     $scope.totalScheduledAppointmentBlocks = [];
     $scope.filteredScheduledAppointmentBlocks = [];
     $scope.paginatedScheduledAppointmentBlocks = [];
-    $scope.scheduledAppointmentBlocksGrid = scheduledAppointmentBlocksHelper.setUpGrid($scope);
+    $scope.displayPhoneNumber = emr.message("appointmentschedulingui.dailyScheduledAppointments.phoneNumber");
+    $scope.displayDossierNumber = emr.message("appointmentschedulingui.dailyScheduledAppointments.dossierNumber");
+    $scope.displayPatientId = emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId");
+    $scope.scheduledAppointmentBlocksGrid = scheduledAppointmentBlocksHelper.setUpGrid();
 
     $scope.filterDate = Date.now();
     $scope.datePicker = scheduledAppointmentBlocksHelper.setupDatePicker($scope);

@@ -32,33 +32,7 @@ angular.module('appointmentSchedulingHelper')
 
                return selectedLocation;
            },
-           setUpGrid: function(scope){
-               var templateCell =
-                   '<div ng-repeat=' +
-                       '"data in row.getProperty(col.field) track by $index">' +
-                       '<div class="ngCellText" >' +
-                           '<div class="patientInformation appointmentSummary">' +
-                           '<div class="patientName">{{data.name}}</div>' +
-                           '<div><small>({{data.serviceType.name}})</small></div>' +
-                           '<div ng-if="data.appointmentStatus.message.length > 0">' +
-                            '<span ng-if="data.appointmentStatus.type == \'ACTIVE\' ||data.appointmentStatus.type == \'COMPLETED\'" class="status active"></span>' +
-                            '<span ng-if="data.appointmentStatus.type == \'MISSED\' || data.appointmentStatus.type == \'CANCELLED\'" class="status error"></span>' +
-                            '<em>{{data.appointmentStatus.message}}</em></div>' +
-                           '</div>' +
-                           '<div class="patientInformation patientAttribute">' +
-                           '<div>{{data.phoneNumber}}</div>' +
-                           '<div ng-if="data.phoneNumber.length > 0"><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.phoneNumber") + '</small></div>' +
-                           '</div>' +
-                           '<div class="patientInformation patientAttribute">' +
-                           '<div>{{data.primaryIdentifier}}</div>' +
-                           '<div><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId") + '</small></div>' +
-                           '</div>' +
-                           '<div class="patientInformation patientAttribute">' +
-                           '<div>{{data.dossierNumber}}</div>' +
-                           '<div ng-if="data.dossierNumber.length > 0"><small>' + emr.message("appointmentschedulingui.dailyScheduledAppointments.dossierNumber") + '</small></div>' +
-                           '</div>' +
-                       '</div>';
-
+           setUpGrid: function(){
                var scheduledAppointmentBlocksGrid = {
                    data: 'paginatedScheduledAppointmentBlocks',
                    multiSelect: false,
@@ -75,7 +49,7 @@ angular.module('appointmentSchedulingHelper')
                        { field: 'patients',
                            width: '60%',
                            displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.patientName"),
-                           cellTemplate: templateCell }
+                           cellTemplate: '../ms/uiframework/resource/appointmentschedulingui/partials/patientAppointmentInformation.html' }
                    ]
                };
                return scheduledAppointmentBlocksGrid;
