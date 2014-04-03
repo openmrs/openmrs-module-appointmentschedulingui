@@ -15,4 +15,5 @@ angular.module('appointmentSchedulingParse', []);
 angular.module('appointmentSchedulingHelper', []);
 
 angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointmentscheduling.appointmentService', 'locationService',
-    'ui.bootstrap', 'ngGrid', 'ngGridPaginationApp', 'uicommons.RESTUtils', 'appointmentSchedulingParse', 'appointmentSchedulingHelper']);
+    'ui.bootstrap', 'ngGrid', 'ngGridPaginationApp', 'uicommons.RESTUtils', 'appointmentSchedulingParse', 'appointmentSchedulingHelper',
+    'selectMultipleAppointmentTypesApp']);

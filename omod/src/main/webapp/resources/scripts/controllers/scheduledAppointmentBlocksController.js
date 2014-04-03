@@ -16,16 +16,12 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
     $scope.filterDate = Date.now();
     $scope.datePicker = scheduledAppointmentBlocksHelper.setupDatePicker($scope);
     $scope.services = [{name: emr.message("appointmentschedulingui.dailyScheduledAppointments.allServiceTypes"), uuid: ""}];
-    $scope.serviceFilter = $scope.services[0];
 
     $scope.initializeFilters = function (){
         $scope.filterObjects = { provider: "", appointmentBlock: ""};
 
         $scope.providers = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allProviders")];
-        $scope.providerFilter = $scope.providers[0];
-
-        $scope.services = [{name: emr.message("appointmentschedulingui.dailyScheduledAppointments.allServiceTypes"), uuid: null}];
-        $scope.serviceFilter = $scope.services[0];
+        $scope.providerFilter = $scope.providers[0];;
 
         $scope.appointmentBlocks = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allAppointmentBlocks")];
         $scope.appointmentBlockFilter = $scope.appointmentBlocks[0];
@@ -55,8 +51,18 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
         var params = {};
         params.date =  moment(new Date($scope.filterDate)).format('YYYY-MM-DD');
         params.location = $scope.locationFilter.uuid;
-        params.appointmentType = $scope.serviceFilter.uuid;
+        params.appointmentType = getUuidsListFromAppointmentTypesList($scope.appointmentTypeFilter);
         return params;
+    }
+
+    var getUuidsListFromAppointmentTypesList = function (appointmentTypesList) {
+        var appointmentTypeUuidsList = [];
+        if (appointmentTypesList) {
+            for (var index = 0; index < appointmentTypesList.length; index++) {
+                appointmentTypeUuidsList.push(appointmentTypesList[index].uuid);
+            }
+        }
+        return appointmentTypeUuidsList;
     }
 
     $scope.getScheduledAppointmentBlocks = function(){
@@ -66,17 +72,13 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
             scheduledAppointmentBlocksHelper.initializeMessages($scope);
 
             AppointmentService.getScheduledAppointmentBlocks(getSearchParams()).then( function(results){
-                parsedScheduledAppointmentBlocks = Parse.scheduledAppointmentBlocks(results);
+                var parsedScheduledAppointmentBlocks = Parse.scheduledAppointmentBlocks(results);
 
                 $scope.scheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
                 $scope.totalScheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
 
                 scheduledAppointmentBlocksHelper.findProvidersFromGrid($scope);
                 scheduledAppointmentBlocksHelper.findAppointmentBlockFromGrid($scope);
-
-                if($scope.filterDateOrLocationChanged) {
-                    scheduledAppointmentBlocksHelper.findServiceTypesFromGrid($scope);
-                }
 
                 scheduledAppointmentBlocksHelper.manageMessages($scope);
                 $scope.updateFilter();
@@ -115,24 +117,20 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
 
     $scope.$watch('filterDate', function(){
         $scope.initializeFilters();
-        $scope.filterDateOrLocationChanged = true;
         $scope.getScheduledAppointmentBlocks();
 
     });
 
     $scope.$watch('locationFilter', function(){
         $scope.initializeFilters();
-        $scope.filterDateOrLocationChanged = true;
         $scope.getScheduledAppointmentBlocks();
 
     });
 
-    $scope.$watch('serviceFilter', function(newService, oldService){
-        if(newService.uuid != oldService.uuid) {
-            $scope.filterDateOrLocationChanged = false;
-            $scope.getScheduledAppointmentBlocks();
-        }
-
+    $scope.$on('selectMultipleAppointmentTypesApp.selectionChanged', function (event, eventData) {
+        $scope.appointmentTypeFilter = eventData.data;
+        $scope.getScheduledAppointmentBlocks();
     });
+
 
 }]);

@@ -73,29 +73,6 @@ angular.module('appointmentSchedulingHelper')
                        scope.providers.push(block.provider);
                });
            },
-
-           findServiceTypesFromGrid:  function (scope) {
-               var serviceTypesScheduled = {};
-
-               angular.forEach(scope.scheduledAppointmentBlocks, function (scheduledAppointmentBlock) {
-                   angular.forEach(scheduledAppointmentBlock.patients, function (scheduledPatient){
-                       scope.services.push(scheduledPatient.serviceType);
-                   });
-               });
-
-               var removeDuplicatedServicesFound = function (services) {
-                   var servicesObject = {};
-                   var i;
-
-                   for(i = 0; i<services.length; i ++) servicesObject[services[i].uuid] = services[i];
-                   var uniqueServices = [];
-
-                   for(service in servicesObject)  uniqueServices.push(servicesObject[service]);
-                   return uniqueServices;
-               }
-               scope.services = removeDuplicatedServicesFound(scope.services);
-           },
-
            findAppointmentBlockFromGrid: function (scope) {
                 angular.forEach(scope.scheduledAppointmentBlocks, function (scheduledAppointmentBlock) {
                     var index = scope.appointmentBlocks.indexOf(scheduledAppointmentBlock.date);

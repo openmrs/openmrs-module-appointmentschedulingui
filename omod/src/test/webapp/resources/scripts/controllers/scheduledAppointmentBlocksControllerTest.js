@@ -211,7 +211,7 @@ describe('ScheduledAppointmentBlocksController', function() {
         it('initialize provider, service type and appointment block filter', function(){
 
             expect(scope.providers).toEqual([""]);
-            expect(scope.services).toEqual([{ name : '', uuid : null } ]);
+            expect(scope.services).toEqual([{ name : '', uuid : '' } ]);
             expect(scope.appointmentBlocks).toEqual([""]);
         })
     });
@@ -219,23 +219,25 @@ describe('ScheduledAppointmentBlocksController', function() {
 
     describe('when service type is changed', function(){
         beforeEach( function(){
-            scope.filterDate =  Date.now();
+
+            scope.filterDate =  Date.parse('2012-1-03');
             scope.locationFilter = { display: "location 1", uuid: "uuid of location"};
-            scope.serviceFilter = { name: "all services", uuid: ""};
+            scope.appointmentTypeFilter = [ { name: "all services", uuid: ""} ];
             scope.$apply();
 
-            scope.serviceFilter = { name: "service 1", uuid: "uuid of service"};
+            scope.$emit('selectMultipleAppointmentTypesApp.selectionChanged', { data:[ { name: 'service 1', uuid: "uuid of service" } ] });
             scope.$apply();
         });
 
         it('should looks for scheduled appointment blocks data', function(){
-            expect(scope.filterDateOrLocationChanged).toBe(false);
-            expect(mockAppointmentService.getScheduledAppointmentBlocks).toHaveBeenCalled();
+            expect(mockAppointmentService.getScheduledAppointmentBlocks).toHaveBeenCalledWith({ date : '2012-01-03', location : 'uuid of location', appointmentType : [ 'uuid of service' ] });
         })
 
-        it('should not populate service type filter', function(){
-            expect(mockHelper.findServiceTypesFromGrid).not.toHaveBeenCalled();
-        });
+        it('appointment type filter should be updated', function() {
+            expect(scope.appointmentTypeFilter[0].name).toBe("service 1");
+            expect(scope.appointmentTypeFilter[0].uuid).toBe("uuid of service");
+        })
+
     })
 
     describe('when have results of scheduled appointment block', function(){
@@ -252,10 +254,6 @@ describe('ScheduledAppointmentBlocksController', function() {
         it('should populate provider filter', function() {
             expect(mockHelper.findProvidersFromGrid).toHaveBeenCalled();
 
-        });
-
-        it('should populate service type filter', function() {
-            expect(mockHelper.findServiceTypesFromGrid).toHaveBeenCalled();
         });
 
         it('should populate appointment blocks filter', function(){
