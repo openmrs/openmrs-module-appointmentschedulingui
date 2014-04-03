@@ -117,19 +117,19 @@
         <div id="appointment-block-form-provider-and-location-and-date">
             <div id="select-location" class="inline-box">
                 <p>${ ui.message("uicommons.location") }</p>
-                <select ng-model="appointmentBlock.location" ng-options="l.display for l in locations track by l.uuid">
+                <select ng-change="updateSaveButton()" ng-model="appointmentBlock.location" ng-options="l.display for l in locations track by l.uuid">
                 </select>
             </div>
 
             <div id="select-provider" class="inline-box">
                 <p>${ ui.message("uicommons.provider") }</p>
-                <input type="text" ng-model="appointmentBlock.provider" typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | filter: \$viewValue | limitTo:8" >
+                <input type="text"  ng-change="updateSaveButton()" ng-model="appointmentBlock.provider" typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | filter: \$viewValue | limitTo:8" >
             </div>
 
             <div id="select-date" class="inline-box">
                 <p>${ ui.message("uicommons.date") }</p>
                 <span class="angular-datepicker">
-                    <input type="text" ng-model="appointmentBlock.startDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
+                    <input ng-change="updateSaveButton()" type="text" ng-model="appointmentBlock.startDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
                 </span>
             </div>
         </div>
@@ -137,12 +137,12 @@
         <div id="appointment-block-form-time">
             <div id="start-time" class="inline-box">
                 <p>${ ui.message("appointmentschedulingui.startTime") }</p>
-                <timepicker ng-model="appointmentBlock.startDate" minute-step="15" />
+                <timepicker ng-change="updateSaveButton()" ng-model="appointmentBlock.startDate" minute-step="15" />
             </div>
 
             <div id="end-time" class="inline-box">
                 <p>${ ui.message("appointmentschedulingui.endTime") }</p>
-                <timepicker ng-model="appointmentBlock.endDate"  minute-step="15" />
+                <timepicker ng-change="updateSaveButton()" ng-model="appointmentBlock.endDate"  minute-step="15" />
             </div>
         </div>
 
@@ -155,7 +155,7 @@
 
         <div id="appointment-block-form-buttons">
             <button class="cancel" ng-click="showAppointmentBlockForm=false;showCalendar=true;refreshCalendarEvents()"> ${ ui.message("uicommons.cancel") }</button>
-            <button class="confirm" ng-click="saveAppointmentBlock()" ng-disabled="!appointmentBlock.location || !appointmentBlock.startDate || !appointmentBlock.endDate || appointmentBlock.types.length == 0">
+            <button class="confirm" ng-click="saveAppointmentBlock()" ng-disabled="disableSaveButton || !appointmentBlock.location || !appointmentBlock.startDate || !appointmentBlock.endDate || appointmentBlock.types.length == 0">
             ${ ui.message("uicommons.save") }</button>
         </div>
 

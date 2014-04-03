@@ -45,6 +45,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
                 $scope.refreshCalendarEvents();
             } else if (eventData.senderd === 'createAppointmentBlock') {
                 $scope.appointmentBlock.types = eventData.data;
+                $scope.updateSaveButton();
             }
         });
 
@@ -73,6 +74,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
         $scope.locationFilter;
         $scope.providerFilter;
         $scope.appointmentTypesFilter;
+        $scope.disableSaveButton = true;
 
         // locations to display in the locations drop-down
         $scope.locations = [];
@@ -219,7 +221,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
         }
 
         $scope.createAppointmentBlock = function(date) {
-
+            clearAppointmentTypeMultiselectList('createAppointmentBlock');
             $scope.appointmentBlock = {
                 uuid: undefined,
                 startDate: new Date(date).setHours(8),
@@ -239,6 +241,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
             $scope.appointmentBlockFormErrorMessages = [];
             $scope.showAppointmentBlockForm = true;
             addSelectedAppointmentTypesToMultiselectList('createAppointmentBlock', appointmentTypesList);
+            $scope.disableSaveButton = true;
 
         }
 
@@ -334,4 +337,10 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
             deleteAppointmentBlockModal.show();
         }
 
+        $scope.updateSaveButton = function(){
+            if($scope.appointmentBlock.location && $scope.appointmentBlock.startDate &&
+                $scope.appointmentBlock.endDate || $scope.appointmentBlock.types.length == 0) {
+                $scope.disableSaveButton = false;
+            };
+        }
     });
