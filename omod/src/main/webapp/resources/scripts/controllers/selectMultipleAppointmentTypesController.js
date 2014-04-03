@@ -73,6 +73,7 @@ angular.module('selectMultipleAppointmentTypesApp')
 
             $scope.$on('selectMultipleAppointmentTypesApp.addToSelectedList', function (event, eventData) {
                 if(eventData.senderId === $scope.senderId){
+                    clearSelectedAppointmentTypesList();
                     addAppointmentTypesToSelectedList(eventData.data);
                 }
             });
