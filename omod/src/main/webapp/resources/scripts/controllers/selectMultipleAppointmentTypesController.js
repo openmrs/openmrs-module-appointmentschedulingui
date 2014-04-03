@@ -75,6 +75,7 @@ angular.module('selectMultipleAppointmentTypesApp')
                 if(eventData.senderId === $scope.senderId){
                     clearSelectedAppointmentTypesList();
                     addAppointmentTypesToSelectedList(eventData.data);
+                    sendSelectedAppointmentTypesEvent();
                 }
             });
 
