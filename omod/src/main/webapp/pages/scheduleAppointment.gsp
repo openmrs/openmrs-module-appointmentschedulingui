@@ -39,7 +39,16 @@
     'appointmentschedulingui.scheduleAppointment.minutesAvailable',
     'appointmentschedulingui.scheduleAppointment.minutesOverbooked',
     'appointmentschedulingui.scheduleAppointment.appointments',
-    'appointmentschedulingui.scheduleAppointment.errorCancelingAppointment'
+    'appointmentschedulingui.scheduleAppointment.date',
+    'appointmentschedulingui.scheduleAppointment.provider',
+    'appointmentschedulingui.scheduleAppointment.location',
+    'appointmentschedulingui.scheduleAppointment.serviceType',
+    'appointmentschedulingui.scheduleAppointment.actions',
+    'appointmentschedulingui.scheduleAppointment.status',
+    'appointmentschedulingui.scheduleAppointment.status.scheduled',
+    'appointmentschedulingui.scheduleAppointment.status.rescheduled',
+    'appointmentschedulingui.scheduleAppointment.errorCancelingAppointment',
+    'appointmentschedulingui.scheduleAppointment.cancelAppointment.tooltip'
 ].flatten()
 ]) %>
 
@@ -64,20 +73,22 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
 <div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl">
 
-   <div id="upcomingAppointments" ng-controller='UpcomingAppointmentsCtrl' ng-init="init('${ patient.patient.uuid }', ${ canOverbook })">
+   <div ng-controller='UpcomingAppointmentsCtrl' ng-init="init('${ patient.patient.uuid }', ${ canOverbook })">
 
         <div ng-show="showScheduleAppointment">
             <h2>
                 ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") }
             </h2>
 
-            <daterangepicker
-                    headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'
-                    startdate="{{ fromDate.toDateString() }}"
-                    senderid="upcomingAppointments" >
-            </daterangepicker>
-
-            <div id="noUpcomingAppointment" ng-show="showNoAppointmentsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noUpcomingAppointments") }</div>
+            <div class="inline-box">
+                <daterangepicker
+                        headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'
+                        startdate="{{ fromDate.toDateString() }}"
+                        senderid="upcomingAppointments"
+                        startdatemin = "">
+                </daterangepicker>
+            </div>
+            <div id="noUpcomingAppointment" ng-show="showNoAppointmentsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noUpcomingAppointments")}</div>
             <div id="loadingUpcomingAppointmentsMessage" ng-show="showLoadingAppointmentsGrid">${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointmentsLoading") }</div>
 
             <table id="appointmentGridTable" class="gridStyle" ng-grid="appointmentOptions" ng-show="showAppointmentsGrid"></table>
@@ -136,7 +147,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
                <daterangepicker
                    senderid="scheduleAppointment"
-                   headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'>
+                   headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'
+                   startdatemin = "now">
                </daterangepicker>
 
                 <% if (canOverbook) { %>

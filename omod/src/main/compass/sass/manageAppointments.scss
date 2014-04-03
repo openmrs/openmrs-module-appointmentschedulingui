@@ -39,12 +39,6 @@
 
 }
 
-#upcomingAppointments {
-  .angular-datepicker {
-    margin-bottom: 5%;
-  }
-}
-
 .ngRow.even {
   background: #FFFFFF;
   color: #555;
@@ -95,6 +89,11 @@
       color: #555;
     }
   }
+}
+
+.inline-box {
+  display: inline-block;
+  padding: 5px;
 }
 
 

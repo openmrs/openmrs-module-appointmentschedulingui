@@ -28,20 +28,20 @@ angular.module('appointmentscheduling.scheduleAppointment')
             multiSelect: false,
             enableSorting: false,
             selectedItems: [],
-            columnDefs: [ { field: 'date', displayName: "Date",
+            columnDefs: [ { field: 'date', displayName: emr.message("appointmentschedulingui.scheduleAppointment.date"),
                 cellTemplate: "<div>{{ row.getProperty(\'dateFormatted\') }}<br/>{{ row.getProperty(\'startTimeFormatted\') }} - {{ row.getProperty(\'endTimeFormatted\') }}<div>" },
-                { field: 'appointmentType.display', displayName: "Service Type" },
-                { field: 'timeSlot.appointmentBlock.provider.person.display', displayName: "Provider" },
-                { field: 'timeSlot.appointmentBlock.location.display', displayName: "Location" },
-                { field: 'status.name', width: '15%', displayName: "Status" },
-                { displayName: "Actions", cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canOverBook" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
-                    'title="tooltip"></i></span>'  }
+                { field: 'appointmentType.display', displayName: emr.message("appointmentschedulingui.scheduleAppointment.serviceType") },
+                { field: 'timeSlot.appointmentBlock.provider.person.display', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
+                { field: 'timeSlot.appointmentBlock.location.display', displayName: emr.message("appointmentschedulingui.scheduleAppointment.location") },
+                { field: 'displayStatus', width: '15%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.status") },
+                { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canOverBook" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
+                    'title="{{ row.getProperty(\'tooltip\') }}"></i></span>'  }
             ]};
 
 
         var getSearchParams = function () {
             var params = { 'patient' : $scope.patient,
-                'status' : ['SCHEDULED', 'RESCHEDULED']
+                'statusType' : 'SCHEDULED'
              };
             if ($scope.fromDate) { params['fromDate'] = moment($scope.fromDate).format();}
             if ($scope.toDate) { params['toDate'] = moment($scope.toDate).endOf('day').format(); }
@@ -57,6 +57,8 @@ angular.module('appointmentscheduling.scheduleAppointment')
                     result['dateFormatted'] = moment(result.timeSlot.appointmentBlock.startDate).format("DD MMM YYYY");
                     result['startTimeFormatted'] = moment(result.timeSlot.appointmentBlock.startDate).format("h:mm A");
                     result['endTimeFormatted']= moment(result.timeSlot.appointmentBlock.endDate).format("h:mm A");
+                    result['tooltip'] = emr.message("appointmentschedulingui.scheduleAppointment.cancelAppointment.tooltip");
+                    result['displayStatus'] = emr.message("appointmentschedulingui.scheduleAppointment.status." + result["status"].name.toLowerCase());
                 })
 
                 initializeMessagesAfterSearch(results);

@@ -1,12 +1,12 @@
 <div id="selectTimeframe" class="inlineBox">
     <p> {{headermessage}} </p>
     <span class="angular-datepicker">
-        <input type="text" is-open="startDateOptions.opened" ng-model="startDate" min="now" max="endDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
+        <input type="text" is-open="startDateOptions.opened" ng-model="startDate" min="{{startDateMin}}" max="endDate" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
         <i class="icon-calendar small add-on" ng-click="startDateOptions.open($event)" ></i>
         <a id="clearStartDatePicker" ng-click="startDateOptions.clear($event)">Clear</a>
     </span>
     <span class="angular-datepicker">
-        <input type="text" is-open="endDateOptions.opened"  ng-model="endDate" min="startDate || now" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
+        <input type="text" is-open="endDateOptions.opened"  ng-model="endDate" min="startDate {{ startDateMin && ' || '.concat(startDateMin) || ''}}" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" readonly/>
         <i class="icon-calendar small add-on" ng-click="endDateOptions.open($event)"></i>
         <a id="clearEndDatePicker" ng-click="endDateOptions.clear($event)">Clear</a>
     </span>
