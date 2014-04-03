@@ -64,7 +64,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
 <div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl">
 
-   <div id="upcomingAppointments" ng-controller='UpcomingAppointmentsCtrl' ng-init="init('${ patient.patient.uuid }', false)">
+   <div id="upcomingAppointments" ng-controller='UpcomingAppointmentsCtrl' ng-init="init('${ patient.patient.uuid }', ${ canOverbook })">
 
         <div ng-show="showScheduleAppointment">
             <h2>
