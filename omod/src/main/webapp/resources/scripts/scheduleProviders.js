@@ -221,7 +221,7 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
         }
 
         $scope.createAppointmentBlock = function(date) {
-
+            clearAppointmentTypeMultiselectList('createAppointmentBlock');
             $scope.appointmentBlock = {
                 uuid: undefined,
                 startDate: new Date(date).setHours(8),
