@@ -25,7 +25,7 @@ public class AppointmentCheckInSubmissionAction implements CustomFormSubmissionA
 
         // TODO do we need to handle RESCHEDULED here?
         List<Appointment> appointmentList = appointmentService.getAppointmentsByConstraints(fromDate, toDate,
-                session.getSubmissionActions().getCurrentEncounter().getLocation(), null, null, Appointment.AppointmentStatus.SCHEDULED, session.getPatient());
+                session.getSubmissionActions().getCurrentEncounter().getLocation(), null, null, session.getPatient(), Appointment.AppointmentStatus.SCHEDULED);
 
         for (Appointment appointment : appointmentList) {
             appointment.setStatus(Appointment.AppointmentStatus.WAITING);

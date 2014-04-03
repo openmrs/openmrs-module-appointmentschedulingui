@@ -53,7 +53,7 @@ public class AppointmentCheckInSubmissionActionTest {
         when(mockFormEntrySession.getPatient()).thenReturn(patient);
         when(mockFormSubmissionActions.getCurrentEncounter()).thenReturn(encounter);
         when(mockAppointmentService.getAppointmentsByConstraints(new DateTime(2014, 1, 2, 0, 0, 0, 0).toDate(),
-                new DateTime(2014, 1, 2, 23, 59, 59, 999).toDate(), location, null, null, Appointment.AppointmentStatus.SCHEDULED, patient))
+                new DateTime(2014, 1, 2, 23, 59, 59, 999).toDate(), location, null, null, patient, Appointment.AppointmentStatus.SCHEDULED))
             .thenReturn(Arrays.asList(appointment));
 
         appointmentCheckInSubmissionAction.applyAction(mockFormEntrySession);
