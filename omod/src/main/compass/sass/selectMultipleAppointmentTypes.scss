@@ -12,3 +12,27 @@
   margin-right: 40px;
 }
 
+.selectmultipleInput {
+  border: 0px;
+
+  &:focus {
+   outline: 0px;
+  }
+}
+
+.selectmultipleBox {
+  font-size: 14px;
+  display: inline-block;
+  border: 1px solid #DDD;
+}
+
+.displayTypeahead {
+  display: block !important;
+}
+
+.selectmultipleWidget {
+  display: inline-block;
+}
+
+
+

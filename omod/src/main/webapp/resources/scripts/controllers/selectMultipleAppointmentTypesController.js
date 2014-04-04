@@ -5,6 +5,7 @@ angular.module('selectMultipleAppointmentTypesApp')
             $scope.selectedAppointmentTypes = [];
             $scope.openList = "none";
             $scope.showAllAppointmentTypesModal = false;
+            var deleteAppointmentTypeDialog;
 
             // initialize allAppointmentTypes variable
             AppointmentService.getAppointmentTypes().then(function (result) {
@@ -86,6 +87,26 @@ angular.module('selectMultipleAppointmentTypesApp')
                     $scope.allAppointmentTypes = $scope.allAppointmentTypes.filter(function(type) { return type.display !== appointmentType.display; });
                     appointmentTypesList.splice($.inArray(appointmentType, appointmentTypesList), 1);
                 }
+            }
+
+            $scope.update = function() {
+                console.log('Update called');
+                $scope.appointmentType = ''
+                $scope.appointmentType.length = 1;
+
+            }
+
+            $scope.displayViewAll = function() {
+                $scope.showAllAppointmentTypesModal = true;
+                deleteAppointmentTypeDialog = emr.setupConfirmationDialog({
+                    selector: '#allAppointmentTypesModal'
+                });
+                deleteAppointmentTypeDialog.show();
+            }
+
+            $scope.closeShowAllAppointmentsModal = function() {
+                $scope.showAllAppointmentTypesModal = false;
+                deleteAppointmentTypeDialog.close();
             }
 
         }]);
