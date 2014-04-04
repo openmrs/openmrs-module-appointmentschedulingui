@@ -47,7 +47,7 @@
     'appointmentschedulingui.scheduleAppointment.status',
     'appointmentschedulingui.scheduleAppointment.status.type.scheduled',
     'appointmentschedulingui.scheduleAppointment.status.type.active',
-    'appointmentschedulingui.scheduleAppointment.status.type.canceled',
+    'appointmentschedulingui.scheduleAppointment.status.type.cancelled',
     'appointmentschedulingui.scheduleAppointment.status.type.missed',
     'appointmentschedulingui.scheduleAppointment.status.type.completed',
     'appointmentschedulingui.scheduleAppointment.errorCancelingAppointment',
