@@ -42,7 +42,7 @@ describe('Upcoming Appointments controller', function () {
             scope.setPagingData = function(){}
 
             deferred.resolve(upcomingAppointmentsTest.expectedAppointment);
-            scope.init("636e3d74-4dbe-4944-88a9-d3026817abb8", true);
+            scope.init("3816596c-0d50-4cd0-aab5-922516bc9fa4", true);
 
             scope.$apply();
 
