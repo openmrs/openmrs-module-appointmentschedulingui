@@ -155,8 +155,9 @@ describe('ScheduledAppointmentBlocksController', function() {
         mockHelper.selectLocationToFilter.andCallFake(function () { return  { display: "location 1", uuid: "location uuid"} })
         scheduledAppointmentBlocksHelper = mockHelper;
 
-        mockAppointmentService = jasmine.createSpyObj('AppointmentService', ['getScheduledAppointmentBlocks']);
+        mockAppointmentService = jasmine.createSpyObj('AppointmentService', ['getScheduledAppointmentBlocks', 'getAppointmentStatusTypes']);
         mockAppointmentService.getScheduledAppointmentBlocks.andCallFake(function () { return promise});
+        mockAppointmentService.getAppointmentStatusTypes.andCallFake(function () { return promise});
 
         mockNgGridPaginationFactory = jasmine.createSpyObj('ngGridPaginationFactory', ['includePagination']);
 
@@ -171,6 +172,7 @@ describe('ScheduledAppointmentBlocksController', function() {
         $controller('ScheduledAppointmentBlockController', {$scope: scope, AppointmentService: mockAppointmentService,
             LocationService: mockLocationService, ngGridPaginationFactory: mockNgGridPaginationFactory,
             filterFilter: mockFilterFilter, RESTErrorResponse: {}, Parse: mockParser , scheduledAppointmentBlocksHelper: mockHelper});
+        scope.initializeFilters();
     }));
 
     describe('when controller is initialized', function(){
