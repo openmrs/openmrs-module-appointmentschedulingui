@@ -40,9 +40,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
 
 
         var getSearchParams = function () {
-            var params = { 'patient' : $scope.patient,
-                'statusType' : 'SCHEDULED'
-             };
+            var params = { 'patient' : $scope.patient };
             if ($scope.fromDate) { params['fromDate'] = moment($scope.fromDate).format();}
             if ($scope.toDate) { params['toDate'] = moment($scope.toDate).endOf('day').format(); }
             return params;
@@ -59,7 +57,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                     result['startTimeFormatted'] = moment(result.timeSlot.appointmentBlock.startDate).format("h:mm A");
                     result['endTimeFormatted']= moment(result.timeSlot.appointmentBlock.endDate).format("h:mm A");
                     result['tooltip'] = emr.message("appointmentschedulingui.scheduleAppointment.cancelAppointment.tooltip");
-                    result['displayStatus'] = emr.message("appointmentschedulingui.scheduleAppointment.status." + result["status"].name.toLowerCase());
+                    result['displayStatus'] = emr.message("appointmentschedulingui.scheduleAppointment.status.type." + result["status"].type.toLowerCase());
                 })
 
                 initializeMessagesAfterSearch(results);
