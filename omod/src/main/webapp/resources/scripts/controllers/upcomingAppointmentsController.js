@@ -51,6 +51,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
         $scope.findAppointments = function() {
             clearPreviousResults();
             $scope.showLoadingAppointmentsGrid = true;
+            $scope.showNoAppointmentsMessage = false;
 
             AppointmentService.getAppointments(getSearchParams()).then(function (results) {
                 angular.forEach(results, function(result) {
@@ -81,6 +82,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 $scope.showAppointmentsGrid = false;
             } else {
                 $scope.showAppointmentsGrid = true;
+                $scope.showNoAppointmentsMessage = false;
             }
         };
 
