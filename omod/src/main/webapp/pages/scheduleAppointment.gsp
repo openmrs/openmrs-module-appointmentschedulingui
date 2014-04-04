@@ -45,8 +45,11 @@
     'appointmentschedulingui.scheduleAppointment.serviceType',
     'appointmentschedulingui.scheduleAppointment.actions',
     'appointmentschedulingui.scheduleAppointment.status',
-    'appointmentschedulingui.scheduleAppointment.status.scheduled',
-    'appointmentschedulingui.scheduleAppointment.status.rescheduled',
+    'appointmentschedulingui.scheduleAppointment.status.type.scheduled',
+    'appointmentschedulingui.scheduleAppointment.status.type.active',
+    'appointmentschedulingui.scheduleAppointment.status.type.canceled',
+    'appointmentschedulingui.scheduleAppointment.status.type.missed',
+    'appointmentschedulingui.scheduleAppointment.status.type.completed',
     'appointmentschedulingui.scheduleAppointment.errorCancelingAppointment',
     'appointmentschedulingui.scheduleAppointment.cancelAppointment.tooltip'
 ].flatten()
