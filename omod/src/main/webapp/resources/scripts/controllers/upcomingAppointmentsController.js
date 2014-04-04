@@ -133,14 +133,25 @@ angular.module('appointmentscheduling.scheduleAppointment')
             $scope.appointmentToCancel = null;
         }
 
+
+
         $scope.$watch(
             "fromDate",
-            $scope.findAppointments
+            function(oldValue, newValue) {
+                if(oldValue !== newValue) {
+                    $scope.findAppointments();
+                }
+            }
+
         );
 
         $scope.$watch(
             "toDate",
-            $scope.findAppointments
+            function(oldValue, newValue) {
+                if(oldValue !== newValue) {
+                    $scope.findAppointments();
+                }
+            }
         );
 
     }])
