@@ -14,6 +14,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
         $scope.init = function(patientUuid, canOverBook) {
             $scope.patient = patientUuid;
             $scope.canOverBook = canOverBook;
+            $scope.findAppointments();
         },
 
         $scope.filterOptions = {
@@ -126,7 +127,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
             $scope.appointmentToCancel = null;
         }
 
-        $scope.findAppointments();
+
 
         $scope.doNotCancelAppointment = function() {
             $scope.appointmentToCancel = null;
