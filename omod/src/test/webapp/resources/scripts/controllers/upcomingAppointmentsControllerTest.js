@@ -1,22 +1,59 @@
-describe('CancelAppointment controller', function () {
-    var scope,
-        appointmentServiceMock,
+describe('Upcoming Appointments controller', function () {
+    var scope, deferred,
+        mockAppointmentService, mockNgGridPaginationFactory, mockFilterFilter, mockDateRangePickerEventListener,
         $timeout,
         promise;
 
     beforeEach(module('appointmentscheduling.scheduleAppointment'));
     beforeEach(inject(function ($rootScope, $controller, _$timeout_, $q) {
-        promise = $q.defer().promise;
-        appointmentServiceMock = jasmine.createSpyObj('appointmentServiceMock', ['cancelAppointment']);
-        appointmentServiceMock.cancelAppointment.andCallFake(function() {
+        deferred = $q.defer();
+        promise = deferred.promise;
+
+        mockNgGridPaginationFactory = jasmine.createSpyObj('ngGridPaginationFactory', ['includePagination']);
+        mockFilterFilter = jasmine.createSpy('filterFilter');
+        mockDateRangePickerEventListener = jasmine.createSpyObj('dateRangePickerEventListener', ['subscribe']);
+
+        mockAppointmentService = jasmine.createSpyObj('mockAppointmentService', ['cancelAppointment', 'getAppointments']);
+
+        mockAppointmentService.cancelAppointment.andCallFake(function() {
+            return promise;
+        });
+
+        mockAppointmentService.getAppointments.andCallFake(function() {
             return promise;
         });
 
         scope = $rootScope.$new();
         $timeout = _$timeout_;
 
-        var controller =  $controller('UpcomingAppointmentsCtrl', {$scope: scope, $timeout: $timeout, AppointmentService: appointmentServiceMock});
+        scope.pagingOptions = {
+            pageSizes: [5,10,20],
+            pageSize: 10,
+            currentPage: 1
+        };
+
+        var controller =  $controller('UpcomingAppointmentsCtrl', {$scope: scope, $timeout: $timeout,
+            AppointmentService: mockAppointmentService, filterFilter: mockFilterFilter,
+            ngGridPaginationFactory: mockNgGridPaginationFactory, dateRangePickerEventListener: mockDateRangePickerEventListener});
     }));
+
+    describe('it must get all appointment types', function () {
+        it('should call getAppointment method from appointment server and update allAppointment with the result', function () {
+            scope.setPagingData = function(){}
+
+            deferred.resolve(upcomingAppointmentsTest.expectedAppointment);
+            scope.$apply();
+
+            expect(mockAppointmentService.getAppointments).toHaveBeenCalled();
+            expect(scope.allAppointments[0].uuid).toBe("3816596c-0d50-4cd0-aab5-922516bc9fa4");
+            expect(scope.allAppointments[0].appointmentType.display).toBe("New Dental");
+            expect(scope.allAppointments[0].timeSlot.appointmentBlock.provider.person.display).toBe("Areias Mario");
+        });
+    });
+
+    it('must call the subscribe method from the dateRangePickerEventListener service when the controller is created', function () {
+        expect(mockDateRangePickerEventListener.subscribe).toHaveBeenCalledWith(scope, 'upcomingAppointments');
+    });
 
     describe('it must cancel an appointment', function () {
        it('should call cancelAppointment method from appointment service with an appointment to be canceled', function () {
@@ -25,7 +62,7 @@ describe('CancelAppointment controller', function () {
 
            scope.doCancelAppointment();
 
-           expect(appointmentServiceMock.cancelAppointment).toHaveBeenCalledWith(appointment);
+           expect(mockAppointmentService.cancelAppointment).toHaveBeenCalledWith(appointment);
            expect(scope.appointmentToCancel).toBeNull();
        });
     });
