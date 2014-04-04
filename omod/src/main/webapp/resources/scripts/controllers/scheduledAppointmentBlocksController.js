@@ -25,7 +25,19 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
 
         $scope.appointmentBlocks = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allAppointmentBlocks")];
         $scope.appointmentBlockFilter = $scope.appointmentBlocks[0];
+
+        if (!$scope.appointmentStatusTypes ) {
+            $scope.appointmentStatusTypes = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allAppointmentStatuses")];
+            $scope.appointmentStatusTypeFilter = $scope.appointmentStatusTypes[0];
     }
+
+    }
+
+    AppointmentService.getAppointmentStatusTypes().then(function (result) {
+        for (var i = 0; i < result.length; i++){
+            $scope.appointmentStatusTypes.push(result[i]);
+        }
+    });
 
     var locationSearchParams = {};
     if (supportsAppointmentsTagUuid) {
@@ -100,11 +112,44 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
         $scope.updatePagingData();
     }
 
+    $scope.filterByAppointmentStatusType = function(appointmentStatusType){
+
+        if ($scope.filteredScheduledAppointmentBlocks ) {
+            for (var i=$scope.filteredScheduledAppointmentBlocks.length -1; i>=0; i--) {
+                var appointmentBlock = $scope.filteredScheduledAppointmentBlocks[i];
+                var patients = appointmentBlock.patients;
+                if (patients) {
+                    var filteredPatients = patients.filter(function(patient) {
+                        return (patient.appointmentStatus.type == appointmentStatusType );
+                    });
+                    if (filteredPatients && filteredPatients.length > 0) {
+                        appointmentBlock.patients = filteredPatients;
+                    } else {
+                        $scope.filteredScheduledAppointmentBlocks.splice(i,1);
+                    }
+                }
+            }
+        }
+    };
+
     $scope.newSelectedProvider = function(provider){
         if(provider == emr.message("appointmentschedulingui.dailyScheduledAppointments.allProviders"))
             $scope.filterObjects.provider = '';
         else $scope.filterObjects.provider =  provider;
         $scope.updateFilter();
+    };
+
+    $scope.newSelectedAppointmentStatusType = function(appointmentStatusType){
+        $scope.updateFilter();
+        if(appointmentStatusType == emr.message("appointmentschedulingui.dailyScheduledAppointments.allAppointmentStatuses")) {
+            $scope.filterObjects.appointmentStatusType = '';
+            $scope.filteredScheduledAppointmentBlocks = $scope.scheduledAppointmentBlocks;
+        } else {
+            $scope.filterObjects.appointmentStatusType =  appointmentStatusType;
+            $scope.filterByAppointmentStatusType(appointmentStatusType);
+            $scope.updatePagingData();
+        }
+
     };
 
     $scope.newSelectedAppointmentBlock = function(appointmentBlock){

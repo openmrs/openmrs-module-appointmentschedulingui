@@ -36,6 +36,8 @@
         'appointmentschedulingui.dailyScheduledAppointments.patientId',
         'appointmentschedulingui.dailyScheduledAppointments.dossierNumber',
         'appointmentschedulingui.dailyScheduledAppointments.allProviders',
+        'appointmentschedulingui.dailyScheduledAppointments.appointmentStatus',
+        'appointmentschedulingui.dailyScheduledAppointments.allAppointmentStatuses',
         'appointmentschedulingui.dailyScheduledAppointments.allAppointmentBlocks',
         'appointmentschedulingui.dailyScheduledAppointments.allServiceTypes',
         'appointmentscheduling.AppointmentBlock.error.scheduledAppointmentBlocks',
@@ -78,6 +80,11 @@
         <div id="filter-appointmentBlock" class="inline-box">
             <p>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.appointmentBlock") }</p>
             <select ng-model="appointmentBlockFilter" ng-options="apppointmentBlock for apppointmentBlock in appointmentBlocks" ng-change="newSelectedAppointmentBlock(appointmentBlockFilter)">
+            </select>
+        </div>
+        <div id="filter-appointmentStatusType" class="inline-box">
+            <p>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.appointmentStatus") }</p>
+            <select ng-model="appointmentStatusTypeFilter" ng-options="appointmentStatusType for appointmentStatusType in appointmentStatusTypes" ng-change="newSelectedAppointmentStatusType(appointmentStatusTypeFilter)">
             </select>
         </div>
 

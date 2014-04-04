@@ -11,6 +11,13 @@ appointmentResource.factory('AppointmentType', function($resource) {
     });
 });
 
+appointmentResource.factory('AppointmentStatusType', function($resource) {
+    return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/appointmentstatustype/", {
+    },{
+        query: { method:'GET' }
+    });
+});
+
 appointmentResource.factory('TimeSlot', function($resource) {
     return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/timeslot/:uuid", {
         'uuid' : '@uuid'
