@@ -75,7 +75,6 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
                 var parsedScheduledAppointmentBlocks = Parse.scheduledAppointmentBlocks(results);
 
                 $scope.scheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
-                $scope.totalScheduledAppointmentBlocks = parsedScheduledAppointmentBlocks;
 
                 scheduledAppointmentBlocksHelper.findProvidersFromGrid($scope);
                 scheduledAppointmentBlocksHelper.findAppointmentBlockFromGrid($scope);

@@ -60,7 +60,7 @@ angular.module('appointmentSchedulingHelper')
            },
            manageMessages: function(scope) {
                scope.showLoadingMessage = false;
-               if (scope.totalScheduledAppointmentBlocks.length == 0) {
+               if (scope.scheduledAppointmentBlocks.length == 0) {
                    scope.showNoScheduledAppointmentBlocks = true;
                } else {
                    scope.showNoScheduledAppointmentBlocks = false;

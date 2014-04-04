@@ -64,7 +64,7 @@
             }
 
             var parseAppointmentStatus = function(status){
-                var appointmentStatus = [];
+                var appointmentStatus = {};
                 appointmentStatus.type = status.type;
 
                 if(status.type == "ACTIVE"){

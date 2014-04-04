@@ -81,15 +81,14 @@
             </select>
         </div>
 
-        <div id="filter-service" class="inline-box">
-
-        <selectmultipleappointmenttypes headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.serviceTypes") }'
-                                        viewall='${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }'
-                                        closemessage='${ ui.message("uicommons.close")}'
-                                        senderid = 'viewAppointmentBlock'
-                                        placeholdermessage = '${ ui.message("appointmentschedulingui.scheduleProviders.selectMultiplePlaceholder") }'
-                                        class="inline-box"></selectmultipleappointmenttypes>
-        </div>
+        <selectmultipleappointmenttypes
+            headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.serviceTypes") }'
+            viewall='${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }'
+            closemessage='${ ui.message("uicommons.close")}'
+            senderid = 'viewAppointmentBlock'
+            placeholdermessage = '${ ui.message("appointmentschedulingui.scheduleProviders.selectMultiplePlaceholder") }'
+            class="inline-box">
+        </selectmultipleappointmenttypes>
     </div>
     <div id="noScheduledAppointmentBlocks" ng-show="showNoScheduledAppointmentBlocks" class="inline-box">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.noScheduledAppointmentBlocks") }</div>
     <div id="loadingMessage" ng-show="showLoadingMessage">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.loading") }</div>
