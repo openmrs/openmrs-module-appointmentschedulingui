@@ -25,6 +25,7 @@
     ui.includeJavascript("appointmentschedulingui", "appointmentSchedulingParser.js")
     ui.includeJavascript("appointmentschedulingui", "appointmentSchedulingHelper.js")
     ui.includeCss("appointmentschedulingui", "scheduledAppointmentBlock.css")
+    ui.includeCss("appointmentschedulingui", "selectMultipleAppointmentTypes.css")
 %>
 
 <%= ui.includeFragment("appui", "messages", [ codes: [
@@ -74,16 +75,20 @@
             <select ng-model="providerFilter" ng-options="provider for provider in providers" ng-change="newSelectedProvider(providerFilter)">
             </select>
         </div>
+        <div id="filter-appointmentBlock" class="inline-box">
+            <p>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.appointmentBlock") }</p>
+            <select ng-model="appointmentBlockFilter" ng-options="apppointmentBlock for apppointmentBlock in appointmentBlocks" ng-change="newSelectedAppointmentBlock(appointmentBlockFilter)">
+            </select>
+        </div>
+
+        <div id="filter-service" class="inline-box">
+
         <selectmultipleappointmenttypes headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.serviceTypes") }'
                                         viewall='${ ui.message("appointmentschedulingui.scheduleAppointment.viewAllTypes") }'
                                         closemessage='${ ui.message("uicommons.close")}'
                                         senderid = 'viewAppointmentBlock'
                                         placeholdermessage = '${ ui.message("appointmentschedulingui.scheduleProviders.selectMultiplePlaceholder") }'
                                         class="inline-box"></selectmultipleappointmenttypes>
-        <div id="filter-appointmentBlock" class="inline-box">
-            <p>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.appointmentBlock") }</p>
-            <select ng-model="appointmentBlockFilter" ng-options="apppointmentBlock for apppointmentBlock in appointmentBlocks" ng-change="newSelectedAppointmentBlock(appointmentBlockFilter)">
-            </select>
         </div>
     </div>
     <div id="noScheduledAppointmentBlocks" ng-show="showNoScheduledAppointmentBlocks" class="inline-box">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.noScheduledAppointmentBlocks") }</div>
