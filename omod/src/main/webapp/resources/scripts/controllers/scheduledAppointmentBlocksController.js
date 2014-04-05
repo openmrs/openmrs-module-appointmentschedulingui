@@ -21,7 +21,7 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
         $scope.filterObjects = { provider: "", appointmentBlock: ""};
 
         $scope.providers = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allProviders")];
-        $scope.providerFilter = $scope.providers[0];;
+        $scope.providerFilter = $scope.providers[0];
 
         $scope.appointmentBlocks = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allAppointmentBlocks")];
         $scope.appointmentBlockFilter = $scope.appointmentBlocks[0];
@@ -109,23 +109,25 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
     $scope.updateFilter = function() {
         $scope.filteredScheduledAppointmentBlocks = filterFilter($scope.scheduledAppointmentBlocks,
             {date: $scope.filterObjects.appointmentBlock, provider: $scope.filterObjects.provider });
+        $scope.filterByAppointmentStatusType($scope.filterObjects.appointmentStatusType);
         $scope.updatePagingData();
     }
 
     $scope.filterByAppointmentStatusType = function(appointmentStatusType){
-
-        if ($scope.filteredScheduledAppointmentBlocks ) {
-            for (var i=$scope.filteredScheduledAppointmentBlocks.length -1; i>=0; i--) {
-                var appointmentBlock = $scope.filteredScheduledAppointmentBlocks[i];
-                var patients = appointmentBlock.patients;
-                if (patients) {
-                    var filteredPatients = patients.filter(function(patient) {
-                        return (patient.appointmentStatus.type == appointmentStatusType );
-                    });
-                    if (filteredPatients && filteredPatients.length > 0) {
-                        appointmentBlock.patients = filteredPatients;
-                    } else {
-                        $scope.filteredScheduledAppointmentBlocks.splice(i,1);
+        if (appointmentStatusType && appointmentStatusType.length > 0 ) {
+            if ($scope.filteredScheduledAppointmentBlocks ) {
+                for (var i=$scope.filteredScheduledAppointmentBlocks.length -1; i>=0; i--) {
+                    var appointmentBlock = $scope.filteredScheduledAppointmentBlocks[i];
+                    var patients = appointmentBlock.patients;
+                    if (patients) {
+                        var filteredPatients = patients.filter(function(patient) {
+                            return (patient.appointmentStatus.type == appointmentStatusType );
+                        });
+                        if (filteredPatients && filteredPatients.length > 0) {
+                            appointmentBlock.patients = filteredPatients;
+                        } else {
+                            $scope.filteredScheduledAppointmentBlocks.splice(i,1);
+                        }
                     }
                 }
             }
@@ -140,16 +142,12 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
     };
 
     $scope.newSelectedAppointmentStatusType = function(appointmentStatusType){
-        $scope.updateFilter();
         if(appointmentStatusType == emr.message("appointmentschedulingui.dailyScheduledAppointments.allAppointmentStatuses")) {
             $scope.filterObjects.appointmentStatusType = '';
-            $scope.filteredScheduledAppointmentBlocks = $scope.scheduledAppointmentBlocks;
         } else {
             $scope.filterObjects.appointmentStatusType =  appointmentStatusType;
-            $scope.filterByAppointmentStatusType(appointmentStatusType);
-            $scope.updatePagingData();
         }
-
+        $scope.updateFilter();
     };
 
     $scope.newSelectedAppointmentBlock = function(appointmentBlock){
