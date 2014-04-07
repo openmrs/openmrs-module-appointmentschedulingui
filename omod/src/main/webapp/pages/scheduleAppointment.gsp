@@ -202,7 +202,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 <button class="cancel" ng-click="cancelConfirmAppointment()" ng-disabled="confirmAppointmentButtonsDisabled">
                     ${ ui.message("appointmentschedulingui.scheduleAppointment.back") }</button>
                 <button class="confirm right" ng-click="confirmAppointment()" ng-disabled="confirmAppointmentButtonsDisabled">
-                    ${ ui.message("uicommons.next") }</button>
+                    ${ ui.message("uicommons.save") }</button>
             </div>
         </div>
 
