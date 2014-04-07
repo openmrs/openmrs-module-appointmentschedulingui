@@ -1,6 +1,6 @@
 
 <%
-    ui.includeJavascript("appointmentschedulingui", "timeZoneWarning.js")
+    ui.includeJavascript("appointmentschedulingui", "controllers/timeZoneWarningController.js")
 %>
 
 

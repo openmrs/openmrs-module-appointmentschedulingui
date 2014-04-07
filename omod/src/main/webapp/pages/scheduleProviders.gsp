@@ -21,11 +21,11 @@
 
     ui.includeJavascript("appointmentschedulingui", "app.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/selectMultipleAppointmentTypesController.js")
+    ui.includeJavascript("appointmentschedulingui", "controllers/scheduleProvidersController.js")
     ui.includeJavascript("appointmentschedulingui", "directives/selectMultipleAppointmentTypesDirective.js")
 
-    ui.includeJavascript("appointmentschedulingui", "scheduleProviders.js")
-    ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
-    ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
+    ui.includeJavascript("appointmentschedulingui", "resources/appointmentResources.js")
+    ui.includeJavascript("appointmentschedulingui", "services/appointmentService.js")
 
     ui.includeJavascript("appointmentschedulingui", "qtip/jquery.qtip.min.js")
     ui.includeCss("appointmentschedulingui", "qtip/jquery.qtip.min.css")

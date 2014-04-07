@@ -13,15 +13,14 @@
     ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
 
     ui.includeJavascript("appointmentschedulingui","app.js")
-    ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
-
+    ui.includeJavascript("appointmentschedulingui", "services/appointmentService.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/dateRangePickerController.js")
     ui.includeJavascript("appointmentschedulingui", "directives/dateRangePickerDirective.js")
     ui.includeJavascript("appointmentschedulingui", "services/dateRangePickerEventListener.js")
     ui.includeJavascript("appointmentschedulingui", "services/ngGridPagination.js")
-    ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
+    ui.includeJavascript("appointmentschedulingui", "resources/appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/scheduleAppointmentController.js")
-    ui.includeJavascript("appointmentschedulingui", "controllers/upcomingAppointmentsController.js")
+    ui.includeJavascript("appointmentschedulingui", "controllers/patientAppointmentsController.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/confirmAppointmentController.js")
 
     ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
@@ -76,23 +75,23 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
 <div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl">
 
-   <div ng-controller='UpcomingAppointmentsCtrl' ng-init="init('${ patient.patient.uuid }', ${ canOverbook })">
+   <div ng-controller='PatientAppointmentsCtrl' ng-init="init('${ patient.patient.uuid }', ${ canOverbook })">
 
         <div ng-show="showScheduleAppointment">
             <h2>
-                ${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointments") }
+                ${ ui.message("appointmentschedulingui.scheduleAppointment.patientAppointments") }
             </h2>
 
             <div class="inline-box">
                 <daterangepicker
                         headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'
                         startdate="{{ fromDate.toDateString() }}"
-                        senderid="upcomingAppointments"
+                        senderid="patientAppointments"
                         startdatemin = "">
                 </daterangepicker>
             </div>
-            <div id="noUpcomingAppointment" ng-show="showNoAppointmentsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noUpcomingAppointments")}</div>
-            <div id="loadingUpcomingAppointmentsMessage" ng-show="showLoadingAppointmentsGrid">${ ui.message("appointmentschedulingui.scheduleAppointment.upcomingAppointmentsLoading") }</div>
+            <div id="noPatientAppointment" ng-show="showNoAppointmentsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noPatientAppointments")}</div>
+            <div id="loadingPatientAppointmentsMessage" ng-show="showLoadingAppointmentsGrid">${ ui.message("appointmentschedulingui.scheduleAppointment.patientAppointmentsLoading") }</div>
 
             <table id="appointmentGridTable" class="gridStyle" ng-grid="appointmentOptions" ng-show="showAppointmentsGrid"></table>
         </div>

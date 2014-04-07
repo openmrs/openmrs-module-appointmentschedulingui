@@ -1,3 +1,4 @@
+
 <%
     ui.decorateWith("appui", "standardEmrPage")
     ui.includeCss("appointmentschedulingui", "appointmentType.css")
@@ -7,7 +8,7 @@
 
 <script type="text/javascript">
 
-// TODO: configure breadcrumbs to be dynamic as we may not always like back to system administration section
+// TODO redo usnig angular?
 
 var breadcrumbs = [
     { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },

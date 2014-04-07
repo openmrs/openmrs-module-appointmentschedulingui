@@ -1,4 +1,4 @@
-describe('Upcoming Appointments controller', function () {
+describe('Patient Appointments controller', function () {
     var scope, deferred,
         mockAppointmentService, mockNgGridPaginationFactory, mockFilterFilter, mockDateRangePickerEventListener,
         $timeout,
@@ -32,7 +32,7 @@ describe('Upcoming Appointments controller', function () {
             currentPage: 1
         };
 
-        var controller =  $controller('UpcomingAppointmentsCtrl', {$scope: scope, $timeout: $timeout,
+        var controller =  $controller('PatientAppointmentsCtrl', {$scope: scope, $timeout: $timeout,
             AppointmentService: mockAppointmentService, filterFilter: mockFilterFilter,
             ngGridPaginationFactory: mockNgGridPaginationFactory, dateRangePickerEventListener: mockDateRangePickerEventListener});
     }));
@@ -54,7 +54,7 @@ describe('Upcoming Appointments controller', function () {
     });
 
     it('must call the subscribe method from the dateRangePickerEventListener service when the controller is created', function () {
-        expect(mockDateRangePickerEventListener.subscribe).toHaveBeenCalledWith(scope, 'upcomingAppointments');
+        expect(mockDateRangePickerEventListener.subscribe).toHaveBeenCalledWith(scope, 'patientAppointments');
     });
 
     describe('it must cancel an appointment', function () {

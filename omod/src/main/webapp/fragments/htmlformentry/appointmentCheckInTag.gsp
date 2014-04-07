@@ -1,10 +1,9 @@
 
 
 <%
-    ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
+    ui.includeJavascript("appointmentschedulingui", "services/appointmentService.js")
     ui.includeJavascript("appointmentschedulingui", "htmlformentry/appointmentCheckInTag.js")
-    ui.includeJavascript("appointmentschedulingui", "appointmentService.js")
-    ui.includeJavascript("appointmentschedulingui", "appointmentResources.js")
+    ui.includeJavascript("appointmentschedulingui", "resources/appointmentResources.js")
     ui.includeJavascript("uicommons", "moment.min.js")
 
 %>

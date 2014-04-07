@@ -1,3 +1,6 @@
+
+// TODO redo using angular?
+
 $( function(){
     $(document).on('click', '.deleteAppointmentType', function(event) {
         var appointmentTypeId = $(event.target).attr("data-appointment-type-id");

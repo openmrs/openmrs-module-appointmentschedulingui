@@ -1,5 +1,5 @@
 angular.module('appointmentscheduling.scheduleAppointment')
-    .controller('UpcomingAppointmentsCtrl', ['$scope', '$timeout', 'AppointmentService','filterFilter', 'ngGridPaginationFactory', 'dateRangePickerEventListener',
+    .controller('PatientAppointmentsCtrl', ['$scope', '$timeout', 'AppointmentService','filterFilter', 'ngGridPaginationFactory', 'dateRangePickerEventListener',
                                  function ($scope, $timeout, AppointmentService, filterFilter, ngGridPaginationFactory, dateRangePickerEventListener) {
         $scope.appointmentToCancel = null;
         $scope.appointmentCancelReason = '';
@@ -111,7 +111,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
         }
 
         ngGridPaginationFactory.includePagination($scope, $scope.appointmentOptions, $scope.updateFilter);
-        dateRangePickerEventListener.subscribe($scope, 'upcomingAppointments');
+        dateRangePickerEventListener.subscribe($scope, 'patientAppointments');
 
         $scope.confirmCancelAppointment = function(uuid) {
             $scope.appointmentToCancel = { uuid: uuid };

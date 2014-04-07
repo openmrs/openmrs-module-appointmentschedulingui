@@ -252,9 +252,11 @@
                         <include>app.js</include>
                         <include>*.js</include>
                         <include>controllers/*.js</include>
+                        <include>factories/*.js</include>
                         <include>htmlformentry/*.js</include>
                         <include>directives/*.js</include>
                         <include>services/*.js</include>
+                        <include>resources/*.js</include>
                         <include>bower_components/**/locationService.js</include>
                         <include>bower_components/**/restUtils.js</include>
                         <include>bower_components/**/jquery-1.8.3.min.js</include>

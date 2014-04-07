@@ -1,3 +1,5 @@
+// TODO redo using angular?
+
 function confirmButtonEventListerner(errorMessage){
     $(document).on('click', '.confirm', function(event) {
         if(checkIfDurationIsValid())
