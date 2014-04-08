@@ -4,6 +4,7 @@ var scheduledAppointmentBlocksHelper = {};
 var emr = jasmine.createSpyObj('emr', ['errorMessage', 'navigateTo', 'message']);
 
 describe('ScheduledAppointmentBlocksController', function() {
+
     var scope;
     var mockLocationService,mockNgGridPaginationFactory, mockHelper, mockAppointmentService, mockParser, mockFilterFilter;
     var promise;
@@ -262,4 +263,7 @@ describe('ScheduledAppointmentBlocksController', function() {
             expect(mockHelper.findAppointmentBlockFromGrid).toHaveBeenCalled();
         })
     });
+
+
+
 });

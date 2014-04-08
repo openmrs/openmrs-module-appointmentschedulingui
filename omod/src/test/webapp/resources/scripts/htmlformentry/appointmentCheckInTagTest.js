@@ -8,9 +8,6 @@ describe('AppointmentCheckInTagCtrl', function() {
     getValue = function() { return null }
     getField = function() { return null }
 
-    // create mock jquery resource
-    jq = function() { return { change: function () { return null } } }
-
     var $scope;
     var $rootScope;
     var $controller;
