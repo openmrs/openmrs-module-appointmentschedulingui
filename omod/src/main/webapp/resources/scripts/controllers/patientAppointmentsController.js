@@ -28,11 +28,11 @@ angular.module('appointmentscheduling.scheduleAppointment')
             multiSelect: false,
             enableSorting: false,
             selectedItems: [],
-            columnDefs: [ { field: 'date', displayName: emr.message("appointmentschedulingui.scheduleAppointment.date"),
+            columnDefs: [ { field: 'date', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.date"),
                 cellTemplate: "<div>{{ row.getProperty(\'dateFormatted\') }}<br/>{{ row.getProperty(\'startTimeFormatted\') }} - {{ row.getProperty(\'endTimeFormatted\') }}<div>" },
-                { field: 'appointmentType.display', displayName: emr.message("appointmentschedulingui.scheduleAppointment.serviceType") },
-                { field: 'timeSlot.appointmentBlock.provider.person.display', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
-                { field: 'timeSlot.appointmentBlock.location.display', displayName: emr.message("appointmentschedulingui.scheduleAppointment.location") },
+                { field: 'appointmentType.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.serviceType") },
+                { field: 'timeSlot.appointmentBlock.provider.person.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
+                { field: 'timeSlot.appointmentBlock.location.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.location") },
                 { field: 'displayStatus', width: '15%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.status") },
                 { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canOverBook" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
                     'title="{{ row.getProperty(\'tooltip\') }}"></i></span>'  }
