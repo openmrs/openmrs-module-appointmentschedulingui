@@ -89,6 +89,7 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
             scheduledAppointmentBlocksHelper.initializeMessages($scope);
 
             AppointmentService.getScheduledAppointmentBlocks(getSearchParams()).then( function(results){
+
                 $scope.scheduledAppointmentBlocks = Parse.scheduledAppointmentBlocks(results);
 
                 scheduledAppointmentBlocksHelper.findProvidersFromGrid($scope);

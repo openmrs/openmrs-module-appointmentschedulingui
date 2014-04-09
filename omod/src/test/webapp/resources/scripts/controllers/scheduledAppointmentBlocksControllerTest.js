@@ -3,8 +3,10 @@ describe('ScheduledAppointmentBlocksController', function() {
 
     var scope;
     var mockLocationService,mockNgGridPaginationFactory, mockHelper, mockAppointmentService, mockParser, mockFilterFilter;
-    var promise;
-    var deferred;
+
+    var deferredLocations;
+    var deferredAppointmentStatusTypes;
+    var deferredScheduledAppointmentBlocks;
 
     var expectedScheduledAppointmentBlocksResults =  [
         {
@@ -142,19 +144,20 @@ describe('ScheduledAppointmentBlocksController', function() {
 
         scope = $rootScope.$new();
         scope.pagingOptions = { currentPage: 1};
-        deferred = $q.defer();
-        promise = deferred.promise;
+        deferredLocations = $q.defer();
+        deferredAppointmentStatusTypes = $q.defer();
+        deferredScheduledAppointmentBlocks = $q.defer();
 
         mockLocationService = jasmine.createSpyObj('LocationService', ['getLocations']);
-        mockLocationService.getLocations.andCallFake(function () { return promise; });
+        mockLocationService.getLocations.andCallFake(function () { return deferredLocations.promise });
 
         mockHelper = jasmine.createSpyObj('scheduledAppointmentBlocksHelper', ['setUpGrid','selectLocationToFilter', 'setupDatePicker', 'initializeMessages', 'findProvidersFromGrid', 'findAppointmentBlockFromGrid', 'findServiceTypesFromGrid', 'manageMessages']);
         mockHelper.selectLocationToFilter.andCallFake(function () { return  { display: "location 1", uuid: "location uuid"} })
         scheduledAppointmentBlocksHelper = mockHelper;
 
         mockAppointmentService = jasmine.createSpyObj('AppointmentService', ['getScheduledAppointmentBlocks', 'getAppointmentStatusTypes']);
-        mockAppointmentService.getScheduledAppointmentBlocks.andCallFake(function () { return promise});
-        mockAppointmentService.getAppointmentStatusTypes.andCallFake(function () { return promise});
+        mockAppointmentService.getScheduledAppointmentBlocks.andCallFake(function () { return deferredScheduledAppointmentBlocks.promise });
+        mockAppointmentService.getAppointmentStatusTypes.andCallFake(function () { return deferredAppointmentStatusTypes.promise });
 
         mockNgGridPaginationFactory = jasmine.createSpyObj('ngGridPaginationFactory', ['includePagination']);
 
@@ -178,7 +181,7 @@ describe('ScheduledAppointmentBlocksController', function() {
             var locationSearchParams =   { tag: supportsAppointmentsTagUuid};
             var expectedLocations = [{ display: "location 1", uuid: "location uuid"}, { display: "location 2", uuid: "location 2 uuid"}];
 
-            deferred.resolve(expectedLocations);
+            deferredLocations.resolve(expectedLocations);
 
             scope.$apply();
 
@@ -242,7 +245,8 @@ describe('ScheduledAppointmentBlocksController', function() {
     describe('when have results of scheduled appointment block', function(){
 
         beforeEach( function(){
-                deferred.resolve(expectedScheduledAppointmentBlocksResults);
+                deferredLocations.resolve();
+                deferredScheduledAppointmentBlocks.resolve(expectedScheduledAppointmentBlocksResults);
                 scope.$apply();
         });
 
