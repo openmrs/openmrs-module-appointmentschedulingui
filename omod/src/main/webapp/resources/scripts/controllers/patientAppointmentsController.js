@@ -11,9 +11,9 @@ angular.module('appointmentscheduling.scheduleAppointment')
         $scope.pagingOptions = {};
         $scope.fromDate = new Date();
 
-        $scope.init = function(patientUuid, canOverBook) {
-            $scope.patient = patientUuid;
-            $scope.canOverBook = canOverBook;
+        $scope.init = function(patientUuid, canBook) {
+            $scope.patientUuid = patientUuid;
+            $scope.canBook = canBook;
             $scope.findAppointments();
         },
 
@@ -34,13 +34,13 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 { field: 'timeSlot.appointmentBlock.provider.person.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
                 { field: 'timeSlot.appointmentBlock.location.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.location") },
                 { field: 'displayStatus', width: '15%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.status") },
-                { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canOverBook" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
+                { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canBook" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
                     'title="{{ row.getProperty(\'tooltip\') }}"></i></span>'  }
             ]};
 
 
         var getSearchParams = function () {
-            var params = { 'patient' : $scope.patient };
+            var params = { 'patient' : $scope.patientUuid };
             if ($scope.fromDate) { params['fromDate'] = moment($scope.fromDate).format();}
             if ($scope.toDate) { params['toDate'] = moment($scope.toDate).endOf('day').format(); }
             return params;

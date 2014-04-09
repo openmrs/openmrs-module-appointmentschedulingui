@@ -63,18 +63,15 @@
         { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" }
     ];
 
-    var patientUuid = '${ patient.patient.uuid }';
-    var canOverbook = ${ canOverbook };
-
 </script>
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
 <%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
 
-<div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl">
+<div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl"  ng-init="init('${ patient.patient.uuid }')">
 
-   <div ng-controller='PatientAppointmentsCtrl' ng-init="init('${ patient.patient.uuid }', ${ canOverbook })">
+   <div ng-controller='PatientAppointmentsCtrl' ng-init="init('${ patient.patient.uuid }', ${ canBook })">
 
         <div ng-show="showScheduleAppointment">
             <h2>
@@ -181,7 +178,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
        </div>
 
-       <div ng-hide="showScheduleAppointment" id="confirmAppointment" class="container" ng-controller="ConfirmAppointmentCtrl">
+       <div ng-hide="showScheduleAppointment" id="confirmAppointment" class="container" ng-controller="ConfirmAppointmentCtrl" ng-init="init('${ patient.patient.uuid }')">
             <h2>
                 ${ ui.message("appointmentschedulingui.scheduleAppointment.confirmAppointment") }
             </h2>

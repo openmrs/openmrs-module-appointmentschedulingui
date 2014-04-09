@@ -37,6 +37,10 @@ angular.module('appointmentscheduling.scheduleAppointment')
                                         + "<br/>({{ row.getProperty(\'unallocatedMinutesAbsValue\') }} {{ row.getProperty(\'minutesMessage\') }})</div>" } ]
         };
 
+        $scope.init = function(patientUuid) {
+            $scope.patientUuid = patientUuid;
+        },
+
         dateRangePickerEventListener.subscribe($scope, 'scheduleAppointment');
 
         // initialize allAppointmentTypes variable
@@ -89,7 +93,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
         var getSearchParams = function () {
             var params = { 'appointmentType' : $scope.appointmentType.uuid,
                            'includeFull' : $scope.includeSlotsThatRequireOverbook,
-                           'excludeTimeSlotsPatientAlreadyBookedFor': patientUuid }; // patientUuid from global scope, defined in scheduleAppointment.gsp
+                           'excludeTimeSlotsPatientAlreadyBookedFor': $scope.patientUuid };
             if ($scope.fromDate) { params['fromDate'] = moment($scope.fromDate).format();}
             if ($scope.toDate) { params['toDate'] = moment($scope.toDate).endOf('day').format(); }
             return params;
