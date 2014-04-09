@@ -25,6 +25,8 @@ describe('ScheduleAppointment tests', function() {
 
         scope = $rootScope.$new();
 
+        scope.patientUuid = '123';
+
         scope.pagingOptions = {
             pageSizes: [5,10,20],
             pageSize: 10,
