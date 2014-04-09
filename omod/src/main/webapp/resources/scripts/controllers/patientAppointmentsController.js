@@ -34,7 +34,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 { field: 'timeSlot.appointmentBlock.provider.person.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
                 { field: 'timeSlot.appointmentBlock.location.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.location") },
                 { field: 'displayStatus', width: '15%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.status") },
-                { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canBook && true" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
+                { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canBook && isCancellable(row.getProperty(\'status\'))" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
                     'title="{{ row.getProperty(\'tooltip\') }}"></i></span>'  }
             ]};
 
@@ -118,6 +118,11 @@ angular.module('appointmentscheduling.scheduleAppointment')
             $timeout(function() {
                 angular.element('#confirm-cancel-appointment .confirm').focus();
             });
+        }
+
+        $scope.isCancellable = function(status) {
+            // only non-cancelled appointments can be cancelled
+            return status.type != 'CANCELLED';
         }
 
         $scope.doCancelAppointment = function() {
