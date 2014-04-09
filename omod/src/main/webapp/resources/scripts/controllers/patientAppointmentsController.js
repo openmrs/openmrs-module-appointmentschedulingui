@@ -121,8 +121,8 @@ angular.module('appointmentscheduling.scheduleAppointment')
         }
 
         $scope.isCancellable = function(status) {
-            // only non-cancelled appointments can be cancelled
-            return status.type != 'CANCELLED';
+            // only scheduled appointments can be cancelled
+            return status.type == 'SCHEDULED';
         }
 
         $scope.doCancelAppointment = function() {
