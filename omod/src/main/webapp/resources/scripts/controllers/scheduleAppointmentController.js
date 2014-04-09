@@ -88,7 +88,8 @@ angular.module('appointmentscheduling.scheduleAppointment')
 
         var getSearchParams = function () {
             var params = { 'appointmentType' : $scope.appointmentType.uuid,
-                           'includeFull' : $scope.includeSlotsThatRequireOverbook };
+                           'includeFull' : $scope.includeSlotsThatRequireOverbook,
+                           'excludeTimeSlotsPatientAlreadyBookedFor': patientUuid }; // patientUuid from global scope, defined in scheduleAppointment.gsp
             if ($scope.fromDate) { params['fromDate'] = moment($scope.fromDate).format();}
             if ($scope.toDate) { params['toDate'] = moment($scope.toDate).endOf('day').format(); }
             return params;

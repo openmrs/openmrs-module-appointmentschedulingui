@@ -1,6 +1,3 @@
-var telephoneAttributeTypeName = "Telephone Number";
-var emr = jasmine.createSpyObj('emr', ['message']);
-
 describe('AppointmentSchedulingParser tests', function() {
     var appointmentScheduling =   [
         {

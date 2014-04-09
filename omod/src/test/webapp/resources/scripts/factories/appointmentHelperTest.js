@@ -1,5 +1,3 @@
-var sessionLocationUuid = "uuid of session location";
-
 describe('Scheduling Appointment Helper tests', function() {
     var scope;
     var scheduledAppointmentBlocksHelper;

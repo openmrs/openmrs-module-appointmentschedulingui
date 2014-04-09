@@ -1,7 +1,3 @@
-var supportsAppointmentsTagUuid = "tagUiid";
-var sessionLocationUuid = "uuid of session location";
-var scheduledAppointmentBlocksHelper = {};
-var emr = jasmine.createSpyObj('emr', ['errorMessage', 'navigateTo', 'message']);
 
 describe('ScheduledAppointmentBlocksController', function() {
 

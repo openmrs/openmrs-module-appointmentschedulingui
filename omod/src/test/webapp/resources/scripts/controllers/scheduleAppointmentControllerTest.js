@@ -1,4 +1,4 @@
-var emr =  jasmine.createSpyObj('emr', ['errorMessage', 'navigateTo', 'message']);
+
 describe('ScheduleAppointment tests', function() {
     var scope,
         mockAppointmentService,
@@ -100,7 +100,7 @@ describe('ScheduleAppointment tests', function() {
             deferred.resolve(appointments);
             scope.$apply();
 
-            expect(mockAppointmentService.getTimeSlots).toHaveBeenCalledWith({ 'appointmentType' : 1, "includeFull" : true });
+            expect(mockAppointmentService.getTimeSlots).toHaveBeenCalledWith({ 'appointmentType' : 1, 'includeFull' : true, 'excludeTimeSlotsPatientAlreadyBookedFor': '123'  });
             expect(mockFilterFilter).toHaveBeenCalled();
             expect(scope.timeSlots).toBe(appointments);
         });

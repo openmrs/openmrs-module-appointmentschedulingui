@@ -1,7 +1,4 @@
 
-var patientUuid = 123;
-var canOverbook;
-
 describe('ConfirmAppointment Controller', function () {
     var scope,
         appointmentServiceMock,

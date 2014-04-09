@@ -63,7 +63,6 @@
         { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" }
     ];
 
-   // TODO better way to inject this?
     var patientUuid = '${ patient.patient.uuid }';
     var canOverbook = ${ canOverbook };
 
