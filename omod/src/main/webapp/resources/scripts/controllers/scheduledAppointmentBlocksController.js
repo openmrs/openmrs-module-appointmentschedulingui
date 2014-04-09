@@ -28,15 +28,19 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
         $scope.appointmentBlockFilter = $scope.appointmentBlocks[0];
 
         if (!$scope.appointmentStatusTypes ) {
-            $scope.appointmentStatusTypes = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allAppointmentStatuses")];
-            $scope.appointmentStatusTypeFilter = $scope.appointmentStatusTypes[0];
-    }
+            $scope.appointmentStatusTypes = [];
+            $scope.appointmentStatusTypes.push({ localizedDisplayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.allAppointmentStatuses"),
+                                                 value: ''});
+            $scope.appointmentStatusTypeFilter = $scope.appointmentStatusTypes[0].value;
+        }
 
     }
 
+    // initialize appointment status types
     AppointmentService.getAppointmentStatusTypes().then(function (result) {
         for (var i = 0; i < result.length; i++){
-            $scope.appointmentStatusTypes.push(result[i]);
+            $scope.appointmentStatusTypes.push({ localizedDisplayName: emr.message("appointmentschedulingui.scheduleAppointment.status.type." + result[i].toLowerCase()),
+                                                 value: result[i]});
         }
     });
 

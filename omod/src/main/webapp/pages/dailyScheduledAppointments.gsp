@@ -42,7 +42,11 @@
         'appointmentschedulingui.dailyScheduledAppointments.allServiceTypes',
         'appointmentscheduling.AppointmentBlock.error.scheduledAppointmentBlocks',
         'appointmentschedulingui.dailyScheduledAppointments.phoneNumber',
-        'appointmentschedulingui.dailyScheduledAppointments.statusActive'
+        'appointmentschedulingui.scheduleAppointment.status.type.active',
+        'appointmentschedulingui.scheduleAppointment.status.type.scheduled',
+        'appointmentschedulingui.scheduleAppointment.status.type.cancelled',
+        'appointmentschedulingui.scheduleAppointment.status.type.missed',
+        'appointmentschedulingui.scheduleAppointment.status.type.completed'
 ].flatten()
 ]) %>
 
@@ -84,7 +88,7 @@
         </div>
         <div id="filter-appointmentStatusType" class="inline-box">
             <p>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.appointmentStatus") }</p>
-            <select ng-model="appointmentStatusTypeFilter" ng-options="appointmentStatusType for appointmentStatusType in appointmentStatusTypes" ng-change="newSelectedAppointmentStatusType(appointmentStatusTypeFilter)">
+            <select ng-model="appointmentStatusTypeFilter" ng-options="appointmentStatusType.value as appointmentStatusType.localizedDisplayName for appointmentStatusType in appointmentStatusTypes" ng-change="newSelectedAppointmentStatusType(appointmentStatusTypeFilter)">
             </select>
         </div>
 
