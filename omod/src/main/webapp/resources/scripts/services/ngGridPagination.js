@@ -22,6 +22,12 @@ angular.module('ngGridPaginationApp')
                        dataToPaging = data;
 
                    scope.totalServerItems = data.length;
+
+                   // if the current page > the last page, set current page to last page
+                   if (scope.totalServerItems < (page - 1) * pageSize) {
+                        scope.pagingOptions.currentPage = Math.ceil(scope.totalServerItems / pageSize);
+                   }
+
                    var pagedData = dataToPaging.slice((page - 1) * pageSize, page * pageSize);
                    return pagedData;
                };
