@@ -60,6 +60,8 @@
     var telephoneAttributeTypeName = '${ telephoneAttributeTypeName}';
 </script>
 
+<%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
+
 <div class="container"ng-app="appointmentscheduling.scheduledAppointmentBlocks"  ng-controller="ScheduledAppointmentBlockController">
     <h1>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }</h1>
     <div id="filter-date" class="inline-box">
