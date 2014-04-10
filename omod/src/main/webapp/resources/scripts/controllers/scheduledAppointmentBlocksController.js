@@ -14,12 +14,15 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
     $scope.displayPatientId = emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId");
     $scope.scheduledAppointmentBlocksGrid = scheduledAppointmentBlocksHelper.setUpGrid();
 
+    $scope.filterObjects = {};
     $scope.filterDate = Date.now();
     $scope.datePicker = scheduledAppointmentBlocksHelper.setupDatePicker($scope);
     $scope.services = [{name: emr.message("appointmentschedulingui.dailyScheduledAppointments.allServiceTypes"), uuid: ""}];
 
     $scope.initializeFilters = function (){
-        $scope.filterObjects = { provider: "", appointmentBlock: ""};
+        // note that we don't reset the appointment status filter since that holds state on a date change
+        $scope.filterObjects.provider = "";
+        $scope.filterObjects.appointmentBlock = "";
 
         $scope.providers = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allProviders")];
         $scope.providerFilter = $scope.providers[0];
@@ -113,10 +116,13 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
     $scope.updateFilter = function() {
         // do a deep clone so that we can modify the filterBlocks array without losing any data
         var filteredBlocks = jq().extend(true, [], $scope.scheduledAppointmentBlocks);     // bit of a hack that we use jq() instead of jq so it is easy to mock
+
         filteredBlocks = filterFilter(filteredBlocks,
             {date: $scope.filterObjects.appointmentBlock, provider: $scope.filterObjects.provider });
+
         $scope.filteredScheduledAppointmentBlocks = filterByAppointmentStatusType(filteredBlocks,
             $scope.filterObjects.appointmentStatusType);
+
         $scope.updatePagingData();
     }
 
