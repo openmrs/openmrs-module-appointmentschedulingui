@@ -1,6 +1,6 @@
 angular.module('appointmentscheduling.scheduleAppointment')
-    .controller('PatientAppointmentsCtrl', ['$scope', '$timeout', 'AppointmentService','filterFilter', 'ngGridPaginationFactory', 'dateRangePickerEventListener',
-                                 function ($scope, $timeout, AppointmentService, filterFilter, ngGridPaginationFactory, dateRangePickerEventListener) {
+    .controller('PatientAppointmentsCtrl', ['$scope', 'AppointmentService','filterFilter', 'ngGridPaginationFactory', 'dateRangePickerEventListener',
+                                 function ($scope, AppointmentService, filterFilter, ngGridPaginationFactory, dateRangePickerEventListener) {
         $scope.appointmentToCancel = null;
         $scope.appointmentCancelReason = '';
 
@@ -34,7 +34,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 { field: 'timeSlot.appointmentBlock.provider.person.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
                 { field: 'timeSlot.appointmentBlock.location.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.location") },
                 { field: 'displayStatus', width: '15%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.status") },
-                { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canBook && isCancellable(row.getProperty(\'status\'))" ng-click="confirmCancelAppointment(row.getProperty(\'uuid\'))" ' +
+                { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canBook && isCancellable(row.getProperty(\'status\'))" ng-click="cancelAppointment(row.getProperty(\'uuid\'))" ' +
                     'title="{{ row.getProperty(\'tooltip\') }}"></i></span>'  }
             ]};
 
@@ -113,40 +113,17 @@ angular.module('appointmentscheduling.scheduleAppointment')
         ngGridPaginationFactory.includePagination($scope, $scope.appointmentOptions, $scope.updateFilter);
         dateRangePickerEventListener.subscribe($scope, 'patientAppointments');
 
-        $scope.confirmCancelAppointment = function(uuid) {
-            $scope.appointmentToCancel = { uuid: uuid };
-            $timeout(function() {
-                angular.element('#confirm-cancel-appointment .confirm').focus();
-            });
+        $scope.cancelAppointment = function(uuid) {
+            var eventData = {
+                uuid: uuid
+            };
+            $scope.$broadcast('appointmentscheduling.cancelAppointment', eventData);
         }
 
         $scope.isCancellable = function(status) {
             // only scheduled appointments can be cancelled
             return status.type == 'SCHEDULED';
         }
-
-        $scope.doCancelAppointment = function() {
-            if ($scope.appointmentCancelReason.length > 0 ) {
-                $scope.appointmentToCancel.cancelReason = $scope.appointmentCancelReason;
-            }
-            AppointmentService.cancelAppointment($scope.appointmentToCancel).then(function() {
-                // success callback
-                location.href = location.href;
-            }).catch(function (e) {
-                    // error callback
-                    console.log(e);
-                    emr.errorMessage("appointmentschedulingui.scheduleAppointment.errorCancelingAppointment");
-                })
-            $scope.appointmentToCancel = null;
-        }
-
-
-
-        $scope.doNotCancelAppointment = function() {
-            $scope.appointmentToCancel = null;
-        }
-
-
 
         $scope.$watch(
             "fromDate",

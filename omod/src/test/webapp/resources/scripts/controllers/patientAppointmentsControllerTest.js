@@ -1,11 +1,10 @@
 describe('Patient Appointments controller', function () {
     var scope, deferred,
         mockAppointmentService, mockNgGridPaginationFactory, mockFilterFilter, mockDateRangePickerEventListener,
-        $timeout,
         promise;
 
     beforeEach(module('appointmentscheduling.scheduleAppointment'));
-    beforeEach(inject(function ($rootScope, $controller, _$timeout_, $q) {
+    beforeEach(inject(function ($rootScope, $controller, $q) {
         deferred = $q.defer();
         promise = deferred.promise;
 
@@ -13,18 +12,13 @@ describe('Patient Appointments controller', function () {
         mockFilterFilter = jasmine.createSpy('filterFilter');
         mockDateRangePickerEventListener = jasmine.createSpyObj('dateRangePickerEventListener', ['subscribe']);
 
-        mockAppointmentService = jasmine.createSpyObj('mockAppointmentService', ['cancelAppointment', 'getAppointments']);
-
-        mockAppointmentService.cancelAppointment.andCallFake(function() {
-            return promise;
-        });
+        mockAppointmentService = jasmine.createSpyObj('mockAppointmentService', ['getAppointments']);
 
         mockAppointmentService.getAppointments.andCallFake(function() {
             return promise;
         });
 
         scope = $rootScope.$new();
-        $timeout = _$timeout_;
 
         scope.pagingOptions = {
             pageSizes: [5,10,20],
@@ -32,7 +26,7 @@ describe('Patient Appointments controller', function () {
             currentPage: 1
         };
 
-        var controller =  $controller('PatientAppointmentsCtrl', {$scope: scope, $timeout: $timeout,
+        var controller =  $controller('PatientAppointmentsCtrl', {$scope: scope,
             AppointmentService: mockAppointmentService, filterFilter: mockFilterFilter,
             ngGridPaginationFactory: mockNgGridPaginationFactory, dateRangePickerEventListener: mockDateRangePickerEventListener});
     }));
@@ -57,33 +51,18 @@ describe('Patient Appointments controller', function () {
         expect(mockDateRangePickerEventListener.subscribe).toHaveBeenCalledWith(scope, 'patientAppointments');
     });
 
-    describe('it must cancel an appointment', function () {
-       it('should call cancelAppointment method from appointment service with an appointment to be canceled', function () {
-           var appointment = '15';
-           scope.appointmentToCancel = appointment;
+    it("should send out an event for cancelling an appointment", function() {
 
-           scope.doCancelAppointment();
+        var cancelListener = jasmine.createSpy('cancelListener');
+        scope.$on('appointmentscheduling.cancelAppointment', cancelListener);
 
-           expect(mockAppointmentService.cancelAppointment).toHaveBeenCalledWith(appointment);
-           expect(scope.appointmentToCancel).toBeNull();
-       });
-    });
+        var eventData = {
+            uuid: "123"
+        };
 
-    it('must not reset the appointmentToCancel, when doNotCancelAppointment method is called', function () {
-        var appointment = '15';
-        scope.appointmentToCancel = appointment;
+        scope.cancelAppointment("123");
+        expect(cancelListener).toHaveBeenCalledWith(jasmine.any(Object), eventData);
 
-        scope.doNotCancelAppointment();
+    })
 
-        expect(scope.appointmentToCancel).not.toBe(appointment);
-        expect(scope.appointmentToCancel).toBeNull();
-    });
-
-    it('must set the right appointment uuid to the appointmentToCancel when confirmCancelAppointment method is called', function() {
-        var uuid = 15;
-
-        scope.confirmCancelAppointment(uuid);
-
-        expect(scope.appointmentToCancel.uuid).toBe(uuid);
-    });
 })
