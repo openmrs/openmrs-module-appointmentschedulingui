@@ -68,7 +68,7 @@
                 appointmentStatus.type = status.type;
 
                 if(status.type == "ACTIVE"){
-                    appointmentStatus.message =  emr.message("appointmentschedulingui.dailyScheduledAppointments.statusActive");
+                    appointmentStatus.message =  emr.message("appointmentschedulingui.dailyScheduledAppointments.status.active");
                 }
                 else if(status.type == "SCHEDULED") {
                     appointmentStatus.message = "";
