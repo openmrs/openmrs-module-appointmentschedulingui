@@ -13,9 +13,13 @@ angular.module('appointmentscheduling.scheduleAppointment')
             if ($scope.appointmentCancelReason.length > 0 ) {
                 $scope.appointmentToCancel.cancelReason = $scope.appointmentCancelReason;
             }
-            AppointmentService.cancelAppointment($scope.appointmentToCancel).then(function() {
+            AppointmentService.cancelAppointment($scope.appointmentToCancel).then(function(result) {
                 // success callback
-                location.href = location.href;
+                var canceledAppointment = result;
+                var eventData = {
+                    uuid: canceledAppointment.uuid
+                };
+                $scope.$emit('appointmentscheduling.cancelAppointment.success', eventData);
             }).catch(function (e) {
                     // error callback
                     console.log(e);

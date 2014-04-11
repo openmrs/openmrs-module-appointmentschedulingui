@@ -120,6 +120,26 @@ angular.module('appointmentscheduling.scheduleAppointment')
             $scope.$broadcast('appointmentscheduling.cancelAppointment', eventData);
         }
 
+        $scope.updateCanceledAppointment = function(uuid) {
+            if ($scope.allAppointments) {
+                for (var i= 0; i < $scope.allAppointments.length; i++) {
+                    var appointment = $scope.allAppointments[i];
+                    if ( appointment.uuid == uuid) {
+                        appointment.status.code = "CANCELLED";
+                        appointment.status.name = "Cancelled";
+                        appointment.status.type = "CANCELLED";
+                        appointment.displayStatus = emr.message("appointmentschedulingui.scheduleAppointment.status.type." + appointment.status.type.toLowerCase());
+                    }
+
+                }
+                $scope.updateFilter();
+            }
+        }
+
+        $scope.$on('appointmentscheduling.cancelAppointment.success', function(event, eventData) {
+            $scope.updateCanceledAppointment(eventData.uuid);
+        });
+
         $scope.isCancellable = function(status) {
             // only scheduled appointments can be cancelled
             return status.type == 'SCHEDULED';
