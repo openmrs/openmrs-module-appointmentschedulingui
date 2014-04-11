@@ -491,7 +491,7 @@ describe('AppointmentSchedulingParser tests', function() {
         it('appointment message status should be "Checked-in" when status is Waiting, Walking or Consulting', function() {
             expect(secondPatient.appointmentStatus.message).toBe("Checked-in");
             expect(secondPatient.appointmentStatus.type).toBe("ACTIVE");
-            expect(emr.message).toHaveBeenCalledWith('appointmentschedulingui.dailyScheduledAppointments.status.active');
+            expect(emr.message).toHaveBeenCalledWith('appointmentschedulingui.scheduleAppointment.status.type.active');
         });
 
         it('appointment message status should be empty when status is Scheduling', function() {

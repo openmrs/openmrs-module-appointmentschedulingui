@@ -13,7 +13,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return AppointmentType.query({'q':searchString, 'v': 'full'}).$promise
                     .then(function(res) {
                         return res.results;
-                    });
+                    }, emr.handleNotLoggedIn);
 
             },
 
@@ -27,7 +27,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return AppointmentStatusType.query().$promise
                     .then(function(res) {
                         return res.results;
-                    });
+                    }, emr.handleNotLoggedIn);
 
             },
 
@@ -50,7 +50,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return TimeSlot.query(params).$promise
                     .then(function(res) {
                         return res.results;
-                    });
+                    }, emr.handleNotLoggedIn);
             },
 
             /**
@@ -72,7 +72,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return AppointmentBlock.query(params).$promise
                     .then(function(res) {
                         return res.results;
-                    });
+                    }, emr.handleNotLoggedIn);
 
             },
 
@@ -84,6 +84,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              */
             saveAppointmentBlock: function(appointmentBlock)  {
                 return AppointmentBlock.save(appointmentBlock).$promise
+                    .catch(emr.handleNotLoggedIn);
             },
 
             /**
@@ -93,7 +94,8 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              * @returns $promise with result of the delete
              */
             deleteAppointmentBlock: function(appointmentBlockUuid) {
-                return AppointmentBlock.delete({ 'uuid': appointmentBlockUuid }).$promise;
+                return AppointmentBlock.delete({ 'uuid': appointmentBlockUuid }).$promise
+                    .catch(emr.handleNotLoggedIn);
             },
 
             /**
@@ -117,8 +119,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return Appointment.query(params).$promise
                     .then(function(res) {
                         return res.results;
-                    });
-
+                    }, emr.handleNotLoggedIn);
             },
 
             /**
@@ -130,9 +131,11 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
             saveAppointment: function(appointment, allowOverbook) {
                 if (allowOverbook) {
                     return AppointmentAllowingOverbook.save(appointment).$promise
+                        .catch(emr.handleNotLoggedIn);
                 }
                 else {
                     return Appointment.save(appointment).$promise
+                        .catch(emr.handleNotLoggedIn);
                 }
             },
 
@@ -143,12 +146,13 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
             cancelAppointment: function(appointment) {
                 appointment.status = 'CANCELLED';
                 return Appointment.save(appointment).$promise
+                    .catch(emr.handleNotLoggedIn);
             },
 
             getScheduledAppointmentBlocks: function(params){
                     return ScheduledAppointmentBlock.query(params).$promise.then(function(res){
                         return res.results;
-                    });
+                    }, emr.handleNotLoggedIn);
             }
         };
 
