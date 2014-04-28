@@ -3,6 +3,11 @@
 
 var appointmentResource = angular.module('appointmentscheduling.appointmentResources', ['ngResource']);
 
+appointmentResource.config(function ($httpProvider) {
+    // to prevent the browser from displaying a password pop-up in case of an authentication error
+    $httpProvider.defaults.headers.common['Disable-WWW-Authenticate'] = 'true';
+});
+
 appointmentResource.factory('AppointmentType', function($resource) {
     return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/appointmenttype/:uuid", {
         'uuid' : '@uuid'
