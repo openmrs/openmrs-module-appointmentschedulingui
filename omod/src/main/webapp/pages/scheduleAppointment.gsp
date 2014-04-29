@@ -7,6 +7,7 @@
     ui.includeJavascript("uicommons", "i18n/angular-locale_" + angularLocale + ".js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.6.0.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ng-grid-2.0.7.min.js")
+    ui.includeJavascript("uicommons", "angular-ui/ng-grid-locale_ht-custom.js")
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "moment.min.js")
     ui.includeJavascript("uicommons", "emr.js")
@@ -63,6 +64,8 @@
         { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" }
     ];
 
+    var jsLocale = '${ angularLocale }';  // used by the ngGrid widget
+
 </script>
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
@@ -83,7 +86,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                         headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'
                         startdate="{{ fromDate.toDateString() }}"
                         senderid="patientAppointments"
-                        startdatemin = "">
+                        startdatemin = ""
+                        clearlinktext = '${ ui.message("appointmentschedulingui.directive.daterangepicker.clear") }'>
                 </daterangepicker>
             </div>
             <div id="noPatientAppointment" ng-show="showNoAppointmentsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noPatientAppointments")}</div>
@@ -132,7 +136,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                <daterangepicker
                    senderid="scheduleAppointment"
                    headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'
-                   startdatemin = "now">
+                   startdatemin = "now"
+                   clearlinktext = '${ ui.message("appointmentschedulingui.directive.daterangepicker.clear") }'>
                </daterangepicker>
 
                 <% if (canOverbook) { %>

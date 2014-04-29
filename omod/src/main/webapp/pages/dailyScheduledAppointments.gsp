@@ -8,6 +8,7 @@
     ui.includeJavascript("uicommons", "i18n/angular-locale_" + angularLocale + ".js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.6.0.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ng-grid-2.0.7.min.js")
+    ui.includeJavascript("uicommons", "angular-ui/ng-grid-locale_ht-custom.js")
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "moment.min.js")
     ui.includeJavascript("uicommons", "emr.js")
@@ -58,6 +59,9 @@
     var supportsAppointmentsTagUuid = '${ supportsAppointmentsTagUuid }';
     var sessionLocationUuid = '${ sessionLocationUuid }' ;
     var telephoneAttributeTypeName = '${ telephoneAttributeTypeName}';
+
+    var jsLocale = '${ angularLocale }';  // used by the ngGrid widget
+
 </script>
 
 <%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>

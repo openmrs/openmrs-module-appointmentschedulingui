@@ -26,6 +26,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
             rowHeight: 50,
             multiSelect: false,
             enableSorting: false,
+            i18n: 'en',
             selectedItems: [],
             rowTemplate: "<div ng-class=\"{ highlighted: row.getProperty(\'requiresOverbook') }\"><div ng-style=\"{ 'cursor': row.cursor }\" ng-repeat=\"col in renderedColumns\" ng-class=\"col.colIndex()\" class=\"ngCell {{col.cellClass}}\"><div class=\"ngVerticalBar\" ng-style=\"{height: rowHeight}\" ng-class=\"{ ngVerticalBarVisible: !$last }\">&nbsp;</div><div ng-cell></div></div></div>",   // just the standard row template but with a wrapped div for adding row highlighting when a slot is full
             columnDefs: [   { field: 'date', displayName: emr.message('appointmentschedulingui.scheduleAppointment.timeSlot'),

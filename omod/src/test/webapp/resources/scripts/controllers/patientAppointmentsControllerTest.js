@@ -1,4 +1,7 @@
 describe('Patient Appointments controller', function () {
+
+    jsLocale = 'en'; // hack mock for the jsLocale variable
+
     var scope, deferred,
         mockAppointmentService, mockNgGridPaginationFactory, mockFilterFilter, mockDateRangePickerEventListener,
         promise;

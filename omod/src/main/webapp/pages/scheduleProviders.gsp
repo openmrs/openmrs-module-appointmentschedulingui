@@ -39,7 +39,11 @@
         'appointmentschedulingui.scheduleProviders.errorDeletingAppointmentBlock',
         'uicommons.location',
         'uicommons.provider',
-        'appointmentschedulingui.scheduleProviders.startTimeMustBeBeforeEndTime'
+        'appointmentschedulingui.scheduleProviders.startTimeMustBeBeforeEndTime',
+        'appointmentschedulingui.calendar.month',
+        'appointmentschedulingui.calendar.basicDay',
+        'appointmentschedulingui.calendar.basicWeek',
+        'appointmentschedulingui.calendar.today'
 ].flatten()
 ]) %>
 

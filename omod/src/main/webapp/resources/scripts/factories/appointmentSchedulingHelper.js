@@ -38,6 +38,7 @@ angular.module('appointmentSchedulingHelper')
                    multiSelect: false,
                    enableSorting: false,
                    selectedItems: [],
+                   i18n: jsLocale,
                    filterOptions: { filterText: '', useExternalFilter: true},
                    columnDefs: [
                        { field: 'date',

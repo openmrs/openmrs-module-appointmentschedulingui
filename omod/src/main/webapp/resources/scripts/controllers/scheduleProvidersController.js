@@ -104,6 +104,12 @@ angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppoin
                     center: 'title',
                     right: 'today prev,next'
                 },
+                buttonText: {
+                    'month': emr.message('appointmentschedulingui.calendar.month'),
+                    'basicWeek': emr.message('appointmentschedulingui.calendar.basicWeek'),
+                    'basicDay': emr.message('appointmentschedulingui.calendar.basicDay'),
+                    'today': emr.message('appointmentschedulingui.calendar.today')
+                },
                 allDaySlot: false,
 
                 dayClick: function(date) {

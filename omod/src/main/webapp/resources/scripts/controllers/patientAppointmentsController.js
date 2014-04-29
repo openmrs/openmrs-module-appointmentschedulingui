@@ -27,6 +27,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
             rowHeight: 50,
             multiSelect: false,
             enableSorting: false,
+            i18n: jsLocale,
             selectedItems: [],
             columnDefs: [ { field: 'date', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.date"),
                 cellTemplate: "<div>{{ row.getProperty(\'dateFormatted\') }}<br/>{{ row.getProperty(\'startTimeFormatted\') }} - {{ row.getProperty(\'endTimeFormatted\') }}<div>" },
