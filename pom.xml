@@ -42,6 +42,8 @@
         <emrapiVersion>1.2-SNAPSHOT</emrapiVersion>
         <providermanagementVersion>1.1.3</providermanagementVersion>
         <reportingVersion>0.9.1-SNAPSHOT</reportingVersion>
+        <serializationXstreamModuleVersion>0.2.7</serializationXstreamModuleVersion>
+        <calculationModuleVersion>1.0</calculationModuleVersion>
         <webServicesRestVersion>2.4</webServicesRestVersion>
         <htmlformEntryVersion>2.4-SNAPSHOT</htmlformEntryVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -115,6 +117,21 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>reporting-api</artifactId>
             <version>${reportingVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- required by reporting so we need these for testing -->
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>serialization.xstream-api</artifactId>
+            <version>${serializationXstreamModuleVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>calculation-api</artifactId>
+            <version>${calculationModuleVersion}</version>
             <scope>test</scope>
         </dependency>
 
