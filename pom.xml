@@ -41,6 +41,7 @@
         <coreappsVersion>1.3-SNAPSHOT</coreappsVersion>
         <emrapiVersion>1.2-SNAPSHOT</emrapiVersion>
         <providermanagementVersion>1.1.3</providermanagementVersion>
+        <reportingVersion>0.9.1-SNAPSHOT</reportingVersion>
         <webServicesRestVersion>2.4</webServicesRestVersion>
         <htmlformEntryVersion>2.4-SNAPSHOT</htmlformEntryVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -102,11 +103,18 @@
         </dependency>
 
 
-        <!-- required by emrapi so we need this for tests -->
+        <!-- required by emrapi so we need these for tests -->
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>providermanagement-api</artifactId>
             <version>${providermanagementVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>reporting-api</artifactId>
+            <version>${reportingVersion}</version>
             <scope>test</scope>
         </dependency>
 
