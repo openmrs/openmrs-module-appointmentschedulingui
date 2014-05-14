@@ -1,13 +1,14 @@
 package org.openmrs.module.appointmentschedulingui.htmlformentry;
 
-import java.util.Date;
-import java.util.List;
-
 import org.joda.time.DateTime;
+import org.openmrs.Visit;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
 import org.openmrs.module.htmlformentry.FormEntrySession;
+
+import java.util.Date;
+import java.util.List;
 
 public class AppointmentCheckInSubmissionAction implements CustomFormSubmissionAction {
 
@@ -27,8 +28,11 @@ public class AppointmentCheckInSubmissionAction implements CustomFormSubmissionA
         List<Appointment> appointmentList = appointmentService.getAppointmentsByConstraints(fromDate, toDate,
                 session.getSubmissionActions().getCurrentEncounter().getLocation(), null, null, session.getPatient(), Appointment.AppointmentStatus.SCHEDULED);
 
+        Visit visit = session.getContext().getVisit() != null ? (Visit) session.getContext().getVisit() : null;
+
         for (Appointment appointment : appointmentList) {
             appointment.setStatus(Appointment.AppointmentStatus.WAITING);
+            appointment.setVisit(visit);
             appointmentService.saveAppointment(appointment);
         }
     }
