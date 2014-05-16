@@ -67,14 +67,11 @@
                 var appointmentStatus = {};
                 appointmentStatus.type = status.type;
 
-                if(status.type == "ACTIVE"){
-                    appointmentStatus.message =  emr.message("appointmentschedulingui.scheduleAppointment.status.type.active");
-                }
-                else if(status.type == "SCHEDULED") {
+                if(status.type == "SCHEDULED") {
                     appointmentStatus.message = "";
                 }
                 else {
-                    appointmentStatus.message = status.name;
+                    appointmentStatus.message = emr.message("appointmentschedulingui.scheduleAppointment.status.type." + status.type.toLowerCase());
                 }
 
                 return appointmentStatus;
