@@ -7,8 +7,8 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
     $scope.showLoadingMessage = false;
     $scope.scheduledAppointmentBlocks = [];
     $scope.totalScheduledAppointmentBlocks = [];
-    $scope.filteredScheduledAppointmentBlocks = [];
-    $scope.paginatedScheduledAppointmentBlocks = [];
+    $scope.filteredScheduledAppointments = [];
+    $scope.paginatedScheduledAppointments = [];
     $scope.displayPhoneNumber = emr.message("appointmentschedulingui.dailyScheduledAppointments.phoneNumber");
     $scope.displayDossierNumber = emr.message("appointmentschedulingui.dailyScheduledAppointments.dossierNumber");
     $scope.displayPatientId = emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId");
@@ -59,7 +59,7 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
 
     $scope.updatePagingData = function(){
 
-        $scope.paginatedScheduledAppointmentBlocks =  $scope.setPagingData($scope.filteredScheduledAppointmentBlocks);
+        $scope.paginatedScheduledAppointments =  $scope.setPagingData($scope.filteredScheduledAppointments);
         if (!$scope.$$phase) {
             $scope.$apply();
         }
@@ -71,6 +71,8 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
         var params = {};
         params.date =  moment(new Date($scope.filterDate)).format('YYYY-MM-DD');
         params.location = $scope.locationFilter.uuid;
+
+        // TODO: appointment type filter needs t work again as well
         params.appointmentType = getUuidsListFromAppointmentTypesList($scope.appointmentTypeFilter);
         return params;
     }
@@ -91,14 +93,15 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
 
             scheduledAppointmentBlocksHelper.initializeMessages($scope);
 
-            AppointmentService.getScheduledAppointmentBlocks(getSearchParams()).then( function(results){
+            AppointmentService.getDailyAppointmentsDataSet(getSearchParams()).then( function(results){
 
-                $scope.scheduledAppointmentBlocks = Parse.scheduledAppointmentBlocks(results);
+                $scope.scheduledAppointmentBlocks = results.rows;
 
-                scheduledAppointmentBlocksHelper.findProvidersFromGrid($scope);
-                scheduledAppointmentBlocksHelper.findAppointmentBlockFromGrid($scope);
+                //scheduledAppointmentBlocksHelper.findProvidersFromGrid($scope);
+                //scheduledAppointmentBlocksHelper.findAppointmentBlockFromGrid($scope);
 
-                scheduledAppointmentBlocksHelper.manageMessages($scope);
+                //scheduledAppointmentBlocksHelper.manageMessages($scope);
+
                 $scope.updateFilter();
             })
             .catch(function(response) {
@@ -115,13 +118,15 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
 
     $scope.updateFilter = function() {
         // do a deep clone so that we can modify the filterBlocks array without losing any data
-        var filteredBlocks = jq().extend(true, [], $scope.scheduledAppointmentBlocks);     // bit of a hack that we use jq() instead of jq so it is easy to mock
+        var filteredAppts = jq().extend(true, [], $scope.scheduledAppointmentBlocks);     // bit of a hack that we use jq() instead of jq so it is easy to mock
 
-        filteredBlocks = filterFilter(filteredBlocks,
-            {date: $scope.filterObjects.appointmentBlock, provider: $scope.filterObjects.provider });
+        //filteredBlocks = filterFilter(filteredBlocks,
+          //  {date: $scope.filterObjects.appointmentBlock, provider: $scope.filterObjects.provider });
 
-        $scope.filteredScheduledAppointmentBlocks = filterByAppointmentStatusType(filteredBlocks,
-            $scope.filterObjects.appointmentStatusType);
+        $scope.filteredScheduledAppointments = filteredAppts;
+
+        //$scope.filteredScheduledAppointments = filterByAppointmentStatusType(filteredBlocks,
+         //   $scope.filterObjects.appointmentStatusType);
 
         $scope.updatePagingData();
     }

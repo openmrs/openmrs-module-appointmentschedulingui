@@ -13,6 +13,7 @@ describe('AppointmentService tests', function() {
     var deferredAppointmentBlockDelete;
     var deferredAppointmentQuery;
     var deferredAppointmentSave;
+    var deferredDataSetGet;
     var deferredScheduledAppointmentBlockQuery;
 
 
@@ -127,6 +128,19 @@ describe('AppointmentService tests', function() {
         return promise_mock;
     });
 
+    var mockDataSet = jasmine.createSpyObj('DataSet', ['get']);
+    mockDataSet.get.andCallFake(function () {
+
+        deferredDataSetGet = q.defer();
+
+        var promise_mock = {
+            $promise: deferredDataSetGet.promise
+        };
+
+        return promise_mock;
+    });
+
+
     beforeEach(module('appointmentscheduling.appointmentService'));
 
     beforeEach(module(function($provide) {
@@ -135,6 +149,7 @@ describe('AppointmentService tests', function() {
         $provide.value('Appointment', mockAppointment);
         $provide.value('AppointmentAllowingOverbook', mockAppointmentAllowingOverbook);
         $provide.value('AppointmentBlock', mockAppointmentBlock);
+        $provide.value('DataSet', mockDataSet);
         $provide.value('ScheduledAppointmentBlock', mockScheduledAppointmentBlock);
     }));
 
@@ -304,6 +319,27 @@ describe('AppointmentService tests', function() {
         expect(mockScheduledAppointmentBlock.query).toHaveBeenCalledWith({ 'date': '2014-03-01', 'location': 'uuidLocation'});
         expect(scheduledAppointmentBlocks.length).toBe(1);
         expect(scheduledAppointmentBlocks[0].appointmentBlock.display).toBe("Display some appointment block");
+    }));
+
+    it('should call DataSet resource with query values', inject(function($rootScope) {
+
+        var dataSet;
+
+        appointmentService.getDailyAppointmentsDataSet({ 'location' : '123abc' }).then(function(result) {
+            dataSet = result;
+        });
+
+        deferredDataSetGet.resolve({
+            results: [
+                { "display": "some_data_set" }
+            ]
+        })
+
+        $rootScope.$apply(); // see testing section of http://docs.angularjs.org/api/ng/service/$q
+
+        expect(mockDataSet.get).toHaveBeenCalledWith({ 'location' : '123abc', 'uuid': 'c1bf0730-e69e-11e3-ac10-0800200c9a66'  });
+        expect(dataSet.length).toBe(1);
+        expect(dataSet[0].display).toBe("some_data_set");
     }));
 
 })

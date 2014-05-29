@@ -1,7 +1,5 @@
 package org.openmrs.module.appointmentschedulingui.htmlformentry;
 
-import java.util.Map;
-
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +16,8 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mock.web.MockHttpServletRequest;
+
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -38,7 +38,7 @@ public class AppointmentCheckInTagComponentTest extends BaseModuleContextSensiti
         executeDataSet("standardAppointmentTestDataset.xml");
         HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
         htmlFormEntryService.addHandler(AppointmentSchedulingUIConstants.APPOINTMENT_CHECK_IN_TAG_NAME,
-                AppointmentSchedulingUIActivator.createAppointmentCheckInTagHandler(appointmentService));
+                new AppointmentSchedulingUIActivator().createAppointmentCheckInTagHandler(appointmentService));
     }
 
 

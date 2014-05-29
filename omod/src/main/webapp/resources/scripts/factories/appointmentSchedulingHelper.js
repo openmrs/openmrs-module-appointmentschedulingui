@@ -34,24 +34,43 @@ angular.module('appointmentSchedulingHelper')
            },
            setUpGrid: function(){
                var scheduledAppointmentBlocksGrid = {
-                   data: 'paginatedScheduledAppointmentBlocks',
+                   data: 'paginatedScheduledAppointments',
                    multiSelect: false,
-                   enableSorting: false,
+                   enableSorting: true,
                    selectedItems: [],
                    i18n: jsLocale,
                    filterOptions: { filterText: '', useExternalFilter: true},
                    columnDefs: [
-                       { field: 'date',
+
+                       { field: 'patientName',
                            width: '20%',
-                           displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") },
+                           displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.patientName") },
+
+                       { field: 'identifier',
+                           width: '10%',
+                           displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId") },
+
+                       { field: 'telephoneNumber',
+                           width: '10%',
+                           displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.phoneNumber") },
+
+                       { field: 'startTime',
+                           width: '10%',
+                           displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") },
+
                        { field: 'provider',
                            width: '20%',
                            displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.provider") },
-                       { field: 'patients',
-                           width: '60%',
-                           displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.patientName"),
-                           cellTemplate: '../ms/uiframework/resource/appointmentschedulingui/partials/patientAppointmentInformation.html' }
-                   ]
+
+                       { field: 'serviceType',
+                           width: '20%',
+                           displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.service") },
+
+                       { field: 'status',
+                           width: '10%',
+                           displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.appointmentStatus") }
+
+                            ]
                };
                return scheduledAppointmentBlocksGrid;
            },

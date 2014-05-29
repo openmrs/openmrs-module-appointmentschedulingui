@@ -1,5 +1,5 @@
 angular.module('appointmentscheduling.appointmentService', ['appointmentscheduling.appointmentResources'])
-    .factory('AppointmentService', function(Appointment, AppointmentType, AppointmentStatusType, AppointmentBlock, TimeSlot, ScheduledAppointmentBlock, AppointmentAllowingOverbook) {
+    .factory('AppointmentService', function(Appointment, AppointmentType, AppointmentStatusType, AppointmentBlock, TimeSlot, ScheduledAppointmentBlock, AppointmentAllowingOverbook, DataSet) {
 
         return {
 
@@ -148,6 +148,29 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return Appointment.save(appointment).$promise
                     .catch(emr.handleNotLoggedIn);
             },
+
+
+            /**
+             * Fetches DataSet of Daily Appointments (as defined in AppointmentSchedulingUIDataSetDefinitionLibrary) for a given date and location
+             *
+             * @param date - The appointment date
+             * @param location - The appointment location
+             * @return  $promise of array of matching appointments
+             */
+            getDailyAppointmentsDataSet: function(params) {
+
+                // TODO put this uuid in a constant file somewhere
+                params['uuid'] = 'c1bf0730-e69e-11e3-ac10-0800200c9a66';
+
+                return DataSet.get(params).$promise
+                    .then(function(res) {
+                        return res;   // the dataset resource does not return a "results" top-level key
+                    }, emr.handleNotLoggedIn);
+
+            },
+
+
+            // TODO: REMOVE
 
             getScheduledAppointmentBlocks: function(params){
                     return ScheduledAppointmentBlock.query(params).$promise.then(function(res){
