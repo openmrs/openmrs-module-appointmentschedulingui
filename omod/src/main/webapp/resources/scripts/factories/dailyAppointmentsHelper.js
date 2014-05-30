@@ -1,5 +1,5 @@
-angular.module('appointmentSchedulingHelper')
-    .factory('scheduledAppointmentBlocksHelper', function() {
+angular.module('dailyAppointmentsHelper')
+    .factory('dailyAppointmentsHelper', function() {
        return {
            setupDatePicker: function(scope) {
 
@@ -14,6 +14,7 @@ angular.module('appointmentSchedulingHelper')
                };
                return datePicker;
            },
+
            selectLocationToFilter: function(locations) {
                var selectedLocation = null;
 
@@ -32,8 +33,9 @@ angular.module('appointmentSchedulingHelper')
 
                return selectedLocation;
            },
+
            setUpGrid: function(){
-               var scheduledAppointmentBlocksGrid = {
+               var dailyAppointmentsGrid = {
                    data: 'paginatedScheduledAppointments',
                    multiSelect: false,
                    enableSorting: true,
@@ -62,44 +64,78 @@ angular.module('appointmentSchedulingHelper')
                            width: '20%',
                            displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.provider") },
 
-                       { field: 'serviceType',
+                       { field: 'appointmentType',
                            width: '20%',
                            displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.service") },
 
-                       { field: 'status',
+                       { field: 'localizedStatusType',
                            width: '10%',
                            displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.appointmentStatus") }
 
                             ]
                };
-               return scheduledAppointmentBlocksGrid;
+               return dailyAppointmentsGrid;
            },
            initializeMessages: function(scope){
                scope.showLoadingMessage = true;
-               scope.showNoScheduledAppointmentBlocks = false;
+               scope.showNoDailyAppointments = false;
            },
            manageMessages: function(scope) {
                scope.showLoadingMessage = false;
-               if (scope.scheduledAppointmentBlocks.length == 0) {
-                   scope.showNoScheduledAppointmentBlocks = true;
+               if (scope.dailyAppointments.length == 0) {
+                   scope.showNoDailyAppointments = true;
                } else {
-                   scope.showNoScheduledAppointmentBlocks = false;
+                   scope.showNoDailyAppointments = false;
                }
            },
            findProvidersFromGrid: function(scope) {
-               angular.forEach(scope.scheduledAppointmentBlocks, function(block) {
-                   var index = scope.providers.indexOf(block.provider);
+               angular.forEach(scope.dailyAppointments, function(appointment) {
+                   var index = scope.providers.indexOf(appointment.provider);
                    if(index == -1)
-                       scope.providers.push(block.provider);
+                       scope.providers.push(appointment.provider);
                });
            },
-           findAppointmentBlockFromGrid: function (scope) {
-                angular.forEach(scope.scheduledAppointmentBlocks, function (scheduledAppointmentBlock) {
-                    var index = scope.appointmentBlocks.indexOf(scheduledAppointmentBlock.date);
-                    if(index == -1)
-                        scope.appointmentBlocks.push(scheduledAppointmentBlock.date);
-            })
-            }
+
+           filterByAppointmentStatusType: function(appointmentsToFilter, appointmentStatusType){
+
+               if (appointmentStatusType && appointmentStatusType.length > 0 ) {
+                   appointmentsToFilter = appointmentsToFilter.filter(function(appointment) {
+                       return appointment.statusType == appointmentStatusType;
+                   });
+               }
+               return appointmentsToFilter;
+           },
+
+           filterByProvider: function(appointmentsToFilter, provider) {
+
+                if (provider && provider.length > 0 ) {
+                    appointmentsToFilter = appointmentsToFilter.filter(function(appointment) {
+                        return appointment.provider == provider;
+                    });
+                }
+                return appointmentsToFilter;
+
+           },
+
+           filterByAppointmentType: function(appointmentsToFilter, appointmentTypesUuidList) {
+
+               if (appointmentTypesUuidList && appointmentTypesUuidList.length > 0 ) {
+                   appointmentsToFilter = appointmentsToFilter.filter(function(appointment) {
+                       return appointmentTypesUuidList.indexOf(appointment.appointmentTypeUuid) != -1;
+                   });
+               }
+               return appointmentsToFilter;
+           },
+
+           getUuidsListFromAppointmentTypesList: function (appointmentTypesList) {
+               var appointmentTypeUuidsList = [];
+               if (appointmentTypesList && appointmentTypesList.length > 0) {
+                   for (var index = 0; index < appointmentTypesList.length; index++) {
+                       appointmentTypeUuidsList.push(appointmentTypesList[index].uuid);
+                   }
+               }
+               return appointmentTypeUuidsList;
+           }
         }
     });
 

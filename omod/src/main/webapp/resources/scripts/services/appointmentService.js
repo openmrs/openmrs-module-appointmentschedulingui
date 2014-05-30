@@ -1,5 +1,5 @@
 angular.module('appointmentscheduling.appointmentService', ['appointmentscheduling.appointmentResources'])
-    .factory('AppointmentService', function(Appointment, AppointmentType, AppointmentStatusType, AppointmentBlock, TimeSlot, ScheduledAppointmentBlock, AppointmentAllowingOverbook, DataSet) {
+    .factory('AppointmentService', function(Appointment, AppointmentType, AppointmentStatusType, AppointmentBlock, TimeSlot, AppointmentAllowingOverbook, DataSet) {
 
         return {
 
@@ -167,16 +167,8 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                         return res;   // the dataset resource does not return a "results" top-level key
                     }, emr.handleNotLoggedIn);
 
-            },
-
-
-            // TODO: REMOVE
-
-            getScheduledAppointmentBlocks: function(params){
-                    return ScheduledAppointmentBlock.query(params).$promise.then(function(res){
-                        return res.results;
-                    }, emr.handleNotLoggedIn);
             }
+
         };
 
     });

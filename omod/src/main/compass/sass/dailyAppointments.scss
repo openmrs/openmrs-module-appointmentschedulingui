@@ -1,45 +1,45 @@
-#scheduledAppointmentBlocksGrid.gridStyle {
+#dailyAppointmentsGrid.gridStyle {
   border: 1px solid rgb(212,212,212);
   width: 100%;
   height: 400px;
 }
 
-#scheduledAppointmentBlocksGrid .ngTopPanel{
+#dailyAppointmentsGrid .ngTopPanel{
   z-index: 0;
 }
 
-#scheduledAppointmentBlocksGrid .ngCell  {
+#dailyAppointmentsGrid .ngCell  {
   display : table-cell;
   height: auto !important;
   overflow: visible;
   position: static;
 }
 
-#scheduledAppointmentBlocksGrid .ngRow {
+#dailyAppointmentsGrid .ngRow {
   display : table-row;
   height: auto !important;
   position: static;
 }
 
-#scheduledAppointmentBlocksGrid .ngCellText {
+#dailyAppointmentsGrid .ngCellText {
   white-space: normal;
   overflow: visible;
   vertical-align: middle;
 
 }
 
-#scheduledAppointmentBlocksGrid .patientInformation {
+#dailyAppointmentsGrid .patientInformation {
   white-space: normal;
   overflow: visible;
   display: inline-block;
   vertical-align: top;
 }
 
-#scheduledAppointmentBlocksGrid .appointmentSummary {
+#dailyAppointmentsGrid .appointmentSummary {
   width: 40%;
 }
 
-#scheduledAppointmentBlocksGrid .patientAttribute {
+#dailyAppointmentsGrid .patientAttribute {
   width: 18%;
 }
 

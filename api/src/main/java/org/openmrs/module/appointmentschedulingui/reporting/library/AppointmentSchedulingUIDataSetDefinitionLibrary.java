@@ -2,6 +2,7 @@ package org.openmrs.module.appointmentschedulingui.reporting.library;
 
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifier;
+import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentProviderDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentStartDateDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentStatusDataDefinition;
@@ -11,6 +12,7 @@ import org.openmrs.module.appointmentscheduling.reporting.query.definition.Basic
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
 import org.openmrs.module.appointmentschedulingui.reporting.converter.AppointmentStatusToLocalizedStatusTypeConverter;
 import org.openmrs.module.emrapi.EmrApiProperties;
+import org.openmrs.module.reporting.common.SortCriteria;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
@@ -60,11 +62,18 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
 
         dsd.addColumn("identifier", createPrimaryIdentifierDataDefinition(), "", new PropertyConverter(PatientIdentifier.class, "identifier"));
         dsd.addColumn("provider", new AppointmentProviderDataDefinition(), "", new ObjectFormatter());
-        dsd.addColumn("serviceType", new AppointmentTypeDataDefinition(), "", new ObjectFormatter());
-        dsd.addColumn("status", new AppointmentStatusDataDefinition(), "", new AppointmentStatusToLocalizedStatusTypeConverter());
+        dsd.addColumn("providerUuid", new AppointmentProviderDataDefinition(), "", new PropertyConverter(String.class, "uuid"));
+        dsd.addColumn("appointmentType", new AppointmentTypeDataDefinition(), "", new ObjectFormatter());
+        dsd.addColumn("appointmentTypeUuid", new AppointmentTypeDataDefinition(), "", new PropertyConverter(String.class, "uuid"));
+        dsd.addColumn("providerUuid", new AppointmentProviderDataDefinition(), "", new PropertyConverter(String.class, "uuid"));
+        dsd.addColumn("statusType", new AppointmentStatusDataDefinition(), "", new PropertyConverter(Appointment.AppointmentStatusType.class, "type"));
+        dsd.addColumn("localizedStatusType", new AppointmentStatusDataDefinition(), "", new AppointmentStatusToLocalizedStatusTypeConverter());
         dsd.addColumn("patientName", new PreferredNameDataDefinition(), "", new ObjectFormatter());
         dsd.addColumn("startTime", new AppointmentStartDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
         dsd.addColumn("telephoneNumber", new PersonAttributeDataDefinition(emrApiProperties.getTelephoneAttributeType()), "", new ObjectFormatter());
+
+        dsd.addSortCriteria("startTime", SortCriteria.SortDirection.ASC);
+        dsd.addSortCriteria("provider", SortCriteria.SortDirection.ASC);
 
         return dsd;
     }

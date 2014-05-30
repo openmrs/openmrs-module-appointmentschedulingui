@@ -20,12 +20,11 @@
     ui.includeJavascript("appointmentschedulingui", "resources/appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "services/appointmentService.js")
     ui.includeJavascript("appointmentschedulingui", "services/ngGridPagination.js")
-    ui.includeJavascript("appointmentschedulingui", "controllers/scheduledAppointmentBlocksController.js")
+    ui.includeJavascript("appointmentschedulingui", "controllers/dailyAppointmentsController.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/selectMultipleAppointmentTypesController.js")
     ui.includeJavascript("appointmentschedulingui", "directives/selectMultipleAppointmentTypesDirective.js")
-    ui.includeJavascript("appointmentschedulingui", "factories/appointmentSchedulingParser.js")
-    ui.includeJavascript("appointmentschedulingui", "factories/appointmentSchedulingHelper.js")
-    ui.includeCss("appointmentschedulingui", "scheduledAppointmentBlock.css")
+    ui.includeJavascript("appointmentschedulingui", "factories/dailyAppointmentsHelper.js")
+    ui.includeCss("appointmentschedulingui", "dailyAppointments.css")
     ui.includeCss("appointmentschedulingui", "selectMultipleAppointmentTypes.css")
 %>
 
@@ -66,7 +65,7 @@
 
 <%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
 
-<div class="container"ng-app="appointmentscheduling.scheduledAppointmentBlocks"  ng-controller="ScheduledAppointmentBlockController">
+<div class="container" ng-app="appointmentscheduling.dailyAppointments"  ng-controller="DailyAppointmentsController">
     <h1>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }</h1>
     <div id="filter-date" class="inline-box">
         <p>${ ui.message("appointmentschedulingui.scheduleAppointment.date")}</p>
@@ -82,14 +81,10 @@
         </select>
     </div>
     <div class="appointment-filter">
+
         <div id="filter-provider" class="inline-box">
             <p>${ ui.message("uicommons.provider") }</p>
             <select ng-model="providerFilter" ng-options="provider for provider in providers" ng-change="newSelectedProvider(providerFilter)">
-            </select>
-        </div>
-        <div id="filter-appointmentBlock" class="inline-box">
-            <p>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.appointmentBlock") }</p>
-            <select ng-model="appointmentBlockFilter" ng-options="apppointmentBlock for apppointmentBlock in appointmentBlocks" ng-change="newSelectedAppointmentBlock(appointmentBlockFilter)">
             </select>
         </div>
         <div id="filter-appointmentStatusType" class="inline-box">
@@ -107,8 +102,8 @@
             class="inline-box">
         </selectmultipleappointmenttypes>
     </div>
-    <div id="noScheduledAppointmentBlocks" ng-show="showNoScheduledAppointmentBlocks" class="inline-box">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.noScheduledAppointmentBlocks") }</div>
+    <div id="noDailyAppointments" ng-show="showNoDailyAppointments" class="inline-box">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.noScheduledAppointmentBlocks") }</div>
     <div id="loadingMessage" ng-show="showLoadingMessage">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.loading") }</div>
-    <div class="gridStyle" ng-grid="scheduledAppointmentBlocksGrid" id="scheduledAppointmentBlocksGrid"></div>
+    <div class="gridStyle" ng-grid="dailyAppointmentsGrid" id="dailyAppointmentsGrid"></div>
 </div>
 

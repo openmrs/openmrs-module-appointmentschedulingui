@@ -67,12 +67,3 @@ appointmentResource.factory('DataSet', function($resource) {
 });
 
 
-// TODO: REMOVE
-
-appointmentResource.factory('ScheduledAppointmentBlock', function($resource) {
-    return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/scheduledappointmentblocks/", {
-    },{
-        query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
-    });
-});
-
