@@ -32,12 +32,12 @@
         'appointmentschedulingui.dailyScheduledAppointments.timeBlock',
         'appointmentschedulingui.dailyScheduledAppointments.provider',
         'appointmentschedulingui.dailyScheduledAppointments.patientName',
-        'appointmentschedulingui.scheduleAppointment.errorSavingAppointment',
         'appointmentschedulingui.dailyScheduledAppointments.patientId',
-        'appointmentschedulingui.dailyScheduledAppointments.dossierNumber',
+        'appointmentschedulingui.dailyScheduledAppointments.appointmentType',
         'appointmentschedulingui.dailyScheduledAppointments.allProviders',
         'appointmentschedulingui.dailyScheduledAppointments.appointmentStatus',
         'appointmentschedulingui.dailyScheduledAppointments.allAppointmentStatuses',
+        'appointmentschedulingui.dailyScheduledAppointments.noScheduledAppointments',
         'appointmentschedulingui.dailyScheduledAppointments.allAppointmentBlocks',
         'appointmentschedulingui.dailyScheduledAppointments.allServiceTypes',
         'appointmentscheduling.AppointmentBlock.error.scheduledAppointmentBlocks',
@@ -102,7 +102,7 @@
             class="inline-box">
         </selectmultipleappointmenttypes>
     </div>
-    <div id="noDailyAppointments" ng-show="showNoDailyAppointments" class="inline-box">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.noScheduledAppointmentBlocks") }</div>
+    <div id="noDailyAppointments" ng-show="showNoDailyAppointments" class="inline-box">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.noScheduledAppointments") }</div>
     <div id="loadingMessage" ng-show="showLoadingMessage">${ ui.message("appointmentschedulingui.dailyScheduledAppointments.loading") }</div>
     <div class="gridStyle" ng-grid="dailyAppointmentsGrid" id="dailyAppointmentsGrid"></div>
 </div>

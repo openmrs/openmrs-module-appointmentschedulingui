@@ -10,37 +10,19 @@
 
 #dailyAppointmentsGrid .ngCell  {
   display : table-cell;
-  height: auto !important;
   overflow: visible;
   position: static;
 }
 
 #dailyAppointmentsGrid .ngRow {
   display : table-row;
-  height: auto !important;
   position: static;
 }
 
 #dailyAppointmentsGrid .ngCellText {
   white-space: normal;
-  overflow: visible;
   vertical-align: middle;
 
-}
-
-#dailyAppointmentsGrid .patientInformation {
-  white-space: normal;
-  overflow: visible;
-  display: inline-block;
-  vertical-align: top;
-}
-
-#dailyAppointmentsGrid .appointmentSummary {
-  width: 40%;
-}
-
-#dailyAppointmentsGrid .patientAttribute {
-  width: 18%;
 }
 
 .inline-box {

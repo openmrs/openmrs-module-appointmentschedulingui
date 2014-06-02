@@ -39,6 +39,7 @@ angular.module('dailyAppointmentsHelper')
                    data: 'paginatedScheduledAppointments',
                    multiSelect: false,
                    enableSorting: true,
+                   enableColumnResize: true,
                    selectedItems: [],
                    i18n: jsLocale,
                    filterOptions: { filterText: '', useExternalFilter: true},
@@ -52,10 +53,6 @@ angular.module('dailyAppointmentsHelper')
                            width: '10%',
                            displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId") },
 
-                       { field: 'telephoneNumber',
-                           width: '10%',
-                           displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.phoneNumber") },
-
                        { field: 'startTime',
                            width: '10%',
                            displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") },
@@ -66,7 +63,11 @@ angular.module('dailyAppointmentsHelper')
 
                        { field: 'appointmentType',
                            width: '20%',
-                           displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.service") },
+                           displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.appointmentType") },
+
+                       { field: 'telephoneNumber',
+                           width: '10%',
+                           displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.phoneNumber") },
 
                        { field: 'localizedStatusType',
                            width: '10%',
