@@ -20,8 +20,12 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
+import org.openmrs.module.appointmentscheduling.reporting.dataset.definition.AppointmentDataSetDefinition;
 import org.openmrs.module.appointmentschedulingui.htmlformentry.AppointmentCheckInTagHandler;
 import org.openmrs.module.htmlformentry.HtmlFormEntryService;
+import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
+import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinitionService;
+import org.openmrs.module.reporting.definition.library.AllDefinitionLibraries;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -63,6 +67,8 @@ public class AppointmentSchedulingUIActivator implements ModuleActivator {
                     createAppointmentCheckInTagHandler(appointmentService));
         }
 
+        createDataSetDefinitions();
+
 		log.info("Appointment Scheduling UI Module started");
 	}
 	
@@ -85,12 +91,48 @@ public class AppointmentSchedulingUIActivator implements ModuleActivator {
             // pass
         }
 
+        removeDataSetDefinitions();
+
 		log.info("Appointment Scheduling UI Module stopped");
 	}
 
-    public static AppointmentCheckInTagHandler createAppointmentCheckInTagHandler(AppointmentService appointmentService) {
+    public AppointmentCheckInTagHandler createAppointmentCheckInTagHandler(AppointmentService appointmentService) {
         AppointmentCheckInTagHandler appointmentCheckInTagHandler = new AppointmentCheckInTagHandler();
         appointmentCheckInTagHandler.setAppointmentService(appointmentService);
         return appointmentCheckInTagHandler;
     }
+
+    public void createDataSetDefinitions() {
+
+        DataSetDefinitionService dataSetDefinitionService = Context.getService(DataSetDefinitionService.class);
+        AllDefinitionLibraries libraries = Context.getRegisteredComponents(AllDefinitionLibraries.class).get(0);
+
+        // fetch the existing definition if it exists
+        DataSetDefinition existing =  dataSetDefinitionService.getDefinition(AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID, AppointmentDataSetDefinition.class);
+
+        // create the new definition
+        AppointmentDataSetDefinition dsd = libraries.getDefinition(AppointmentDataSetDefinition.class, "appointmentschedulingui.appointmentDataSetDefinition.dailyAppointments");
+        dsd.setUuid(AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID);
+
+        // override the existing with the new
+        if (existing != null) {
+            dsd.setId(existing.getId());
+            Context.evictFromSession(existing);
+        }
+
+        dataSetDefinitionService.saveDefinition(dsd);
+
+    }
+
+    private void removeDataSetDefinitions() {
+        DataSetDefinitionService dataSetDefinitionService = Context.getService(DataSetDefinitionService.class);
+        DataSetDefinition dsd = dataSetDefinitionService.getDefinition(AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID, AppointmentDataSetDefinition.class);
+
+        if (dsd != null) {
+            dataSetDefinitionService.purgeDefinition(dsd);
+        }
+
+        Context.flushSession();
+    }
+
 }

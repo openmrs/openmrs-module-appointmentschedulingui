@@ -13,7 +13,7 @@ describe('AppointmentService tests', function() {
     var deferredAppointmentBlockDelete;
     var deferredAppointmentQuery;
     var deferredAppointmentSave;
-    var deferredScheduledAppointmentBlockQuery;
+    var deferredDataSetGet;
 
 
     beforeEach(module('appointmentscheduling.appointmentService'));
@@ -113,19 +113,18 @@ describe('AppointmentService tests', function() {
         return promise_mock;
     })
 
+    var mockDataSet = jasmine.createSpyObj('DataSet', ['get']);
+    mockDataSet.get.andCallFake(function () {
 
-
-    var mockScheduledAppointmentBlock = jasmine.createSpyObj('ScheduledAppointmentBlock', ['query']);
-    mockScheduledAppointmentBlock.query.andCallFake(function () {
-
-        deferredScheduledAppointmentBlockQuery = q.defer();
+        deferredDataSetGet = q.defer();
 
         var promise_mock = {
-            $promise: deferredScheduledAppointmentBlockQuery.promise
+            $promise: deferredDataSetGet.promise
         };
 
         return promise_mock;
     });
+
 
     beforeEach(module('appointmentscheduling.appointmentService'));
 
@@ -135,7 +134,7 @@ describe('AppointmentService tests', function() {
         $provide.value('Appointment', mockAppointment);
         $provide.value('AppointmentAllowingOverbook', mockAppointmentAllowingOverbook);
         $provide.value('AppointmentBlock', mockAppointmentBlock);
-        $provide.value('ScheduledAppointmentBlock', mockScheduledAppointmentBlock);
+        $provide.value('DataSet', mockDataSet);
     }));
 
     // inject necessary dependencies
@@ -277,33 +276,24 @@ describe('AppointmentService tests', function() {
         expect(appointments[0].display).toBe("some_appointment");
     }));
 
-    it('should call ScheduledAppointmentBlock resource with query value', inject(function($rootScope) {
-        var scheduledAppointmentBlocks;
-        appointmentService.getScheduledAppointmentBlocks({date: "2014-03-01", location: "uuidLocation"}).then(function(results) {
-            scheduledAppointmentBlocks = results;
+    it('should call DataSet resource with query values', inject(function($rootScope) {
+
+        var dataSet;
+
+        appointmentService.getDailyAppointmentsDataSet({ 'location' : '123abc' }).then(function(result) {
+            dataSet = result;
         });
 
-        deferredScheduledAppointmentBlockQuery.resolve({
-            results: [
-                {
-                    appointmentBlock: {
-                        display: "Display some appointment block"
-                    },
-                    appointments: [
-                        {
-                         appointment: {
-                             display: "Display some appointment"
-                         }
-                        }
-                    ]
-                }
+        deferredDataSetGet.resolve({
+            rows: [
+                { patientName: 'some_patient_name'}
             ]
-        });
+        })
 
-        $rootScope.$apply();
-        expect(mockScheduledAppointmentBlock.query).toHaveBeenCalledWith({ 'date': '2014-03-01', 'location': 'uuidLocation'});
-        expect(scheduledAppointmentBlocks.length).toBe(1);
-        expect(scheduledAppointmentBlocks[0].appointmentBlock.display).toBe("Display some appointment block");
+        $rootScope.$apply(); // see testing section of http://docs.angularjs.org/api/ng/service/$q
+
+        expect(mockDataSet.get).toHaveBeenCalledWith({ 'location' : '123abc', 'uuid': 'c1bf0730-e69e-11e3-ac10-0800200c9a66'  });
+        expect(dataSet.rows[0].patientName).toBe("some_patient_name");
     }));
 
 })

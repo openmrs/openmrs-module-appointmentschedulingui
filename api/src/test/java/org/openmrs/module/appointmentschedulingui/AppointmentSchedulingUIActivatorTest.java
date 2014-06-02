@@ -11,7 +11,7 @@ public class AppointmentSchedulingUIActivatorTest extends BaseModuleContextSensi
         activator.willRefreshContext();
         activator.contextRefreshed();
         activator.willStart();
-        activator.started();
+        //activator.started();
     }
 }
 

@@ -10,10 +10,8 @@ angular.module('scheduleAppointmentDateRangePickerApp', [] );
 
 angular.module('ngGridPaginationApp', []);
 
-angular.module('appointmentSchedulingParse', []);
+angular.module('dailyAppointmentsHelper', []);
 
-angular.module('appointmentSchedulingHelper', []);
-
-angular.module('appointmentscheduling.scheduledAppointmentBlocks', ['appointmentscheduling.appointmentService', 'locationService',
-    'ui.bootstrap', 'ngGrid', 'ngGridPaginationApp', 'uicommons.RESTUtils', 'appointmentSchedulingParse', 'appointmentSchedulingHelper',
+angular.module('appointmentscheduling.dailyAppointments', ['appointmentscheduling.appointmentService', 'locationService',
+    'ui.bootstrap', 'ngGrid', 'ngGridPaginationApp', 'uicommons.RESTUtils', 'dailyAppointmentsHelper',
     'selectMultipleAppointmentTypesApp']);
