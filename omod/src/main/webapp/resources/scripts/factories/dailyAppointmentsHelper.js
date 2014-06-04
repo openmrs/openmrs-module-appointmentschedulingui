@@ -47,30 +47,37 @@ angular.module('dailyAppointmentsHelper')
 
                        { field: 'patientName',
                            width: '20%',
+                           cellTemplate: "<div>{{ row.getProperty(\'patientName\') }}</div>",  // putting it in div causes it to wrap if it extends past column, which is what we want
                            displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.patientName") },
 
                        { field: 'identifier',
                            width: '10%',
+                           cellTemplate: "<div>{{ row.getProperty(\'identifier\') }}</div>", // putting it in div causes it to wrap if it extends past column, which is what we want
                            displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.patientId") },
 
-                       { field: 'startTime',
+                       { field: 'startDatetime',
                            width: '10%',
+                           cellTemplate: "<div>{{ row.getProperty(\'startTimeFormatted\') }} - {{ row.getProperty(\'endTimeFormatted\') }}<div>",
                            displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") },
 
                        { field: 'provider',
                            width: '20%',
+                           cellTemplate: "<div>{{ row.getProperty(\'provider\') }}</div>",  // putting it in div causes it to wrap if it extends past column, which is what we want
                            displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.provider") },
 
                        { field: 'appointmentType',
                            width: '20%',
+                           cellTemplate: "<div>{{ row.getProperty(\'appointmentType\') }}</div>",  // putting it in div causes it to wrap if it extends past column, which is what we want
                            displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.appointmentType") },
 
                        { field: 'telephoneNumber',
                            width: '10%',
+                           cellTemplate: "<div>{{ row.getProperty(\'telephoneNumber\') }}</div>", // putting it in div causes it to wrap if it extends past column, which is what we want
                            displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.phoneNumber") },
 
                        { field: 'localizedStatusType',
                            width: '10%',
+                           cellTemplate: "<div>{{ row.getProperty(\'localizedStatusType\') }}</div>", // putting it in div causes it to wrap if it extends past column, which is what we want
                            displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.appointmentStatus") }
 
                             ]

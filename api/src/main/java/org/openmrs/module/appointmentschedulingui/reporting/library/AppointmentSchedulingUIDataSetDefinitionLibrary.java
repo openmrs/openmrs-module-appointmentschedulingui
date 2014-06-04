@@ -3,6 +3,7 @@ package org.openmrs.module.appointmentschedulingui.reporting.library;
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentEndDateDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentProviderDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentStartDateDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentStatusDataDefinition;
@@ -69,10 +70,12 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
         dsd.addColumn("statusType", new AppointmentStatusDataDefinition(), "", new PropertyConverter(Appointment.AppointmentStatusType.class, "type"));
         dsd.addColumn("localizedStatusType", new AppointmentStatusDataDefinition(), "", new AppointmentStatusToLocalizedStatusTypeConverter());
         dsd.addColumn("patientName", new PreferredNameDataDefinition(), "", new ObjectFormatter());
-        dsd.addColumn("startTime", new AppointmentStartDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
+        dsd.addColumn("startDatetime", new AppointmentStartDateDataDefinition(), "", null);
+        dsd.addColumn("startTimeFormatted", new AppointmentStartDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
+        dsd.addColumn("endTimeFormatted", new AppointmentEndDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
         dsd.addColumn("telephoneNumber", new PersonAttributeDataDefinition(emrApiProperties.getTelephoneAttributeType()), "", new ObjectFormatter());
 
-        dsd.addSortCriteria("startTime", SortCriteria.SortDirection.ASC);
+        dsd.addSortCriteria("startDatetime", SortCriteria.SortDirection.ASC);
         dsd.addSortCriteria("provider", SortCriteria.SortDirection.ASC);
 
         return dsd;

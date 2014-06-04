@@ -24,6 +24,7 @@ import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Date;
 
@@ -116,7 +117,9 @@ public class AppointmentSchedulingUIDataSetDefinitionLibraryTest extends BaseMod
         assertThat((Appointment.AppointmentStatusType) row.getColumnValue("statusType"), is(Appointment.AppointmentStatusType.COMPLETED));
         assertThat((String) row.getColumnValue("localizedStatusType"), is("appointmentschedulingui.scheduleAppointment.status.type.completed"));
         assertThat((String) row.getColumnValue("patientName"), is(patient.getPersonName().toString()));
-        assertThat((String) row.getColumnValue("startTime"), is("09:00 AM"));
+        assertThat(((Timestamp) row.getColumnValue("startDatetime")).toString(), is("2014-01-01 09:00:00.0"));
+        assertThat((String) row.getColumnValue("startTimeFormatted"), is("09:00 AM"));
+        assertThat((String) row.getColumnValue("endTimeFormatted"), is("11:00 AM"));
         assertThat((String) row.getColumnValue("telephoneNumber"), is("123-4567"));
         assertThat((String) row.getColumnValue("identifier"), is(patient.getPatientIdentifier(emrApiProperties.getPrimaryIdentifierType()).getIdentifier()));
 
