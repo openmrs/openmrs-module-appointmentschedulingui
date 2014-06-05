@@ -3,7 +3,7 @@ describe('Patient Appointments controller', function () {
     jsLocale = 'en'; // hack mock for the jsLocale variable
 
     var scope, deferred,
-        mockAppointmentService, mockNgGridPaginationFactory, mockFilterFilter, mockDateRangePickerEventListener,
+        mockAppointmentService, mockNgGridHelper, mockFilterFilter, mockDateRangePickerEventListener,
         promise;
 
     beforeEach(module('appointmentscheduling.scheduleAppointment'));
@@ -11,7 +11,7 @@ describe('Patient Appointments controller', function () {
         deferred = $q.defer();
         promise = deferred.promise;
 
-        mockNgGridPaginationFactory = jasmine.createSpyObj('ngGridPaginationFactory', ['includePagination']);
+        mockNgGridHelper = jasmine.createSpyObj('ngGridHelper', ['includePagination']);
         mockFilterFilter = jasmine.createSpy('filterFilter');
         mockDateRangePickerEventListener = jasmine.createSpyObj('dateRangePickerEventListener', ['subscribe']);
 
@@ -31,7 +31,7 @@ describe('Patient Appointments controller', function () {
 
         var controller =  $controller('PatientAppointmentsCtrl', {$scope: scope,
             AppointmentService: mockAppointmentService, filterFilter: mockFilterFilter,
-            ngGridPaginationFactory: mockNgGridPaginationFactory, dateRangePickerEventListener: mockDateRangePickerEventListener});
+            ngGridHelper: mockNgGridHelper, dateRangePickerEventListener: mockDateRangePickerEventListener});
     }));
 
     describe('it must get all appointment types', function () {

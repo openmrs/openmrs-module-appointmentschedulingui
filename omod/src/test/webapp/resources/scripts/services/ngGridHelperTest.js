@@ -1,13 +1,13 @@
-describe('ngGridPagination Factory', function () {
+describe('ngGrid Factory', function () {
     describe('it must add the paging configuration to the scope', function () {
         var scope,
             paginationFactory;
 
         beforeEach(function () {
-            module('ngGridPaginationApp');
+            module('ngGridHelper');
             inject(function ($rootScope, $injector) {
                 scope = $rootScope.$new();
-                paginationFactory = $injector.get('ngGridPaginationFactory');
+                paginationFactory = $injector.get('ngGridHelper');
             });
             scope.ngGridOptions = {};
 

@@ -1,7 +1,7 @@
 angular.module('appointmentscheduling.dailyAppointments')
     .controller('DailyAppointmentsController', ['$scope','AppointmentService',
-           'LocationService', 'ngGridPaginationFactory', 'filterFilter',  'RESTErrorResponse', 'dailyAppointmentsHelper' ,
-function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, filterFilter, RESTErrorResponse, dailyAppointmentsHelper) {
+           'LocationService', 'ngGridHelper', 'filterFilter',  'RESTErrorResponse', 'dailyAppointmentsHelper' ,
+function ($scope, AppointmentService, LocationService, ngGridHelper, filterFilter, RESTErrorResponse, dailyAppointmentsHelper) {
 
     $scope.showNoDailyAppointments = false;
     $scope.showLoadingMessage = false;
@@ -69,7 +69,45 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
         }
     };
 
-    ngGridPaginationFactory.includePagination($scope, $scope.dailyAppointmentsGrid, $scope.updatePagingData);
+    $scope.updateSort =  function () {
+        if ($scope.sortInfo.fields.length == 0) { return; }
+
+        // sort just on whatever the first item is in the sortInfo list
+        // (note that we put scopeInfo on the scope in ngGridHelper
+        var direction = $scope.sortInfo.directions[0];
+        var field = $scope.sortInfo.fields[0];
+
+        $scope.filteredScheduledAppointments.sort(function (a, b) {
+            if (direction == "asc") {
+                if (!a[field]) {
+                    return -1;
+                }
+                if (!b[field]) {
+                    return 1;
+                }
+                else {
+                    return a[field] > b[field] ? 1 : -1;
+                }
+            } else {
+                if (!a[field]) {
+                    return 1;
+                }
+                if (!b[field]) {
+                    return -1;
+                }
+                else {
+                    return a[field] > b[field] ? -1 : 1;
+                }
+            }
+        })
+
+    }
+
+    // set up pagination and sorting
+    ngGridHelper.includePagination($scope, $scope.dailyAppointmentsGrid, $scope.updatePagingData);
+    ngGridHelper.includeSorting($scope, $scope.dailyAppointmentsGrid,
+        { fields: ['startDatetime', 'provider'], directions: ['asc', 'asc'] },
+        $scope.updatePagingData, $scope.updateSort);
 
     $scope.getDailyAppointments = function(){
 
@@ -106,6 +144,7 @@ function ($scope, AppointmentService, LocationService, ngGridPaginationFactory, 
         $scope.filteredScheduledAppointments = dailyAppointmentsHelper.
             filterByAppointmentType($scope.filteredScheduledAppointments, $scope.filterObjects.appointmentTypes);
 
+        $scope.updateSort();
         $scope.updatePagingData();
     }
 

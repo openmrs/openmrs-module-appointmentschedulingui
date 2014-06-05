@@ -2,7 +2,7 @@
 describe('DailyAppointmentsController', function() {
 
     var scope;
-    var mockLocationService,mockNgGridPaginationFactory, mockHelper, mockAppointmentService, mockFilterFilter;
+    var mockLocationService,mockNgGridHelper, mockHelper, mockAppointmentService, mockFilterFilter;
 
     var deferredLocations;
     var deferredAppointmentStatusTypes;
@@ -30,7 +30,7 @@ describe('DailyAppointmentsController', function() {
         mockAppointmentService.getDailyAppointmentsDataSet.andCallFake(function () { return deferredDailyAppointmentsDataSet.promise });
         mockAppointmentService.getAppointmentStatusTypes.andCallFake(function () { return deferredAppointmentStatusTypes.promise });
 
-        mockNgGridPaginationFactory = jasmine.createSpyObj('ngGridPaginationFactory', ['includePagination']);
+        mockNgGridHelper = jasmine.createSpyObj('ngGridHelper', ['includePagination', 'includeSorting']);
 
         mockFilterFilter = jasmine.createSpy('filterFilter');
 
@@ -38,7 +38,7 @@ describe('DailyAppointmentsController', function() {
         scope.setPagingData = function(){};
 
         $controller('DailyAppointmentsController', {$scope: scope, AppointmentService: mockAppointmentService,
-            LocationService: mockLocationService, ngGridPaginationFactory: mockNgGridPaginationFactory,
+            LocationService: mockLocationService, ngGridHelper: mockNgGridHelper,
             filterFilter: mockFilterFilter, RESTErrorResponse: {}, dailyAppointmentsHelper: mockHelper});
         scope.initializeFilters();
     }));
@@ -91,6 +91,7 @@ describe('DailyAppointmentsController', function() {
             scope.filterDate =  Date.parse('2012-1-03');
             scope.locationFilter = { display: "location 1", uuid: "uuid of location"};
             scope.appointmentTypeFilter = [ { name: "all services", uuid: ""} ];
+            scope.updateSort = function(){};  // stub out the sort functionality, not testing it here
             scope.$apply();
 
             scope.$emit('selectMultipleAppointmentTypesApp.selectionChanged', { data:[ { name: 'service 1', uuid: "uuid of service" } ] });
@@ -109,6 +110,7 @@ describe('DailyAppointmentsController', function() {
         beforeEach( function(){
                 deferredLocations.resolve();
                 deferredDailyAppointmentsDataSet.resolve({rows: []});
+                scope.updateSort = function(){};  // stub out the sort functionality, not testing it here
                 scope.$apply();
         });
 

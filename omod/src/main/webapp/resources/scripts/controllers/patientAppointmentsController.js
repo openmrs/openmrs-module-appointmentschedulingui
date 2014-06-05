@@ -1,6 +1,6 @@
 angular.module('appointmentscheduling.scheduleAppointment')
-    .controller('PatientAppointmentsCtrl', ['$scope', 'AppointmentService','filterFilter', 'ngGridPaginationFactory', 'dateRangePickerEventListener',
-                                 function ($scope, AppointmentService, filterFilter, ngGridPaginationFactory, dateRangePickerEventListener) {
+    .controller('PatientAppointmentsCtrl', ['$scope', 'AppointmentService','filterFilter', 'ngGridHelper', 'dateRangePickerEventListener',
+                                 function ($scope, AppointmentService, filterFilter, ngGridHelper, dateRangePickerEventListener) {
         $scope.appointmentToCancel = null;
         $scope.appointmentCancelReason = '';
 
@@ -111,7 +111,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
             if (!$scope.$$phase) $scope.$apply();
         }
 
-        ngGridPaginationFactory.includePagination($scope, $scope.appointmentOptions, $scope.updateFilter);
+        ngGridHelper.includePagination($scope, $scope.appointmentOptions, $scope.updateFilter);
         dateRangePickerEventListener.subscribe($scope, 'patientAppointments');
 
         $scope.cancelAppointment = function(uuid) {

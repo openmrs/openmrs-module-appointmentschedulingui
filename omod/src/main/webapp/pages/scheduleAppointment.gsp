@@ -18,7 +18,8 @@
     ui.includeJavascript("appointmentschedulingui", "controllers/dateRangePickerController.js")
     ui.includeJavascript("appointmentschedulingui", "directives/dateRangePickerDirective.js")
     ui.includeJavascript("appointmentschedulingui", "services/dateRangePickerEventListener.js")
-    ui.includeJavascript("appointmentschedulingui", "services/ngGridPagination.js")
+    ui.includeJavascript("appointmentschedulingui", "factories" +
+            "/ngGridHelper.js")
     ui.includeJavascript("appointmentschedulingui", "resources/appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/scheduleAppointmentController.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/patientAppointmentsController.js")

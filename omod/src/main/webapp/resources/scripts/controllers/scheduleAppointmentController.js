@@ -1,7 +1,7 @@
 angular.module('appointmentscheduling.scheduleAppointment')
     .controller('ScheduleAppointmentCtrl',['$scope', 'AppointmentService', 'filterFilter',
-        'dateRangePickerEventListener', 'ngGridPaginationFactory', function ($scope, AppointmentService, filterFilter,
-                                                     dateRangePickerEventListener, ngGridPaginationFactory) {
+        'dateRangePickerEventListener', 'ngGridHelper', function ($scope, AppointmentService, filterFilter,
+                                                     dateRangePickerEventListener, ngGridHelper) {
         $scope.filterText = '';
         $scope.timeSlots = [];
         $scope.filteredTimeSlots = [];
@@ -125,7 +125,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
             if (!$scope.$$phase) $scope.$apply();
         }
 
-        ngGridPaginationFactory.includePagination($scope, $scope.timeSlotOptions, $scope.updateFilter);
+        ngGridHelper.includePagination($scope, $scope.timeSlotOptions, $scope.updateFilter);
 
         $scope.selectTimeSlot = function() {
             $scope.selectedTimeSlot = $scope.timeSlotOptions.selectedItems[0];

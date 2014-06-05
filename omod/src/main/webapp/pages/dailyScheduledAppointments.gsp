@@ -19,7 +19,7 @@
     ui.includeJavascript("appointmentschedulingui", "app.js")
     ui.includeJavascript("appointmentschedulingui", "resources/appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "services/appointmentService.js")
-    ui.includeJavascript("appointmentschedulingui", "services/ngGridPagination.js")
+    ui.includeJavascript("appointmentschedulingui", "factories/ngGridHelper.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/dailyAppointmentsController.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/selectMultipleAppointmentTypesController.js")
     ui.includeJavascript("appointmentschedulingui", "directives/selectMultipleAppointmentTypesDirective.js")

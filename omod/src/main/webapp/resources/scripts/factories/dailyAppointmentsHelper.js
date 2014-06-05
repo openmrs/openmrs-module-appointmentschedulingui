@@ -38,7 +38,7 @@ angular.module('dailyAppointmentsHelper')
                var dailyAppointmentsGrid = {
                    data: 'paginatedScheduledAppointments',
                    multiSelect: false,
-                   enableSorting: false,
+                   enableSorting: true,
                    enableColumnResize: true,
                    selectedItems: [],
                    i18n: jsLocale,

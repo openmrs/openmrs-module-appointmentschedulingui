@@ -4,7 +4,7 @@ describe('ScheduleAppointment tests', function() {
         mockAppointmentService,
         mockFilterFilter,
         mockDateRangePickerEventListener,
-        mockNgGridPaginationFactory,
+        mockNgGridHelper,
         deferred,
         promise;
 
@@ -21,7 +21,7 @@ describe('ScheduleAppointment tests', function() {
 
         mockDateRangePickerEventListener = jasmine.createSpyObj('dateRangePickerEventListener', ['subscribe']);
 
-        mockNgGridPaginationFactory = jasmine.createSpyObj('ngGridPaginationFactory', ['includePagination']);
+        mockNgGridHelper = jasmine.createSpyObj('ngGridHelper', ['includePagination']);
 
         scope = $rootScope.$new();
 
@@ -35,7 +35,7 @@ describe('ScheduleAppointment tests', function() {
 
         $controller('ScheduleAppointmentCtrl', {$scope: scope, AppointmentService: mockAppointmentService,
             filterFilter: mockFilterFilter, dateRangePickerEventListener: mockDateRangePickerEventListener,
-            ngGridPaginationFactory: mockNgGridPaginationFactory});
+            ngGridHelper: mockNgGridHelper});
     }));
 
     describe('it must get all appointment types', function () {
