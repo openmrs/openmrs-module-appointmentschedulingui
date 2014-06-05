@@ -91,7 +91,7 @@ describe('DailyAppointmentsController', function() {
             scope.filterDate =  Date.parse('2012-1-03');
             scope.locationFilter = { display: "location 1", uuid: "uuid of location"};
             scope.appointmentTypeFilter = [ { name: "all services", uuid: ""} ];
-            scope.updateSort = function(){};  // stub out the sort functionality, not testing it here
+            spyOn(scope, 'updateSort');
             scope.$apply();
 
             scope.$emit('selectMultipleAppointmentTypesApp.selectionChanged', { data:[ { name: 'service 1', uuid: "uuid of service" } ] });
@@ -103,20 +103,52 @@ describe('DailyAppointmentsController', function() {
             expect(scope.appointmentTypeFilter[0].uuid).toBe("uuid of service");
         })
 
+        it('sort update should be have been triggered', function() {
+            expect(scope.updateSort).toHaveBeenCalled();
+        })
+
     })
 
-    describe('when have results of scheduled appointment block', function(){
+    describe('when have results of scheduled appointments', function(){
 
         beforeEach( function(){
                 deferredLocations.resolve();
                 deferredDailyAppointmentsDataSet.resolve({rows: []});
-                scope.updateSort = function(){};  // stub out the sort functionality, not testing it here
+                spyOn(scope, 'updateSort');
                 scope.$apply();
         });
 
         it('should populate provider filter', function() {
             expect(mockHelper.findProvidersFromGrid).toHaveBeenCalled();
+        });
 
+        it('sort update should be have been triggered', function() {
+            expect(scope.updateSort).toHaveBeenCalled();
+        })
+
+    });
+
+    describe('when updating sort', function() {
+
+        beforeEach(function() {
+
+            // just mock a couple columns in the data set
+            scope.filteredScheduledAppointments = [
+                { provider: 'Zack Brown' , appointmentType: "Outpatient - Initial" },
+                { provider: 'Abe Lincoln' , appointmentType: "Outpatient - Follow Up" },
+                { provider: 'Tom Jones' , appointmentType: "Outpatient - Initial" },
+                { provider: '' , appointmentType: "Outpatient - Initial" }
+            ]
+
+            scope.sortInfo = { fields: ['provider'], directions: ['asc'] }
+            scope.updateSort();
+        })
+
+        it('should sort filtered appointmentin proper order', function() {
+            expect(scope.filteredScheduledAppointments[0].provider).toBe('');
+            expect(scope.filteredScheduledAppointments[1].provider).toBe('Abe Lincoln');
+            expect(scope.filteredScheduledAppointments[2].provider).toBe('Tom Jones');
+            expect(scope.filteredScheduledAppointments[3].provider).toBe('Zack Brown');
         });
 
     });
