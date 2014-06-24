@@ -46,7 +46,7 @@
         <calculationModuleVersion>1.0</calculationModuleVersion>
         <webServicesRestVersion>2.4</webServicesRestVersion>
         <htmlformEntryVersion>2.4-SNAPSHOT</htmlformEntryVersion>
-        <openmrsTestutilsVersion>1.3-SNAPSHOT</openmrsTestutilsVersion>
+        <openmrsTestutilsVersion>1.3</openmrsTestutilsVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <appuiVersion>1.0</appuiVersion>
 
