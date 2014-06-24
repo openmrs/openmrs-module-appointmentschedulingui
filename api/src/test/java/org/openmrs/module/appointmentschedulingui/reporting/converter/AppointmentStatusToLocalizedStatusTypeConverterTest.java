@@ -12,11 +12,11 @@ public class AppointmentStatusToLocalizedStatusTypeConverterTest extends BaseMod
 
 
     @Test
-    @Ignore
     public void shouldConvertToLocalizedString() {
 
         AppointmentStatusToLocalizedStatusTypeConverter converter = new AppointmentStatusToLocalizedStatusTypeConverter();
-        assertThat((String) converter.convert(Appointment.AppointmentStatus.CANCELLED), is("Cancelled"));
+		String expected = "appointmentschedulingui.scheduleAppointment.status.type.cancelled";
+        assertThat((String) converter.convert(Appointment.AppointmentStatus.CANCELLED), is(expected));
 
     }
 
