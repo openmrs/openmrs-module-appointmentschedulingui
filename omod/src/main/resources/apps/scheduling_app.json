@@ -30,8 +30,7 @@
             "heading": "appointmentschedulingui.scheduleAppointment.buttonTitle",
             "showLastViewedPatients": false
         },
-        "requiredPrivilege": "App: appointmentschedulingui.viewAppointments",
-        "featureToggle": "new_appointment_scheduling_ui"
+        "requiredPrivilege": "App: appointmentschedulingui.viewAppointments"
     },
     {
         "id": "appointmentschedulingui.scheduledAppointments",
@@ -46,8 +45,7 @@
                 "order": 12
             }
         ],
-        "requiredPrivilege": "App: appointmentschedulingui.viewAppointments",
-        "featureToggle": "new_appointment_scheduling_ui"
+        "requiredPrivilege": "App: appointmentschedulingui.viewAppointments"
     },
     {
         "id": "appointmentschedulingui.manageAppointmentTypes",
@@ -62,8 +60,7 @@
                 "order": 7
             }
         ],
-        "requiredPrivilege": "App: appointmentschedulingui.scheduleAdmin",
-        "featureToggle": "new_appointment_scheduling_ui"
+        "requiredPrivilege": "App: appointmentschedulingui.scheduleAdmin"
     },
     {
         "id": "appointmentschedulingui.scheduleProviders",
@@ -78,8 +75,7 @@
                 "order": 7
             }
         ],
-        "requiredPrivilege": "App: appointmentschedulingui.scheduleAdmin",
-        "featureToggle": "new_appointment_scheduling_ui"
+        "requiredPrivilege": "App: appointmentschedulingui.scheduleAdmin"
     }
 
 ]
