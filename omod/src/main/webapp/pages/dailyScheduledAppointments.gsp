@@ -53,7 +53,10 @@
 <script type="text/javascript">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }", link: "${ ui.pageLink("appointmentschedulingui", "dailyScheduledAppointments") }" }];
+        { label: "${ ui.message("appointmentschedulingui.home.title") }",
+            link: '${ ui.pageLink("appointmentschedulingui", "home") }' },
+        { label: "${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }",
+            link: "${ ui.pageLink("appointmentschedulingui", "dailyScheduledAppointments") }" }];
 
     var supportsAppointmentsTagUuid = '${ supportsAppointmentsTagUuid }';
     var sessionLocationUuid = '${ sessionLocationUuid }' ;

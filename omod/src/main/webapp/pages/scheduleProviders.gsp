@@ -49,10 +49,10 @@
 
 
 <script type="text/javascript">
-    // TODO: configure breadcrumbs to be dynamic as we may not always like back to system administration section
-
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
+        { label: "${ ui.message("appointmentschedulingui.home.title") }",
+            link: '${ ui.pageLink("appointmentschedulingui", "home") }' },
         { label: "${ ui.message("appointmentschedulingui.scheduleProviders.manageAppointmentBlocks")}" }
     ];
 

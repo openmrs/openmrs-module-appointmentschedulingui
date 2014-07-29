@@ -1,18 +1,35 @@
 [
     {
+        "id": "appointmentschedulingui.homeApp",
+        "extensions": [
+            {
+                "id": "appointmentschedulingui.homeAppLink",
+                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
+                "type": "link",
+                "label": "appointmentschedulingui.home.title",
+                "url": "/appointmentschedulingui/home.page",
+                "icon": "icon-calendar",
+                "order": 1,
+                "requiredPrivilege": "App: appointmentschedulingui.home"
+            }
+        ],
+        "requiredPrivilege": "App: appointmentschedulingui.home",
+        "featureToggle": "new_appointment_scheduling_ui"
+    },
+    {
         "id": "appointmentschedulingui.schedulingAppointmentApp",
         "instanceOf": "coreapps.template.findPatient",
         "extensions": [
-            {
-                "id": "appointmentschedulingui.schedulingAppointmentAppLink",
-                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
-                "type": "link",
-                "label": "appointmentschedulingui.scheduleAppointment.buttonTitle",
-                "url": "coreapps/findpatient/findPatient.page?app=appointmentschedulingui.schedulingAppointmentApp",
-                "icon": "icon-calendar",
-                "order": 1,
-                "requiredPrivilege": "App: appointmentschedulingui.viewAppointments"
-            },
+//            {
+//                "id": "appointmentschedulingui.schedulingAppointmentAppLink",
+//                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
+//                "type": "link",
+//                "label": "appointmentschedulingui.scheduleAppointment.buttonTitle",
+//                "url": "coreapps/findpatient/findPatient.page?app=appointmentschedulingui.schedulingAppointmentApp",
+//                "icon": "icon-calendar",
+//                "order": 1,
+//                "requiredPrivilege": "App: appointmentschedulingui.viewAppointments"
+//            },
             {
                 "id": "appointmentschedulingui.schedulingAppointmentDashboardLink",
                 "extensionPointId": "patientDashboard.overallActions",
@@ -28,54 +45,30 @@
             "afterSelectedUrl": "/appointmentschedulingui/scheduleAppointment.page?patientId={{patientId}}",
             "label": "appointmentschedulingui.scheduleAppointment.buttonTitle",
             "heading": "appointmentschedulingui.scheduleAppointment.buttonTitle",
-            "showLastViewedPatients": false
+            "showLastViewedPatients": false,
+            "breadcrumbs": [
+                { "icon": "icon-home", "link": "/index.htm" },
+                { "label": "appointmentschedulingui.home.title", "link": "/appointmentschedulingui/home.page" },
+                { "label": "appointmentschedulingui.scheduleAppointment.buttonTitle" }
+            ]
         },
         "requiredPrivilege": "App: appointmentschedulingui.viewAppointments"
-    },
-    {
-        "id": "appointmentschedulingui.scheduledAppointments",
-        "extensions":[
-            {
-                "id": "appointmentschedulingui.scheduledAppointments.homepageLink",
-                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
-                "type": "link",
-                "label": "appointmentschedulingui.dailyScheduledAppointments.title",
-                "url": "appointmentschedulingui/dailyScheduledAppointments.page",
-                "icon": "icon-calendar",
-                "order": 12
-            }
-        ],
-        "requiredPrivilege": "App: appointmentschedulingui.viewAppointments"
-    },
-    {
-        "id": "appointmentschedulingui.manageAppointmentTypes",
-        "extensions":[
-            {
-                "id": "appointmentschedulingui.manageAppointmentTypes",
-                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
-                "type": "link",
-                "label": "appointmentschedulingui.appointmenttype.label",
-                "url": "appointmentschedulingui/manageAppointmentTypes.page",
-                "icon": "icon-calendar",
-                "order": 7
-            }
-        ],
-        "requiredPrivilege": "App: appointmentschedulingui.scheduleAdmin"
-    },
-    {
-        "id": "appointmentschedulingui.scheduleProviders",
-        "extensions":[
-            {
-                "id": "appointmentschedulingui.scheduleProviders",
-                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
-                "type": "link",
-                "label": "appointmentschedulingui.scheduleProviders.app.title",
-                "url": "appointmentschedulingui/scheduleProviders.page",
-                "icon": "icon-calendar",
-                "order": 7
-            }
-        ],
-        "requiredPrivilege": "App: appointmentschedulingui.scheduleAdmin"
     }
+//    ,
+//    {
+//        "id": "appointmentschedulingui.scheduledAppointments",
+//        "extensions":[
+//            {
+//                "id": "appointmentschedulingui.scheduledAppointments.homepageLink",
+//                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
+//                "type": "link",
+//                "label": "appointmentschedulingui.dailyScheduledAppointments.title",
+//                "url": "appointmentschedulingui/dailyScheduledAppointments.page",
+//                "icon": "icon-calendar",
+//                "order": 12
+//            }
+//        ],
+//        "requiredPrivilege": "App: appointmentschedulingui.viewAppointments"
+//    },
 
 ]

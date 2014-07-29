@@ -12,6 +12,8 @@
 
 var breadcrumbs = [
     { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
+    { label: "${ ui.message("appointmentschedulingui.home.title") }",
+        link: '${ ui.pageLink("appointmentschedulingui", "home") }' },
     { label: "${ ui.message("appointmentschedulingui.appointmenttype.label")}" }
 ];
 
