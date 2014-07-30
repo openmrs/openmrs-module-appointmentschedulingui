@@ -13,8 +13,7 @@
                 "requiredPrivilege": "App: appointmentschedulingui.home"
             }
         ],
-        "requiredPrivilege": "App: appointmentschedulingui.home",
-        "featureToggle": "new_appointment_scheduling_ui"
+        "requiredPrivilege": "App: appointmentschedulingui.home"
     },
     {
         "id": "appointmentschedulingui.schedulingAppointmentApp",
