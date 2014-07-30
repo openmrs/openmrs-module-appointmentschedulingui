@@ -13,28 +13,32 @@
 <div id="apps">
 
     <% if (context.hasPrivilege("App: appointmentschedulingui.scheduleAdmin")) { %>
-        <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "manageAppointmentTypes") }">
+        <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "manageAppointmentTypes") }"
+                id="appointmentschedulingui-manageAppointmentTypes-app">
             <i class="icon-calendar"></i>
             ${ ui.message("appointmentschedulingui.appointmenttype.label") }
         </a>
     <% } %>
 
     <% if (context.hasPrivilege("App: appointmentschedulingui.scheduleAdmin")) { %>
-        <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "scheduleProviders") }">
+        <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "scheduleProviders") }"
+                id="appointmentschedulingui-scheduleProviders-app">
             <i class="icon-calendar"></i>
             ${ ui.message("appointmentschedulingui.scheduleProviders.app.title") }
         </a>
     <% } %>
 
     <% if (context.hasPrivilege("App: appointmentschedulingui.bookAppointments")) { %>
-        <a class="button app big" href="${ ui.pageLink("coreapps", "findpatient/findPatient", [app: "appointmentschedulingui.schedulingAppointmentApp"]) }">
+        <a class="button app big" href="${ ui.pageLink("coreapps", "findpatient/findPatient", [app: "appointmentschedulingui.schedulingAppointmentApp"]) }"
+                id="appointmentschedulingui-schedulingAppointmentAppLink-app">
             <i class="icon-calendar"></i>
             ${ ui.message("appointmentschedulingui.scheduleAppointment.buttonTitle") }
         </a>
     <% } %>
 
     <% if (context.hasPrivilege("App: appointmentschedulingui.viewAppointments")) { %>
-        <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "dailyScheduledAppointments") }">
+        <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "dailyScheduledAppointments") }"
+                id="appointmentschedulingui-scheduledAppointments-homepageLink-app">
             <i class="icon-calendar"></i>
             ${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }
         </a>
