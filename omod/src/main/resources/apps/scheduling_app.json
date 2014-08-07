@@ -34,7 +34,7 @@
                 "extensionPointId": "patientDashboard.overallActions",
                 "type": "link",
                 "label": "appointmentschedulingui.scheduleAppointment.title",
-                "url": "/appointmentschedulingui/scheduleAppointment.page?patientId={{patientId}}",
+                "url": "/appointmentschedulingui/scheduleAppointment.page?patientId={{patient.uuid}}",
                 "icon": "icon-calendar",
                 "order": 20,
                 "requiredPrivilege": "App: appointmentschedulingui.bookAppointments"
