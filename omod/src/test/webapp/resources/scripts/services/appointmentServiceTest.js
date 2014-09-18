@@ -13,8 +13,10 @@ describe('AppointmentService tests', function() {
     var deferredAppointmentBlockDelete;
     var deferredAppointmentQuery;
     var deferredAppointmentSave;
+    var deferredAppointmentRequestGet;
+    var deferredAppointmentRequestSave;
+    var deferredAppointmentRequestDelete;
     var deferredDataSetGet;
-
 
     beforeEach(module('appointmentscheduling.appointmentService'));
 
@@ -113,6 +115,40 @@ describe('AppointmentService tests', function() {
         return promise_mock;
     })
 
+    // create mock AppointmentRequest resource
+    var mockAppointmentRequest = jasmine.createSpyObj('AppointmentBlock', ['get', 'save', 'delete']);
+    mockAppointmentRequest.get.andCallFake(function() {
+
+        deferredAppointmentRequestGet = q.defer();
+
+        var promise_mock = {
+            $promise: deferredAppointmentRequestGet.promise
+        }
+
+        return promise_mock;et
+    })
+    mockAppointmentRequest.save.andCallFake(function() {
+
+        deferredAppointmentRequestSave = q.defer();
+
+        var promise_mock = {
+            $promise: deferredAppointmentRequestSave.promise
+        }
+
+        return promise_mock;
+    })
+    mockAppointmentRequest.delete.andCallFake(function() {
+
+        deferredAppointmentRequestDelete = q.defer();
+
+        var promise_mock = {
+            $promise: deferredAppointmentRequestDelete.promise
+        }
+
+        return promise_mock;
+    })
+
+
     var mockDataSet = jasmine.createSpyObj('DataSet', ['get']);
     mockDataSet.get.andCallFake(function () {
 
@@ -134,6 +170,7 @@ describe('AppointmentService tests', function() {
         $provide.value('Appointment', mockAppointment);
         $provide.value('AppointmentAllowingOverbook', mockAppointmentAllowingOverbook);
         $provide.value('AppointmentBlock', mockAppointmentBlock);
+        $provide.value('AppointmentRequest', mockAppointmentRequest);
         $provide.value('DataSet', mockDataSet);
     }));
 
@@ -275,6 +312,22 @@ describe('AppointmentService tests', function() {
         expect(appointments.length).toBe(1);
         expect(appointments[0].display).toBe("some_appointment");
     }));
+
+
+    it('should call AppointmnetRequest resource get with appointment request uuid', function() {
+        appointmentService.getAppointmentRequest("123abc");
+        expect(mockAppointmentRequest.get).toHaveBeenCalledWith({'uuid': '123abc'});
+    });
+
+    it('should call AppointmnetRequest resource save with appointment request value', function() {
+        appointmentService.saveAppointmentRequest({'patient': '456', 'provider': '123', 'appointmentType': 'abc'});
+        expect(mockAppointmentRequest.save).toHaveBeenCalledWith({'patient': '456', 'provider': '123', 'appointmentType': 'abc'});
+    });
+
+    it('should call AppointmentRequest resource delete with appointment request uuid', function() {
+        appointmentService.deleteAppointmentRequest("123abc");
+        expect(mockAppointmentRequest.delete).toHaveBeenCalledWith({'uuid': '123abc'});
+    });
 
     it('should call DataSet resource with query values', inject(function($rootScope) {
 

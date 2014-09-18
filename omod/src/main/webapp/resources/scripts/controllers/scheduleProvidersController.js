@@ -1,5 +1,5 @@
-angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppointmentTypesApp',
-        'appointmentscheduling.appointmentService', 'providerService','locationService','uicommons.RESTUtils','ui.bootstrap', 'ui.calendar' ])
+
+angular.module('appointmentscheduling.scheduleProviders')
     .controller('ScheduleProvidersCtrl', function ($scope, $filter, AppointmentService, ProviderService, LocationService, RESTErrorResponse) {
 
         /**

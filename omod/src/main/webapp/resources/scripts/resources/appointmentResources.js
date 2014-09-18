@@ -57,8 +57,22 @@ appointmentResource.factory('AppointmentBlock', function($resource) {
     });
 });
 
+appointmentResource.factory('AppointmentRequest', function($resource) {
+    return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/appointmentrequest/:uuid", {
+        'uuid' : '@uuid'
+    },{
+        query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
+    });
+});
+
+appointmentResource.factory('TimeFrameUnits', function($resource) {
+    return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/appointmentscheduling/timeframeunits/", {
+    },{
+        query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
+    });
+});
+
 appointmentResource.factory('DataSet', function($resource) {
-    // note that we are using the appointmentblockwithtimeslot resource to keep the timeslot in sync with the appointment block
     return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/reportingrest/dataSet/:uuid", {
         'uuid' : '@uuid'
     },{

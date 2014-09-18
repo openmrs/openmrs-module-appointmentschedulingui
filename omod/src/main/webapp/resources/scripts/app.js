@@ -15,3 +15,8 @@ angular.module('dailyAppointmentsHelper', []);
 angular.module('appointmentscheduling.dailyAppointments', ['appointmentscheduling.appointmentService', 'locationService',
     'ui.bootstrap', 'ngGrid', 'ngGridHelper', 'uicommons.RESTUtils', 'dailyAppointmentsHelper',
     'selectMultipleAppointmentTypesApp']);
+
+angular.module('appointmentscheduling.requestAppointment', ['appointmentscheduling.appointmentService', 'providerService', 'ui.bootstrap']);
+
+angular.module('appointmentscheduling.scheduleProviders', ['selectMultipleAppointmentTypesApp',
+    'appointmentscheduling.appointmentService', 'providerService','locationService','uicommons.RESTUtils','ui.bootstrap', 'ui.calendar' ]);

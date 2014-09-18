@@ -1,5 +1,6 @@
 angular.module('appointmentscheduling.appointmentService', ['appointmentscheduling.appointmentResources'])
-    .factory('AppointmentService', function(Appointment, AppointmentType, AppointmentStatusType, AppointmentBlock, TimeSlot, AppointmentAllowingOverbook, DataSet) {
+    .factory('AppointmentService', function(Appointment, AppointmentType, AppointmentStatusType, AppointmentBlock,
+                                            TimeSlot, AppointmentAllowingOverbook, AppointmentRequest, TimeFrameUnits, DataSet) {
 
         return {
 
@@ -18,10 +19,9 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
             },
 
             /**
-             * Fetches Appointment Status Types
+             * Fetches All Appointment Status Types
              *
-             * @param searchString a string to search against
-             * @returns $promise of array of matching appointment status types (REST full representation by default)
+             * @returns $promise of array of all appointment status types
              */
             getAppointmentStatusTypes: function() {
                 return AppointmentStatusType.query().$promise
@@ -165,6 +165,52 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return DataSet.get(params).$promise
                     .then(function(res) {
                         return res;   // the dataset resource does not return a "results" top-level key
+                    }, emr.handleNotLoggedIn);
+
+            },
+
+            /**
+             * Gets the Appointment Request with the given uuid
+             *
+             * @param appointmentRequest
+             * @returns $promise with the result of the get
+             */
+            getAppointmentRequest: function(appointmentRequestUuid)  {
+                return AppointmentRequest.get({ 'uuid': appointmentRequestUuid }).$promise
+                    .catch(emr.handleNotLoggedIn);
+            },
+
+            /**
+             * Saves the passed in Appointment Request
+             *
+             * @param appointmentRequest
+             * @returns $promise with the result of the save
+             */
+            saveAppointmentRequest: function(appointmentRequest)  {
+                return AppointmentRequest.save(appointmentRequest).$promise
+                    .catch(emr.handleNotLoggedIn);
+            },
+
+            /**
+             * Deletes the passed Appointment Request
+             *
+             * @param appointmentRequestUuid
+             * @returns $promise with result of the delete
+             */
+            deleteAppointmentRequest: function(appointmentRequestUuid) {
+                return AppointmentRequest.delete({ 'uuid': appointmentRequestUuid }).$promise
+                    .catch(emr.handleNotLoggedIn);
+            },
+
+            /**
+             * Fetches All TimeFrameUnits
+             *
+             * @returns $promise of array of all time frame units
+             */
+            getTimeFrameUnits: function() {
+                return TimeFrameUnits.query().$promise
+                    .then(function(res) {
+                        return res.results;
                     }, emr.handleNotLoggedIn);
 
             }

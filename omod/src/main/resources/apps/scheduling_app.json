@@ -52,7 +52,7 @@
             ]
         },
         "requiredPrivilege": "App: appointmentschedulingui.viewAppointments"
-    }
+    },
 //    ,
 //    {
 //        "id": "appointmentschedulingui.scheduledAppointments",
@@ -69,5 +69,24 @@
 //        ],
 //        "requiredPrivilege": "App: appointmentschedulingui.viewAppointments"
 //    },
+
+    {
+        "id": "appointmentschedulingui.requestAppointmentApp",
+
+        "extensions": [
+            {
+                "id": "appointmentschedulingui.requestAppointmentDashboardLink",
+                "extensionPointId": "patientDashboard.overallActions",
+                "type": "link",
+                "label": "appointmentschedulingui.requestAppointment.label",
+                "url": "/appointmentschedulingui/requestAppointment.page?patientId={{patient.uuid}}&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard",
+                "icon": "icon-calendar",
+                "order": 20,
+                "requiredPrivilege": "App: appointmentschedulingui.bookAppointments"  // change to new requestAppointments privilege
+                // add a feature toggle
+            }
+        ],
+        "requiredPrivilege": "App: appointmentschedulingui.bookAppointments"// change to new requestAppointments privilege
+    }
 
 ]
