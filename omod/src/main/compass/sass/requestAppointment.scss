@@ -1,4 +1,22 @@
 
-.create-appointment-request input, .create-appointment-request textarea{
-  min-width: 0;
+.create-appointment-request {
+
+  min-width:0;
+
+  #appointment-type, #provider {
+    min-width: 400px;
+  }
+
+  #min-time-frame-value, #max-time-frame-value, #min-time-frame-units, #max-time-frame-units {
+    display: inline-block;
+  }
+
+  #min-time-frame-value, #max-time-frame-value {
+    min-width: 0%;
+  }
+
+  #notes {
+    min-width: 400px;
+    height: 100px;
+  }
 }

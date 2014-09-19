@@ -37,7 +37,8 @@
                 "url": "/appointmentschedulingui/scheduleAppointment.page?patientId={{patient.uuid}}",
                 "icon": "icon-calendar",
                 "order": 20,
-                "requiredPrivilege": "App: appointmentschedulingui.bookAppointments"
+                "requiredPrivilege": "Task: appointmentschedulingui.bookAppointments",
+                "featureToggle": "requestAppointments"
             }
         ],
         "config": {
@@ -82,11 +83,11 @@
                 "url": "/appointmentschedulingui/requestAppointment.page?patientId={{patient.uuid}}&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard",
                 "icon": "icon-calendar",
                 "order": 20,
-                "requiredPrivilege": "App: appointmentschedulingui.bookAppointments"  // change to new requestAppointments privilege
-                // add a feature toggle
+                "requiredPrivilege": "Task: appointmentschedulingui.requestAppointments",  // change to new requestAppointments privilege
+                "featureToggle": "requestAppointments"
             }
-        ],
-        "requiredPrivilege": "App: appointmentschedulingui.bookAppointments"// change to new requestAppointments privilege
+        ]
+        // TODO add an overall privilege for this app if we start to use it outside of the patient dashboard overall actions link
     }
 
 ]

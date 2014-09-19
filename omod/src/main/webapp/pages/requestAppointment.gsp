@@ -52,32 +52,31 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
         <p>
             <label> ${ ui.message("appointmentschedulingui.requestAppointment.selectAppointmentType") }</label>
-            <input type="text" ng-model="appointmentRequest.appointmentType" typeahead="appointmentType as appointmentType.display for appointmentType in getAppointmentTypes(\$viewValue) | filter: \$viewValue | limitTo:8" >
+            <input id="appointment-type" type="text" ng-model="appointmentRequest.appointmentType" typeahead-editable="false" typeahead="appointmentType as appointmentType.display for appointmentType in getAppointmentTypes(\$viewValue) | filter: \$viewValue | limitTo:8" >
         </p>
 
         <p>
             <label> ${ ui.message("appointmentschedulingui.requestAppointment.selectProvider") }</label>
-            <input type="text" ng-model="appointmentRequest.provider" typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | filter: \$viewValue | limitTo:8" />
+            <input id="provider" type="text" ng-model="appointmentRequest.provider" typeahead-editable="false" typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | filter: \$viewValue | limitTo:8" />
         </p>
 
         <p>
             <label> ${ ui.message("appointmentschedulingui.requestAppointment.selectMinTimeFrame") }</label>
-            <input type="text" ng-model="appointmentRequest.minTimeFrameValue" />
-            <select ng-model="appointmentRequest.minTimeFrameUnits"  ng-options="t.value as t.display for t in timeFrameUnits">
-
+            <input id="min-time-frame-value" type="text" ng-model="appointmentRequest.minTimeFrameValue" size="2" maxlength="2"/>
+            <select id="min-time-frame-units" ng-model="appointmentRequest.minTimeFrameUnits"  ng-options="t.value as t.display for t in timeFrameUnits">
             </select>
         </p>
 
         <p>
             <label> ${ ui.message("appointmentschedulingui.requestAppointment.selectMaxTimeFrame") }</label>
-            <input type="text" ng-model="appointmentRequest.maxTimeFrameValue" />
-            <select ng-model="appointmentRequest.maxTimeFrameUnits" ng-options="t.value as t.display for t in timeFrameUnits">
+            <input id="max-time-frame-value" type="text" ng-model="appointmentRequest.maxTimeFrameValue" size="2" maxlength="2"/>
+            <select id="max-time-frame-units" ng-model="appointmentRequest.maxTimeFrameUnits" ng-options="t.value as t.display for t in timeFrameUnits">
             </select>
         </p>
 
         <p>
             <label>${ ui.message("appointmentschedulingui.requestAppointment.notes") } </label>
-            <textarea ng-model="appointmentRequest.notes"></textarea>
+            <textarea id="notes" ng-model="appointmentRequest.notes"></textarea>
         </p>
 
         <div>

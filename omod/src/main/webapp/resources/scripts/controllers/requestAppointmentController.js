@@ -4,7 +4,7 @@ angular.module('appointmentscheduling.requestAppointment')
 
         // TODO handle editing a request form
         // TODO validation on field exit of the actual values of the days/months/years; max greater than min, value not a number
-        // TODO formatting
+        // TODO better error handling--catch if bad response
 
         $scope.appointmentRequest = {};
 

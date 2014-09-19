@@ -82,5 +82,11 @@
         <description>Ability to overbook time slots</description>
     </privilege>
 
+
+    <privilege>
+        <name>Task: appointmentschedulingui.requestAppointments</name>
+        <description>Ability to request an appointment for a patient</description>
+    </privilege>
+
 </module>
 
