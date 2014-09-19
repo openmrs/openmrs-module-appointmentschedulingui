@@ -18,9 +18,17 @@
 
     ui.includeCss("appointmentschedulingui", "requestAppointment.css")
 
+
+    def returnUrl;
+
+    if (returnProvider && returnPage) {
+        returnUrl = ui.pageLink(returnProvider, returnPage, [patientId: patient.patient.id])
+    }
+
 %>
 
 <%= ui.includeFragment("appui", "messages", [ codes: [
+        'appointmentschedulingui.requestAppointment.errorRequestingAppointment',
         'appointmentschedulingui.timeframeunits.DAYS',
         'appointmentschedulingui.timeframeunits.WEEKS',
         'appointmentschedulingui.timeframeunits.MONTHS',
@@ -28,12 +36,13 @@
 ].flatten()
 ]) %>
 
+<!-- TODO better handle the breadcrumb format if this page is going to have multiple entry points? -->
 
 <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("appointmentschedulingui.requestAppointment.label")}" },
-        { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" }
+        { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }", link: "${ returnUrl ? ui.escapeJs(returnUrl) : ''}" },
+        { label: "${ ui.message("appointmentschedulingui.requestAppointment.label")}" }
     ];
 
 </script>
@@ -61,15 +70,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         </p>
 
         <p>
-            <label> ${ ui.message("appointmentschedulingui.requestAppointment.selectMinTimeFrame") }</label>
-            <input id="min-time-frame-value" type="text" ng-model="appointmentRequest.minTimeFrameValue" size="2" maxlength="2"/>
+            <label> ${ ui.message("appointmentschedulingui.requestAppointment.selectTimeFrame") }</label>
+            <input id="min-time-frame-value" type="text" ng-model="appointmentRequest.minTimeFrameValue" ng-change="verifyTimeFrameValues()" size="2" maxlength="2" />
             <select id="min-time-frame-units" ng-model="appointmentRequest.minTimeFrameUnits"  ng-options="t.value as t.display for t in timeFrameUnits">
             </select>
-        </p>
-
-        <p>
-            <label> ${ ui.message("appointmentschedulingui.requestAppointment.selectMaxTimeFrame") }</label>
-            <input id="max-time-frame-value" type="text" ng-model="appointmentRequest.maxTimeFrameValue" size="2" maxlength="2"/>
+            ${ ui.message("appointmentschedulingui.requestAppointment.to") }
+            <input id="max-time-frame-value" type="text" ng-model="appointmentRequest.maxTimeFrameValue" size="2" maxlength="2" />
             <select id="max-time-frame-units" ng-model="appointmentRequest.maxTimeFrameUnits" ng-options="t.value as t.display for t in timeFrameUnits">
             </select>
         </p>
@@ -80,7 +86,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         </p>
 
         <div>
-            <input type="button" class="cancel" value="${ ui.message("appointmentschedulingui.appointmenttype.cancel") }"  />
+            <input type="button" class="cancel" value="${ ui.message("appointmentschedulingui.appointmenttype.cancel") }" ng-click="cancel()" />
             <input type="button" class="confirm" ng-disabled="!validateAppointmentRequest()" id="save-button" ng-click="saveAppointmentRequest()" value="${ ui.message("appointmentschedulingui.appointmenttype.save") }"  />
         </div>
     </form>

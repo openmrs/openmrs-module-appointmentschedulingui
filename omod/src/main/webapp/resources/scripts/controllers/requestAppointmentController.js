@@ -3,9 +3,7 @@ angular.module('appointmentscheduling.requestAppointment')
     .controller('RequestAppointmentCtrl', function ($scope, AppointmentService, ProviderService) {
 
         // TODO handle editing a request form
-        // TODO validation on field exit of the actual values of the days/months/years; max greater than min, value not a number
-        // TODO better error handling--catch if bad response
-
+        // TODO validation on field exit of the actual values of the days/months/years; max greater than min
         $scope.appointmentRequest = {};
 
         $scope.timeFrameUnits = [ {} ];
@@ -33,7 +31,7 @@ angular.module('appointmentscheduling.requestAppointment')
             return AppointmentService.getAppointmentTypes(searchString);
         }
 
-        // backing function for the provider automcomplete
+        // backing function for the provider autocomplete
         $scope.getProviders = function (searchString) {
             // TODO sort???
             return ProviderService.getProviders({'q': searchString, 'v': 'default'});
@@ -48,6 +46,18 @@ angular.module('appointmentscheduling.requestAppointment')
                     || (!$scope.appointmentRequest.maxTimeFrameUnits && !$scope.appointmentRequest.maxTimeFrameValue) );
         }
 
+        $scope.verifyTimeFrameValues = function() {
+
+            if (isNaN($scope.appointmentRequest.minTimeFrameValue)) {
+                $scope.appointmentRequest.minTimeFrameValue = '';
+            }
+
+            if (isNaN($scope.appointmentRequest.maxTimeFrameValue)) {
+                $scope.appointmentRequest.maxTimeFrameValue = '';
+
+            }
+
+        }
 
         $scope.saveAppointmentRequest = function() {
 
@@ -70,16 +80,27 @@ angular.module('appointmentscheduling.requestAppointment')
             }
 
             AppointmentService.saveAppointmentRequest(appointmentRequestToSave).then(function() {
-                emr.navigateTo({
-                    provider: $scope.returnProvider,
-                    page: $scope.returnPage,
-                    query: { patientId: $scope.appointmentRequest.patient }
-                });
+                // success callback
+                redirectToReturnPage();
+            }).
+            catch(function () {
+                // error callback
+                emr.errorMessage("appointmentschedulingui.requestAppointment.errorRequestingAppointment");
             })
 
-            // TODO handle failure case
 
         }
 
+        $scope.cancel = function () {
+            redirectToReturnPage();
+        }
+
+        var redirectToReturnPage = function () {
+            emr.navigateTo({
+                provider: $scope.returnProvider,
+                page: $scope.returnPage,
+                query: { patientId: $scope.appointmentRequest.patient }
+            });
+        }
 
     });
