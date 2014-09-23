@@ -22,6 +22,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 $scope.$emit('appointmentscheduling.cancelAppointment.success', eventData);
             }).catch(function (e) {
                     // error callback
+                    console.log(e);
                     emr.errorMessage("appointmentschedulingui.scheduleAppointment.errorCancelingAppointment");
                 })
             $scope.appointmentToCancel = null;
