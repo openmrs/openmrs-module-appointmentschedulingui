@@ -36,8 +36,10 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 { field: 'timeSlot.appointmentBlock.location.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.location") },
                 { field: 'displayStatus', width: '15%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.status") },
                 { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canBook && isCancellable(row.getProperty(\'status\'))" ng-click="cancelAppointment(row.getProperty(\'uuid\'))" ' +
-                    'title="{{ row.getProperty(\'tooltip\') }}"></i></span>'  }
-            ]};
+                    'title="{{ row.getProperty(\'tooltip\') }}"></i></span>'  }],
+            plugins: [new ngGridFlexibleHeightPlugin()]
+
+        };
 
 
         var getSearchParams = function () {
