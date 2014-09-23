@@ -54,7 +54,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                     $scope.showAppointmentRequests = $scope.appointmentRequests && $scope.appointmentRequests.length > 0;
                 })
                     .catch(function(e) {
-                        console.log(e);
+                        // TODO something?
                     });
             }
 
@@ -82,7 +82,6 @@ angular.module('appointmentscheduling.scheduleAppointment')
                     $scope.findAppointmentRequests();  // reload
                 }).catch(function (e) {
                         // error callback
-                        console.log(e);
                         $scope.appointmentRequestToCancel = null;
                         emr.errorMessage("appointmentschedulingui.scheduleAppointment.errorCancelingAppointmentRequest");
                     })

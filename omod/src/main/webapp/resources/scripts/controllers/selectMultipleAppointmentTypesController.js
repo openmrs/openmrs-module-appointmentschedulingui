@@ -90,7 +90,6 @@ angular.module('selectMultipleAppointmentTypesApp')
             }
 
             $scope.update = function() {
-                console.log('Update called');
                 $scope.appointmentType = ''
                 $scope.appointmentType.length = 1;
 

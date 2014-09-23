@@ -76,7 +76,6 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 $scope.updateFilter();
             })
             .catch(function(e) {
-                console.log(e);
                 emr.errorMessage("appointmentschedulingui.scheduleAppointment.invalidSearchParameters");
             });
         }
