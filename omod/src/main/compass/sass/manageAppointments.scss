@@ -63,9 +63,10 @@
   white-space: normal;
 }
 
-#appointmentGridTable, #appointmentRequestsGridTable {
-
-  width: 900px;
+#appointmentGridTable {
+  .col5{
+    text-align:center;
+  }
 
   .ngCell, .ngCellText {
     cursor: initial !important;
@@ -92,29 +93,6 @@
       color: #555;
     }
   }
-}
-
-#appointmentGridTable {
-
-  .col5{
-    text-align:center;
-  }
-
-}
-
-#appointmentRequestsGridTable {
-
-  .col3{
-    text-align:center;
-  }
-
-}
-
-#confirm-cancel-appointment-request {
-  position:absolute;
-  top:200px;
-  left:500px;
-  z-index:999;
 }
 
 .inline-box {

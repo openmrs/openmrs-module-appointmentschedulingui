@@ -155,12 +155,4 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 $scope.pagingOptions.currentPage = 1;
             }
         );
-
-        // currently, the patientAppointmentRequestsController emits this even when the user clicks on the
-        $scope.$on('appointmentscheduling.scheduleAppointment.bookAppointment', function(event, eventData) {
-            $scope.appointmentType = eventData.appointmentType;
-            $scope.filterText = eventData.provider ? eventData.provider.person.display : '';
-            $scope.findAvailableTimeSlots();
-        });
-
     }]);
