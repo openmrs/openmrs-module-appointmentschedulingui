@@ -225,11 +225,20 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
 
             /**
              * Marks an appointment request as CANCELLED
-             * @param appointment
+             * @param appointment request
              */
             cancelAppointmentRequest: function(appointmentRequest) {
-                appointmentRequest.status = 'CANCELLED';
-                return AppointmentRequest.save(appointmentRequest).$promise
+                return AppointmentRequest.save({ uuid: appointmentRequest.uuid, status: 'CANCELLED'}).$promise
+                    .catch(emr.handleNotLoggedIn);
+            },
+
+
+            /**
+             * Marks an appointment request as FULFILLED
+             * @param appointment
+             */
+            markAppointmentRequestFulfilled: function(appointmentRequest) {
+                return AppointmentRequest.save({ uuid: appointmentRequest.uuid, status: 'FULFILLED'}).$promise
                     .catch(emr.handleNotLoggedIn);
             },
 
