@@ -181,6 +181,27 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
             },
 
             /**
+             * Fetches Appointment Requests based on parameters in params map
+             *
+             * @param patient (optional) - The patient
+             * @param provider (optional) - The requested provider
+             * @param appointmentType (optional) - The request appointment type
+             * @param status (optional) - The appointment request status
+             * @return  $promise of array of matching appointment (REST default representation by default)
+             */
+            getAppointmentRequests: function(params) {
+
+                if (params['v'] == undefined) {
+                    params['v'] = 'default';
+                }
+
+                return AppointmentRequest.query(params).$promise
+                    .then(function(res) {
+                        return res.results;
+                    }, emr.handleNotLoggedIn);
+            },
+
+            /**
              * Saves the passed in Appointment Request
              *
              * @param appointmentRequest
@@ -199,6 +220,16 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              */
             deleteAppointmentRequest: function(appointmentRequestUuid) {
                 return AppointmentRequest.delete({ 'uuid': appointmentRequestUuid }).$promise
+                    .catch(emr.handleNotLoggedIn);
+            },
+
+            /**
+             * Marks an appointment request as CANCELLED
+             * @param appointment
+             */
+            cancelAppointmentRequest: function(appointmentRequest) {
+                appointmentRequest.status = 'CANCELLED';
+                return AppointmentRequest.save(appointmentRequest).$promise
                     .catch(emr.handleNotLoggedIn);
             },
 
