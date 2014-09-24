@@ -1,8 +1,6 @@
 angular.module('appointmentscheduling.scheduleAppointment')
     .controller('ConfirmAppointmentCtrl', ['$scope', 'AppointmentService', function ($scope, AppointmentService) {
 
-        // this controller expects to inherit scope from another controller (ie, the schedule appointment controller)
-
         $scope.appointmentReason = '';
 
         $scope.init = function(patientUuid, canOverbook) {
@@ -52,18 +50,12 @@ angular.module('appointmentscheduling.scheduleAppointment')
 
             AppointmentService.saveAppointment(appointment,  $scope.canOverbook).then(function() {
 
-                // if an associated appointment request has been set (would be set in the parent scope (scheduleAppointmentController), mark it as fulfilled
-                if ($scope.selectedAppointmentRequest && $scope.selectedAppointmentRequest.appointmentType.uuid == $scope.appointmentType.uuid) {
-                    AppointmentService.markAppointmentRequestFulfilled($scope.selectedAppointmentRequest);
-                }
-
                 // success callback
                 emr.navigateTo({
                     provider: 'appointmentschedulingui',
                     page: 'sessionInfo',
                     query: { patientUuid: $scope.patientUuid }
                 });
-
             }).catch(function () {
                     // error callback
                     emr.errorMessage("appointmentschedulingui.scheduleAppointment.errorSavingAppointment");

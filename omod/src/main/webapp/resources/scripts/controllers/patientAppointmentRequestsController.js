@@ -67,7 +67,8 @@ angular.module('appointmentscheduling.scheduleAppointment')
             $scope.bookAppointment = function(row) {
 
                 var eventData = {
-                    appointmentRequest: row.entity
+                    appointmentType: row.entity.appointmentType,
+                    provider: row.entity.provider
                 };
 
                 // picked up by the schedule appointment controller
@@ -91,12 +92,6 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 $scope.appointmentRequestToCancel = null;
                 $scope.showCancelAppointmentRequest = false;
             }
-
-            /*// the parent schedule appointment scope can call this to tell the appointment requests grid to de-select all items
-            $scope.$on('appointmentscheduling.patientAppointmentRequests.deselectAppointmentRequests', function() {
-                $scope.appointmentRequestsGrid.selectedItems = [];
-                angular.element("#appointmentRequestsGridTable div.selected").removeClass("selected");
-            });*/
 
         }])
 

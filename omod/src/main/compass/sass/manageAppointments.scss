@@ -63,11 +63,9 @@
   white-space: normal;
 }
 
-#appointmentGridTable {
+#appointmentGridTable, #appointmentRequestsGridTable {
 
   width: 900px;
-
-  // turn off row highlighting in this table
 
   .ngCell, .ngCellText {
     cursor: initial !important;
@@ -106,8 +104,6 @@
 
 #appointmentRequestsGridTable {
 
-  width: 900px;
-
   .col3{
     text-align:center;
   }
@@ -115,6 +111,9 @@
 }
 
 #confirm-cancel-appointment-request {
+  position:absolute;
+  top:200px;
+  left:500px;
   z-index:999;
 }
 
