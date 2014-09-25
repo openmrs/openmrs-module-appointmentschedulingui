@@ -35,7 +35,8 @@ angular.module('appointmentscheduling.scheduleAppointment')
                             { field: 'appointmentBlock.location.display', displayName: emr.message('uicommons.location') },
                             { field: 'appointments', displayName: emr.message('appointmentschedulingui.scheduleAppointment.appointments'),
                                     cellTemplate: "<div>{{ row.getProperty(\'countOfAppointments\') }} " + emr.message('appointmentschedulingui.scheduleAppointment.scheduled')
-                                        + "<br/>({{ row.getProperty(\'unallocatedMinutesAbsValue\') }} {{ row.getProperty(\'minutesMessage\') }})</div>" } ]
+                                        + "<br/>({{ row.getProperty(\'unallocatedMinutesAbsValue\') }} {{ row.getProperty(\'minutesMessage\') }})</div>" } ],
+            plugins: [new ngGridFlexibleHeightPlugin()]
         };
 
         $scope.init = function(patientUuid) {
@@ -156,10 +157,19 @@ angular.module('appointmentscheduling.scheduleAppointment')
             }
         );
 
-        // currently, the patientAppointmentRequestsController emits this even when the user clicks on the
+        $scope.$watch(
+            "appointmentType",
+            function() {
+                clearPreviousResults();
+                $scope.showTimeSlotsGrid = false;
+            }
+        );
+
+        // currently, the patientAppointmentRequestsController emits this event when the user clicks on the "book" icon associated with an appointment request
         $scope.$on('appointmentscheduling.scheduleAppointment.bookAppointment', function(event, eventData) {
-            $scope.appointmentType = eventData.appointmentType;
-            $scope.filterText = eventData.provider ? eventData.provider.person.display : '';
+            $scope.selectedAppointmentRequest = eventData.appointmentRequest;  // set so that we know to mark this request as fulfilled when booking an appointment
+            $scope.appointmentType = eventData.appointmentRequest.appointmentType;
+            $scope.filterText = eventData.appointmentRequest.provider ? eventData.appointmentRequest.provider.person.display : '';
             $scope.findAvailableTimeSlots();
         });
 
