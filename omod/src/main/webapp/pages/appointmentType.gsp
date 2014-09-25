@@ -41,6 +41,17 @@
                 initialValue: (appointmentType.duration ?: '')
         ])}
 
+        ${ ui.includeFragment("uicommons", "field/radioButtons", [
+                label: ui.message("appointmentschedulingui.appointmenttype.confidential"),
+                formFieldName: "confidential",
+                options: [
+                        [ value: "false", label: ui.message("emr.no") ],
+                        [ value: "true", label: ui.message("emr.yes") ]
+                ],
+                id: "confidential",
+                initialValue: (appointmentType.confidential?.toString() ?: "false")
+        ])}
+
         ${ ui.includeFragment("emr", "field/textarea", [
                 label: ui.message("appointmentschedulingui.appointmenttype.optionalDescription"),
                 formFieldName: "description",
@@ -50,9 +61,11 @@
 
     <input type="hidden" value="${ appointmentType.uuid }" name="uuid">
 
+    <br/>
+
     <div>
+        <input type="button" class="confirm right" id="save-button" value="${ ui.message("appointmentschedulingui.appointmenttype.save") }"  />
         <input type="button" class="cancel" value="${ ui.message("appointmentschedulingui.appointmenttype.cancel") }" onclick="javascript:window.location='/${ contextPath }/appointmentschedulingui/manageAppointmentTypes.page'" />
-        <input type="button" class="confirm" id="save-button" value="${ ui.message("appointmentschedulingui.appointmenttype.save") }"  />
     </div>
 
 </form>

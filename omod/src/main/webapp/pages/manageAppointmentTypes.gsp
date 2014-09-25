@@ -47,9 +47,12 @@ jq( function(){
             <thead>
             <tr>
                 <th style="width: 40%">${ ui.message("appointmentschedulingui.appointmenttype.name") }</th>
-                <th style="width: 15%">${ ui.message("appointmentschedulingui.appointmenttype.duration") }</th>
+                <th style="width: 10%">${ ui.message("appointmentschedulingui.appointmenttype.duration") }</th>
+                <% if (featureToggles.isFeatureEnabled("appointmentscheduling.confidential")) { %>
+                    <th style="width: 10%">${ ui.message("appointmentschedulingui.appointmenttype.confidential") }</th>
+                <% } %>
                 <th style="width: 30%">${ ui.message("appointmentschedulingui.appointmenttype.description") }</th>
-                <th style="width: 15%">${ ui.message("appointmentschedulingui.appointmenttype.actions") }</th>
+                <th style="width: 10%">${ ui.message("appointmentschedulingui.appointmenttype.actions") }</th>
             </tr>
             </thead>
             <tbody>
@@ -58,6 +61,9 @@ jq( function(){
             <tr>
                 <td>${ ui.format(appointmentType.name) }</td>
                 <td>${ ui.format(appointmentType.duration) }</td>
+                <% if (featureToggles.isFeatureEnabled("appointmentscheduling.confidential")) { %>
+                    <td>${ ui.message("emr." + (appointmentType.confidential ? "yes" : "no")) }</td>
+                <% } %>
                 <td>${ ui.format(appointmentType.description)}</td>
                 <td class="align-center">
                     <span>
