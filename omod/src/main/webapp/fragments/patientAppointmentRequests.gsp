@@ -30,6 +30,7 @@
         'appointmentschedulingui.scheduleAppointment.actions',
         'appointmentschedulingui.scheduleAppointment.cancelAppointmentRequest.tooltip',
         'appointmentschedulingui.scheduleAppointment.bookAppointment.tooltip',
+        'appointmentschedulingui.scheduleAppointment.showNotes.tooltip',
         'appointmentschedulingui.scheduleAppointment.errorCancelingAppointmentRequest',
         'appointmentschedulingui.timeframeunits.DAYS',
         'appointmentschedulingui.timeframeunits.WEEKS',
@@ -65,5 +66,16 @@
             <button class="button cancel" ng-click="doNotCancelAppointmentRequest()"> ${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointmentRequest.confirm.no") }</button>
         </div>
     </div>
+
+    <div id="appointment-request-notes" class="dialog" ng-show="showNotesDialog">
+        <div class="dialog-header">
+            <h3>${ ui.message("appointmentschedulingui.scheduleAppointment.appointmentRequestNotes") }</h3>
+        </div>
+        <div class="dialog-content" ng-bind="notesDialogContent">
+
+        </div>
+        <button class="button confirm right" ng-click="closeNotesDialog()"> ${ ui.message("uicommons.close") }</button>
+    </div>
+
 </div>
 <!-- end of patient appointment requests -->

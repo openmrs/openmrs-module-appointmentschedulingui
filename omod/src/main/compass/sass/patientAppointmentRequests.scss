@@ -9,6 +9,15 @@
 
 }
 
+#confirm-cancel-appointment-request {
+  z-index:999;
+}
+
+#appointment-request-notes {
+  z-index:999;
+  height: 100px;
+}
+
 .inline-box {
   display: inline-block;
   padding: 5px;

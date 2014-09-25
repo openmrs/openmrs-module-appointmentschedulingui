@@ -10,6 +10,10 @@ angular.module('appointmentscheduling')
             $scope.appointmentRequestToCancel;
             $scope.appointmentRequests = [];
 
+            // for the notes dialog
+            $scope.showNotesDialog = false;
+            $scope.notesDialogContent = '';
+
             $scope.init = function(patientUuid, canBook) {
                 $scope.patientUuid = patientUuid;
                 $scope.canBook = canBook;
@@ -28,6 +32,8 @@ angular.module('appointmentscheduling')
                                 { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"),
                                     cellTemplate: '<span><i class="delete-item icon-calendar" ng-click="bookAppointment(row)" ' +
                                                     'title="{{ row.getProperty(\'bookAppointmentTooltip\') }}"></i></span>      ' +
+                                                    '<span><i class="delete-item icon-file" ng-click="openNotesDialog(row)" ' +
+                                                    'title="{{ row.getProperty(\'showNotesTooltip\') }}"></i></span>      ' +
                                                     '<span><i class="delete-item icon-remove" ng-click="cancelAppointmentRequest(row.getProperty(\'uuid\'))" ' +
                                                     'title="{{ row.getProperty(\'cancelRequestTooltip\') }}"></i></span>'}],
                 plugins: [new ngGridFlexibleHeightPlugin()]
@@ -46,6 +52,7 @@ angular.module('appointmentscheduling')
 
                         result['cancelRequestTooltip'] = emr.message("appointmentschedulingui.scheduleAppointment.cancelAppointmentRequest.tooltip");
                         result['bookAppointmentTooltip'] = emr.message("appointmentschedulingui.scheduleAppointment.bookAppointment.tooltip");
+                        result['showNotesTooltip'] = emr.message("appointmentschedulingui.scheduleAppointment.showNotes.tooltip");
                     });
 
 
@@ -90,6 +97,17 @@ angular.module('appointmentscheduling')
                 $scope.appointmentRequestToCancel = null;
                 $scope.showCancelAppointmentRequest = false;
             }
+
+            $scope.openNotesDialog = function(row) {
+                $scope.showNotesDialog = true;
+                $scope.notesDialogContent = row.entity.notes;
+            }
+
+            $scope.closeNotesDialog = function() {
+                $scope.showNotesDialog = false;
+                $scope.notesDialogContent = '';
+            }
+
 
             // events emitted by other controllers that this controller handles
 
