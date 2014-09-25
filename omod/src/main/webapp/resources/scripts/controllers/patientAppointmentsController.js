@@ -1,15 +1,18 @@
-angular.module('appointmentscheduling.scheduleAppointment')
+angular.module('appointmentscheduling')
     .controller('PatientAppointmentsCtrl', ['$scope', 'AppointmentService','filterFilter', 'ngGridHelper', 'dateRangePickerEventListener',
                                  function ($scope, AppointmentService, filterFilter, ngGridHelper, dateRangePickerEventListener) {
-        $scope.appointmentToCancel = null;
-        $scope.appointmentCancelReason = '';
 
+
+        $scope.showAppointments = true;
         $scope.showAppointmentsGrid = false;
         $scope.filteredAppointments = [];
         $scope.allAppointments = [];
         $scope.patient = {};
         $scope.pagingOptions = {};
         $scope.fromDate = new Date();
+
+        $scope.appointmentToCancel = null;
+        $scope.appointmentCancelReason = '';
 
         $scope.init = function(patientUuid, canBook) {
             $scope.patientUuid = patientUuid;
@@ -166,6 +169,18 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 }
             }
         );
+
+        // events emitted by other controllers that this controller handles
+
+        // hide display if the schedule appointment app opens it's confirm dialog
+        $scope.$on('appointmentscheduling.scheduleAppointment.openConfirmDialog', function(event, eventData) {
+             $scope.showAppointments = false;
+        });
+
+         // show display if the schedule appointment app closes it's confirm dialog
+         $scope.$on('appointmentscheduling.scheduleAppointment.cancelConfirmDialog', function(event, eventData) {
+             $scope.showAppointments = true;
+         });
 
     }])
 

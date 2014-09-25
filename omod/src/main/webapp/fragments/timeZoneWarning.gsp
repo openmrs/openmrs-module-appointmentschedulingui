@@ -5,13 +5,7 @@
 
 
 <script type="text/javascript">
-
     var serverTimeZoneOffset = ${ serverTimeZoneOffset };
-
-    angular.element(document).ready(function() {
-        angular.bootstrap(jq('#time-zone-warning'), ['appointmentscheduling.timeZoneWarning']);
-    });
-
 </script>
 
 

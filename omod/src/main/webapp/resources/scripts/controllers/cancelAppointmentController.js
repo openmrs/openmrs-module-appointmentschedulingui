@@ -1,4 +1,4 @@
-angular.module('appointmentscheduling.scheduleAppointment')
+angular.module('appointmentscheduling')
     .controller('CancelAppointmentCtrl', ['$scope', '$timeout', 'AppointmentService', function ($scope, $timeout, AppointmentService) {
 
 

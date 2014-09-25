@@ -4,7 +4,7 @@ describe('ConfirmAppointment Controller', function () {
         appointmentServiceMock,
         promise;
 
-    beforeEach(module('appointmentscheduling.scheduleAppointment'));
+    beforeEach(module('appointmentscheduling'));
     beforeEach(inject(function ($rootScope, $controller, $q) {
         promise = $q.defer().promise;
         appointmentServiceMock = jasmine.createSpyObj('appointmentServiceMock', ['saveAppointment']);

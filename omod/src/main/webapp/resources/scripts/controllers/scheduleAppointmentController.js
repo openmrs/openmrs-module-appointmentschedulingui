@@ -1,6 +1,6 @@
-angular.module('appointmentscheduling.scheduleAppointment')
-    .controller('ScheduleAppointmentCtrl',['$scope', 'AppointmentService', 'filterFilter',
-        'dateRangePickerEventListener', 'ngGridHelper', function ($scope, AppointmentService, filterFilter,
+angular.module('appointmentscheduling')
+    .controller('ScheduleAppointmentCtrl',['$scope', '$rootScope','AppointmentService', 'filterFilter',
+        'dateRangePickerEventListener', 'ngGridHelper', function ($scope, $rootScope, AppointmentService, filterFilter,
                                                      dateRangePickerEventListener, ngGridHelper) {
         $scope.filterText = '';
         $scope.timeSlots = [];
@@ -70,10 +70,13 @@ angular.module('appointmentscheduling.scheduleAppointment')
                         ? emr.message('appointmentschedulingui.scheduleAppointment.minutesOverbooked')
                         : emr.message('appointmentschedulingui.scheduleAppointment.minutesAvailable'));
                 })
+
                 initializeMessagesAfterSearch(results);
                 $scope.updateFilter();
+
                 $scope.searchButtonDisabled = false;
                 $scope.pagingOptions.currentPage = 1;
+
             })
             .catch(function() {
                 emr.errorMessage("appointmentschedulingui.scheduleAppointment.invalidSearchParameters");
@@ -129,6 +132,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
         ngGridHelper.includePagination($scope, $scope.timeSlotOptions, $scope.updateFilter);
 
         $scope.selectTimeSlot = function() {
+            $rootScope.$broadcast('appointmentscheduling.scheduleAppointment.openConfirmDialog'); // the patientAppointments and patientAppointmentRequest modules listen for this event and hide themselves when they receive it
             $scope.selectedTimeSlot = $scope.timeSlotOptions.selectedItems[0];
             $scope.showScheduleAppointment = false;
         }
@@ -147,6 +151,8 @@ angular.module('appointmentscheduling.scheduleAppointment')
         }
 
         $scope.cancelConfirmAppointment = function () {
+            $rootScope.$broadcast('appointmentscheduling.scheduleAppointment.cancelConfirmDialog'); // the patientAppointments and patientAppointmentRequest modules listen for this event and show themselves when they receive it
+            $scope.selectedTimeSlot = $scope.timeSlotOptions.selectedItems[0];
             $scope.showScheduleAppointment = true;
         }
 
@@ -165,8 +171,10 @@ angular.module('appointmentscheduling.scheduleAppointment')
             }
         );
 
+        // events emitted by other controllers that this controller handles
+
         // currently, the patientAppointmentRequestsController emits this event when the user clicks on the "book" icon associated with an appointment request
-        $scope.$on('appointmentscheduling.scheduleAppointment.bookAppointment', function(event, eventData) {
+        $scope.$on('appointmentscheduling.patientAppointmentRequests.requestSelected', function(event, eventData) {
             $scope.selectedAppointmentRequest = eventData.appointmentRequest;  // set so that we know to mark this request as fulfilled when booking an appointment
             $scope.appointmentType = eventData.appointmentRequest.appointmentType;
             $scope.filterText = eventData.appointmentRequest.provider ? eventData.appointmentRequest.provider.person.display : '';

@@ -4,7 +4,7 @@ describe('Cancel Appointment controller', function () {
         $timeout,
         mockAppointmentService, promise;
 
-    beforeEach(module('appointmentscheduling.scheduleAppointment'));
+    beforeEach(module('appointmentscheduling'));
     beforeEach(inject(function ($rootScope, $controller, $q, _$timeout_) {
 
         deferred = $q.defer();

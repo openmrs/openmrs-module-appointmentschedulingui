@@ -1,8 +1,6 @@
 <%
     def angularLocale = context.locale.toString().toLowerCase();
 
-    ui.decorateWith("appui", "standardEmrPage")
-
     ui.includeJavascript("uicommons", "angular.min.js")
     ui.includeJavascript("uicommons", "i18n/angular-locale_" + angularLocale + ".js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.6.0.min.js")
@@ -19,126 +17,39 @@
     ui.includeJavascript("appointmentschedulingui", "controllers/dateRangePickerController.js")
     ui.includeJavascript("appointmentschedulingui", "directives/dateRangePickerDirective.js")
     ui.includeJavascript("appointmentschedulingui", "services/dateRangePickerEventListener.js")
-    ui.includeJavascript("appointmentschedulingui", "factories" +
-            "/ngGridHelper.js")
+    ui.includeJavascript("appointmentschedulingui", "factories/ngGridHelper.js")
     ui.includeJavascript("appointmentschedulingui", "resources/appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/scheduleAppointmentController.js")
-    ui.includeJavascript("appointmentschedulingui", "controllers/patientAppointmentsController.js")
-    ui.includeJavascript("appointmentschedulingui", "controllers/patientAppointmentRequestsController.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/confirmAppointmentController.js")
 
     ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
-    ui.includeCss("appointmentschedulingui", "manageAppointments.css")
+    ui.includeCss("appointmentschedulingui", "gridStyle.css")
     ui.includeCss("appointmentschedulingui", "dateRangePicker.css")
 %>
 
 <%= ui.includeFragment("appui", "messages", [ codes: [
-    'uicommons.location',
-    'uicommons.provider',
-    'appointmentschedulingui.scheduleAppointment.timeSlot',
-    'appointmentschedulingui.scheduleAppointment.errorSavingAppointment',
-    'appointmentschedulingui.scheduleAppointment.invalidSearchParameters',
-    'appointmentschedulingui.scheduleAppointment.scheduled',
-    'appointmentschedulingui.scheduleAppointment.minutesAvailable',
-    'appointmentschedulingui.scheduleAppointment.minutesOverbooked',
-    'appointmentschedulingui.scheduleAppointment.appointments',
-    'appointmentschedulingui.scheduleAppointment.date',
-    'appointmentschedulingui.scheduleAppointment.provider',
-    'appointmentschedulingui.scheduleAppointment.location',
-    'appointmentschedulingui.scheduleAppointment.serviceType',
-    'appointmentschedulingui.scheduleAppointment.actions',
-    'appointmentschedulingui.scheduleAppointment.status',
-    'appointmentschedulingui.scheduleAppointment.status.type.scheduled',
-    'appointmentschedulingui.scheduleAppointment.status.type.active',
-    'appointmentschedulingui.scheduleAppointment.status.type.cancelled',
-    'appointmentschedulingui.scheduleAppointment.status.type.missed',
-    'appointmentschedulingui.scheduleAppointment.status.type.completed',
-    'appointmentschedulingui.scheduleAppointment.errorCancelingAppointment',
-    'appointmentschedulingui.scheduleAppointment.cancelAppointment.tooltip',
-    'appointmentschedulingui.scheduleAppointment.requestTimeFrame',
-    'appointmentschedulingui.scheduleAppointment.errorCancelingAppointmentRequest',
-    'appointmentschedulingui.timeframeunits.DAYS',
-    'appointmentschedulingui.timeframeunits.WEEKS',
-    'appointmentschedulingui.timeframeunits.MONTHS',
-    'appointmentschedulingui.timeframeunits.YEARS'
+        'uicommons.location',
+        'uicommons.provider',
+        'appointmentschedulingui.scheduleAppointment.timeSlot',
+        'appointmentschedulingui.scheduleAppointment.appointments',
+        'appointmentschedulingui.scheduleAppointment.scheduled',
+        'appointmentschedulingui.scheduleAppointment.minutesOverbooked',
+        'appointmentschedulingui.scheduleAppointment.minutesAvailable',
+        'appointmentschedulingui.scheduleAppointment.invalidSearchParameters'
 ].flatten()
 ]) %>
 
 
 <script type="text/javascript">
-    var breadcrumbs = [
-        { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("appointmentschedulingui.scheduleAppointment.buttonTitle")}",
-            link: '${ui.pageLink("coreapps", "findpatient/findPatient", [ app: 'appointmentschedulingui.schedulingAppointmentApp'])}' },
-        { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" }
-    ];
-
     var jsLocale = '${ angularLocale }';  // used by the ngGrid widget
-
 </script>
 
-${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
-<%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
-
-<div class="scheduleAppointment" ng-app="appointmentscheduling.scheduleAppointment" ng-controller="ScheduleAppointmentCtrl"  ng-init="init('${ patient.patient.uuid }')">
-
-    <!-- list of current patient appointments -->
-   <div ng-controller='PatientAppointmentsCtrl' ng-init="init('${ patient.patient.uuid }', ${ canBook })">
-
-        <div ng-show="showScheduleAppointment">
-            <h2>
-                ${ ui.message("appointmentschedulingui.scheduleAppointment.patientAppointments") }
-            </h2>
-
-            <div class="inline-box">
-                <daterangepicker
-                        headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.timeframe") }'
-                        startdate="{{ fromDate.toDateString() }}"
-                        senderid="patientAppointments"
-                        startdatemin = ""
-                        clearlinktext = '${ ui.message("appointmentschedulingui.directive.daterangepicker.clear") }'>
-                </daterangepicker>
-            </div>
-            <div id="noPatientAppointment" ng-show="showNoAppointmentsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noPatientAppointments")}</div>
-            <div id="loadingPatientAppointmentsMessage" ng-show="showLoadingAppointmentsGrid">${ ui.message("appointmentschedulingui.scheduleAppointment.patientAppointmentsLoading") }</div>
-
-            <table id="appointmentGridTable" class="gridStyle" ng-grid="appointmentOptions" ng-show="showAppointmentsGrid"></table>
-        </div>
-
-       <%= ui.includeFragment("appointmentschedulingui", "cancelAppointment") %>
-   </div>
-    <!-- end of list of current patient appointments -->
-
-    <!-- list of patient appointment requests -->
-    <div ng-controller='PatientAppointmentRequestsCtrl' ng-init="init('${ patient.patient.uuid }', ${ canBook })">
-
-        <!-- TODO: do we want "show scheduled appointment" flag here? -->
-        <div ng-show="showScheduleAppointment && showAppointmentRequests">
-            <h2>
-                ${ ui.message("appointmentschedulingui.scheduleAppointment.patientAppointmentRequests") }
-            </h2>
-
-            <table id="appointmentRequestsGridTable" class="gridStyle" ng-grid="appointmentRequestsGrid" ></table>
-        </div>
-
-        <div id="confirm-cancel-appointment-request" class="dialog" ng-show="showCancelAppointmentRequest">
-            <div class="dialog-header">
-                <h3>${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointmentRequest.title") }</h3>
-            </div>
-            <div class="dialog-content">
-                ${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointmentRequest.confirm.text") }
-                <br/>
-                <button class="button confirm right" ng-click="doCancelAppointmentRequest()"> ${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointmentRequest.confirm.yes") }</button>
-                <button class="button cancel" ng-click="doNotCancelAppointmentRequest()"> ${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointmentRequest.confirm.no") }</button>
-            </div>
-        </div>
-    </div>
-    <!-- end of patient appointment requests -->
+${ ui.includeFragment("appointmentschedulingui", "timeZoneWarning") }
 
 
-    <!-- schedule appointment section -->
-   <% if (canBook) { %>
+<div id="appointmentscheduling-scheduleAppointment" class="scheduleAppointment" ng-controller="ScheduleAppointmentCtrl"  ng-init="init('${ patient.patient.uuid }')">
+
        <div ng-show="showScheduleAppointment">
 
            <h2 class="scheduleAppointmentTitle">
@@ -241,9 +152,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 <button class="cancel">${ ui.message("uicommons.cancel") }</button>
             </div>
         </div>
-   <% } %>
-    <!-- end schedule appointment section -->
-
 </div>
+
 
 

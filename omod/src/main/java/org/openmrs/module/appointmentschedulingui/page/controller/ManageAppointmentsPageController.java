@@ -12,7 +12,7 @@ import org.openmrs.ui.framework.page.Redirect;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-public class ScheduleAppointmentPageController {
+public class ManageAppointmentsPageController {
 
     public Object controller(@RequestParam("patientId") Patient patient,
                              PageModel model, UiSessionContext uiSessionContext,
@@ -27,11 +27,7 @@ public class ScheduleAppointmentPageController {
 
         patientDomainWrapper.setPatient(patient);
         model.addAttribute("patient", patientDomainWrapper);
-        // TODO do we want/need to add active visit to model?
-
-        model.addAttribute("upcomingAppointmentList", appointmentService.getScheduledAppointmentsForPatient(patient));
         model.addAttribute("canBook", uiSessionContext.getCurrentUser().hasPrivilege(AppointmentSchedulingUIConstants.PRIVILEGE_BOOK_APPOINTMENTS));
-        model.addAttribute("canOverbook",uiSessionContext.getCurrentUser().hasPrivilege(AppointmentSchedulingUIConstants.PRIVILEGE_OVERBOOK_APPOINTMENTS));
 
         return null;
     }

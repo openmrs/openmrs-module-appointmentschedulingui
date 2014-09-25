@@ -6,7 +6,7 @@ describe('Patient Appointments controller', function () {
         mockAppointmentService, mockNgGridHelper, mockFilterFilter, mockDateRangePickerEventListener,
         promise;
 
-    beforeEach(module('appointmentscheduling.scheduleAppointment'));
+    beforeEach(module('appointmentscheduling'));
     beforeEach(inject(function ($rootScope, $controller, $q) {
         deferred = $q.defer();
         promise = deferred.promise;

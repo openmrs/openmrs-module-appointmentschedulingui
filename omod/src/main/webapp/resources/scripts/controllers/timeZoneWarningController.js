@@ -1,4 +1,4 @@
-angular.module('appointmentscheduling.timeZoneWarning', [])
+angular.module('appointmentscheduling')
     .controller('TimeZoneWarningCtrl', function ($scope) {
 
         $scope.invalidTimeZone =  function () {

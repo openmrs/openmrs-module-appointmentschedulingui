@@ -1,4 +1,4 @@
-angular.module('appointmentscheduling.scheduleAppointment')
+angular.module('appointmentscheduling')
     .controller('ConfirmAppointmentCtrl', ['$scope', 'AppointmentService', function ($scope, AppointmentService) {
 
         // this controller expects to inherit scope from another controller (ie, the schedule appointment controller)
@@ -10,7 +10,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
             $scope.canOverbook = canOverbook;
         },
 
-            $scope.confirmAppointment = function() {
+        $scope.confirmAppointment = function() {
 
             $scope.confirmAppointmentButtonsDisabled = true;
 

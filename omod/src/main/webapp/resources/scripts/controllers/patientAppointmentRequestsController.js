@@ -1,6 +1,6 @@
-angular.module('appointmentscheduling.scheduleAppointment')
-    .controller('PatientAppointmentRequestsCtrl', ['$scope', 'AppointmentService','filterFilter', 'ngGridHelper',
-        function ($scope, AppointmentService, filterFilter, ngGridHelper) {
+angular.module('appointmentscheduling')
+    .controller('PatientAppointmentRequestsCtrl', ['$scope', '$rootScope', 'AppointmentService','filterFilter', 'ngGridHelper',
+        function ($scope, $rootScope, AppointmentService, filterFilter, ngGridHelper) {
 
             // TODO: don't hard-code PENDING?
             // TODO: column widths
@@ -50,7 +50,6 @@ angular.module('appointmentscheduling.scheduleAppointment')
 
 
                     $scope.appointmentRequests = results;
-                    $scope.pagingOptions.currentPage = 1;
                     $scope.showAppointmentRequests = $scope.appointmentRequests && $scope.appointmentRequests.length > 0;
                 })
                     .catch(function(e) {
@@ -71,7 +70,7 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 };
 
                 // picked up by the schedule appointment controller
-                $scope.$emit('appointmentscheduling.scheduleAppointment.bookAppointment', eventData);
+                $rootScope.$broadcast('appointmentscheduling.patientAppointmentRequests.requestSelected', eventData);
             }
 
             $scope.doCancelAppointmentRequest = function() {
@@ -91,6 +90,19 @@ angular.module('appointmentscheduling.scheduleAppointment')
                 $scope.appointmentRequestToCancel = null;
                 $scope.showCancelAppointmentRequest = false;
             }
+
+            // events emitted by other controllers that this controller handles
+
+            // hide display if the schedule appointment app opens it's confirm dialog
+            $scope.$on('appointmentscheduling.scheduleAppointment.openConfirmDialog', function() {
+                $scope.showAppointmentRequests = false;
+            });
+
+            // show display if the schedule appointment app closes it's confirm dialog
+            $scope.$on('appointmentscheduling.scheduleAppointment.cancelConfirmDialog', function(event, eventData) {
+                $scope.showAppointmentRequests = true;
+            });
+
 
             /*// the parent schedule appointment scope can call this to tell the appointment requests grid to de-select all items
             $scope.$on('appointmentscheduling.patientAppointmentRequests.deselectAppointmentRequests', function() {

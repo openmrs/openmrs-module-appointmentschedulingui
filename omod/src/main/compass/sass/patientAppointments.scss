@@ -1,0 +1,42 @@
+
+#appointmentGridTable {
+
+  width: 900px;
+
+  // overside gridstyle.css and turn off row highlighting in this table
+
+  .ngCell, .ngCellText {
+    cursor: initial !important;
+  }
+
+  .ngRow.even{
+    &:hover {
+      background: #FFFFFF;
+      color: #555;
+    }
+    &.selected {
+      background: #FFFFFF;
+      color: #555;
+    }
+  }
+
+  .ngRow.odd{
+    &:hover {
+      background: #fffdf7;
+      color: #555;
+    }
+    &.selected {
+      background: #fffdf7;
+      color: #555;
+    }
+  }
+
+  .col5{
+    text-align:center;
+  }
+}
+
+.inline-box {
+  display: inline-block;
+  padding: 5px;
+}
