@@ -41,16 +41,18 @@
                 initialValue: (appointmentType.duration ?: '')
         ])}
 
-        ${ ui.includeFragment("uicommons", "field/radioButtons", [
-                label: ui.message("appointmentschedulingui.appointmenttype.confidential"),
-                formFieldName: "confidential",
-                options: [
-                        [ value: "false", label: ui.message("emr.no") ],
-                        [ value: "true", label: ui.message("emr.yes") ]
-                ],
-                id: "confidential",
-                initialValue: (appointmentType.confidential?.toString() ?: "false")
-        ])}
+        <% if (featureToggles.isFeatureEnabled("appointmentscheduling.confidential")) { %>
+            ${ ui.includeFragment("uicommons", "field/radioButtons", [
+                    label: ui.message("appointmentschedulingui.appointmenttype.confidential"),
+                    formFieldName: "confidential",
+                    options: [
+                            [ value: "false", label: ui.message("emr.no") ],
+                            [ value: "true", label: ui.message("emr.yes") ]
+                    ],
+                    id: "confidential",
+                    initialValue: (appointmentType.confidential?.toString() ?: "false")
+            ])}
+        <% } %>
 
         ${ ui.includeFragment("emr", "field/textarea", [
                 label: ui.message("appointmentschedulingui.appointmenttype.optionalDescription"),
