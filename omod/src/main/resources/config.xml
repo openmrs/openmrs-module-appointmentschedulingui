@@ -82,10 +82,14 @@
         <description>Ability to overbook time slots</description>
     </privilege>
 
-
     <privilege>
         <name>Task: appointmentschedulingui.requestAppointments</name>
         <description>Ability to request an appointment for a patient</description>
+    </privilege>
+
+    <privilege>
+        <name>Task: appointmentschedulingui.viewConfidential</name>
+        <description>Ability to see details of confidential appointments (you also need the View Appointments privilege)</description>
     </privilege>
 
 </module>

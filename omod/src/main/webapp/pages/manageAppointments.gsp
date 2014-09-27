@@ -17,16 +17,20 @@
 
 </script>
 
-<div id="appointmentscheduling-manageAppointments">
+<div>
 
     ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
-    ${ ui.includeFragment("appointmentschedulingui", "patientAppointments", [ patient: patient.patient ]) }
+    <div id="appointmentscheduling-manageAppointments">
 
-    ${ ui.includeFragment("appointmentschedulingui", "patientAppointmentRequests", [ patient: patient.patient ]) }
+        ${ ui.includeFragment("appointmentschedulingui", "patientAppointments", [ patient: patient.patient ]) }
 
-    <% if (canBook) { %>
-        ${ ui.includeFragment("appointmentschedulingui", "scheduleAppointment", [ patient: patient.patient ]) }
-    <% } %>
+        ${ ui.includeFragment("appointmentschedulingui", "patientAppointmentRequests", [ patient: patient.patient ]) }
+
+        <% if (canBook) { %>
+            ${ ui.includeFragment("appointmentschedulingui", "scheduleAppointment", [ patient: patient.patient ]) }
+        <% } %>
+
+    </div>
 
 </div>

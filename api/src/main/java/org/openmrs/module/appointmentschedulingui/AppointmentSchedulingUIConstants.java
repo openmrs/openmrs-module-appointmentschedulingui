@@ -14,6 +14,8 @@ public class AppointmentSchedulingUIConstants {
 
     public static final String PRIVILEGE_OVERBOOK_APPOINTMENTS = EmrApiConstants.PRIVILEGE_PREFIX_TASK + "appointmentschedulingui.overbookAppointments";
 
+    public static final String PRIVILEGE_VIEW_CONFIDENTIAL_APPOINTMENT_DETAILS = EmrApiConstants.PRIVILEGE_PREFIX_TASK + "appointmentschedulingui.viewConfidential";
+
     public static final String LOCATION_TAG_SUPPORTS_APPOINTMENTS = "Appointment Location";
 
     public static final String APPOINTMENT_CHECK_IN_TAG_NAME = "appointmentCheckIn";
