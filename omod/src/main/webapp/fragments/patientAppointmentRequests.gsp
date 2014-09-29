@@ -60,8 +60,10 @@
             <h3>${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointmentRequest.title") }</h3>
         </div>
         <div class="dialog-content">
-            ${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointmentRequest.confirm.text") }
-            <br/>
+            <p>
+                ${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointmentRequest.confirm.text") }
+            </p>
+
             <button class="button confirm right" ng-click="doCancelAppointmentRequest()"> ${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointmentRequest.confirm.yes") }</button>
             <button class="button cancel" ng-click="doNotCancelAppointmentRequest()"> ${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointmentRequest.confirm.no") }</button>
         </div>
@@ -71,7 +73,7 @@
         <div class="dialog-header">
             <h3>${ ui.message("appointmentschedulingui.scheduleAppointment.appointmentRequestNotes") }</h3>
         </div>
-        <div class="dialog-content" ng-bind="notesDialogContent">
+        <div class="dialog-content" ng-bind-html="notesDialogContent">
 
         </div>
         <button class="button confirm right" ng-click="closeNotesDialog()"> ${ ui.message("uicommons.close") }</button>

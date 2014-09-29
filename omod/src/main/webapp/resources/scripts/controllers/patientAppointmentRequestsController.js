@@ -1,6 +1,6 @@
 angular.module('appointmentscheduling')
-    .controller('PatientAppointmentRequestsCtrl', ['$scope', '$rootScope', 'AppointmentService','filterFilter', 'ngGridHelper',
-        function ($scope, $rootScope, AppointmentService, filterFilter, ngGridHelper) {
+    .controller('PatientAppointmentRequestsCtrl', ['$scope', '$rootScope', 'AppointmentService','filterFilter', 'ngGridHelper','$sce',
+        function ($scope, $rootScope, AppointmentService, filterFilter, ngGridHelper, $sce) {
 
             // TODO: don't hard-code PENDING?
             // TODO: column widths
@@ -117,14 +117,13 @@ angular.module('appointmentscheduling')
 
             $scope.openNotesDialog = function(row) {
                 $scope.showNotesDialog = true;
-                $scope.notesDialogContent = row.entity.notes;
+                $scope.notesDialogContent = $sce.trustAsHtml(emr.formatAsHtml(row.entity.notes));
             }
 
             $scope.closeNotesDialog = function() {
                 $scope.showNotesDialog = false;
                 $scope.notesDialogContent = '';
             }
-
 
             // events emitted by other controllers that this controller handles
 

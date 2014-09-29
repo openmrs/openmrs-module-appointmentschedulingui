@@ -10,12 +10,13 @@
 }
 
 #confirm-cancel-appointment-request {
-  z-index:999;
+  z-index: 999;
+  overflow: hidden;
 }
 
 #appointment-request-notes {
-  z-index:999;
-  height: 100px;
+  z-index: 999;
+  overflow: hidden;
 }
 
 .inline-box {
