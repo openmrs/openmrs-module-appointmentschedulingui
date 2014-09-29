@@ -1,6 +1,6 @@
 angular.module('appointmentscheduling')
-    .controller('ScheduleAppointmentCtrl',['$scope', '$rootScope','AppointmentService', 'filterFilter',
-        'dateRangePickerEventListener', 'ngGridHelper', function ($scope, $rootScope, AppointmentService, filterFilter,
+    .controller('ScheduleAppointmentCtrl',['$scope', '$rootScope','$timeout', 'AppointmentService', 'filterFilter',
+        'dateRangePickerEventListener', 'ngGridHelper', function ($scope, $rootScope, $timeout, AppointmentService, filterFilter,
                                                      dateRangePickerEventListener, ngGridHelper) {
         $scope.filterText = '';
         $scope.timeSlots = [];
@@ -72,10 +72,11 @@ angular.module('appointmentscheduling')
                 })
 
                 initializeMessagesAfterSearch(results);
-                $scope.updateFilter();
-
-                $scope.searchButtonDisabled = false;
                 $scope.pagingOptions.currentPage = 1;
+                $scope.updateFilter();
+                $scope.searchButtonDisabled = false;
+                $timeout(scrollToTimeSlotSearchResults);
+
             })
             .catch(function() {
                 emr.errorMessage("appointmentschedulingui.scheduleAppointment.invalidSearchParameters");
@@ -126,6 +127,10 @@ angular.module('appointmentscheduling')
         var updatePagination = function () {
             $scope.filteredTimeSlots = $scope.setPagingData($scope.filteredTimeSlots);
             if (!$scope.$$phase) $scope.$apply();
+        }
+
+        var scrollToTimeSlotSearchResults = function () {
+            jq('#selectAppointment').get(0).scrollIntoView();
         }
 
         ngGridHelper.includePagination($scope, $scope.timeSlotOptions, $scope.updateFilter);
