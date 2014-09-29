@@ -36,7 +36,7 @@ describe('date range picker controller', function() {
             };
 
             var startDateListener = jasmine.createSpy('startDateListener');
-            scope.$on('dateRangePickerApp.changeStartDate', startDateListener);
+            scope.$on('dateRangePickerApp.startDateChanged', startDateListener);
 
             scope.startDate = newDate;
             scope.$apply();
@@ -52,7 +52,7 @@ describe('date range picker controller', function() {
                 data:newDate
             };
             var endDateListener = jasmine.createSpy('endDateListener');
-            scope.$on('dateRangePickerApp.changeEndDate', endDateListener);
+            scope.$on('dateRangePickerApp.endDateChanged', endDateListener);
 
             scope.endDate = newDate;
             scope.$apply();
@@ -68,7 +68,7 @@ describe('date range picker controller', function() {
                 data:''
             };
             var startDateListener = jasmine.createSpy('startDateListener');
-            scope.$on('dateRangePickerApp.changeStartDate', startDateListener);
+            scope.$on('dateRangePickerApp.startDateChanged', startDateListener);
             var fakeEvent = jasmine.createSpyObj('fakeEvent', ['preventDefault', 'stopPropagation']);
 
             scope.startDateOptions.clear(fakeEvent);
@@ -86,7 +86,7 @@ describe('date range picker controller', function() {
                 data:''
             };
             var endDateListener = jasmine.createSpy('endDateListener');
-            scope.$on('dateRangePickerApp.changeEndDate', endDateListener);
+            scope.$on('dateRangePickerApp.endDateChanged', endDateListener);
             var fakeEvent = jasmine.createSpyObj('fakeEvent', ['preventDefault', 'stopPropagation']);
 
             scope.endDateOptions.clear(fakeEvent);
@@ -96,5 +96,71 @@ describe('date range picker controller', function() {
             expect(scope.endDate).toBe('');
 
         });
+
+        describe('set should set start and end date', function () {
+
+            var someDate = new Date();
+
+            it('set start date', function () {
+                scope.startDateOptions.set(someDate);
+                expect(scope.startDate).toBe(someDate);
+            });
+
+            it('set end start date', function() {
+                scope.endDateOptions.set(someDate);
+                expect(scope.endDate).toBe(someDate);
+            });
+        });
+
+        describe('should update dates when receiving events', function() {
+
+            var someDate = new Date();
+            var anotherDate = new Date();
+
+            it('set start date and end date and trigger callback when date event triggered and correct sender Id', function() {
+
+                var mock = jasmine.createSpyObj('mock', ['callback']);
+
+                scope.senderId = 'correctId';
+
+                var eventData = {
+                    startDate: someDate,
+                    endDate: anotherDate,
+                    senderId: 'correctId',
+                    callback: mock.callback
+                }
+
+                scope.$emit("dateRangePickerApp.changeDate", eventData);
+                scope.$apply();
+
+                expect(scope.startDate).toBe(moment(someDate).format("DD-MMMM-YYYY"));
+                expect(scope.endDate).toBe(moment(anotherDate).format("DD-MMMM-YYYY"));
+                expect(mock.callback).toHaveBeenCalled();
+            });
+
+            it('should not set start date and end date when date event triggered and incorrect sender Id', function() {
+
+                var mock = jasmine.createSpyObj('mock', ['callback']);
+
+                scope.senderId = 'correctId';
+
+                var eventData = {
+                    startDate: someDate,
+                    endDate: anotherDate,
+                    senderId: 'incorrectId',
+                    callback: mock.callback
+                }
+
+                scope.$emit("dateRangePickerApp.changeDate", eventData);
+                scope.$apply();
+
+                expect(scope.startDate).toBeUndefined();
+                expect(scope.endDate).toBeUndefined();
+                expect(mock.callback).not.toHaveBeenCalled();
+            });
+
+
+
+        })
     });
 })

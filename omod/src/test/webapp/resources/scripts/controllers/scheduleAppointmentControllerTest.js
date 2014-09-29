@@ -8,8 +8,8 @@ describe('ScheduleAppointment tests', function() {
         deferred,
         promise;
 
-
     beforeEach(module('appointmentscheduling'));
+
     beforeEach(inject(function($rootScope, $controller, $q) {
         deferred = $q.defer();
         promise = deferred.promise;

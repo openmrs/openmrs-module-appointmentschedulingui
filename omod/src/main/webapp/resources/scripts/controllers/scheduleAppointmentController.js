@@ -76,7 +76,6 @@ angular.module('appointmentscheduling')
 
                 $scope.searchButtonDisabled = false;
                 $scope.pagingOptions.currentPage = 1;
-
             })
             .catch(function() {
                 emr.errorMessage("appointmentschedulingui.scheduleAppointment.invalidSearchParameters");
@@ -178,7 +177,29 @@ angular.module('appointmentscheduling')
             $scope.selectedAppointmentRequest = eventData.appointmentRequest;  // set so that we know to mark this request as fulfilled when booking an appointment
             $scope.appointmentType = eventData.appointmentRequest.appointmentType;
             $scope.filterText = eventData.appointmentRequest.provider ? eventData.appointmentRequest.provider.person.display : '';
+
+            // if dates have been specified, 1) set them on the scope, and 2) broadcast these dates to the date range picker
+            if (eventData.appointmentRequest.startDate || eventData.appointmentRequest.endDate) {
+
+                var changeDateData = {
+                    senderId: 'scheduleAppointment'
+                }
+
+                if (eventData.appointmentRequest.startDate) {
+                    $scope.fromDate = eventData.appointmentRequest.startDate;
+                    changeDateData.startDate = eventData.appointmentRequest.startDate;
+                }
+
+                if (eventData.appointmentRequest.endDate) {
+                    $scope.toDate = eventData.appointmentRequest.endDate;
+                    changeDateData.endDate =  eventData.appointmentRequest.endDate;
+                }
+
+                $scope.$broadcast('dateRangePickerApp.changeDate', changeDateData);
+            }
+
             $scope.findAvailableTimeSlots();
+
         });
 
     }]);

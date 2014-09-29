@@ -21,6 +21,9 @@ angular.module('scheduleAppointmentDateRangePickerApp')
                     event.stopPropagation();
 
                     $scope.startDate = '';
+                },
+                set: function(date) {
+                    $scope.startDate = date;
                 }
             };
         };
@@ -40,6 +43,9 @@ angular.module('scheduleAppointmentDateRangePickerApp')
                     event.stopPropagation();
 
                     $scope.endDate = '';
+                },
+                set: function(date) {
+                    $scope.endDate = date;
                 }
             };
         };
@@ -47,18 +53,34 @@ angular.module('scheduleAppointmentDateRangePickerApp')
         initializeStartDatePicker();
         initializeEndDatePicker();
 
+        // emits events when a date changes
         $scope.$watch('startDate', function(newValue) {
             var eventData = {
                 senderId : $scope.senderId,
                 data : newValue
             };
-            $scope.$emit('dateRangePickerApp.changeStartDate', eventData);
+            $scope.$emit('dateRangePickerApp.startDateChanged', eventData);
         });
         $scope.$watch('endDate', function(newValue) {
             var eventData = {
                 senderId: $scope.senderId,
                 data: newValue
             };
-            $scope.$emit('dateRangePickerApp.changeEndDate', eventData);
+            $scope.$emit('dateRangePickerApp.endDateChanged', eventData);
         });
+
+        // listens for events to update a date
+        $scope.$on('dateRangePickerApp.changeDate', function(event, eventData) {
+            if (eventData.senderId === $scope.senderId) {
+                $scope.startDateOptions.set(moment(eventData.startDate).format("DD-MMMM-YYYY"));  // TODO move this formatting into a constant and/or parameters that can be set by user?
+                $scope.endDateOptions.set(moment(eventData.endDate).format("DD-MMMM-YYYY"));
+
+                // trigger any callback that may have been passed in as a parameter
+                if (eventData.callback) {
+                    eventData.callback();
+                }
+            }
+
+        });
+
     }]);

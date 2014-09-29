@@ -72,9 +72,26 @@ angular.module('appointmentscheduling')
 
             $scope.bookAppointment = function(row) {
 
+                var appointmentRequest = row.entity;
+
                 var eventData = {
-                    appointmentRequest: row.entity
+                    appointmentRequest: appointmentRequest
                 };
+
+                // calculate dates, if min/max have been specified
+                if (appointmentRequest.minTimeFrameValue && appointmentRequest.minTimeFrameUnits) {
+                    appointmentRequest.startDate = moment(appointmentRequest.requestedOn)
+                        .add(appointmentRequest.minTimeFrameValue, appointmentRequest.minTimeFrameUnits.toLowerCase()).startOf('day');
+                    // start date can never be before today
+                    if (appointmentRequest.startDate < moment().startOf('day')) {
+                        appointmentRequest.startDate = moment().startOf('day');
+                    }
+                }
+
+                if (appointmentRequest.maxTimeFrameValue && appointmentRequest.maxTimeFrameUnits) {
+                    appointmentRequest.endDate = moment(appointmentRequest.requestedOn)
+                        .add(appointmentRequest.maxTimeFrameValue, appointmentRequest.maxTimeFrameUnits.toLowerCase()).startOf('day');
+                }
 
                 // picked up by the schedule appointment controller
                 $rootScope.$broadcast('appointmentscheduling.patientAppointmentRequests.requestSelected', eventData);
