@@ -16,7 +16,7 @@ import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.reporting.common.SortCriteria;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
-import org.openmrs.module.reporting.data.converter.PrivilegedDataFormatter;
+import org.openmrs.module.reporting.data.converter.PrivilegedDataConverter;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PersonAttributeDataDefinition;
@@ -62,21 +62,22 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
         query.addParameter(new Parameter("location", "Location", Location.class));
         dsd.addRowFilter(query, "onOrAfter=${date},onOrBefore=${date},location=${location}");
 
-        PrivilegedDataFormatter privilegedDataFormatter = new PrivilegedDataFormatter(AppointmentSchedulingUIConstants.PRIVILEGE_VIEW_CONFIDENTIAL_APPOINTMENT_DETAILS);
+        PrivilegedDataConverter privileged = new PrivilegedDataConverter(AppointmentSchedulingUIConstants.PRIVILEGE_VIEW_CONFIDENTIAL_APPOINTMENT_DETAILS);
+        ObjectFormatter formatted = new ObjectFormatter();
 
-        dsd.addColumn("identifier", createPrimaryIdentifierDataDefinition(), "", new PropertyConverter(PatientIdentifier.class, "identifier"), privilegedDataFormatter);
-        dsd.addColumn("provider", new AppointmentProviderDataDefinition(), "", new ObjectFormatter());
+        dsd.addColumn("identifier", createPrimaryIdentifierDataDefinition(), "", new PropertyConverter(PatientIdentifier.class, "identifier"), privileged, formatted);
+        dsd.addColumn("provider", new AppointmentProviderDataDefinition(), "", formatted);
         dsd.addColumn("providerUuid", new AppointmentProviderDataDefinition(), "", new PropertyConverter(String.class, "uuid"));
-        dsd.addColumn("appointmentType", new AppointmentTypeDataDefinition(), "", new ObjectFormatter());
+        dsd.addColumn("appointmentType", new AppointmentTypeDataDefinition(), "", formatted);
         dsd.addColumn("appointmentTypeUuid", new AppointmentTypeDataDefinition(), "", new PropertyConverter(String.class, "uuid"));
         dsd.addColumn("providerUuid", new AppointmentProviderDataDefinition(), "", new PropertyConverter(String.class, "uuid"));
         dsd.addColumn("statusType", new AppointmentStatusDataDefinition(), "", new PropertyConverter(Appointment.AppointmentStatusType.class, "type"));
         dsd.addColumn("localizedStatusType", new AppointmentStatusDataDefinition(), "", new AppointmentStatusToLocalizedStatusTypeConverter());
-        dsd.addColumn("patientName", new PreferredNameDataDefinition(), "", privilegedDataFormatter);
+        dsd.addColumn("patientName", new PreferredNameDataDefinition(), "", privileged, formatted);
         dsd.addColumn("startDatetime", new AppointmentStartDateDataDefinition(), "", null);
         dsd.addColumn("startTimeFormatted", new AppointmentStartDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
         dsd.addColumn("endTimeFormatted", new AppointmentEndDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
-        dsd.addColumn("telephoneNumber", new PersonAttributeDataDefinition(emrApiProperties.getTelephoneAttributeType()), "", privilegedDataFormatter);
+        dsd.addColumn("telephoneNumber", new PersonAttributeDataDefinition(emrApiProperties.getTelephoneAttributeType()), "", privileged, formatted);
 
         dsd.addSortCriteria("startDatetime", SortCriteria.SortDirection.ASC);
         dsd.addSortCriteria("provider", SortCriteria.SortDirection.ASC);
