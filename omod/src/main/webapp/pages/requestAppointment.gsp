@@ -78,6 +78,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             <input id="max-time-frame-value" type="text" ng-model="appointmentRequest.maxTimeFrameValue" size="2" maxlength="2" />
             <select id="max-time-frame-units" ng-model="appointmentRequest.maxTimeFrameUnits" ng-options="t.value as t.display for t in timeFrameUnits">
             </select>
+            <span ng-show="!validation.minBeforeOrEqualToMax">${ ui.message('appointmentschedulingui.requestAppointment.minTimeFrameBeforeMax') }</span>
         </p>
 
         <p>

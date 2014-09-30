@@ -3,10 +3,21 @@ angular.module('appointmentscheduling.requestAppointment')
     .controller('RequestAppointmentCtrl', function ($scope, AppointmentService, ProviderService) {
 
         // TODO handle editing a request form
-        // TODO validation on field exit of the actual values of the days/months/years; max greater than min
         $scope.appointmentRequest = {};
 
         $scope.timeFrameUnits = [ {} ];
+
+        $scope.validation = {
+
+            appointmentTypeChosen: false,
+            ifValueEnteredThenCorrespondingUnitsBeSet: true,
+            minBeforeOrEqualToMax: true,
+
+            isValid: function () {
+                return this.appointmentTypeChosen && this.ifValueEnteredThenCorrespondingUnitsBeSet
+                    && this.minBeforeOrEqualToMax;
+            }
+        }
 
         $scope.init = function(patientUuid, requestedByUuid, returnProvider, returnPage) {
 
@@ -39,11 +50,22 @@ angular.module('appointmentscheduling.requestAppointment')
 
         $scope.validateAppointmentRequest = function() {
             // must have picked an appointment type; if a min/max value has been entered, corresponding min/max unit must be selected, and vice versa
-            return $scope.appointmentRequest.appointmentType
-                && ( ($scope.appointmentRequest.minTimeFrameUnits && $scope.appointmentRequest.minTimeFrameValue)
+
+            $scope.validation.appointmentTypeChosen = $scope.appointmentRequest.appointmentType ? true : false;
+
+            $scope.validation.ifValueEnteredThenCorrespondingUnitsBeSet =
+                ( ($scope.appointmentRequest.minTimeFrameUnits && $scope.appointmentRequest.minTimeFrameValue)
                     || (!$scope.appointmentRequest.minTimeFrameUnits && !$scope.appointmentRequest.minTimeFrameValue) )
                 && ( ($scope.appointmentRequest.maxTimeFrameUnits && $scope.appointmentRequest.maxTimeFrameValue)
                     || (!$scope.appointmentRequest.maxTimeFrameUnits && !$scope.appointmentRequest.maxTimeFrameValue) );
+
+            // compare dates, but only if all min/max values have bee set
+            $scope.validation.minBeforeOrEqualToMax =
+                !($scope.appointmentRequest.minTimeFrameValue && $scope.appointmentRequest.maxTimeFrameValue && $scope.appointmentRequest.minTimeFrameUnits && $scope.appointmentRequest.maxTimeFrameUnits)
+                ||  (moment().add(parseInt($scope.appointmentRequest.minTimeFrameValue), $scope.appointmentRequest.minTimeFrameUnits.toLowerCase()).startOf('day') <
+                     moment().add(parseInt($scope.appointmentRequest.maxTimeFrameValue), $scope.appointmentRequest.maxTimeFrameUnits.toLowerCase()).startOf('day'))
+
+            return $scope.validation.isValid();
         }
 
         $scope.verifyTimeFrameValues = function() {
