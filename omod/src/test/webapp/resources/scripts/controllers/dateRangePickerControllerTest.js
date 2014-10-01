@@ -138,6 +138,44 @@ describe('date range picker controller', function() {
                 expect(mock.callback).toHaveBeenCalled();
             });
 
+            it('should set end date to null when date event triggered has no end date', function() {
+
+                var mock = jasmine.createSpyObj('mock', ['callback']);
+
+                scope.senderId = 'correctId';
+                scope.endDate = new Date();
+
+                var eventData = {
+                    startDate: someDate,
+                    senderId: 'correctId'
+                }
+
+                scope.$emit("dateRangePickerApp.changeDate", eventData);
+                scope.$apply();
+
+                expect(scope.startDate).toBe(moment(someDate).format("DD-MMMM-YYYY"));
+                expect(scope.endDate).toBeNull();
+            });
+
+            it('should not set start date when date event triggered has no start date', function() {
+
+                var mock = jasmine.createSpyObj('mock', ['callback']);
+
+                scope.senderId = 'correctId';
+                scope.startDate = new Date();
+
+                var eventData = {
+                    endDate: someDate,
+                    senderId: 'correctId'
+                }
+
+                scope.$emit("dateRangePickerApp.changeDate", eventData);
+                scope.$apply();
+
+                expect(scope.startDate).toBeNull();
+                expect(scope.endDate).toBe(moment(someDate).format("DD-MMMM-YYYY"));
+            });
+
             it('should not set start date and end date when date event triggered and incorrect sender Id', function() {
 
                 var mock = jasmine.createSpyObj('mock', ['callback']);

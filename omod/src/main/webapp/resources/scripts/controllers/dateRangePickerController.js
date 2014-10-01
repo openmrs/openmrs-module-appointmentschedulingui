@@ -72,8 +72,9 @@ angular.module('scheduleAppointmentDateRangePickerApp')
         // listens for events to update a date
         $scope.$on('dateRangePickerApp.changeDate', function(event, eventData) {
             if (eventData.senderId === $scope.senderId) {
-                $scope.startDateOptions.set(moment(eventData.startDate).format("DD-MMMM-YYYY"));  // TODO move this formatting into a constant and/or parameters that can be set by user?
-                $scope.endDateOptions.set(moment(eventData.endDate).format("DD-MMMM-YYYY"));
+
+                $scope.startDateOptions.set(eventData.startDate ? moment(eventData.startDate).format("DD-MMMM-YYYY") : null);
+                $scope.endDateOptions.set(eventData.endDate ? moment(eventData.endDate).format("DD-MMMM-YYYY") : null);
 
                 // trigger any callback that may have been passed in as a parameter
                 if (eventData.callback) {
