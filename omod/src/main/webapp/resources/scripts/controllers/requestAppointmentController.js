@@ -113,6 +113,11 @@ angular.module('appointmentscheduling.requestAppointment')
 
         }
 
+        // if the appt type changes, update default provider
+        $scope.$watch('appointmentRequest.appointmentType', function(){
+            updateProvider();
+        });
+
         $scope.cancel = function () {
             redirectToReturnPage();
         }
@@ -123,6 +128,20 @@ angular.module('appointmentscheduling.requestAppointment')
                 page: $scope.returnPage,
                 query: { patientId: $scope.appointmentRequest.patient }
             });
+        }
+
+        // find a recommended provider based on the most recent appointment of that type (any status, past, present or future)
+        var updateProvider = function() {
+            if ($scope.appointmentRequest.appointmentType) {
+                AppointmentService.getAppointments({
+                    appointmentType: $scope.appointmentRequest.appointmentType.uuid,
+                    patient: $scope.appointmentRequest.patient
+                }).then(function (appointments) {
+                        if (appointments && appointments.length > 0) {
+                            $scope.appointmentRequest.provider = appointments[appointments.length - 1].timeSlot.appointmentBlock.provider;
+                        }
+                    })
+            }
         }
 
     });
