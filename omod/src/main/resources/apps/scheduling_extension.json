@@ -1,0 +1,14 @@
+[
+    {
+        "id": "org.openmrs.module.appointmentschedulingui.tab",
+        "extensionPointId": "patientDashboard.tabs",
+        "type": "link",
+        "label": "appointmentschedulingui.appointmentsTab.label",
+        "requiredPrivilege": "App: appointmentschedulingui.viewAppointments",
+        "extensionParams": {
+            "provider": "appointmentschedulingui",
+            "fragment": "appointmentsTab"
+        },
+        "featureToggle": "requestAppointments"
+    }
+]

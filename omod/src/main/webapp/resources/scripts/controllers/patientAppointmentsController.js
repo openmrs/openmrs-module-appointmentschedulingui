@@ -89,7 +89,7 @@ angular.module('appointmentscheduling')
             $scope.showLoadingAppointmentsGrid = false;
             $scope.allAppointments = results;
 
-            if(results.length == 0) {
+            if(results && results.length == 0) {
                 $scope.showNoAppointmentsMessage = true;
                 $scope.showAppointmentsGrid = false;
             } else {
