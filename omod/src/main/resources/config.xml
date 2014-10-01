@@ -87,10 +87,5 @@
         <description>Ability to request an appointment for a patient</description>
     </privilege>
 
-    <privilege>
-        <name>Task: appointmentschedulingui.viewConfidential</name>
-        <description>Ability to see details of confidential appointments (you also need the View Appointments privilege)</description>
-    </privilege>
-
 </module>
 
