@@ -50,8 +50,11 @@ describe('Patient Appointments controller', function () {
         });
     });
 
-    it('must call the subscribe method from the dateRangePickerEventListener service when the controller is created', function () {
+    it('must call the subscribe method from the dateRangePickerEventListener service when init method is called with loadOnInit=true', function () {
+
+        scope.init(null, null, true);
         expect(mockDateRangePickerEventListener.subscribe).toHaveBeenCalledWith(scope, 'patientAppointments');
+
     });
 
     it("should send out an event for cancelling an appointment", function() {

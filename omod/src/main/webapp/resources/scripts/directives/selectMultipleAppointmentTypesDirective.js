@@ -9,7 +9,7 @@ angular.module('selectMultipleAppointmentTypesApp')
                 placeholderMessage : '@placeholdermessage',
                 senderId : '@senderid'
             },
-            templateUrl: '../ms/uiframework/resource/appointmentschedulingui/partials/selectMultipleAppointmentTypes.html',
+            templateUrl: '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/appointmentschedulingui/partials/selectMultipleAppointmentTypes.html',
             controller:'selectMultipleAppointmentTypesController'
         };
     });

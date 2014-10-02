@@ -6,6 +6,9 @@ describe('selectmultipleappointmenttypes directive', function () {
         beforeEach(module('selectMultipleAppointmentTypesApp'));
 
         beforeEach(inject(function ($rootScope, $compile, $templateCache, $httpBackend) {
+
+            OPENMRS_CONTEXT_PATH = 'openmrs';
+
             template = '<div id="select-appointment-types-typeahead">' +
                             '<p>{{ headermessage }}</p>' +
                             '<div ng-repeat="appointmentTypeSelected in selectedAppointmentTypes">'+
@@ -34,7 +37,7 @@ describe('selectmultipleappointmenttypes directive', function () {
                         '</div>'+
                     '</div>';
 
-            $templateCache.put('../ms/uiframework/resource/appointmentschedulingui/partials/selectMultipleAppointmentTypes.html', template);
+            $templateCache.put('/openmrs/ms/uiframework/resource/appointmentschedulingui/partials/selectMultipleAppointmentTypes.html', template);
 
 
             var appointmentTypes = {
@@ -43,7 +46,7 @@ describe('selectmultipleappointmenttypes directive', function () {
                     display: 'type'
                 }
             };
-            $httpBackend.whenGET("//ws/rest/v1/appointmentscheduling/appointmenttype?v=full").respond({ result: appointmentTypes});
+            $httpBackend.whenGET("/openmrs/ws/rest/v1/appointmentscheduling/appointmenttype?v=full").respond({ result: appointmentTypes});
 
             httpBackend = $httpBackend;
             scope = $rootScope;

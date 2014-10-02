@@ -6,6 +6,9 @@ describe('dateRangePicker directive', function () {
         beforeEach(module('scheduleAppointmentDateRangePickerApp'));
 
         beforeEach(inject(function ($rootScope, $compile, $templateCache) {
+
+            OPENMRS_CONTEXT_PATH = 'openmrs';
+
             template = '<div id="selectTimeframe" class="inlineBox">'+
                 '<p> {{headermessage}} </p>'+
                 '<span class="angular-datepicker">'+
@@ -20,7 +23,7 @@ describe('dateRangePicker directive', function () {
                 '</span>'+
             '</div>';
 
-            $templateCache.put('../ms/uiframework/resource/appointmentschedulingui/partials/daterangepicker.html', template);
+            $templateCache.put('/openmrs/ms/uiframework/resource/appointmentschedulingui/partials/daterangepicker.html', template);
 
             scope = $rootScope;
             scope.senderId = "sender 1";
