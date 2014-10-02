@@ -14,11 +14,16 @@ angular.module('appointmentscheduling')
         $scope.appointmentToCancel = null;
         $scope.appointmentCancelReason = '';
 
-        $scope.init = function(patientUuid, canBook) {
+        $scope.init = function(patientUuid, canBook, loadOnInit) {
             $scope.patientUuid = patientUuid;
             $scope.canBook = canBook;
-            $scope.findAppointments();
-        },
+
+            if (loadOnInit == null || loadOnInit) {
+                dateRangePickerEventListener.subscribe($scope, 'patientAppointments');
+                $scope.findAppointments();
+            }
+
+        };
 
         $scope.filterOptions = {
             filterText: "",
@@ -47,7 +52,7 @@ angular.module('appointmentscheduling')
 
         var getSearchParams = function () {
             var params = { 'patient' : $scope.patientUuid };
-            if ($scope.fromDate) { params['fromDate'] = moment($scope.fromDate).format();}
+            if ($scope.fromDate) { params['fromDate'] = moment($scope.fromDate).startOf('day').format();}
             if ($scope.toDate) { params['toDate'] = moment($scope.toDate).endOf('day').format(); }
             return params;
         };
@@ -117,7 +122,6 @@ angular.module('appointmentscheduling')
         }
 
         ngGridHelper.includePagination($scope, $scope.appointmentOptions, $scope.updateFilter);
-        dateRangePickerEventListener.subscribe($scope, 'patientAppointments');
 
         $scope.cancelAppointment = function(uuid) {
             var eventData = {
@@ -182,7 +186,19 @@ angular.module('appointmentscheduling')
              $scope.showAppointments = true;
          });
 
-    }])
+         // due to a error I can't solve, we get caught in infinite angular digest lope if we initialize appointment appointments
+         // when a grid is not visible--so for use casese (like the appointments tab) where the grid may not be visible on load
+         // we allow loading the appointments on init to be disabled (see loadOnInit in the init method above) and provide
+         // an event that other components can broadcast when the appointments should be loaded
+         // this does have the added benefit of not making the REST request until we actually need the data
+
+         $scope.$on('appointmentRequests.loadAppointments', function () {
+             dateRangePickerEventListener.subscribe($scope, 'patientAppointments');
+             $scope.findAppointments();
+         })
+
+
+     }])
 
 
 

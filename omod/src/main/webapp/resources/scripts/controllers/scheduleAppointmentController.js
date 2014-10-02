@@ -108,7 +108,7 @@ angular.module('appointmentscheduling')
             $scope.showLoadingMessage = false;
             $scope.timeSlots = results;
 
-            if(results.length == 0) {
+            if(results && results.length == 0) {
                 $scope.showNoTimeSlotsMessage = true;
                 $scope.showTimeSlotsGrid = false;
             } else {

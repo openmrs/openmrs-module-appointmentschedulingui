@@ -9,7 +9,7 @@ angular.module('scheduleAppointmentDateRangePickerApp')
                 startDateMin: '@startdatemin',
                 clearLinkText: '@clearlinktext'
             },
-            templateUrl: '../ms/uiframework/resource/appointmentschedulingui/partials/daterangepicker.html',
+            templateUrl: '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/appointmentschedulingui/partials/daterangepicker.html',
             controller: 'dateRangePickerController'
         };
     });

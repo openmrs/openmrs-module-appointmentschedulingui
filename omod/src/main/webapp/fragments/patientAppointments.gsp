@@ -54,7 +54,7 @@
 
 
 <!-- list of current patient appointments -->
-<div id="appointmentscheduling-patientAppointments" ng-controller='PatientAppointmentsCtrl' ng-show="showAppointments" ng-init="init('${ patient.patient.uuid }', ${ canBook })">
+<div id="appointmentscheduling-patientAppointments" ng-controller='PatientAppointmentsCtrl' ng-show="showAppointments" ng-init="init('${ patient.patient.uuid }', ${ canBook }, ${ config.loadOnInit })">
 
     <div>
         <h2>
