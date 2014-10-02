@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.openmrs.web</groupId>
             <artifactId>openmrs-web</artifactId>
-            <version>${openmrsCoreVersion}</version>
+            <version>${openMRSwebVersion}</version>
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
