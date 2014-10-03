@@ -1,0 +1,31 @@
+
+#appointmentRequestsGridTable {
+
+  // overide gridstyle.css and turn off row highlighting on appt requests grid table in this (appt tab) context
+  .ngCell, .ngCellText {
+    cursor: initial !important;
+  }
+
+  .ngRow.even{
+    &:hover {
+      background: #FFFFFF;
+      color: #555;
+    }
+    &.selected {
+      background: #FFFFFF;
+      color: #555;
+    }
+  }
+
+  .ngRow.odd{
+    &:hover {
+      background: #fffdf7;
+      color: #555;
+    }
+    &.selected {
+      background: #fffdf7;
+      color: #555;
+    }
+  }
+
+}

@@ -44,7 +44,7 @@
 </script>
 
 <!-- list of patient appointment requests -->
-<div id="appointmentscheduling-patientAppointmentRequests"  ng-controller='PatientAppointmentRequestsCtrl' ng-init="init('${ patient.patient.uuid }', ${ config.loadOnInit })">
+<div id="appointmentscheduling-patientAppointmentRequests"  ng-controller='PatientAppointmentRequestsCtrl' ng-init="init('${ patient.patient.uuid }', ${ config.loadOnInit }, ${ config.hideActionButtons })">
 
     <!-- TODO: do we want "show scheduled appointment" flag here? -->
     <div ng-show="showAppointmentRequests">

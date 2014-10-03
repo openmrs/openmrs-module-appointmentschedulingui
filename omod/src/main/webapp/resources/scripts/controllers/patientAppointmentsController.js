@@ -14,9 +14,10 @@ angular.module('appointmentscheduling')
         $scope.appointmentToCancel = null;
         $scope.appointmentCancelReason = '';
 
-        $scope.init = function(patientUuid, canBook, loadOnInit) {
+        $scope.init = function(patientUuid, canBook, loadOnInit, hideActionButtons) {
             $scope.patientUuid = patientUuid;
             $scope.canBook = canBook;
+            $scope.defineAppointmentsGrid(hideActionButtons);
 
             if (loadOnInit == null || loadOnInit) {
                 dateRangePickerEventListener.subscribe($scope, 'patientAppointments');
@@ -25,29 +26,40 @@ angular.module('appointmentscheduling')
 
         };
 
+
+        $scope.defineAppointmentsGrid = function (hideActionButtons) {
+
+            $scope.appointmentsGrid = {
+                data: 'filteredAppointments',
+                rowHeight: 50,
+                multiSelect: false,
+                enableSorting: false,
+                i18n: jsLocale,
+                selectedItems: [],
+                columnDefs: [ { field: 'date', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.date"),
+                    cellTemplate: "<div>{{ row.getProperty(\'dateFormatted\') }}<br/>{{ row.getProperty(\'startTimeFormatted\') }} - {{ row.getProperty(\'endTimeFormatted\') }}<div>" },
+                    { field: 'appointmentType.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.serviceType") },
+                    { field: 'timeSlot.appointmentBlock.provider.person.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
+                    { field: 'timeSlot.appointmentBlock.location.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.location") },
+                    { field: 'displayStatus', width: '15%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.status") } ],
+                plugins: [new ngGridFlexibleHeightPlugin()]
+
+            };
+
+            if (!hideActionButtons) {
+                $scope.appointmentsGrid.columnDefs.push( { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canBook && isCancellable(row.getProperty(\'status\'))" ng-click="cancelAppointment(row.getProperty(\'uuid\'))" ' +
+                    'title="{{ row.getProperty(\'tooltip\') }}"></i></span>'  })
+            }
+
+            ngGridHelper.includePagination($scope, $scope.appointmentsGrid, $scope.updateFilter);
+
+        }
+
         $scope.filterOptions = {
             filterText: "",
             useExternalFilter: true
         };
 
-        $scope.appointmentOptions = {
-            data: 'filteredAppointments',
-            rowHeight: 50,
-            multiSelect: false,
-            enableSorting: false,
-            i18n: jsLocale,
-            selectedItems: [],
-            columnDefs: [ { field: 'date', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.date"),
-                cellTemplate: "<div>{{ row.getProperty(\'dateFormatted\') }}<br/>{{ row.getProperty(\'startTimeFormatted\') }} - {{ row.getProperty(\'endTimeFormatted\') }}<div>" },
-                { field: 'appointmentType.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.serviceType") },
-                { field: 'timeSlot.appointmentBlock.provider.person.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
-                { field: 'timeSlot.appointmentBlock.location.display', width: '19%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.location") },
-                { field: 'displayStatus', width: '15%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.status") },
-                { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), cellTemplate: '<span><i class="delete-item icon-remove" ng-show="canBook && isCancellable(row.getProperty(\'status\'))" ng-click="cancelAppointment(row.getProperty(\'uuid\'))" ' +
-                    'title="{{ row.getProperty(\'tooltip\') }}"></i></span>'  }],
-            plugins: [new ngGridFlexibleHeightPlugin()]
-
-        };
 
 
         var getSearchParams = function () {
@@ -120,8 +132,6 @@ angular.module('appointmentscheduling')
             $scope.filteredAppointments = $scope.setPagingData($scope.filteredAppointments);
             if (!$scope.$$phase) $scope.$apply();
         }
-
-        ngGridHelper.includePagination($scope, $scope.appointmentOptions, $scope.updateFilter);
 
         $scope.cancelAppointment = function(uuid) {
             var eventData = {

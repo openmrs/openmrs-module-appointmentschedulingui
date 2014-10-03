@@ -54,7 +54,7 @@
 
 
 <!-- list of current patient appointments -->
-<div id="appointmentscheduling-patientAppointments" ng-controller='PatientAppointmentsCtrl' ng-show="showAppointments" ng-init="init('${ patient.patient.uuid }', ${ canBook }, ${ config.loadOnInit })">
+<div id="appointmentscheduling-patientAppointments" ng-controller='PatientAppointmentsCtrl' ng-show="showAppointments" ng-init="init('${ patient.patient.uuid }', ${ canBook }, ${ config.loadOnInit }, ${ config.hideActionButtons })">
 
     <div>
         <h2>
@@ -73,7 +73,7 @@
         <div id="noPatientAppointment" ng-show="showNoAppointmentsMessage">${ ui.message("appointmentschedulingui.scheduleAppointment.noPatientAppointments")}</div>
         <div id="loadingPatientAppointmentsMessage" ng-show="showLoadingAppointmentsGrid">${ ui.message("appointmentschedulingui.scheduleAppointment.patientAppointmentsLoading") }</div>
 
-        <table id="appointmentGridTable" class="gridStyle" ng-grid="appointmentOptions" ng-show="showAppointmentsGrid"></table>
+        <table id="appointmentGridTable" class="gridStyle" ng-grid="appointmentsGrid" ng-show="showAppointmentsGrid"></table>
     </div>
 
     <%= ui.includeFragment("appointmentschedulingui", "cancelAppointment") %>

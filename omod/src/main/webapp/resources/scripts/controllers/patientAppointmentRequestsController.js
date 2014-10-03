@@ -14,33 +14,42 @@ angular.module('appointmentscheduling')
             $scope.showNotesDialog = false;
             $scope.notesDialogContent = '';
 
-            $scope.init = function(patientUuid, loadOnInit) {
+            $scope.init = function(patientUuid, loadOnInit, hideActionButtons ) {
                 $scope.patientUuid = patientUuid;
+                $scope.defineAppointmentRequestsGrid(hideActionButtons)
 
                 if (loadOnInit == null || loadOnInit) {
                     $scope.findAppointmentRequests();
                 }
             }
 
-            $scope.appointmentRequestsGrid = {
-                data: 'appointmentRequests',
-                multiSelect: false,
-                enableSorting: false,
-                i18n: jsLocale,
-                selectedItems: [],
-                columnDefs: [   { field: 'appointmentType.display', width: '40%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.serviceType") },
-                                { field: 'provider.person.display', width: '20%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
-                                { field: 'timeFrame', width: '30%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.requestTimeFrame") },
-                                { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"),
-                                    cellTemplate: '<span><i class="delete-item icon-calendar" ng-click="bookAppointment(row)" ' +
-                                                    'title="{{ row.getProperty(\'bookAppointmentTooltip\') }}"></i></span>      ' +
-                                                    '<span><i class="delete-item icon-file" ng-click="openNotesDialog(row)" ' +
-                                                    'title="{{ row.getProperty(\'showNotesTooltip\') }}"></i></span>      ' +
-                                                    '<span><i class="delete-item icon-remove" ng-click="cancelAppointmentRequest(row.getProperty(\'uuid\'))" ' +
-                                                    'title="{{ row.getProperty(\'cancelRequestTooltip\') }}"></i></span>'}],
-                plugins: [new ngGridFlexibleHeightPlugin()]
+            $scope.defineAppointmentRequestsGrid = function(hideActionButtons) {
 
-            };
+                $scope.appointmentRequestsGrid = {
+                    data: 'appointmentRequests',
+                    multiSelect: false,
+                    enableSorting: false,
+                    i18n: jsLocale,
+                    selectedItems: [],
+                    columnDefs: [   { field: 'appointmentType.display', width: '40%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.serviceType") },
+                                    { field: 'provider.person.display', width: '20%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
+                                    { field: 'timeFrame', width: '30%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.requestTimeFrame") } ],
+                    plugins: [new ngGridFlexibleHeightPlugin()]
+
+                };
+
+                // add the Actions column if not disabled
+                if (!hideActionButtons) {
+                    $scope.appointmentRequestsGrid.columnDefs.push( { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"),
+                        cellTemplate: '<span><i class="delete-item icon-calendar" ng-click="bookAppointment(row)" ' +
+                            'title="{{ row.getProperty(\'bookAppointmentTooltip\') }}"></i></span>      ' +
+                            '<span><i class="delete-item icon-file" ng-click="openNotesDialog(row)" ' +
+                            'title="{{ row.getProperty(\'showNotesTooltip\') }}"></i></span>      ' +
+                            '<span><i class="delete-item icon-remove" ng-click="cancelAppointmentRequest(row.getProperty(\'uuid\'))" ' +
+                            'title="{{ row.getProperty(\'cancelRequestTooltip\') }}"></i></span>'} );
+                }
+
+            }
 
             $scope.findAppointmentRequests = function() {
 
