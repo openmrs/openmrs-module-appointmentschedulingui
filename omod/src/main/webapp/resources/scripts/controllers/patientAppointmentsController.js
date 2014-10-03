@@ -83,13 +83,15 @@ angular.module('appointmentscheduling')
                     result['displayStatus'] = emr.message("appointmentschedulingui.scheduleAppointment.status.type." + result["status"].type.toLowerCase());
                 });
 
-                results.sort(function(a, b) {
-                    if (a.timeSlot.appointmentBlock.startDate > b.timeSlot.appointmentBlock.startDate) {
-                        return 1;
-                    } else if (a.timeSlot.appointmentBlock.startDate < b.timeSlot.appointmentBlock.startDate) {
-                        return -1;
-                    } return 0;
-                });
+                if (results) {
+                    results.sort(function(a, b) {
+                        if (a.timeSlot.appointmentBlock.startDate > b.timeSlot.appointmentBlock.startDate) {
+                            return 1;
+                        } else if (a.timeSlot.appointmentBlock.startDate < b.timeSlot.appointmentBlock.startDate) {
+                            return -1;
+                        } return 0;
+                    });
+                }
 
                 initializeMessagesAfterSearch(results);
                 $scope.pagingOptions.currentPage = 1;
