@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class ScheduleAppointmentFragmentController {
 
-    public Object controller(@RequestParam("patientId") Patient patient,
+    public Object controller(@RequestParam(value = "patientId", required = false) Patient patient,
                              PageModel model, UiSessionContext uiSessionContext,
                              @InjectBeans PatientDomainWrapper patientDomainWrapper) {
 
-        patientDomainWrapper.setPatient(patient);
-        model.addAttribute("patient", patientDomainWrapper);
+        if (patient != null) {
+            patientDomainWrapper.setPatient(patient);
+            model.addAttribute("patient", patientDomainWrapper);
+        }
+
         model.addAttribute("canOverbook",uiSessionContext.getCurrentUser().hasPrivilege(AppointmentSchedulingUIConstants.PRIVILEGE_OVERBOOK_APPOINTMENTS));
 
         return null;

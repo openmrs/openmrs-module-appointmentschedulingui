@@ -14,7 +14,8 @@ angular.module('appointmentscheduling')
         $scope.appointmentToCancel = null;
         $scope.appointmentCancelReason = '';
 
-        $scope.init = function(patientUuid, canBook, loadOnInit, hideActionButtons) {
+        $scope.init = function(patientUuid, canBook, loadOnInit, hideActionButtons, enablePagination) {
+            $scope.enablePagination = enablePagination;
             $scope.patientUuid = patientUuid;
             $scope.canBook = canBook;
             $scope.defineAppointmentsGrid(hideActionButtons);
@@ -51,7 +52,9 @@ angular.module('appointmentscheduling')
                     'title="{{ row.getProperty(\'tooltip\') }}"></i></span>'  })
             }
 
-            ngGridHelper.includePagination($scope, $scope.appointmentsGrid, $scope.updateFilter);
+            if ($scope.enablePagination) {
+                ngGridHelper.includePagination($scope, $scope.appointmentsGrid, $scope.updateFilter);
+            }
 
         }
 
@@ -129,7 +132,10 @@ angular.module('appointmentscheduling')
         }
 
         var updatePagination = function () {
-            $scope.filteredAppointments = $scope.setPagingData($scope.filteredAppointments);
+            if ($scope.enablePagination) {
+                $scope.filteredAppointments = $scope.setPagingData($scope.filteredAppointments);
+            }
+
             if (!$scope.$$phase) $scope.$apply();
         }
 

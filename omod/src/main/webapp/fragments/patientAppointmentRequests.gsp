@@ -34,6 +34,7 @@
         'appointmentschedulingui.scheduleAppointment.errorCancelingAppointmentRequest',
         'appointmentschedulingui.timeframeunits.DAYS',
         'appointmentschedulingui.timeframeunits.WEEKS',
+        'appointmentschedulingui.timeframeunits.MONTHS',
         'appointmentschedulingui.timeframeunits.YEARS'
 
 ].flatten()
@@ -44,7 +45,7 @@
 </script>
 
 <!-- list of patient appointment requests -->
-<div id="appointmentscheduling-patientAppointmentRequests"  ng-controller='PatientAppointmentRequestsCtrl' ng-init="init('${ patient.patient.uuid }', ${ config.loadOnInit }, ${ config.hideActionButtons })">
+<div id="appointmentscheduling-patientAppointmentRequests"  ng-controller="PatientAppointmentRequestsCtrl" ng-init='init(${ patient?.patient?.uuid ? '"' + patient.patient.uuid + '"' : null }, ${ config.loadOnInit }, ${ config.hideActionButtons }, ${config.enablePagination })'>
 
     <!-- TODO: do we want "show scheduled appointment" flag here? -->
     <div ng-show="showAppointmentRequests">

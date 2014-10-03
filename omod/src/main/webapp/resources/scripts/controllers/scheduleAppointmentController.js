@@ -7,11 +7,13 @@ angular.module('appointmentscheduling')
         $scope.filteredTimeSlots = [];
         $scope.allAppointmentTypes = [];
         $scope.includeSlotsThatRequireOverbook = false;
+        $scope.patientDisplay = '';
 
         $scope.showTimeSlotsGrid = false;
         $scope.showNoTimeSlotsMessage = false;
         $scope.showLoadingMessage = false;
-        $scope.showScheduleAppointment = true;
+        $scope.showScheduleAppointment = false;
+        $scope.showConfirmAppointment = false;
         $scope.showAllAppointmentTypesModal = false;
         $scope.searchButtonDisabled = false;
         $scope.confirmAppointmentButtonsDisabled = false;
@@ -41,6 +43,7 @@ angular.module('appointmentscheduling')
 
         $scope.init = function(patientUuid) {
             $scope.patientUuid = patientUuid;
+            $scope.showScheduleAppointment = patientUuid ? true : false;
         },
 
         dateRangePickerEventListener.subscribe($scope, 'scheduleAppointment');
@@ -139,6 +142,7 @@ angular.module('appointmentscheduling')
             $rootScope.$broadcast('appointmentscheduling.scheduleAppointment.openConfirmDialog'); // the patientAppointments and patientAppointmentRequest modules listen for this event and hide themselves when they receive it
             $scope.selectedTimeSlot = $scope.timeSlotOptions.selectedItems[0];
             $scope.showScheduleAppointment = false;
+            $scope.showConfirmAppointment = true;
         }
 
         $scope.selectAppointmentType = function(type) {
@@ -158,6 +162,7 @@ angular.module('appointmentscheduling')
             $rootScope.$broadcast('appointmentscheduling.scheduleAppointment.cancelConfirmDialog'); // the patientAppointments and patientAppointmentRequest modules listen for this event and show themselves when they receive it
             $scope.selectedTimeSlot = $scope.timeSlotOptions.selectedItems[0];
             $scope.showScheduleAppointment = true;
+            $scope.showConfirmAppointment = false;
         }
 
         $scope.$watch(
@@ -179,30 +184,28 @@ angular.module('appointmentscheduling')
 
         // currently, the patientAppointmentRequestsController emits this event when the user clicks on the "book" icon associated with an appointment request
         $scope.$on('appointmentscheduling.patientAppointmentRequests.requestSelected', function(event, eventData) {
+
             $scope.selectedAppointmentRequest = eventData.appointmentRequest;  // set so that we know to mark this request as fulfilled when booking an appointment
             $scope.appointmentType = eventData.appointmentRequest.appointmentType;
             $scope.filterText = eventData.appointmentRequest.provider ? eventData.appointmentRequest.provider.person.display : '';
 
+            $scope.patientUuid = eventData.appointmentRequest.patient ? eventData.appointmentRequest.patient.uuid : $scope.patientUuid;
+            $scope.patientDisplay = eventData.appointmentRequest.patient ? eventData.appointmentRequest.patient.person.display : '';
+
             // if dates have been specified, 1) set them on the scope, and 2) broadcast these dates to the date range picker
-            if (eventData.appointmentRequest.startDate || eventData.appointmentRequest.endDate) {
-
-                var changeDateData = {
-                    senderId: 'scheduleAppointment'
-                }
-
-                if (eventData.appointmentRequest.startDate) {
-                    $scope.fromDate = eventData.appointmentRequest.startDate;
-                    changeDateData.startDate = eventData.appointmentRequest.startDate;
-                }
-
-                if (eventData.appointmentRequest.endDate) {
-                    $scope.toDate = eventData.appointmentRequest.endDate;
-                    changeDateData.endDate =  eventData.appointmentRequest.endDate;
-                }
-
-                $scope.$broadcast('dateRangePickerApp.changeDate', changeDateData);
+            //if (eventData.appointmentRequest.startDate || eventData.appointmentRequest.endDate) {
+            var changeDateData = {
+                senderId: 'scheduleAppointment',
+                startDate: eventData.appointmentRequest.startDate,
+                endDate: eventData.appointmentRequest.endDate
             }
 
+            $scope.fromDate = eventData.appointmentRequest.startDate;
+            $scope.toDate = eventData.appointmentRequest.endDate;
+
+            $scope.$broadcast('dateRangePickerApp.changeDate', changeDateData);
+
+            $scope.showScheduleAppointment = true;
             $scope.findAvailableTimeSlots();
 
         });

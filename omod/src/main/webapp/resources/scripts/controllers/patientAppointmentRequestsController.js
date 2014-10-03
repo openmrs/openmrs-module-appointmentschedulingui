@@ -9,13 +9,22 @@ angular.module('appointmentscheduling')
             $scope.showCancelAppointmentRequest = false;
             $scope.appointmentRequestToCancel;
             $scope.appointmentRequests = [];
+            $scope.filteredAppointmentRequests = [];
+            $scope.pagingOptions = {};
 
             // for the notes dialog
             $scope.showNotesDialog = false;
             $scope.notesDialogContent = '';
 
-            $scope.init = function(patientUuid, loadOnInit, hideActionButtons ) {
-                $scope.patientUuid = patientUuid;
+            $scope.init = function(patientUuid, loadOnInit, hideActionButtons, enablePagination) {
+
+                $scope.enablePagination = enablePagination;
+
+                // kind of hack to check it patient Uuid is equal to the string null
+                if (patientUuid && patientUuid != 'null') {
+                    $scope.patientUuid = patientUuid;
+                }
+
                 $scope.defineAppointmentRequestsGrid(hideActionButtons)
 
                 if (loadOnInit == null || loadOnInit) {
@@ -26,21 +35,26 @@ angular.module('appointmentscheduling')
             $scope.defineAppointmentRequestsGrid = function(hideActionButtons) {
 
                 $scope.appointmentRequestsGrid = {
-                    data: 'appointmentRequests',
+                    data: 'filteredAppointmentRequests',
                     multiSelect: false,
                     enableSorting: false,
                     i18n: jsLocale,
                     selectedItems: [],
-                    columnDefs: [   { field: 'appointmentType.display', width: '40%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.serviceType") },
-                                    { field: 'provider.person.display', width: '20%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
-                                    { field: 'timeFrame', width: '30%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.requestTimeFrame") } ],
+                    columnDefs: [   { field: 'appointmentType.display', width: '30%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.serviceType") },
+                                    { field: 'provider.person.display', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
+                                    { field: 'timeFrame', displayName: emr.message("appointmentschedulingui.scheduleAppointment.requestTimeFrame") } ],
                     plugins: [new ngGridFlexibleHeightPlugin()]
 
                 };
 
+                // add patient column if we are in a non-patient context
+                if (!$scope.patientUuid) {
+                    $scope.appointmentRequestsGrid.columnDefs.unshift( { field: 'patient.person.display', displayName: emr.message("appointmentschedulingui.scheduleAppointment.patient") } );
+                }
+
                 // add the Actions column if not disabled
                 if (!hideActionButtons) {
-                    $scope.appointmentRequestsGrid.columnDefs.push( { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"),
+                    $scope.appointmentRequestsGrid.columnDefs.push( { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), width: '8%',
                         cellTemplate: '<span><i class="delete-item icon-calendar" ng-click="bookAppointment(row)" ' +
                             'title="{{ row.getProperty(\'bookAppointmentTooltip\') }}"></i></span>      ' +
                             '<span><i class="delete-item icon-file" ng-click="openNotesDialog(row)" ' +
@@ -49,11 +63,19 @@ angular.module('appointmentscheduling')
                             'title="{{ row.getProperty(\'cancelRequestTooltip\') }}"></i></span>'} );
                 }
 
+                if ($scope.enablePagination) {
+                    ngGridHelper.includePagination($scope, $scope.appointmentRequestsGrid, updatePagination);
+                }
             }
 
             $scope.findAppointmentRequests = function() {
 
-                AppointmentService.getAppointmentRequests({ patient: $scope.patientUuid, status: 'PENDING' }).then(function (results) {
+                var query = { status: 'PENDING' };
+                if ($scope.patientUuid) {
+                    query.patient = $scope.patientUuid;
+                }
+
+                AppointmentService.getAppointmentRequests(query).then(function (results) {
 
                     angular.forEach(results, function(result) {
                         // format time frame
@@ -66,14 +88,33 @@ angular.module('appointmentscheduling')
                         result['showNotesTooltip'] = emr.message("appointmentschedulingui.scheduleAppointment.showNotes.tooltip");
                     });
 
-
                     $scope.appointmentRequests = results;
+
+                    $scope.pagingOptions.currentPage = 1;
+                    updatePagination();
+
                     $scope.showAppointmentRequests = $scope.appointmentRequests && $scope.appointmentRequests.length > 0;
                 })
                     .catch(function(e) {
                         console.log(e);
                     });
             }
+
+            var updatePagination = function () {
+
+                if ($scope.enablePagination) {
+                    // sets the display rows based on pagination
+                    $scope.filteredAppointmentRequests = $scope.setPagingData($scope.appointmentRequests);
+                }
+                else {
+                    // just display all the rows
+                    $scope.filteredAppointmentRequests = $scope.appointmentRequests;
+                }
+
+                if (!$scope.$$phase) $scope.$apply();
+
+            }
+
 
             $scope.cancelAppointmentRequest = function(uuid) {
                 $scope.appointmentRequestToCancel = { uuid: uuid };
@@ -102,6 +143,10 @@ angular.module('appointmentscheduling')
                 if (appointmentRequest.maxTimeFrameValue && appointmentRequest.maxTimeFrameUnits) {
                     appointmentRequest.endDate = moment(appointmentRequest.requestedOn)
                         .add(appointmentRequest.maxTimeFrameValue, appointmentRequest.maxTimeFrameUnits.toLowerCase()).startOf('day');
+                    // end date can never be before today
+                    if (appointmentRequest.endDate < moment().startOf('day')) {
+                        appointmentRequest.endDate = null;
+                    }
                 }
 
                 // picked up by the schedule appointment controller

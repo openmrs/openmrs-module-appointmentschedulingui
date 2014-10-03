@@ -48,12 +48,12 @@
 ${ ui.includeFragment("appointmentschedulingui", "timeZoneWarning") }
 
 
-<div id="appointmentscheduling-scheduleAppointment" class="scheduleAppointment" ng-controller="ScheduleAppointmentCtrl"  ng-init="init('${ patient.patient.uuid }')">
+<div id="appointmentscheduling-scheduleAppointment" class="scheduleAppointment" ng-controller="ScheduleAppointmentCtrl"  ng-init='init(${ patient?.patient?.uuid ? '"' + patient.patient.uuid + '"' : null})'>
 
        <div ng-show="showScheduleAppointment">
 
            <h2 class="scheduleAppointmentTitle">
-               ${ ui.message("appointmentschedulingui.scheduleAppointment.title") }
+               ${ ui.message("appointmentschedulingui.scheduleAppointment.title") } <span ng-show="patientDisplay">: <span ng-bind="patientDisplay"/></span>
            </h2>
 
            <!-- modal for showing full list of appointment types -->
@@ -117,12 +117,14 @@ ${ ui.includeFragment("appointmentschedulingui", "timeZoneWarning") }
 
        </div>
 
-       <div ng-hide="showScheduleAppointment" id="confirmAppointment" class="container" ng-controller="ConfirmAppointmentCtrl" ng-init="init('${ patient.patient.uuid }')">
+       <div ng-show="showConfirmAppointment" id="confirmAppointment" class="container" ng-controller="ConfirmAppointmentCtrl">
             <h2>
                 ${ ui.message("appointmentschedulingui.scheduleAppointment.confirmAppointment") }
             </h2>
 
              <div>
+                <p ng-shdw="patientDisplay"> ${ ui.message("appointmentschedulingui.scheduleAppointment.patient") }:
+                    <span class="confirmAppointmentInfo" ng-bind="patientDisplay"/></p>
                 <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.date") }:
                     <span class="confirmAppointmentInfo">{{ selectedTimeSlot.dateFormatted }}, {{ selectedTimeSlot.startTimeFormatted }} - {{ selectedTimeSlot.endTimeFormatted }} </span> <p/>
                 <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }:

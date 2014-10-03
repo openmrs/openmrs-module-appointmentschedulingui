@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class PatientAppointmentRequestsFragmentController {
 
-    public Object controller(@RequestParam("patientId") Patient patient,
+    public Object controller(@RequestParam(value = "patientId", required = false) Patient patient,
                              PageModel model, @InjectBeans PatientDomainWrapper patientDomainWrapper) {
 
-        patientDomainWrapper.setPatient(patient);
-        model.addAttribute("patient", patientDomainWrapper);
+        if (patient != null) {
+            patientDomainWrapper.setPatient(patient);
+            model.addAttribute("patient", patientDomainWrapper);
+        }
 
         return null;
     }

@@ -44,4 +44,15 @@
         </a>
     <% } %>
 
+    <% if (featureToggles.isFeatureEnabled("requestAppointments")) { %>
+
+        <% if (context.hasPrivilege("Task: appointmentschedulingui.bookAppointments")) { %>
+            <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "appointmentRequests") }">
+                <i class="icon-calendar"></i>
+                ${ ui.message("appointmentschedulingui.appointmentRequests.title") }
+            </a>
+        <% } %>
+
+    <% } %>
+
 </div>

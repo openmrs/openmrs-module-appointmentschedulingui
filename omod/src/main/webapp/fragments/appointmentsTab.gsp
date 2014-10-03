@@ -16,7 +16,7 @@
 
 <div id="appointmentscheduling-appointments-tab" ng-controller="AppointmentsTabCtrl" ng-init="init()">
 
-    ${ ui.includeFragment("appointmentschedulingui", "patientAppointments", [ patient: patient.patient, loadOnInit: false, hideActionButtons: true ]) }
+    ${ ui.includeFragment("appointmentschedulingui", "patientAppointments", [ patient: patient.patient, loadOnInit: false, hideActionButtons: true, enablePagination: true ]) }
 
     ${ ui.includeFragment("appointmentschedulingui", "patientAppointmentRequests", [ patient: patient.patient, loadOnInit: false, hideActionButtons: true ]) }
 
