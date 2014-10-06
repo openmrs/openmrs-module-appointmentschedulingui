@@ -117,6 +117,7 @@ angular.module('appointmentscheduling')
 
 
             $scope.cancelAppointmentRequest = function(uuid) {
+                $scope.showNotesDialog = false;
                 $scope.appointmentRequestToCancel = { uuid: uuid };
                 $scope.showCancelAppointmentRequest = true;
                 angular.element('#confirm-cancel-appointment-request .confirm').focus();
@@ -172,6 +173,7 @@ angular.module('appointmentscheduling')
             }
 
             $scope.openNotesDialog = function(row) {
+                $scope.showCancelAppointmentRequest = false;
                 $scope.showNotesDialog = true;
                 $scope.notesDialogContent =  row.entity.notes ? $sce.trustAsHtml(emr.formatAsHtml(row.entity.notes)) : '';
             }
