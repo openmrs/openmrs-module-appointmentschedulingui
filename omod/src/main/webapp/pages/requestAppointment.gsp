@@ -69,19 +69,20 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             <input id="provider" type="text" ng-model="appointmentRequest.provider" typeahead-editable="false" typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | filter: \$viewValue | limitTo:8" />
         </p>
 
+        <!-- NOTE: the ng-blur attributes in the tags below are required to make the "minFrameBeforeMax" message to show up right away for some reason -->
         <p>
             <label> ${ ui.message("appointmentschedulingui.requestAppointment.selectTimeFrame") }</label>
-            <input id="min-time-frame-value" type="text" ng-model="appointmentRequest.minTimeFrameValue" ng-change="verifyTimeFrameValues()" size="2" maxlength="2" />
-            <select id="min-time-frame-units" ng-model="appointmentRequest.minTimeFrameUnits"  ng-options="t.value as t.display for t in timeFrameUnits">
+            <input id="min-time-frame-value" type="text" ng-model="appointmentRequest.minTimeFrameValue" ng-change="disallowNonNumerics()" ng-blur="validateAppointmentRequest()" size="2" maxlength="2" />
+            <select id="min-time-frame-units" ng-model="appointmentRequest.minTimeFrameUnits"  ng-options="t.value as t.display for t in timeFrameUnits" ng-blur="validateAppointmentRequest()">
             </select>
             ${ ui.message("appointmentschedulingui.requestAppointment.to") }
-            <input id="max-time-frame-value" type="text" ng-model="appointmentRequest.maxTimeFrameValue" size="2" maxlength="2" />
-            <select id="max-time-frame-units" ng-model="appointmentRequest.maxTimeFrameUnits" ng-options="t.value as t.display for t in timeFrameUnits">
+            <input id="max-time-frame-value" type="text" ng-model="appointmentRequest.maxTimeFrameValue" ng-change="disallowNonNumerics()" ng-blur="validateAppointmentRequest()" size="2" maxlength="2" />
+            <select id="max-time-frame-units" ng-model="appointmentRequest.maxTimeFrameUnits" ng-options="t.value as t.display for t in timeFrameUnits" ng-blur="validateAppointmentRequest()">
             </select>
-            <span ng-show="!validation.minBeforeOrEqualToMax">${ ui.message('appointmentschedulingui.requestAppointment.minTimeFrameBeforeMax') }</span>
+            <span ng-hide="validation.minBeforeOrEqualToMax">${ ui.message('appointmentschedulingui.requestAppointment.minTimeFrameBeforeMax') }</span>
         </p>
 
-        <p>
+        <p
             <label>${ ui.message("appointmentschedulingui.requestAppointment.notes") } </label>
             <textarea id="notes" ng-model="appointmentRequest.notes"></textarea>
         </p>

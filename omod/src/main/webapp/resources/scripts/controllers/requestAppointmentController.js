@@ -4,9 +4,7 @@ angular.module('appointmentscheduling.requestAppointment')
 
         // TODO handle editing a request form
         $scope.appointmentRequest = {};
-
         $scope.timeFrameUnits = [ {} ];
-
         $scope.validation = {
 
             appointmentTypeChosen: false,
@@ -66,10 +64,11 @@ angular.module('appointmentscheduling.requestAppointment')
                      moment().add(parseInt($scope.appointmentRequest.maxTimeFrameValue), $scope.appointmentRequest.maxTimeFrameUnits.toLowerCase()).startOf('day'))
 
             return $scope.validation.isValid();
-        }
+        };
 
-        $scope.verifyTimeFrameValues = function() {
+        $scope.disallowNonNumerics = function() {
 
+            // just clear out the range parameters if  non-numeric is entered
             if (isNaN($scope.appointmentRequest.minTimeFrameValue)) {
                 $scope.appointmentRequest.minTimeFrameValue = '';
             }
