@@ -117,13 +117,13 @@ ${ ui.includeFragment("appointmentschedulingui", "timeZoneWarning") }
 
        </div>
 
-       <div ng-show="showConfirmAppointment" id="confirmAppointment" class="container" ng-controller="ConfirmAppointmentCtrl">
+       <div ng-show="showConfirmAppointment" id="confirmAppointment" class="container" ng-controller="ConfirmAppointmentCtrl" ng-init="init(${ canOverbook })">
             <h2>
                 ${ ui.message("appointmentschedulingui.scheduleAppointment.confirmAppointment") }
             </h2>
 
              <div>
-                <p ng-shdw="patientDisplay"> ${ ui.message("appointmentschedulingui.scheduleAppointment.patient") }:
+                <p ng-show="patientDisplay"> ${ ui.message("appointmentschedulingui.scheduleAppointment.patient") }:
                     <span class="confirmAppointmentInfo" ng-bind="patientDisplay"/></p>
                 <p> ${ ui.message("appointmentschedulingui.scheduleAppointment.date") }:
                     <span class="confirmAppointmentInfo">{{ selectedTimeSlot.dateFormatted }}, {{ selectedTimeSlot.startTimeFormatted }} - {{ selectedTimeSlot.endTimeFormatted }} </span> <p/>

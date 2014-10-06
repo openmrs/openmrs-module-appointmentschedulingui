@@ -5,8 +5,7 @@ angular.module('appointmentscheduling')
 
         $scope.appointmentReason = '';
 
-        $scope.init = function(patientUuid, canOverbook) {
-            $scope.patientUuid = patientUuid;
+        $scope.init = function(canOverbook) {
             $scope.canOverbook = canOverbook;
         },
 
