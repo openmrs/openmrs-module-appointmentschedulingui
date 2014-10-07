@@ -41,9 +41,12 @@ angular.module('appointmentscheduling')
             plugins: [new ngGridFlexibleHeightPlugin()]
         };
 
-        $scope.init = function(patientUuid) {
+        $scope.init = function(patientUuid, returnUrl) {
             $scope.patientUuid = patientUuid;
             $scope.showScheduleAppointment = patientUuid ? true : false;
+            if (returnUrl) {
+                $scope.returnUrl = returnUrl;
+            }
         },
 
         dateRangePickerEventListener.subscribe($scope, 'scheduleAppointment');
@@ -151,11 +154,15 @@ angular.module('appointmentscheduling')
         }
 
         $scope.backToPatientSearch = function() {
-            emr.navigateTo({
-                provider: 'coreapps',
-                page: 'findpatient/findPatient',
-                query: { app: 'appointmentschedulingui.schedulingAppointmentApp' }
-            });
+            if ($scope.returnUrl) {
+                emr.navigateTo({ url: $scope.returnUrl });
+            } else {
+                emr.navigateTo({
+                    provider: 'coreapps',
+                    page: 'findpatient/findPatient',
+                    query: { app: 'appointmentschedulingui.schedulingAppointmentApp' }
+                });
+            }
         }
 
         $scope.cancelConfirmAppointment = function () {

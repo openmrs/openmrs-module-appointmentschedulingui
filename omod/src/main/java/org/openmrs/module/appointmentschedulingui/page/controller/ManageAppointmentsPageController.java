@@ -17,6 +17,8 @@ public class ManageAppointmentsPageController {
     public Object controller(@RequestParam("patientId") Patient patient,
                              PageModel model, UiSessionContext uiSessionContext,
                              @InjectBeans PatientDomainWrapper patientDomainWrapper,
+                             @RequestParam(value="returnUrl", required = false) String returnUrl,
+                             @RequestParam(value = "breadcrumbOverride", required = false) String breadcrumbOverride,
                              @SpringBean("appointmentService") AppointmentService appointmentService) {
 
 
@@ -28,7 +30,8 @@ public class ManageAppointmentsPageController {
         patientDomainWrapper.setPatient(patient);
         model.addAttribute("patient", patientDomainWrapper);
         model.addAttribute("canBook", uiSessionContext.getCurrentUser().hasPrivilege(AppointmentSchedulingUIConstants.PRIVILEGE_BOOK_APPOINTMENTS));
-
+        model.addAttribute("returnUrl", returnUrl);
+        model.addAttribute("breadcrumbOverride", breadcrumbOverride);
         return null;
     }
 

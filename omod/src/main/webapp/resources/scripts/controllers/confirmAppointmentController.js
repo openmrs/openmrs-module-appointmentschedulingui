@@ -57,11 +57,15 @@ angular.module('appointmentscheduling')
                 }
 
                 // success callback
-                emr.navigateTo({
-                    provider: 'appointmentschedulingui',
-                    page: 'sessionInfo',
-                    query: { patientUuid: $scope.patientUuid }
-                });
+                if ($scope.returnUrl) {
+                    emr.navigateTo({ url: $scope.returnUrl });
+                } else {
+                    emr.navigateTo({
+                        provider: 'appointmentschedulingui',
+                        page: 'sessionInfo',
+                        query: { patientUuid: $scope.patientUuid }
+                    });
+                }
 
             }).catch(function () {
                     // error callback
