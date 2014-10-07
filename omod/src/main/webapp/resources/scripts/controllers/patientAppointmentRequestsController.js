@@ -2,7 +2,6 @@ angular.module('appointmentscheduling')
     .controller('PatientAppointmentRequestsCtrl', ['$scope', '$rootScope', 'AppointmentService','filterFilter', 'ngGridHelper','$sce',
         function ($scope, $rootScope, AppointmentService, filterFilter, ngGridHelper, $sce) {
 
-            // TODO: don't hard-code PENDING?
             // TODO: column widths
 
             $scope.showAppointmentRequests = false;
@@ -196,19 +195,13 @@ angular.module('appointmentscheduling')
             });
 
             // due to a error I can't solve, we get caught in infinite angular digest lope if we initialize appointment requests
-            // when a grid is not visible--so for use casese (like the appointments tab) where the grid may not be visible on load
+            // when a grid is not visible--so for use cases (like the appointments tab) where the grid may not be visible on load
             // we allow loading the requests on init to be disabled (see loadOnInit in the init method above) and provide
             // an event that other components can broadcast when the requests should be loaded
             // this does have the added benefit of not making the REST request until we actually need the data
             $scope.$on('appointmentRequests.loadAppointmentRequests', function () {
                 $scope.findAppointmentRequests();
             })
-
-            /*// the parent schedule appointment scope can call this to tell the appointment requests grid to de-select all items
-            $scope.$on('appointmentscheduling.patientAppointmentRequests.deselectAppointmentRequests', function() {
-                $scope.appointmentRequestsGrid.selectedItems = [];
-                angular.element("#appointmentRequestsGridTable div.selected").removeClass("selected");
-            });*/
 
         }])
 

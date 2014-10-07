@@ -24,7 +24,6 @@ angular.module('appointmentscheduling')
                 dateRangePickerEventListener.subscribe($scope, 'patientAppointments');
                 $scope.findAppointments();
             }
-
         };
 
 
@@ -62,8 +61,6 @@ angular.module('appointmentscheduling')
             filterText: "",
             useExternalFilter: true
         };
-
-
 
         var getSearchParams = function () {
             var params = { 'patient' : $scope.patientUuid };

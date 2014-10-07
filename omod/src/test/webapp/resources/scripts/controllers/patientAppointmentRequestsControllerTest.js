@@ -40,6 +40,23 @@ describe('patient appointment requests controller', function() {
             expect(scope.showAppointmentRequests).toBeTruthy();
 
         })
+
+        it('should find appointment request when trigger by appointmentRequests.loadAppointmentRequests event', function() {
+
+            var appointmentRequests = [{
+                appointmentType: 123
+            }];
+
+            scope.$broadcast('appointmentRequests.loadAppointmentRequests');
+
+            deferred.resolve(appointmentRequests);
+            scope.$apply();
+
+            expect(mockAppointmentService.getAppointmentRequests).toHaveBeenCalledWith({ patient: '123abc', status: 'PENDING' });
+            expect(scope.appointmentRequests).toBe(appointmentRequests);
+            expect(scope.showAppointmentRequests).toBeTruthy();
+
+        })
     });
 
     describe('book appointments', function() {

@@ -257,6 +257,7 @@
                         <include>directives/*.js</include>
                         <include>services/*.js</include>
                         <include>resources/*.js</include>
+                        <include>bower_components/**/providerService.js</include>
                         <include>bower_components/**/locationService.js</include>
                         <include>bower_components/**/restUtils.js</include>
                         <include>bower_components/**/jquery-1.8.3.min.js</include>

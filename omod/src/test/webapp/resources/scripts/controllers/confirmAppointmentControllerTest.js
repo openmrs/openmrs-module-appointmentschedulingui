@@ -2,15 +2,20 @@
 describe('ConfirmAppointment Controller', function () {
     var scope,
         appointmentServiceMock,
+        deferred,
         promise;
 
     beforeEach(module('appointmentscheduling'));
     beforeEach(inject(function ($rootScope, $controller, $q) {
-        promise = $q.defer().promise;
-        appointmentServiceMock = jasmine.createSpyObj('appointmentServiceMock', ['saveAppointment']);
+
+        deferred = $q.defer();
+        promise = deferred.promise;
+
+        appointmentServiceMock = jasmine.createSpyObj('appointmentServiceMock', ['saveAppointment', 'markAppointmentRequestFulfilled']);
         appointmentServiceMock.saveAppointment.andCallFake(function() {
             return promise;
         });
+
         scope = $rootScope.$new();
 
         var controller =  $controller('ConfirmAppointmentCtrl', {$scope: scope, AppointmentService: appointmentServiceMock});
@@ -53,6 +58,46 @@ describe('ConfirmAppointment Controller', function () {
             scope.confirmAppointment();
 
             expect(appointmentServiceMock.saveAppointment).toHaveBeenCalledWith(appointment, true);
+        });
+    });
+
+    describe('it must flag an appointment request as fullfill', function () {
+        it('should call markAppointmentRequestFulfilled if selected appointment request is same type as appointment we are creating', function () {
+
+            scope.canOverbook = false;
+            scope.appointmentType = {uuid: 1};
+            scope.selectedTimeSlot = {uuid: 2};
+            scope.patientUuid = '123';
+
+            scope.selectedAppointmentRequest = {
+                appointmentType: { uuid: 1}
+            }
+
+            scope.confirmAppointment();
+
+            deferred.resolve();
+            scope.$apply();
+
+            expect(appointmentServiceMock.markAppointmentRequestFulfilled).toHaveBeenCalledWith(scope.selectedAppointmentRequest);
+        });
+
+        it('should not call markAppointmentRequestFulfilled if selected appointment request is different type as appointment we are creating', function () {
+
+            scope.canOverbook = false;
+            scope.appointmentType = {uuid: 1};
+            scope.selectedTimeSlot = {uuid: 2};
+            scope.patientUuid = '123';
+
+            scope.selectedAppointmentRequest = {
+                appointmentType: { uuid: 2}
+            }
+
+            scope.confirmAppointment();
+
+            deferred.resolve();
+            scope.$apply();
+
+            expect(appointmentServiceMock.markAppointmentRequestFulfilled).not.toHaveBeenCalled();
         });
     });
 })
