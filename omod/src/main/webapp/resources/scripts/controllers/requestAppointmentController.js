@@ -57,11 +57,11 @@ angular.module('appointmentscheduling.requestAppointment')
                 && ( ($scope.appointmentRequest.maxTimeFrameUnits && $scope.appointmentRequest.maxTimeFrameValue)
                     || (!$scope.appointmentRequest.maxTimeFrameUnits && !$scope.appointmentRequest.maxTimeFrameValue) );
 
-            // compare dates, but only if all min/max values have bee set
+            // compare dates, but only if all min/max values have been set
             $scope.validation.minBeforeOrEqualToMax =
                 !($scope.appointmentRequest.minTimeFrameValue && $scope.appointmentRequest.maxTimeFrameValue && $scope.appointmentRequest.minTimeFrameUnits && $scope.appointmentRequest.maxTimeFrameUnits)
                 ||  (moment().add(parseInt($scope.appointmentRequest.minTimeFrameValue), $scope.appointmentRequest.minTimeFrameUnits.toLowerCase()).startOf('day') <
-                     moment().add(parseInt($scope.appointmentRequest.maxTimeFrameValue), $scope.appointmentRequest.maxTimeFrameUnits.toLowerCase()).startOf('day'))
+                     moment().add(parseInt($scope.appointmentRequest.maxTimeFrameValue), $scope.appointmentRequest.maxTimeFrameUnits.toLowerCase()).endOf('day'))
 
             return $scope.validation.isValid();
         };
@@ -85,7 +85,7 @@ angular.module('appointmentscheduling.requestAppointment')
             // default requested time to now
             $scope.appointmentRequest.requestedOn = moment().format();
 
-            // annoying that we have to do this, but I can't seem to get the typeahead to store the uuid without also displaying the uuid when selected, so the submit model is slightly different than the display model
+            // annoying that we have to do this, but I can't seem to get the type-ahead to store the uuid without also displaying the uuid when selected, so the submit model is slightly different than the display model
             var appointmentRequestToSave = {
                 status: 'PENDING',
                 requestedOn: moment().format(),
