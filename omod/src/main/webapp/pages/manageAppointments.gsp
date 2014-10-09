@@ -4,14 +4,25 @@
 
 
 <script type="text/javascript">
-    var breadcrumbs = [
-        { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("appointmentschedulingui.scheduleAppointment.buttonTitle")}",
-            link: '${ui.pageLink("coreapps", "findpatient/findPatient", [ app: 'appointmentschedulingui.schedulingAppointmentApp'])}' },
-        { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" }
-    ];
+    <% if (breadcrumbOverride) { %>
+        var breadcrumbs = _.flatten([
+        ${ breadcrumbOverride },
+        { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" ,
+            link: '${ui.pageLink("coreapps", "patientdashboard/patientDashboard", [patientId: patient.id])}'}
+    ] );
+    <% } else { %>
+        var breadcrumbs = [
+            { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
+            { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" ,
+                link: '${ui.pageLink("coreapps", "patientdashboard/patientDashboard", [patientId: patient.id])}'},
+            { label: "${ ui.message("appointmentschedulingui.scheduleAppointment.buttonTitle") }",
+                link: "${ ui.pageLink("coreapps", "findpatient/findPatient", [app: "appointmentschedulingui.schedulingAppointmentApp"]) }" }
 
-    jq(function() {
+        ];
+    <% } %>
+
+
+     jq(function() {
         angular.bootstrap(jq('#appointmentscheduling-manageAppointments'), ['appointmentscheduling']);
     })
 

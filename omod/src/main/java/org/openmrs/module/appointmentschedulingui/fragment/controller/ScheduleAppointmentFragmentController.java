@@ -12,6 +12,7 @@ public class ScheduleAppointmentFragmentController {
 
     public Object controller(@RequestParam(value = "patientId", required = false) Patient patient,
                              PageModel model, UiSessionContext uiSessionContext,
+                             @RequestParam(value="returnUrl", required = false) String returnUrl,
                              @InjectBeans PatientDomainWrapper patientDomainWrapper) {
 
         if (patient != null) {
@@ -20,7 +21,7 @@ public class ScheduleAppointmentFragmentController {
         }
 
         model.addAttribute("canOverbook",uiSessionContext.getCurrentUser().hasPrivilege(AppointmentSchedulingUIConstants.PRIVILEGE_OVERBOOK_APPOINTMENTS));
-
+        model.addAttribute("returnUrl", returnUrl);
         return null;
     }
 

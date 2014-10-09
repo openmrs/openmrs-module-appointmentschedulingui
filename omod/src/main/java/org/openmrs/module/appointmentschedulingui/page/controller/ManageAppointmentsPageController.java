@@ -5,6 +5,7 @@ import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
+import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.InjectBeans;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
@@ -16,6 +17,7 @@ public class ManageAppointmentsPageController {
 
     public Object controller(@RequestParam("patientId") Patient patient,
                              PageModel model, UiSessionContext uiSessionContext,
+                             UiUtils ui,
                              @InjectBeans PatientDomainWrapper patientDomainWrapper,
                              @RequestParam(value="returnUrl", required = false) String returnUrl,
                              @RequestParam(value = "breadcrumbOverride", required = false) String breadcrumbOverride,
