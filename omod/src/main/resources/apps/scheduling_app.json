@@ -42,7 +42,7 @@
             }
         ],
         "config": {
-            "afterSelectedUrl": "/appointmentschedulingui/manageAppointments.page?patientId={{patientId}}",
+            "afterSelectedUrl": "/appointmentschedulingui/manageAppointments.page?patientId={{patientId}}&breadcrumbOverride={{breadcrumbOverride}}",
             "label": "appointmentschedulingui.scheduleAppointment.buttonTitle",
             "heading": "appointmentschedulingui.scheduleAppointment.buttonTitle",
             "showLastViewedPatients": false,
