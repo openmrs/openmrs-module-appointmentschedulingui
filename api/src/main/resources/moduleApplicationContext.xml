@@ -19,5 +19,15 @@
 
 	<!-- Add here beans related to the API context -->
 
-	
+
+    <!-- configure the listener that resets the daily appointments report if the primary identifier type changes-->
+    <bean id="EmrPrimaryIdentifierTypeGlobalPropertyListener" parent="openmrsEventListeners">
+        <property name="globalPropertyListeners">
+            <list value-type="org.openmrs.api.GlobalPropertyListener" merge="true">
+                <bean class="org.openmrs.module.appointmentschedulingui.listener.EmrPrimaryIdentifierTypeGlobalPropertyListener" />
+            </list>
+        </property>
+    </bean>
+
+
 </beans>

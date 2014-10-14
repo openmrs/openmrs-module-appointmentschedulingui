@@ -2,6 +2,7 @@ package org.openmrs.module.appointmentschedulingui.reporting.library;
 
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifier;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentEndDateDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentProviderDataDefinition;
@@ -20,6 +21,8 @@ import org.openmrs.module.reporting.data.converter.PropertyConverter;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PersonAttributeDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PreferredNameDataDefinition;
+import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
+import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinitionService;
 import org.openmrs.module.reporting.definition.library.BaseDefinitionLibrary;
 import org.openmrs.module.reporting.definition.library.DocumentedDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
@@ -63,7 +66,16 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
 
         ObjectFormatter formatted = new ObjectFormatter();
 
-        dsd.addColumn("identifier", createPrimaryIdentifierDataDefinition(), "", new PropertyConverter(PatientIdentifier.class, "identifier"), formatted);
+        // only create the primary identifier column if a primary identifier type has been properly set up
+        try {
+            if (emrApiProperties.getPrimaryIdentifierType() != null) {
+                dsd.addColumn("identifier", createPrimaryIdentifierDataDefinition(), "", new PropertyConverter(PatientIdentifier.class, "identifier"), formatted);
+            }
+        }
+        catch (IllegalStateException e) {
+            // the EMR-API module may throw this if the emr.primaryIdentifierTYpe definition has not been specifed
+        }
+
         dsd.addColumn("provider", new AppointmentProviderDataDefinition(), "", formatted);
         dsd.addColumn("providerUuid", new AppointmentProviderDataDefinition(), "", new PropertyConverter(String.class, "uuid"));
         dsd.addColumn("appointmentType", new AppointmentTypeDataDefinition(), "", formatted);
@@ -81,6 +93,26 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
         dsd.addSortCriteria("provider", SortCriteria.SortDirection.ASC);
 
         return dsd;
+    }
+
+    public void persistDailyAppointmentsDataSetDefinition() {
+
+        DataSetDefinitionService dataSetDefinitionService = Context.getService(DataSetDefinitionService.class);
+
+        // fetch the existing definition if it exists
+        DataSetDefinition existing =  dataSetDefinitionService.getDefinition(AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID, AppointmentDataSetDefinition.class);
+
+        // create the new definition
+        AppointmentDataSetDefinition dsd = getDailyAppointmentsDataSetDefinition();
+        dsd.setUuid(AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID);
+
+        // override the existing with the new
+        if (existing != null) {
+            dsd.setId(existing.getId());
+            Context.evictFromSession(existing);
+        }
+
+        dataSetDefinitionService.saveDefinition(dsd);
     }
 
     private PatientIdentifierDataDefinition createPrimaryIdentifierDataDefinition() {
