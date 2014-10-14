@@ -76,6 +76,16 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
             // the EMR-API module may throw this if the emr.primaryIdentifierTYpe definition has not been specifed
         }
 
+        // only create the telephone column if a telephone attribute type has been specified
+        try {
+            if (emrApiProperties.getTelephoneAttributeType() != null) {
+                dsd.addColumn("telephoneNumber", new PersonAttributeDataDefinition(emrApiProperties.getTelephoneAttributeType()), "", formatted);
+            }
+        }
+        catch (IllegalStateException e) {
+            // the EMR-API module may throw this if the emr.primaryIdentifierTYpe definition has not been specifed
+        }
+
         dsd.addColumn("provider", new AppointmentProviderDataDefinition(), "", formatted);
         dsd.addColumn("providerUuid", new AppointmentProviderDataDefinition(), "", new PropertyConverter(String.class, "uuid"));
         dsd.addColumn("appointmentType", new AppointmentTypeDataDefinition(), "", formatted);
@@ -87,7 +97,6 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
         dsd.addColumn("startDatetime", new AppointmentStartDateDataDefinition(), "", null);
         dsd.addColumn("startTimeFormatted", new AppointmentStartDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
         dsd.addColumn("endTimeFormatted", new AppointmentEndDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
-        dsd.addColumn("telephoneNumber", new PersonAttributeDataDefinition(emrApiProperties.getTelephoneAttributeType()), "", formatted);
 
         dsd.addSortCriteria("startDatetime", SortCriteria.SortDirection.ASC);
         dsd.addSortCriteria("provider", SortCriteria.SortDirection.ASC);
