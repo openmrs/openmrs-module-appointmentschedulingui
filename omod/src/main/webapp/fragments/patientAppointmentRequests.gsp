@@ -32,6 +32,7 @@
         'appointmentschedulingui.scheduleAppointment.bookAppointment.tooltip',
         'appointmentschedulingui.scheduleAppointment.showNotes.tooltip',
         'appointmentschedulingui.scheduleAppointment.errorCancelingAppointmentRequest',
+        'appointmentschedulingui.scheduleAppointment.patient',
         'appointmentschedulingui.timeframeunits.DAYS',
         'appointmentschedulingui.timeframeunits.WEEKS',
         'appointmentschedulingui.timeframeunits.MONTHS',

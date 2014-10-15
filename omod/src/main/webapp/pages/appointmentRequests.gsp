@@ -33,6 +33,6 @@
 
     ${ ui.includeFragment("appointmentschedulingui", "patientAppointmentRequests", [ enablePagination: true ]) }
 
-    ${ ui.includeFragment("appointmentschedulingui", "scheduleAppointment") }
+    ${ ui.includeFragment("appointmentschedulingui", "scheduleAppointment", [ returnUrl: ui.pageLink('appointmentschedulingui', 'appointmentRequests') ]) }
 
 </div>

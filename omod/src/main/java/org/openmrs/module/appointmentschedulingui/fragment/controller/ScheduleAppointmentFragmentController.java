@@ -4,6 +4,7 @@ import org.openmrs.Patient;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
+import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.annotation.InjectBeans;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +13,7 @@ public class ScheduleAppointmentFragmentController {
 
     public Object controller(@RequestParam(value = "patientId", required = false) Patient patient,
                              PageModel model, UiSessionContext uiSessionContext,
-                             @RequestParam(value="returnUrl", required = false) String returnUrl,
+                             @FragmentParam(value = "returnUrl", required = false) String returnUrl,
                              @InjectBeans PatientDomainWrapper patientDomainWrapper) {
 
         if (patient != null) {
