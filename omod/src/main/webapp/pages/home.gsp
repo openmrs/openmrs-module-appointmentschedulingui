@@ -28,7 +28,7 @@
         </a>
     <% } %>
 
-    <% if (context.hasPrivilege("App: appointmentschedulingui.viewAppointments")) { %>
+    <% if (context.hasPrivilege("App: appointmentschedulingui.bookAppointments")) { %>
         <a class="button app big" href="${ ui.pageLink("coreapps", "findpatient/findPatient", [app: "appointmentschedulingui.schedulingAppointmentApp"]) }"
                 id="appointmentschedulingui-schedulingAppointmentAppLink-app">
             <i class="icon-calendar"></i>
