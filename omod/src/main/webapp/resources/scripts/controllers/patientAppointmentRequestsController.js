@@ -15,7 +15,7 @@ angular.module('appointmentscheduling')
             $scope.showNotesDialog = false;
             $scope.notesDialogContent = '';
 
-            $scope.init = function(patientUuid, loadOnInit, hideActionButtons, enablePagination) {
+            $scope.init = function(patientUuid, loadOnInit, hideActionButtons, enablePagination, canBook) {
 
                 $scope.enablePagination = enablePagination;
 
@@ -24,14 +24,14 @@ angular.module('appointmentscheduling')
                     $scope.patientUuid = patientUuid;
                 }
 
-                $scope.defineAppointmentRequestsGrid(hideActionButtons)
+                $scope.defineAppointmentRequestsGrid(hideActionButtons, canBook)
 
                 if (loadOnInit == null || loadOnInit) {
                     $scope.findAppointmentRequests();
                 }
             }
 
-            $scope.defineAppointmentRequestsGrid = function(hideActionButtons) {
+            $scope.defineAppointmentRequestsGrid = function(hideActionButtons, canBook) {
 
                 $scope.appointmentRequestsGrid = {
                     data: 'filteredAppointmentRequests',
@@ -53,13 +53,27 @@ angular.module('appointmentscheduling')
 
                 // add the Actions column if not disabled
                 if (!hideActionButtons) {
-                    $scope.appointmentRequestsGrid.columnDefs.push( { displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), width: '8%',
-                        cellTemplate: '<span><i class="delete-item icon-calendar" ng-click="bookAppointment(row)" ' +
-                            'title="{{ row.getProperty(\'bookAppointmentTooltip\') }}"></i></span>      ' +
-                            '<span><i class="delete-item icon-file" ng-click="openNotesDialog(row)" ' +
-                            'title="{{ row.getProperty(\'showNotesTooltip\') }}"></i></span>      ' +
-                            '<span><i class="delete-item icon-remove" ng-click="cancelAppointmentRequest(row.getProperty(\'uuid\'))" ' +
-                            'title="{{ row.getProperty(\'cancelRequestTooltip\') }}"></i></span>'} );
+
+                    var cellTemplate;
+
+                    // only show the "book appt" action if user is able to book appts
+                    if (canBook) {
+                        cellTemplate = cellTemplate + '<span><i class="delete-item icon-calendar" ng-click="bookAppointment(row)" ' +
+                            'title="{{ row.getProperty(\'bookAppointmentTooltip\') }}"></i></span>      ';
+                    }
+
+                    cellTemplate = cellTemplate + '<span><i class="delete-item icon-file" ng-click="openNotesDialog(row)" ' +
+                        'title="{{ row.getProperty(\'showNotesTooltip\') }}"></i></span>      ';
+
+                    // only show the "delete" action if user is able to book appts
+                    if (canBook) {
+                        cellTemplate = cellTemplate + '<span><i class="delete-item icon-remove" ng-click="cancelAppointmentRequest(row.getProperty(\'uuid\'))" ' +
+                        'title="{{ row.getProperty(\'cancelRequestTooltip\') }}"></i></span>'
+                    }
+
+                    $scope.appointmentRequestsGrid.columnDefs.push({ displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), width: '8%',
+                        cellTemplate: cellTemplate });
+
                 }
 
                 if ($scope.enablePagination) {

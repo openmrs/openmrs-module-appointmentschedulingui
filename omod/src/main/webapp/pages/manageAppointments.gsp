@@ -36,7 +36,7 @@
 
         ${ ui.includeFragment("appointmentschedulingui", "patientAppointments", [ patient: patient.patient, enablePagination: true ]) }
 
-        ${ ui.includeFragment("appointmentschedulingui", "patientAppointmentRequests", [ patient: patient.patient ]) }
+        ${ ui.includeFragment("appointmentschedulingui", "patientAppointmentRequests", [ patient: patient.patient, canBook: canBook ]) }
 
         <% if (canBook) { %>
             ${ ui.includeFragment("appointmentschedulingui", "scheduleAppointment", [ patient: patient.patient, returnUrl: returnUrl  ]) }
