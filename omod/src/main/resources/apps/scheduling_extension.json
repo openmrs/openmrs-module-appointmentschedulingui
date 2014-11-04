@@ -1,6 +1,6 @@
 [
     {
-        "id": "org.openmrs.module.appointmentschedulingui.tab",
+        "id": "appointmentschedulingui.tab",
         "extensionPointId": "patientDashboard.tabs",
         "type": "link",
         "label": "appointmentschedulingui.appointmentsTab.label",
