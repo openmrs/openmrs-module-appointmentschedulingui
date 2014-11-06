@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class PatientAppointmentRequestsFragmentController {
 
+    // can not pass in a patient to view all appointment requests
     public Object controller(@RequestParam(value = "patientId", required = false) Patient patient,
                              PageModel model, @InjectBeans PatientDomainWrapper patientDomainWrapper) {
 

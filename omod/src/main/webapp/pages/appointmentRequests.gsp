@@ -31,7 +31,7 @@
 <div id="appointmentscheduling-appointment-requests" class="container">
     <h1>${ ui.message("appointmentschedulingui.appointmentRequests.title") }</h1>
 
-    ${ ui.includeFragment("appointmentschedulingui", "patientAppointmentRequests", [ enablePagination: true ]) }
+    ${ ui.includeFragment("appointmentschedulingui", "patientAppointmentRequests", [ enablePagination: true, canBook: canBook ]) }
 
     ${ ui.includeFragment("appointmentschedulingui", "scheduleAppointment", [ returnUrl: ui.pageLink('appointmentschedulingui', 'appointmentRequests') ]) }
 
