@@ -1,5 +1,7 @@
 package org.openmrs.module.appointmentschedulingui.page.controller;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openmrs.Patient;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class ManageAppointmentsPageController {
 
+    protected final Log log = LogFactory.getLog(getClass());
+
     public Object controller(@RequestParam("patientId") Patient patient,
                              PageModel model, UiSessionContext uiSessionContext,
                              UiUtils ui,
@@ -22,6 +26,10 @@ public class ManageAppointmentsPageController {
                              @RequestParam(value="returnUrl", required = false) String returnUrl,
                              @RequestParam(value = "breadcrumbOverride", required = false) String breadcrumbOverride,
                              @SpringBean("appointmentService") AppointmentService appointmentService) {
+
+        // hack to try to reproduce breadcrumb formattign problems I can't reproduce locally
+        log.error("breadcrumb: " + breadcrumbOverride);
+
 
 
         // TODO stole this from core apps patient dashboard--does it do what we want it to do?
