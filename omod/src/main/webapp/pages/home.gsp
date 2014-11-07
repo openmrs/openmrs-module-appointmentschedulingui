@@ -30,7 +30,7 @@
 
     <% if (context.hasPrivilege("App: appointmentschedulingui.viewAppointments")) { %>
         <a class="button app big" href="${ ui.pageLink("coreapps", "findpatient/findPatient", [app: "appointmentschedulingui.schedulingAppointmentApp"]) }"
-                id="appointmentschedulingui-schedulingAppointmentAppLink-app">
+                id="appointmentschedulingui-manageAppointments-app">
             <i class="icon-calendar"></i>
             ${ ui.message("appointmentschedulingui.scheduleAppointment.buttonTitle") }
         </a>
@@ -38,7 +38,7 @@
 
     <% if (context.hasPrivilege("App: appointmentschedulingui.viewAppointments")) { %>
         <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "dailyScheduledAppointments") }"
-                id="appointmentschedulingui-scheduledAppointments-homepageLink-app">
+                id="appointmentschedulingui-scheduledAppointments-app">
             <i class="icon-calendar"></i>
             ${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }
         </a>
@@ -47,7 +47,8 @@
     <% if (featureToggles.isFeatureEnabled("requestAppointments")) { %>
 
         <% if (context.hasPrivilege("Task: appointmentschedulingui.bookAppointments")) { %>
-            <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "appointmentRequests") }">
+            <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "appointmentRequests") }"
+                 id="appointmentschedulingui-appointmentRequests-app">
                 <i class="icon-calendar"></i>
                 ${ ui.message("appointmentschedulingui.appointmentRequests.title") }
             </a>
