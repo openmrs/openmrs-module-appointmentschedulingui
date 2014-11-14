@@ -27,11 +27,6 @@ public class ManageAppointmentsPageController {
                              @RequestParam(value = "breadcrumbOverride", required = false) String breadcrumbOverride,
                              @SpringBean("appointmentService") AppointmentService appointmentService) {
 
-        // hack to try to reproduce breadcrumb formattign problems I can't reproduce locally
-        log.error("breadcrumb: " + breadcrumbOverride);
-
-
-
         // TODO stole this from core apps patient dashboard--does it do what we want it to do?
         if (patient.isVoided() || patient.isPersonVoided()) {
             return new Redirect("coreapps", "patientdashboard/deletedPatient", "patientId=" + patient.getId());
