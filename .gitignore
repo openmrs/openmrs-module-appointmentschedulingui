@@ -23,3 +23,7 @@ omod/src/main/webapp/resources/scripts/bower_components/
 .idea/
 *.iml
 *.sass-cache
+
+# Rubygems build directories #
+omod/.rubygems
+omod/.rubygems-provided

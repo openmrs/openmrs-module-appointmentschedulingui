@@ -15,6 +15,9 @@
 
     <properties>
         <projectBowerResources>${project.basedir}/src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts</projectBowerResources>
+        <!-- by default rubygems are installed in the target directory, which we don't want, because then they'd need to be reinstalled after every clean -->
+        <gem.home>${basedir}/.rubygems</gem.home>
+        <gem.path>${basedir}/.rubygems</gem.path>
     </properties>
 
 
@@ -230,7 +233,7 @@
                 </executions>
                 <configuration>
                     <jrubyVersion>1.7.10</jrubyVersion>
-                    <execArgs>${project.build.directory}/rubygems/bin/compass compile ${basedir}/src/main/compass</execArgs>
+                    <execArgs>${gem.home}/bin/compass compile ${basedir}/src/main/compass</execArgs>
                 </configuration>
             </plugin>
 
@@ -370,7 +373,7 @@
                         </executions>
                         <configuration>
                         	<jrubyVersion>1.7.10</jrubyVersion>
-                            <execArgs>${project.build.directory}/rubygems/bin/compass watch ${basedir}/src/main/compass</execArgs>
+                            <execArgs>${gem.home}/bin/compass watch ${basedir}/src/main/compass</execArgs>
                         </configuration>
                     </plugin>
                 </plugins>
