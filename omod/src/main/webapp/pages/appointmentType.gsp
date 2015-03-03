@@ -54,7 +54,7 @@
             ])}
         <% } %>
 
-        ${ ui.includeFragment("emr", "field/textarea", [
+        ${ ui.includeFragment("uicommons", "field/textarea", [
                 label: ui.message("appointmentschedulingui.appointmenttype.optionalDescription"),
                 formFieldName: "description",
                 id: "description",
