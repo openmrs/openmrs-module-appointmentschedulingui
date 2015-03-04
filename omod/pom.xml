@@ -305,10 +305,10 @@
 					        osfamily="windows" failonerror="true">
 					            <arg line="/c npm config set color false"/>
 					        </exec>
-					        <!-- <exec executable="npm" dir="${project.basedir}"
+					        <exec executable="npm" dir="${project.basedir}"
 					        osfamily="unix" failonerror="true">
 					            <arg line="config set color false"/>
-					        </exec> -->
+					        </exec>
 					        <exec executable="cmd" dir="${project.basedir}"
 					        osfamily="windows" failonerror="true">
 					            <arg line="/c npm install"/>
