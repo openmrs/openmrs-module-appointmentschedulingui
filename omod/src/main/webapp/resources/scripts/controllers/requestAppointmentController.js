@@ -17,13 +17,12 @@ angular.module('appointmentscheduling.requestAppointment')
             }
         }
 
-        $scope.init = function(patientUuid, requestedByUuid, returnProvider, returnPage) {
+        $scope.init = function(patientUuid, requestedByUuid, returnUrl) {
 
             $scope.appointmentRequest.patient = patientUuid;
             $scope.appointmentRequest.requestedBy = requestedByUuid;
 
-            $scope.returnProvider = returnProvider;
-            $scope.returnPage = returnPage;
+            $scope.returnUrl = returnUrl;
 
             // set up the time frame unit options
             AppointmentService.getTimeFrameUnits().then(function(timeFrameUnits) {
@@ -123,9 +122,7 @@ angular.module('appointmentscheduling.requestAppointment')
 
         var redirectToReturnPage = function () {
             emr.navigateTo({
-                provider: $scope.returnProvider,
-                page: $scope.returnPage,
-                query: { patientId: $scope.appointmentRequest.patient }
+                url: $scope.returnUrl
             });
         }
 

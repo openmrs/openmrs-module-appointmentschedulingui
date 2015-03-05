@@ -19,7 +19,7 @@
     ui.includeCss("appointmentschedulingui", "requestAppointment.css")
 
 
-    def returnUrl;
+    def returnUrl = retUrl;
 
     if (returnProvider && returnPage) {
         returnUrl = ui.pageLink(returnProvider, returnPage, [patientId: patient.patient.id])
@@ -51,7 +51,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
 <%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
 
-<div class="scheduleAppointment" ng-app="appointmentscheduling.requestAppointment" ng-controller="RequestAppointmentCtrl"  ng-init="init('${ patient.patient.uuid }', '${ currentProvider?.uuid }', '${ returnProvider }', '${ returnPage }')">
+<div class="scheduleAppointment" ng-app="appointmentscheduling.requestAppointment" ng-controller="RequestAppointmentCtrl"  ng-init="init('${ patient.patient.uuid }', '${ currentProvider?.uuid }', '${ returnUrl }')">
 
     <h2>
         ${ ui.message("appointmentschedulingui.requestAppointment.label") }
