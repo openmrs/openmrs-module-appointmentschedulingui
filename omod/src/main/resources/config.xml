@@ -87,5 +87,10 @@
         <description>Ability to request an appointment for a patient</description>
     </privilege>
 
+    <privilege>
+        <name>App: appointmentschedulingui.home</name>
+        <description>Ability to view the appointment app on the home page</description>
+    </privilege>
+
 </module>
 
