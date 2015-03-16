@@ -37,10 +37,10 @@
         <openMRSwebVersion>1.9.8</openMRSwebVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
-        <emrapiVersion>1.5-SNAPSHOT</emrapiVersion>
+        <emrapiVersion>1.5</emrapiVersion>
         <paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
         <emrVersion>2.0-SNAPSHOT</emrVersion>
-        <uiframeworkVersion>3.3-SNAPSHOT</uiframeworkVersion>
+        <uiframeworkVersion>3.3.1</uiframeworkVersion>
         <appframeworkVersion>2.3</appframeworkVersion>
         <metadatasharingVersion>1.1.8</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
@@ -65,7 +65,7 @@
         <uilibraryVersion>1.5</uilibraryVersion>
         <appuiVersion>1.3-SNAPSHOT</appuiVersion>
         <dispensingVersion>1.0-SNAPSHOT</dispensingVersion>
-        <uicommonsVersion>1.4-SNAPSHOT</uicommonsVersion>
+        <uicommonsVersion>1.5-SNAPSHOT</uicommonsVersion>
         <registrationcoreVersion>1.1-SNAPSHOT</registrationcoreVersion>
         <registrationappVersion>1.1-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
