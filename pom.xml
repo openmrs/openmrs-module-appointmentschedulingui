@@ -63,7 +63,7 @@
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0-SNAPSHOT</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
-        <appuiVersion>1.3-SNAPSHOT</appuiVersion>
+        <appuiVersion>1.3</appuiVersion>
         <dispensingVersion>1.0-SNAPSHOT</dispensingVersion>
         <uicommonsVersion>1.5-SNAPSHOT</uicommonsVersion>
         <registrationcoreVersion>1.1-SNAPSHOT</registrationcoreVersion>
