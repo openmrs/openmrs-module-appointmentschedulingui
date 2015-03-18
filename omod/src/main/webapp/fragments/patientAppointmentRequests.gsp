@@ -43,6 +43,9 @@
 
 <script type="text/javascript">
     var jsLocale = '${ angularLocale }';  // used by the ngGrid widget
+    if(jsLocale.indexOf('_') > -1){
+        jsLocale = jsLocale.substring(0, jsLocale.indexOf('_'));
+    }
 </script>
 
 <!-- list of patient appointment requests -->
