@@ -24,7 +24,7 @@
     <scm>
         <connection>scm:git:git@github.com:openmrs/openmrs-module-appointmentschedulingui.git</connection>
         <developerConnection>scm:git:git@github.com:openmrs/openmrs-module-appointmentschedulingui.git</developerConnection>
-        <url>https://github.com/openmrs/openmrs-module-appointmentschedulingui.git</url>
+        <url>https://github.com/openmrs/openmrs-module-appointmentschedulingui</url>
     </scm>
 
     <modules>
