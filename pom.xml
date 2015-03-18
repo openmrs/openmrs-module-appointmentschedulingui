@@ -22,9 +22,9 @@
     </organization>
 
     <scm>
-        <connection>scm:git:git@github.com:PIH/openmrs-module-appointmentschedulingui.git</connection>
-        <developerConnection>scm:git:git@github.com:PIH/openmrs-module-appointmentschedulingui.git</developerConnection>
-        <url>scm:git:git@github.com:PIH/openmrs-module-appointmentschedulingui.git</url>
+        <connection>scm:git:git@github.com:openmrs/openmrs-module-appointmentschedulingui.git</connection>
+        <developerConnection>scm:git:git@github.com:openmrs/openmrs-module-appointmentschedulingui.git</developerConnection>
+        <url>https://github.com/openmrs/openmrs-module-appointmentschedulingui.git</url>
     </scm>
 
     <modules>
@@ -71,7 +71,7 @@
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
         <coreappsVersion>1.4-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.6</webservicesRestVersion>
-        <appointmentschedulingVersion>1.3-SNAPSHOT</appointmentschedulingVersion>
+        <appointmentschedulingVersion>1.3</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.0-SNAPSHOT</appointmentschedulinguiVersion>
         <testutilsVersion>1.6-SNAPSHOT</testutilsVersion>
         <printerVersion>1.0-SNAPSHOT</printerVersion>
