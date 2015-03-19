@@ -1,11 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.openmrs.module</groupId>
 		<artifactId>appointmentschedulingui</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.0</version>
 	</parent>
 
 	<artifactId>appointmentschedulingui-omod</artifactId>
@@ -120,7 +119,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -133,7 +132,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -292,23 +291,19 @@
 					        <echo>
 					<!--  NPM INSTALL  -->
 					        </echo>
-					        <exec executable="cmd" dir="${project.basedir}"
-					        osfamily="windows" failonerror="true">
-					            <arg line="/c npm config set color false"/>
+					        <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+					            <arg line="/c npm config set color false" />
 					        </exec>
 
-                            <exec executable="npm" dir="${project.basedir}"
-                            osfamily="unix" failonerror="true">
-                                <arg line="config set color false"/>
+                            <exec executable="npm" dir="${project.basedir}" osfamily="unix" failonerror="true">
+                                <arg line="config set color false" />
                             </exec>
 
-					        <exec executable="cmd" dir="${project.basedir}"
-					        osfamily="windows" failonerror="true">
-					            <arg line="/c npm install"/>
+					        <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+					            <arg line="/c npm install" />
 					        </exec>
-					        <exec executable="npm" dir="${project.basedir}"
-					        osfamily="unix" failonerror="true">
-					            <arg line="install"/>
+					        <exec executable="npm" dir="${project.basedir}" osfamily="unix" failonerror="true">
+					            <arg line="install" />
 					        </exec>
 					    </target>
 
