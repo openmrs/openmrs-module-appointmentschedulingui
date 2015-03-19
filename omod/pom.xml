@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.openmrs.web</groupId>
             <artifactId>openmrs-web</artifactId>
-            <version>${openMRSwebVersion}</version>
+            <version>${openMRSVersion}</version>
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
@@ -56,15 +56,6 @@
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>appui-api</artifactId>
-            <version>${appuiVersion}</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
-
 
         <!-- End OpenMRS modules -->
 

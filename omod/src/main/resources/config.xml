@@ -39,6 +39,18 @@
         <require_module versioon="${webservicesRestVersion}">
             org.openmrs.module.webservices.rest
         </require_module>
+        <require_module versioon="${reportingVersion}">
+            org.openmrs.module.reporting
+        </require_module>
+        <require_module versioon="${emrapiVersion}">
+            org.openmrs.module.emrapi
+        </require_module>
+        <require_module versioon="${htmlformentryVersion}">
+            org.openmrs.module.htmlformentry
+        </require_module>
+        <require_module versioon="${appuiVersion}">
+            org.openmrs.module.appui
+        </require_module>
     </require_modules>
 	
 	<!-- Maps hibernate file's, if present -->
