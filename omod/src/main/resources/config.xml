@@ -75,8 +75,13 @@
 	<!-- /Internationalization -->
 
     <privilege>
-        <name>App: appointmentschedulingui.scheduleAdmin</name>
-        <description>Access to Manage Service Types and Manage Provider Schedules apps</description>
+        <name>App: appointmentschedulingui.appointmentTypes</name>
+        <description>Access to the Manage Service Types app</description>
+    </privilege>
+
+    <privilege>
+        <name>App: appointmentschedulingui.providerSchedules</name>
+        <description>Access to the Manage Provider Schedules app</description>
     </privilege>
 
     <privilege>

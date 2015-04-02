@@ -6,10 +6,6 @@ public class AppointmentSchedulingUIConstants {
 
     public static final String TIME_FORMAT = "hh:mm aa";
 
-    public static final String PRIVILEGE_SCHEDULE_ADMINISTRATION = EmrApiConstants.PRIVILEGE_PREFIX_APP + "appointmentschedulingui.scheduleAdmin";
-
-    public static final String PRIVILEGE_VIEW_APPOINTMENTS = EmrApiConstants.PRIVILEGE_PREFIX_APP + "appointmentschedulingui.viewAppointments";
-
     public static final String PRIVILEGE_BOOK_APPOINTMENTS = EmrApiConstants.PRIVILEGE_PREFIX_TASK + "appointmentschedulingui.bookAppointments";
 
     public static final String PRIVILEGE_OVERBOOK_APPOINTMENTS = EmrApiConstants.PRIVILEGE_PREFIX_TASK + "appointmentschedulingui.overbookAppointments";

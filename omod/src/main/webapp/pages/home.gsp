@@ -12,7 +12,7 @@
 
 <div id="apps">
 
-    <% if (context.hasPrivilege("App: appointmentschedulingui.scheduleAdmin")) { %>
+    <% if (context.hasPrivilege("App: appointmentschedulingui.appointmentTypes")) { %>
         <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "manageAppointmentTypes") }"
                 id="appointmentschedulingui-manageAppointmentTypes-app">
             <i class="icon-calendar"></i>
@@ -20,7 +20,7 @@
         </a>
     <% } %>
 
-    <% if (context.hasPrivilege("App: appointmentschedulingui.scheduleAdmin")) { %>
+    <% if (context.hasPrivilege("App: appointmentschedulingui.providerSchedules")) { %>
         <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "scheduleProviders") }"
                 id="appointmentschedulingui-scheduleProviders-app">
             <i class="icon-calendar"></i>
