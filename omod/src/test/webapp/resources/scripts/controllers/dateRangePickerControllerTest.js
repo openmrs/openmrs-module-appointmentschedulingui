@@ -103,12 +103,12 @@ describe('date range picker controller', function() {
 
             it('set start date', function () {
                 scope.startDateOptions.set(someDate);
-                expect(scope.startDate).toBe(someDate);
+                expect(scope.startDate).toBe(moment(someDate).format("DD-MMMM-YYYY"));
             });
 
             it('set end start date', function() {
                 scope.endDateOptions.set(someDate);
-                expect(scope.endDate).toBe(someDate);
+                expect(scope.endDate).toBe(moment(someDate).format("DD-MMMM-YYYY"));
             });
         });
 
