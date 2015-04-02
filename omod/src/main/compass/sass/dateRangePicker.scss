@@ -1,14 +1,12 @@
-#selectTimeframe {
+.date-range-picker-div {
   display: inline-block;
 }
 
-#clearStartDatePicker{
+.date-range-picker-clear-link {
   font-size: 12px;
   margin-right: 15px;
 }
 
-#clearEndDatePicker{
-  font-size: 12px;
-  margin-right: 15px;
+.date-range-picker-div .angular-datepicker .icon-calendar {
+  vertical-align: middle;
 }
-

@@ -12,6 +12,7 @@
     ui.includeJavascript("uicommons", "moment.min.js")
     ui.includeJavascript("uicommons", "emr.js")
     ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
+    ui.includeCss("uicommons", "datetimepicker.css")
 
     ui.includeJavascript("appointmentschedulingui","app.js")
     ui.includeJavascript("appointmentschedulingui", "services/appointmentService.js")
