@@ -3,9 +3,6 @@ angular.module('scheduleAppointmentDateRangePickerApp')
         $scope.now = new Date();
 
         var initializeStartDatePicker = function () {
-            if ($scope.fromDate){
-                $scope.startDate = new Date($scope.fromDate);
-            }
 
             $scope.startDateOptions = {
                 opened: false,
@@ -23,9 +20,13 @@ angular.module('scheduleAppointmentDateRangePickerApp')
                     $scope.startDate = '';
                 },
                 set: function(date) {
-                    $scope.startDate = date;
+                    $scope.startDate = date ? moment(date).format("DD-MMMM-YYYY") : null;
                 }
             };
+
+            if ($scope.fromDate){
+                $scope.startDateOptions.set($scope.fromDate);
+            }
         };
 
         var initializeEndDatePicker = function () {
@@ -45,7 +46,7 @@ angular.module('scheduleAppointmentDateRangePickerApp')
                     $scope.endDate = '';
                 },
                 set: function(date) {
-                    $scope.endDate = date;
+                    $scope.endDate = date ? moment(date).format("DD-MMMM-YYYY") : null;
                 }
             };
         };
@@ -73,8 +74,8 @@ angular.module('scheduleAppointmentDateRangePickerApp')
         $scope.$on('dateRangePickerApp.changeDate', function(event, eventData) {
             if (eventData.senderId === $scope.senderId) {
 
-                $scope.startDateOptions.set(eventData.startDate ? moment(eventData.startDate).format("DD-MMMM-YYYY") : null);
-                $scope.endDateOptions.set(eventData.endDate ? moment(eventData.endDate).format("DD-MMMM-YYYY") : null);
+                $scope.startDateOptions.set(eventData.startDate);
+                $scope.endDateOptions.set(eventData.endDate);
 
                 // trigger any callback that may have been passed in as a parameter
                 if (eventData.callback) {
