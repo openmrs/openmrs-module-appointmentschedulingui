@@ -3,7 +3,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>appointmentschedulingui</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Appointment Scheduling UI Module</name>
 	<description>New UI for appointment scheduling module based on UI/App framework</description>
