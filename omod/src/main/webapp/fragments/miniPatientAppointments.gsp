@@ -1,3 +1,6 @@
+<%
+    ui.includeCss("appointmentschedulingui", "miniPatientAppointments.css")
+%>
 <div class="info-section">
     <div class="info-header">
         <i class="icon-calendar"></i>
@@ -7,7 +10,7 @@
         <% if (patAppointments.size == 0){ %>
             ${ ui.message("general.none")}
         <% } else { %>
-        <ul>
+        <ul id="miniPatientAppointments">
             <% patAppointments.each{ appointment -> %>
             <li>
                 ${ui.formatDatetimePretty(appointment.timeSlot.startDate)} -
@@ -16,11 +19,8 @@
                 <% } else { %>
                     ${ui.formatDatetimePretty(appointment.timeSlot.endDate)}
                 <% } %>
-                ${ui.format(appointment.appointmentType.displayString)}
-                <br>
+                ${ui.format(appointment.appointmentType.displayString)},
                 ${ui.format(appointment.timeSlot.appointmentBlock.provider)}
-                @${ui.format(appointment.timeSlot.appointmentBlock.location)} -
-                ${ui.format(appointment.status)}
             <% } %>
             </li>
         </ul>
