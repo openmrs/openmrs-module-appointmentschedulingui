@@ -10,5 +10,13 @@
             "fragment": "appointmentsTab"
         },
         "featureToggle": "requestAppointments"
+    },
+    {
+        "id": "${project.parent.groupId}.${project.parent.artifactId}.firstColumnFragments.patientDashboard.patientAppointments",
+        "extensionPointId": "patientDashboard.firstColumnFragments",
+        "extensionParams": {
+            "provider": "${project.parent.artifactId}",
+            "fragment": "miniPatientAppointments"
+        }
     }
 ]
