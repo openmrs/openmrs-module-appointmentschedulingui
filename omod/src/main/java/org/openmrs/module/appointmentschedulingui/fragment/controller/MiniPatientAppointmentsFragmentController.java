@@ -17,6 +17,7 @@ import org.joda.time.DateTime;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.Appointment.AppointmentStatus;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
@@ -29,8 +30,9 @@ public class MiniPatientAppointmentsFragmentController {
 		
 		DateTime curDate = new DateTime(new Date());
 		Date date48HrsAgo = new Date(curDate.minusHours(48).withTimeAtStartOfDay().getMillis());
+		List<AppointmentStatus> statuses = AppointmentStatus.getNotCancelledAppointmentStatuses();
 		List<Appointment> patAppointments = appointmentService.getAppointmentsByConstraints(date48HrsAgo, null, null, null,
-		    null, patient, (Appointment.AppointmentStatus) null);
+		    null, patient, statuses);
 		model.addAttribute("patAppointments", patAppointments);
 		model.addAttribute("timeFormatter", new SimpleDateFormat("h:mm a", Context.getLocale()));
 	}

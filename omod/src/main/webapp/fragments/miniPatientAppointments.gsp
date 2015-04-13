@@ -19,6 +19,10 @@
                 <% } else { %>
                     ${ui.formatDatetimePretty(appointment.timeSlot.endDate)}
                 <% } %>
+                <% if (appointment.status.name == 'Missed'){ %>
+                    <span class="status-lozenge">${appointment.status.name}</span>
+                <% } %>
+                <br>
                 ${ui.format(appointment.appointmentType.displayString)},
                 ${ui.format(appointment.timeSlot.appointmentBlock.provider)}
             <% } %>
