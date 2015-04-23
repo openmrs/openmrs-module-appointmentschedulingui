@@ -18,6 +18,8 @@
 
     ${ ui.includeFragment("appointmentschedulingui", "patientAppointments", [ patient: patient.patient, loadOnInit: false, hideActionButtons: true, enablePagination: true ]) }
 
-    ${ ui.includeFragment("appointmentschedulingui", "patientAppointmentRequests", [ patient: patient.patient, loadOnInit: false, hideActionButtons: true ]) }
+    <% if (featureToggles.isFeatureEnabled("requestAppointments")) { %>
+        ${ ui.includeFragment("appointmentschedulingui", "patientAppointmentRequests", [ patient: patient.patient, loadOnInit: false, hideActionButtons: true ]) }
+    <% } %>
 
 </div>
