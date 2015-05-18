@@ -1,6 +1,11 @@
 angular.module('appointmentscheduling.appointmentService', ['appointmentscheduling.appointmentResources'])
     .factory('AppointmentService', function(Appointment, AppointmentType, AppointmentStatusType, AppointmentBlock,
-                                            TimeSlot, AppointmentAllowingOverbook, AppointmentRequest, TimeFrameUnits, DataSet) {
+                                            TimeSlot, AppointmentAllowingOverbook, AppointmentRequest, TimeFrameUnits, DataSet, $q) {
+
+        var handleError = function(error) {
+            emr.handleNotLoggedIn(error);
+            return $q.reject(error);
+        }
 
         return {
 
@@ -14,7 +19,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return AppointmentType.query({'q':searchString, 'v': 'full'}).$promise
                     .then(function(res) {
                         return res.results;
-                    }, emr.handleNotLoggedIn);
+                    }, handleError);
 
             },
 
@@ -27,7 +32,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return AppointmentStatusType.query().$promise
                     .then(function(res) {
                         return res.results;
-                    }, emr.handleNotLoggedIn);
+                    }, handleError);
 
             },
 
@@ -50,7 +55,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return TimeSlot.query(params).$promise
                     .then(function(res) {
                         return res.results;
-                    }, emr.handleNotLoggedIn);
+                    }, handleError);
             },
 
             /**
@@ -72,7 +77,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return AppointmentBlock.query(params).$promise
                     .then(function(res) {
                         return res.results;
-                    }, emr.handleNotLoggedIn);
+                    }, handleError);
 
             },
 
@@ -84,7 +89,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              */
             saveAppointmentBlock: function(appointmentBlock)  {
                 return AppointmentBlock.save(appointmentBlock).$promise
-                    .catch(emr.handleNotLoggedIn);
+                    .catch(handleError);
             },
 
             /**
@@ -95,7 +100,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              */
             deleteAppointmentBlock: function(appointmentBlockUuid) {
                 return AppointmentBlock.delete({ 'uuid': appointmentBlockUuid }).$promise
-                    .catch(emr.handleNotLoggedIn);
+                    .catch(handleError);
             },
 
             /**
@@ -119,7 +124,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return Appointment.query(params).$promise
                     .then(function(res) {
                         return res.results;
-                    }, emr.handleNotLoggedIn);
+                    }, handleError);
             },
 
             /**
@@ -131,11 +136,11 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
             saveAppointment: function(appointment, allowOverbook) {
                 if (allowOverbook) {
                     return AppointmentAllowingOverbook.save(appointment).$promise
-                        .catch(emr.handleNotLoggedIn);
+                        .catch(handleError);
                 }
                 else {
                     return Appointment.save(appointment).$promise
-                        .catch(emr.handleNotLoggedIn);
+                        .catch(handleError);
                 }
             },
 
@@ -146,7 +151,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
             cancelAppointment: function(appointment) {
                 appointment.status = 'CANCELLED';
                 return Appointment.save(appointment).$promise
-                    .catch(emr.handleNotLoggedIn);
+                    .catch(handleError);
             },
 
 
@@ -165,7 +170,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return DataSet.get(params).$promise
                     .then(function(res) {
                         return res;   // the dataset resource does not return a "results" top-level key
-                    }, emr.handleNotLoggedIn);
+                    }, handleError);
 
             },
 
@@ -177,7 +182,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              */
             getAppointmentRequest: function(appointmentRequestUuid)  {
                 return AppointmentRequest.get({ 'uuid': appointmentRequestUuid }).$promise
-                    .catch(emr.handleNotLoggedIn);
+                    .catch(handleError);
             },
 
             /**
@@ -198,7 +203,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return AppointmentRequest.query(params).$promise
                     .then(function(res) {
                         return res.results;
-                    }, emr.handleNotLoggedIn);
+                    }, handleError);
             },
 
             /**
@@ -209,7 +214,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              */
             saveAppointmentRequest: function(appointmentRequest)  {
                 return AppointmentRequest.save(appointmentRequest).$promise
-                    .catch(emr.handleNotLoggedIn);
+                    .catch(handleError);
             },
 
             /**
@@ -220,7 +225,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              */
             deleteAppointmentRequest: function(appointmentRequestUuid) {
                 return AppointmentRequest.delete({ 'uuid': appointmentRequestUuid }).$promise
-                    .catch(emr.handleNotLoggedIn);
+                    .catch(handleError);
             },
 
             /**
@@ -229,7 +234,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              */
             cancelAppointmentRequest: function(appointmentRequest) {
                 return AppointmentRequest.save({ uuid: appointmentRequest.uuid, status: 'CANCELLED'}).$promise
-                    .catch(emr.handleNotLoggedIn);
+                    .catch(handleError);
             },
 
 
@@ -239,7 +244,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
              */
             markAppointmentRequestFulfilled: function(appointmentRequest) {
                 return AppointmentRequest.save({ uuid: appointmentRequest.uuid, status: 'FULFILLED'}).$promise
-                    .catch(emr.handleNotLoggedIn);
+                    .catch(handleError);
             },
 
             /**
@@ -251,7 +256,7 @@ angular.module('appointmentscheduling.appointmentService', ['appointmentscheduli
                 return TimeFrameUnits.query().$promise
                     .then(function(res) {
                         return res.results;
-                    }, emr.handleNotLoggedIn);
+                    }, handleError);
 
             }
 
