@@ -8,8 +8,7 @@
         "extensionParams": {
             "provider": "appointmentschedulingui",
             "fragment": "appointmentsTab"
-        },
-        "featureToggle": "requestAppointments"
+        }
     },
     {
         "id": "${project.parent.groupId}.${project.parent.artifactId}.firstColumnFragments.patientDashboard.patientAppointments",

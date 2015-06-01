@@ -19,16 +19,6 @@
         "id": "appointmentschedulingui.schedulingAppointmentApp",
         "instanceOf": "coreapps.template.findPatient",
         "extensions": [
-//            {
-//                "id": "appointmentschedulingui.schedulingAppointmentAppLink",
-//                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
-//                "type": "link",
-//                "label": "appointmentschedulingui.scheduleAppointment.buttonTitle",
-//                "url": "coreapps/findpatient/findPatient.page?app=appointmentschedulingui.schedulingAppointmentApp",
-//                "icon": "icon-calendar",
-//                "order": 1,
-//                "requiredPrivilege": "App: appointmentschedulingui.viewAppointments"
-//            },
             {
                 "id": "appointmentschedulingui.schedulingAppointmentDashboardLink",
                 "extensionPointId": "patientDashboard.overallActions",
@@ -37,8 +27,7 @@
                 "url": "/appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}",
                 "icon": "icon-calendar",
                 "order": 20,
-                "requiredPrivilege": "Task: appointmentschedulingui.bookAppointments",
-                "featureToggle": "requestAppointments"
+                "requiredPrivilege": "Task: appointmentschedulingui.bookAppointments"
             }
         ],
         "config": {
@@ -54,23 +43,6 @@
         },
         "requiredPrivilege": "App: appointmentschedulingui.viewAppointments"
     },
-//    ,
-//    {
-//        "id": "appointmentschedulingui.scheduledAppointments",
-//        "extensions":[
-//            {
-//                "id": "appointmentschedulingui.scheduledAppointments.homepageLink",
-//                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
-//                "type": "link",
-//                "label": "appointmentschedulingui.dailyScheduledAppointments.title",
-//                "url": "appointmentschedulingui/dailyScheduledAppointments.page",
-//                "icon": "icon-calendar",
-//                "order": 12
-//            }
-//        ],
-//        "requiredPrivilege": "App: appointmentschedulingui.viewAppointments"
-//    },
-
     {
         "id": "appointmentschedulingui.requestAppointmentApp",
 
@@ -83,8 +55,7 @@
                 "url": "/appointmentschedulingui/requestAppointment.page?patientId={{patient.uuid}}&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard",
                 "icon": "icon-calendar",
                 "order": 20,
-                "requiredPrivilege": "Task: appointmentschedulingui.requestAppointments",  // change to new requestAppointments privilege
-                "featureToggle": "requestAppointments"
+                "requiredPrivilege": "Task: appointmentschedulingui.requestAppointments"  // change to new requestAppointments privilege
             }
         ]
         // TODO add an overall privilege for this app if we start to use it outside of the patient dashboard overall actions link
