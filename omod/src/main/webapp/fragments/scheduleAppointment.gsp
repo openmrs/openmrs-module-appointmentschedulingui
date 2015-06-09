@@ -3,12 +3,12 @@
 
     ui.includeJavascript("uicommons", "angular.min.js")
     ui.includeJavascript("uicommons", "i18n/angular-locale_" + angularLocale + ".js")
-    ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.6.0.min.js")
+    ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.13.0.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ng-grid-2.0.7.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ng-grid-locale_ht-custom.js")
     ui.includeJavascript("uicommons", "angular-ui/ng-grid-flexible-height.js")
     ui.includeJavascript("uicommons", "angular-resource.min.js")
-    ui.includeJavascript("uicommons", "moment.min.js")
+    ui.includeJavascript("uicommons", "moment-with-locales.min.js")
     ui.includeJavascript("uicommons", "emr.js")
     ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
     ui.includeCss("uicommons", "datetimepicker.css")
@@ -52,7 +52,7 @@
 ${ ui.includeFragment("appointmentschedulingui", "timeZoneWarning") }
 
 
-<div id="appointmentscheduling-scheduleAppointment" class="scheduleAppointment" ng-controller="ScheduleAppointmentCtrl"  ng-init='init(${ patient?.patient?.uuid ? '"' + patient.patient.uuid + '"' : null},  ${ returnUrl ? '"' + ui.escapeJs(returnUrl) + '"' : null} )'>
+<div id="appointmentscheduling-scheduleAppointment" class="scheduleAppointment" ng-controller="ScheduleAppointmentCtrl"  ng-init="init(${ patient?.patient?.uuid ? "'" + patient.patient.uuid + "'" : null},  ${ returnUrl ? "'" + ui.escapeJs(returnUrl) + "'" : null}, '${ locale }' )">
 
        <div ng-show="showScheduleAppointment">
 

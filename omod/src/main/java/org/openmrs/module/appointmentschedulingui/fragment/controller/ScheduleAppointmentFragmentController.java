@@ -1,6 +1,7 @@
 package org.openmrs.module.appointmentschedulingui.fragment.controller;
 
 import org.openmrs.Patient;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
@@ -23,6 +24,7 @@ public class ScheduleAppointmentFragmentController {
 
         model.addAttribute("canOverbook",uiSessionContext.getCurrentUser().hasPrivilege(AppointmentSchedulingUIConstants.PRIVILEGE_OVERBOOK_APPOINTMENTS));
         model.addAttribute("returnUrl", returnUrl);
+        model.addAttribute("locale", Context.getLocale().getLanguage());
         return null;
     }
 

@@ -1,6 +1,7 @@
 package org.openmrs.module.appointmentschedulingui.fragment.controller;
 
 import org.openmrs.Patient;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
@@ -17,7 +18,7 @@ public class PatientAppointmentsFragmentController {
         patientDomainWrapper.setPatient(patient);
         model.addAttribute("patient", patientDomainWrapper);
         model.addAttribute("canBook", uiSessionContext.getCurrentUser().hasPrivilege(AppointmentSchedulingUIConstants.PRIVILEGE_BOOK_APPOINTMENTS));
-
+        model.addAttribute("locale", Context.getLocale().getLanguage());
         return null;
     }
 

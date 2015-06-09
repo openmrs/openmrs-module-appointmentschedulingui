@@ -4,12 +4,12 @@
 
     ui.includeJavascript("uicommons", "angular.min.js")
     ui.includeJavascript("uicommons", "i18n/angular-locale_" + angularLocale + ".js")
-    ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.6.0.min.js")
+    ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.13.0.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ng-grid-2.0.7.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ng-grid-locale_ht-custom.js")
     ui.includeJavascript("uicommons", "angular-ui/ng-grid-flexible-height.js")
     ui.includeJavascript("uicommons", "angular-resource.min.js")
-    ui.includeJavascript("uicommons", "moment.min.js")
+    ui.includeJavascript("uicommons", "moment-with-locales.min.js")
     ui.includeJavascript("uicommons", "emr.js")
     ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
     ui.includeCss("uicommons", "datetimepicker.css")
@@ -58,7 +58,7 @@
 
 
 <!-- list of current patient appointments -->
-<div id="appointmentscheduling-patientAppointments" ng-controller='PatientAppointmentsCtrl' ng-show="showAppointments" ng-init="init('${ patient.patient.uuid }', ${ canBook }, ${ config.loadOnInit }, ${ config.hideActionButtons }, ${ config.enablePagination })">
+<div id="appointmentscheduling-patientAppointments" ng-controller='PatientAppointmentsCtrl' ng-show="showAppointments" ng-init="init('${ patient.patient.uuid }', ${ canBook }, ${ config.loadOnInit }, ${ config.hideActionButtons }, ${ config.enablePagination }, '${ locale }')">
 
     <div>
         <h2>

@@ -8,6 +8,7 @@ angular.module('appointmentscheduling')
         $scope.allAppointmentTypes = [];
         $scope.includeSlotsThatRequireOverbook = false;
         $scope.patientDisplay = '';
+        $scope.locale = '';
 
         $scope.showTimeSlotsGrid = false;
         $scope.showNoTimeSlotsMessage = false;
@@ -41,9 +42,10 @@ angular.module('appointmentscheduling')
             plugins: [new ngGridFlexibleHeightPlugin()]
         };
 
-        $scope.init = function(patientUuid, returnUrl) {
+        $scope.init = function(patientUuid, returnUrl, locale) {
             $scope.patientUuid = patientUuid;
             $scope.showScheduleAppointment = patientUuid ? true : false;
+            $scope.locale = typeof locale != 'undefined' ? locale : 'en';
             if (returnUrl) {
                 $scope.returnUrl = returnUrl;
             }
@@ -67,9 +69,9 @@ angular.module('appointmentscheduling')
 
             AppointmentService.getTimeSlots(getSearchParams()).then(function (results) {
                 angular.forEach(results, function(result) {
-                    result['dateFormatted'] = moment(result.startDate).format("DD MMM YYYY");
-                    result['startTimeFormatted'] = moment(result.startDate).format("h:mm A");
-                    result['endTimeFormatted']= moment(result.endDate).format("h:mm A");
+                    result['dateFormatted'] = moment(result.startDate).locale($scope.locale).format("DD MMM YYYY");
+                    result['startTimeFormatted'] = moment(result.startDate).locale($scope.locale).format("h:mm A");
+                    result['endTimeFormatted']= moment(result.endDate).locale($scope.locale).format("h:mm A");
                     result['requiresOverbook'] = result.unallocatedMinutes - $scope.appointmentType.duration < 0;
                     result['unallocatedMinutesAbsValue'] = Math.abs(result.unallocatedMinutes);
                     result['minutesMessage'] = (result.unallocatedMinutes < 0

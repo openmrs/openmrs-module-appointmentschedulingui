@@ -10,14 +10,16 @@ angular.module('appointmentscheduling')
         $scope.patient = {};
         $scope.pagingOptions = {};
         $scope.fromDate = new Date();
+        $scope.locale = '';
 
         $scope.appointmentToCancel = null;
         $scope.appointmentCancelReason = '';
 
-        $scope.init = function(patientUuid, canBook, loadOnInit, hideActionButtons, enablePagination) {
+        $scope.init = function(patientUuid, canBook, loadOnInit, hideActionButtons, enablePagination, locale) {
             $scope.enablePagination = enablePagination;
             $scope.patientUuid = patientUuid;
             $scope.canBook = canBook;
+            $scope.locale = typeof locale != 'undefined' ? locale : 'en';
             $scope.defineAppointmentsGrid(hideActionButtons);
 
             if (loadOnInit == null || loadOnInit) {
@@ -76,9 +78,9 @@ angular.module('appointmentscheduling')
 
             AppointmentService.getAppointments(getSearchParams()).then(function (results) {
                 angular.forEach(results, function(result) {
-                    result['dateFormatted'] = moment(result.timeSlot.appointmentBlock.startDate).format("DD MMM YYYY");
-                    result['startTimeFormatted'] = moment(result.timeSlot.appointmentBlock.startDate).format("h:mm A");
-                    result['endTimeFormatted']= moment(result.timeSlot.appointmentBlock.endDate).format("h:mm A");
+                    result['dateFormatted'] = moment(result.timeSlot.appointmentBlock.startDate).locale($scope.locale).format("DD MMM YYYY");
+                    result['startTimeFormatted'] = moment(result.timeSlot.appointmentBlock.startDate).locale($scope.locale).format("h:mm A");
+                    result['endTimeFormatted']= moment(result.timeSlot.appointmentBlock.endDate).locale($scope.locale).format("h:mm A");
                     result['tooltip'] = emr.message("appointmentschedulingui.scheduleAppointment.cancelAppointment.tooltip");
                     result['displayStatus'] = emr.message("appointmentschedulingui.scheduleAppointment.status.type." + result["status"].type.toLowerCase());
                 });

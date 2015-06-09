@@ -20,7 +20,8 @@ angular.module('scheduleAppointmentDateRangePickerApp')
                     $scope.startDate = '';
                 },
                 set: function(date) {
-                    $scope.startDate = date ? moment(date).format("DD-MMMM-YYYY") : null;
+                    // TODO fix this--why do we have to format the start date for initial display?
+                    $scope.startDate = date ? moment(date).locale('en').format("DD MMM YYYY") : null;
                 }
             };
 
@@ -46,7 +47,8 @@ angular.module('scheduleAppointmentDateRangePickerApp')
                     $scope.endDate = '';
                 },
                 set: function(date) {
-                    $scope.endDate = date ? moment(date).format("DD-MMMM-YYYY") : null;
+                    // TODO fix this--why do we have to format the start date for initial display?
+                    $scope.endDate = date ? moment(date).locale('en').format("DD MMM YYYY") : null;
                 }
             };
         };

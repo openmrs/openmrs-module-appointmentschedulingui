@@ -103,12 +103,12 @@ describe('date range picker controller', function() {
 
             it('set start date', function () {
                 scope.startDateOptions.set(someDate);
-                expect(scope.startDate).toBe(moment(someDate).format("DD-MMMM-YYYY"));
+                expect(scope.startDate).toBe(moment(someDate).format("DD MMM YYYY"));
             });
 
             it('set end start date', function() {
                 scope.endDateOptions.set(someDate);
-                expect(scope.endDate).toBe(moment(someDate).format("DD-MMMM-YYYY"));
+                expect(scope.endDate).toBe(moment(someDate).format("DD MMM YYYY"));
             });
         });
 
@@ -133,8 +133,8 @@ describe('date range picker controller', function() {
                 scope.$emit("dateRangePickerApp.changeDate", eventData);
                 scope.$apply();
 
-                expect(scope.startDate).toBe(moment(someDate).format("DD-MMMM-YYYY"));
-                expect(scope.endDate).toBe(moment(anotherDate).format("DD-MMMM-YYYY"));
+                expect(scope.startDate).toBe(moment(someDate).format("DD MMM YYYY"));
+                expect(scope.endDate).toBe(moment(anotherDate).format("DD MMM YYYY"));
                 expect(mock.callback).toHaveBeenCalled();
             });
 
@@ -153,7 +153,7 @@ describe('date range picker controller', function() {
                 scope.$emit("dateRangePickerApp.changeDate", eventData);
                 scope.$apply();
 
-                expect(scope.startDate).toBe(moment(someDate).format("DD-MMMM-YYYY"));
+                expect(scope.startDate).toBe(moment(someDate).format("DD MMM YYYY"));
                 expect(scope.endDate).toBeNull();
             });
 
@@ -173,7 +173,7 @@ describe('date range picker controller', function() {
                 scope.$apply();
 
                 expect(scope.startDate).toBeNull();
-                expect(scope.endDate).toBe(moment(someDate).format("DD-MMMM-YYYY"));
+                expect(scope.endDate).toBe(moment(someDate).format("DD MMM YYYY"));
             });
 
             it('should not set start date and end date when date event triggered and incorrect sender Id', function() {
