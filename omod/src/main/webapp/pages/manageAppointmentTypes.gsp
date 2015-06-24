@@ -71,7 +71,7 @@ jq( function(){
                            data-appointment-type-id="${ appointmentType.id}"
                            data-edit-url='${ui.pageLink("appointmentschedulingui", "appointmentType")}'
                            title="${ ui.message("coreapps.edit") }"></i>
-                        <i class="deleteAppointmentType delete-item icon-remove"
+                        <i id="appointmentschedulingui-delete-${ ui.format(appointmentType.name) }" class="deleteAppointmentType delete-item icon-remove"
                            data-appointment-type-id="${ appointmentType.id}"
                            title="${ ui.message("coreapps.delete") }"></i>
                     </span>
