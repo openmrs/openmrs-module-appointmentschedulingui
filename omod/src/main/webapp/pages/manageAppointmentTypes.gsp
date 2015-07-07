@@ -67,7 +67,7 @@ jq( function(){
                 <td>${ ui.format(appointmentType.description)}</td>
                 <td class="align-center">
                     <span>
-                        <i class="editAppointmentType delete-item icon-pencil"
+                        <i id="appointmentschedulingui-edit-${ ui.format(appointmentType.name) }" class="editAppointmentType delete-item icon-pencil"
                            data-appointment-type-id="${ appointmentType.id}"
                            data-edit-url='${ui.pageLink("appointmentschedulingui", "appointmentType")}'
                            title="${ ui.message("coreapps.edit") }"></i>
