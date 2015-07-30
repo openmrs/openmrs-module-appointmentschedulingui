@@ -16,7 +16,8 @@ public class ScheduleProvidersPageController {
         LocationTag supportsAppointmentsTag =  properties.getSupportsAppointmentsTag();
         model.addAttribute("supportsAppointmentsTagUuid",
                 supportsAppointmentsTag != null ? supportsAppointmentsTag.getUuid() : "");
-        model.addAttribute("sessionLocationUuid", uiSessionContext.getSessionLocation().getUuid());
+        model.addAttribute("sessionLocationUuid", uiSessionContext != null && uiSessionContext.getSessionLocation() != null ?
+                uiSessionContext.getSessionLocation().getUuid() : "");
 
         return null;
     }
