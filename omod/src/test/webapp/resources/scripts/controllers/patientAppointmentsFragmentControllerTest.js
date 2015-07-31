@@ -29,7 +29,7 @@ describe('Patient Appointments controller', function () {
             currentPage: 1
         };
 
-        var controller =  $controller('PatientAppointmentsCtrl', {$scope: scope,
+        var controller =  $controller('PatientAppointmentsFragmentCtrl', {$scope: scope,
             AppointmentService: mockAppointmentService, filterFilter: mockFilterFilter,
             ngGridHelper: mockNgGridHelper, dateRangePickerEventListener: mockDateRangePickerEventListener});
     }));

@@ -2,8 +2,10 @@ package org.openmrs.module.appointmentschedulingui.page.controller;
 
 import org.openmrs.Patient;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.coreapps.CoreAppsProperties;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.ui.framework.annotation.InjectBeans;
+import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.Redirect;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +16,7 @@ public class RequestAppointmentPageController {
 	                         @RequestParam(value = "returnProvider", required = false) String returnProvider,
 	                         @RequestParam(value = "returnPage", required = false) String returnPage, PageModel model,
 	                         @RequestParam(value = "returnUrl", required = false) String returnUrl,
+                             @SpringBean CoreAppsProperties coreAppsProperties,
 	                         UiSessionContext uiSessionContext, @InjectBeans PatientDomainWrapper patientDomainWrapper) {
 		
 		// TODO stole this from core apps patient dashboard--does it do what we want it to do?
@@ -27,6 +30,7 @@ public class RequestAppointmentPageController {
 		model.addAttribute("returnProvider", returnProvider);
 		model.addAttribute("returnPage", returnPage);
 		model.addAttribute("retUrl", returnUrl);
+        model.addAttribute("dashboardUrl", coreAppsProperties.getDashboardUrl());
 		
 		return null;
 	}

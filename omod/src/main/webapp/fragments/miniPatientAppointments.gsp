@@ -5,6 +5,11 @@
     <div class="info-header">
         <i class="icon-calendar"></i>
         <h3>${ ui.message("appointmentschedulingui.appointments.label").toUpperCase() }</h3>
+        <% if (context.hasPrivilege("App: appointmentschedulingui.viewAppointments")) { %>
+        <a href='${ui.pageLink("appointmentschedulingui", "patientAppointments", [patientId: patient.id])}' class="right">
+            <i class="icon-share-alt edit-action" title="${ ui.message("coreapps.edit") }"></i>
+        </a>
+        <% } %>
     </div>
     <div class="info-body">
         <% if (patAppointments.size == 0){ %>

@@ -44,7 +44,7 @@
         <providermanagementVersion>2.2</providermanagementVersion>
         <appuiVersion>1.3</appuiVersion>
         <uicommonsVersion>1.7-SNAPSHOT</uicommonsVersion>
-        <coreappsVersion>1.5</coreappsVersion>
+        <coreappsVersion>1.7-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.6</webservicesRestVersion>
         <appointmentschedulingVersion>1.3</appointmentschedulingVersion>
         <testutilsVersion>1.5</testutilsVersion>
@@ -109,6 +109,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>reporting-api</artifactId>
             <version>${reportingVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>coreapps-api</artifactId>
+            <version>${coreappsVersion}</version>
             <scope>provided</scope>
         </dependency>
 

@@ -41,7 +41,8 @@
 <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }", link: "${ returnUrl ? ui.escapeJs(returnUrl) : ''}" },
+        { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }",
+            link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.id ] ) }' },
         { label: "${ ui.message("appointmentschedulingui.requestAppointment.label")}" }
     ];
 

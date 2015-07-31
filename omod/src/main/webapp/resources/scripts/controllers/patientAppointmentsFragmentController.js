@@ -1,5 +1,5 @@
 angular.module('appointmentscheduling')
-    .controller('PatientAppointmentsCtrl', ['$scope', 'AppointmentService','filterFilter', 'ngGridHelper', 'dateRangePickerEventListener',
+    .controller('PatientAppointmentsFragmentCtrl', ['$scope', 'AppointmentService','filterFilter', 'ngGridHelper', 'dateRangePickerEventListener',
                                  function ($scope, AppointmentService, filterFilter, ngGridHelper, dateRangePickerEventListener) {
 
 

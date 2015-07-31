@@ -19,7 +19,7 @@
     ui.includeJavascript("appointmentschedulingui", "factories" +
             "/ngGridHelper.js")
     ui.includeJavascript("appointmentschedulingui", "resources/appointmentResources.js")
-    ui.includeJavascript("appointmentschedulingui", "controllers/patientAppointmentsController.js")
+    ui.includeJavascript("appointmentschedulingui", "controllers/patientAppointmentsFragmentController.js")
 
     ui.includeJavascript("appointmentschedulingui", "controllers/dateRangePickerController.js")
     ui.includeJavascript("appointmentschedulingui", "directives/dateRangePickerDirective.js")
@@ -58,7 +58,7 @@
 
 
 <!-- list of current patient appointments -->
-<div id="appointmentscheduling-patientAppointments" ng-controller='PatientAppointmentsCtrl' ng-show="showAppointments" ng-init="init('${ patient.patient.uuid }', ${ canBook }, ${ config.loadOnInit }, ${ config.hideActionButtons }, ${ config.enablePagination }, '${ locale }')">
+<div id="appointmentscheduling-patientAppointments" ng-controller='PatientAppointmentsFragmentCtrl' ng-show="showAppointments" ng-init="init('${ patient.patient.uuid }', ${ canBook }, ${ config.loadOnInit }, ${ config.hideActionButtons }, ${ config.enablePagination }, '${ locale }')">
 
     <div>
         <h2>
