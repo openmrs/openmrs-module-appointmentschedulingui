@@ -121,9 +121,15 @@ angular.module('appointmentscheduling.requestAppointment')
         }
 
         var redirectToReturnPage = function () {
-            emr.navigateTo({
-                url: $scope.returnUrl
-            });
+            if ($scope.returnUrl) {
+                emr.navigateTo({ url: $scope.returnUrl });
+            } else {
+                emr.navigateTo({
+                    provider: 'coreapps',
+                    page: 'findpatient/findPatient',
+                    query: { app: 'appointmentschedulingui.schedulingAppointmentApp' }
+                });
+            }
         }
 
         // find a recommended provider based on the most recent appointment of that type (any status, past, present or future)

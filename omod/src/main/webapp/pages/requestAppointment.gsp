@@ -19,11 +19,7 @@
     ui.includeCss("appointmentschedulingui", "requestAppointment.css")
 
 
-    def returnUrl = retUrl;
-
-    if (returnProvider && returnPage) {
-        returnUrl = ui.pageLink(returnProvider, returnPage, [patientId: patient.patient.id])
-    }
+    def returnUrl = returnUrl;
 
 %>
 

@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RequestAppointmentPageController {
 	
 	public Object controller(@RequestParam("patientId") Patient patient,
-	                         @RequestParam(value = "returnProvider", required = false) String returnProvider,
-	                         @RequestParam(value = "returnPage", required = false) String returnPage, PageModel model,
+                             PageModel model,
 	                         @RequestParam(value = "returnUrl", required = false) String returnUrl,
                              @SpringBean CoreAppsProperties coreAppsProperties,
 	                         UiSessionContext uiSessionContext, @InjectBeans PatientDomainWrapper patientDomainWrapper) {
@@ -27,9 +26,7 @@ public class RequestAppointmentPageController {
 		patientDomainWrapper.setPatient(patient);
 		model.addAttribute("patient", patientDomainWrapper);
 		model.addAttribute("currentProvider", uiSessionContext.getCurrentProvider());
-		model.addAttribute("returnProvider", returnProvider);
-		model.addAttribute("returnPage", returnPage);
-		model.addAttribute("retUrl", returnUrl);
+		model.addAttribute("returnUrl", returnUrl);
         model.addAttribute("dashboardUrl", coreAppsProperties.getDashboardUrl());
 		
 		return null;
