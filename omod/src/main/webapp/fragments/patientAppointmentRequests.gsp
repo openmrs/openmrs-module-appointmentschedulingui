@@ -49,7 +49,7 @@
 </script>
 
 <!-- list of patient appointment requests -->
-<div id="appointmentscheduling-patientAppointmentRequests"  ng-controller="PatientAppointmentRequestsCtrl" ng-init='init(${ patient?.patient?.uuid ? '"' + patient.patient.uuid + '"' : null }, ${ config.loadOnInit }, ${ config.hideActionButtons }, ${config.enablePagination }, ${ config.canBook })'>
+<div id="appointmentscheduling-patientAppointmentRequests"  ng-controller="PatientAppointmentRequestsCtrl" ng-init='init(${ patient?.patient?.uuid ? '"' + patient.patient.uuid + '"' : null }, ${ config.loadOnInit }, ${ config.hideActionButtons }, ${config.enablePagination }, ${ config.canBook })' ng-cloak>
 
     <!-- TODO: do we want "show scheduled appointment" flag here? -->
     <div ng-show="showAppointmentRequests">

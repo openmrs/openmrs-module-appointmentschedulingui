@@ -70,7 +70,7 @@
 
 <%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
 
-<div class="container" ng-app="appointmentscheduling.dailyAppointments"  ng-controller="DailyAppointmentsController">
+<div class="container" ng-app="appointmentscheduling.dailyAppointments"  ng-controller="DailyAppointmentsController" ng-cloak>
     <h1>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }</h1>
     <div id="filter-date" class="inline-box">
         <p>${ ui.message("appointmentschedulingui.scheduleAppointment.date")}</p>

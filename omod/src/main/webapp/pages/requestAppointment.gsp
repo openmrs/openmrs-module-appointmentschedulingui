@@ -52,7 +52,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
 <%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
 
-<div class="scheduleAppointment" ng-app="appointmentscheduling.requestAppointment" ng-controller="RequestAppointmentCtrl"  ng-init="init('${ patient.patient.uuid }', '${ currentProvider?.uuid }', '${ returnUrl }')">
+<div class="scheduleAppointment" ng-app="appointmentscheduling.requestAppointment" ng-controller="RequestAppointmentCtrl"  ng-init="init('${ patient.patient.uuid }', '${ currentProvider?.uuid }', '${ returnUrl }')" ng-cloak>
 
     <h2>
         ${ ui.message("appointmentschedulingui.requestAppointment.label") }

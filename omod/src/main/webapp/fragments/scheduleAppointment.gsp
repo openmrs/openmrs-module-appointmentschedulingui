@@ -52,7 +52,7 @@
 ${ ui.includeFragment("appointmentschedulingui", "timeZoneWarning") }
 
 
-<div id="appointmentscheduling-scheduleAppointment" class="scheduleAppointment" ng-controller="ScheduleAppointmentCtrl"  ng-init="init(${ patient?.patient?.uuid ? "'" + patient.patient.uuid + "'" : null},  ${ returnUrl ? "'" + ui.escapeJs(returnUrl) + "'" : null}, '${ locale }' )">
+<div id="appointmentscheduling-scheduleAppointment" class="scheduleAppointment" ng-controller="ScheduleAppointmentCtrl"  ng-init="init(${ patient?.patient?.uuid ? "'" + patient.patient.uuid + "'" : null},  ${ returnUrl ? "'" + ui.escapeJs(returnUrl) + "'" : null}, '${ locale }' )" ng-cloak>
 
        <div ng-show="showScheduleAppointment">
 

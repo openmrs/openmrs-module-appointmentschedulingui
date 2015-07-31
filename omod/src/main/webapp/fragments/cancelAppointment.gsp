@@ -13,7 +13,7 @@
 %>
 
 
-<div id="confirm-cancel-appointment" ng-controller="CancelAppointmentCtrl" class="dialog" ng-show="appointmentToCancel">
+<div id="confirm-cancel-appointment" ng-controller="CancelAppointmentCtrl" class="dialog" ng-show="appointmentToCancel" ng-cloak>
     <div class="dialog-header">
         <h3>${ ui.message("appointmentschedulingui.scheduleAppointment.cancelAppointment.title") }</h3>
     </div>

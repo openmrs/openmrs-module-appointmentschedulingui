@@ -14,7 +14,7 @@
 
 </script>
 
-<div id="appointmentscheduling-appointments-tab" ng-controller="AppointmentsTabCtrl" ng-init="init()">
+<div id="appointmentscheduling-appointments-tab" ng-controller="AppointmentsTabCtrl" ng-init="init()" ng-cloak>
 
     ${ ui.includeFragment("appointmentschedulingui", "patientAppointments", [ patient: patient.patient, loadOnInit: false, hideActionButtons: true, enablePagination: true ]) }
 

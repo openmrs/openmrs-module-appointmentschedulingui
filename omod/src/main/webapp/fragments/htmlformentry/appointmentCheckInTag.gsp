@@ -31,7 +31,7 @@
 
 
 <!-- note that setting class="confirmation-message" means that this div will be inserted into the confirmation page when using the one-question-per-screen navigator -->
-<div id="appointment-check-in-tag" ng-controller="AppointmentCheckInTagCtrl" class="confirmation-message">
+<div id="appointment-check-in-tag" ng-controller="AppointmentCheckInTagCtrl" class="confirmation-message" ng-cloak>
 
     <div ng-show="appointmentsToCheckIn.length > 0">
         ${ ui.message("appointmentschedulingui.appointmentCheckInTag.appointmentsToCheckIn") }:
