@@ -6,7 +6,7 @@
         <i class="icon-calendar"></i>
         <h3>${ ui.message("appointmentschedulingui.appointments.label").toUpperCase() }</h3>
         <% if (context.hasPrivilege("App: appointmentschedulingui.viewAppointments")) { %>
-        <a href='${ui.pageLink("appointmentschedulingui", "patientAppointments", [patientId: patient.id])}' class="right">
+        <a href='${ui.pageLink("appointmentschedulingui", "manageAppointments", [patientId: patient.id, returnUrl: ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.id ] )])}' class="right">
             <i class="icon-share-alt edit-action" title="${ ui.message("coreapps.edit") }"></i>
         </a>
         <% } %>

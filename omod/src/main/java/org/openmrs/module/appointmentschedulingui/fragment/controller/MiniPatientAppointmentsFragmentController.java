@@ -9,23 +9,25 @@
  */
 package org.openmrs.module.appointmentschedulingui.fragment.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import org.joda.time.DateTime;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.Appointment.AppointmentStatus;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
+import org.openmrs.module.coreapps.CoreAppsProperties;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 public class MiniPatientAppointmentsFragmentController {
 	
 	public void controller(@RequestParam("patientId") Patient patient, FragmentModel model,
+                           @SpringBean CoreAppsProperties coreAppsProperties,
 	                       @SpringBean AppointmentService appointmentService) {
 		
 		DateTime curDate = new DateTime(new Date());
@@ -35,6 +37,7 @@ public class MiniPatientAppointmentsFragmentController {
 		    null, patient, statuses);
 		model.addAttribute("patAppointments", patAppointments);
 		model.addAttribute("timeFormatter", new SimpleDateFormat("h:mm a", Context.getLocale()));
+        model.addAttribute("dashboardUrl", coreAppsProperties.getDashboardUrl());
 	}
 	
 }
