@@ -14,6 +14,7 @@ import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.Appointment.AppointmentStatus;
+import org.openmrs.module.appointmentscheduling.AppointmentRequest;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.coreapps.CoreAppsProperties;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -33,9 +34,12 @@ public class MiniPatientAppointmentsFragmentController {
 		DateTime curDate = new DateTime(new Date());
 		Date date48HrsAgo = new Date(curDate.minusHours(48).withTimeAtStartOfDay().getMillis());
 		List<AppointmentStatus> statuses = AppointmentStatus.getNotCancelledAppointmentStatuses();
-		List<Appointment> patAppointments = appointmentService.getAppointmentsByConstraints(date48HrsAgo, null, null, null,
+		List<Appointment> patientAppointments = appointmentService.getAppointmentsByConstraints(date48HrsAgo, null, null, null,
 		    null, patient, statuses);
-		model.addAttribute("patAppointments", patAppointments);
+        List<AppointmentRequest> patientAppointmentRequests = appointmentService.getAppointmentRequestsByConstraints(patient,
+                null, null, AppointmentRequest.AppointmentRequestStatus.PENDING);
+		model.addAttribute("patientAppointments", patientAppointments);
+        model.addAttribute("patientAppointmentRequests", patientAppointmentRequests);
 		model.addAttribute("timeFormatter", new SimpleDateFormat("h:mm a", Context.getLocale()));
         model.addAttribute("dashboardUrl", coreAppsProperties.getDashboardUrl());
 	}
