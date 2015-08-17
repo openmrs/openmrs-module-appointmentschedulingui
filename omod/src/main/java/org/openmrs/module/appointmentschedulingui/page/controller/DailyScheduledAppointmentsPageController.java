@@ -18,7 +18,7 @@ public class DailyScheduledAppointmentsPageController {
        LocationTag supportsAppointmentsTag =  properties.getSupportsAppointmentsTag();
        pageModel.addAttribute("supportsAppointmentsTagUuid",
                supportsAppointmentsTag != null ? supportsAppointmentsTag.getUuid() : "");
-       pageModel.addAttribute("sessionLocationUuid", location.getUuid());
+       pageModel.addAttribute("sessionLocationUuid", location != null ? location.getUuid() : "");
        String telephoneAttributeTypeName = EmrApiConstants.TELEPHONE_ATTRIBUTE_TYPE_NAME;
        pageModel.addAttribute("telephoneAttributeTypeName", telephoneAttributeTypeName);
     }
