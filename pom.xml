@@ -257,12 +257,10 @@
                         <property>
                             <name>openMRSVersion</name>
                             <version>[1.9.0,1.10.0-!)</version>
-                            <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
                             <name>openMRSwebVersion</name>
                             <version>[1.9.0,1.10.0-!)</version>
-                            <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
                             <name>htmlwidgetsVersion</name>
@@ -278,14 +276,6 @@
                         </property>
                         <property>
                             <name>calculationVersion</name>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
-                        <property>
-                            <name>serializationxstreamVersion</name>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
-                        <property>
-                            <name>idgenVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
@@ -309,13 +299,21 @@
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
-                            <name>webservicesRestVersion</name>
+                            <name>chartsearchVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
-                            <name>appframeworkVersion</name>
+                            <name>metadatadeployVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
+                        <property>
+                            <name>idgenVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <!--      <property>
+                                  <name>webservicesRestVersion</name>
+                                  <banSnapshots>true</banSnapshots>
+                              </property>-->
                     </properties>
                 </configuration>
             </plugin>
