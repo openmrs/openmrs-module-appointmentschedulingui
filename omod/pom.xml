@@ -256,6 +256,7 @@
                         <include>bower_components/**/restUtils.js</include>
                         <include>bower_components/**/jquery-1.8.3.min.js</include>
                         <include>bower_components/**/angular.min.js</include>
+                        <include>bower_components/**/angular-common.js</include>
                         <include>bower_components/**/angular-resource.min.js</include>
                         <include>bower_components/**/angular-mocks.js</include>
                         <include>bower_components/**/moment.min.js</include>
