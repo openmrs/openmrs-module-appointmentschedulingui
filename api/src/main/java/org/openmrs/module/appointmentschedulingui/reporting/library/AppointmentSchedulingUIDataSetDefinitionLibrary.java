@@ -111,17 +111,19 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
         // fetch the existing definition if it exists
         DataSetDefinition existing =  dataSetDefinitionService.getDefinition(AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID, AppointmentDataSetDefinition.class);
 
-        // create the new definition
-        AppointmentDataSetDefinition dsd = getDailyAppointmentsDataSetDefinition();
-        dsd.setUuid(AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID);
+        if (existing == null) {
+            // create the new definition
+            AppointmentDataSetDefinition dsd = getDailyAppointmentsDataSetDefinition();
+            dsd.setUuid(AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID);
 
-        // override the existing with the new
-        if (existing != null) {
-            dsd.setId(existing.getId());
-            Context.evictFromSession(existing);
+            // override the existing with the new
+    //        if (existing != null) {
+      //          dsd.setId(existing.getId());
+        //        Context.evictFromSession(existing);
+          //  }
+
+            dataSetDefinitionService.saveDefinition(dsd);
         }
-
-        dataSetDefinitionService.saveDefinition(dsd);
     }
 
     private PatientIdentifierDataDefinition createPrimaryIdentifierDataDefinition() {
