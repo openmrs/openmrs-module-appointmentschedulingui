@@ -3,6 +3,8 @@ package org.openmrs.module.appointmentschedulingui.reporting.library;
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.db.SerializedObject;
+import org.openmrs.api.db.SerializedObjectDAO;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentEndDateDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentProviderDataDefinition;
@@ -36,6 +38,9 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
 
     @Autowired
     private EmrApiProperties emrApiProperties;
+
+    @Autowired
+    private SerializedObjectDAO serializedObjectDAO;
 
     @Override
     public Class<? super AppointmentDataSetDefinition> getDefinitionType() {
@@ -120,6 +125,16 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
             dsd.setId(existing.getId());
             Context.evictFromSession(existing);
         }
+        else {
+            // incompatible class changes for a serialized object could mean that getting the definition return null
+            // and some serialization error gets logged. In that case we want to overwrite the invalid serialized definition
+            SerializedObject invalidSerializedObject = serializedObjectDAO.getSerializedObjectByUuid(AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID);
+            if (invalidSerializedObject != null) {
+                dsd.setId(invalidSerializedObject.getId());
+                Context.evictFromSession(invalidSerializedObject);
+            }
+        }
+
 
         dataSetDefinitionService.saveDefinition(dsd);
     }
