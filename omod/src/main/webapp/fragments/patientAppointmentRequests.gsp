@@ -52,12 +52,18 @@
 <div id="appointmentscheduling-patientAppointmentRequests"  ng-controller="PatientAppointmentRequestsCtrl" ng-init='init(${ patient?.patient?.uuid ? '"' + patient.patient.uuid + '"' : null }, ${ config.loadOnInit }, ${ config.hideActionButtons }, ${config.enablePagination }, ${ config.canBook })' ng-cloak>
 
     <!-- TODO: do we want "show scheduled appointment" flag here? -->
-    <div ng-show="showAppointmentRequests">
+    <div>
         <h2>
             ${ ui.message("appointmentschedulingui.scheduleAppointment.patientAppointmentRequests") }
         </h2>
-
-        <table id="appointmentRequestsGridTable" class="gridStyle" ng-grid="appointmentRequestsGrid" ></table>
+        <span ng-show="showAppointmentRequests">
+            <table id="appointmentRequestsGridTable" class="gridStyle" ng-grid="appointmentRequestsGrid" ></table>
+        </span>
+        <span ng-hide="showAppointmentRequests">
+            <p>
+                ${ ui.message("appointmentschedulingui.scheduleAppointment.noPatientAppointmentRequests") }
+            </p>
+        </span>
     </div>
 
     <div id="confirm-cancel-appointment-request" class="dialog" ng-show="showCancelAppointmentRequest">
