@@ -123,7 +123,13 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
         // override the existing with the new
         if (existing != null) {
             dsd.setId(existing.getId());
-            Context.evictFromSession(existing);
+            try {
+            	Context.evictFromSession(existing);
+            }
+            catch (IllegalArgumentException ex) {
+             	//this exception was not thrown in older versions (3.x) of hibernate, as they silently ignored it
+            	//see https://github.com/hibernate/hibernate-orm/commit/c8b20660ed56432a946e78794be147422e80ede6#diff-cf194ae1fcd406b5c8720bd5655f304bR100
+            }
         }
         else {
             // incompatible class changes for a serialized object could mean that getting the definition return null
@@ -131,7 +137,13 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
             SerializedObject invalidSerializedObject = serializedObjectDAO.getSerializedObjectByUuid(AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID);
             if (invalidSerializedObject != null) {
                 dsd.setId(invalidSerializedObject.getId());
-                Context.evictFromSession(invalidSerializedObject);
+                try {
+                	Context.evictFromSession(invalidSerializedObject);
+                }
+                catch (IllegalArgumentException ex) {
+                	//this exception was not thrown in older versions (3.x) of hibernate, as they silently ignored it
+                	//see https://github.com/hibernate/hibernate-orm/commit/c8b20660ed56432a946e78794be147422e80ede6#diff-cf194ae1fcd406b5c8720bd5655f304bR100
+                }
             }
         }
 
