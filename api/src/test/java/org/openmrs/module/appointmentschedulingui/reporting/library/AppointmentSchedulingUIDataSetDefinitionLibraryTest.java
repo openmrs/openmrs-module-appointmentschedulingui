@@ -115,7 +115,7 @@ public class AppointmentSchedulingUIDataSetDefinitionLibraryTest extends BaseMod
         assertThat((String) row.getColumnValue("appointmentType"), is("Outpatient consult"));
         assertThat((String) row.getColumnValue("provider"), is(scheduledProvider.getName()));
         assertThat((Appointment.AppointmentStatusType) row.getColumnValue("statusType"), is(Appointment.AppointmentStatusType.COMPLETED));
-        assertThat((String) row.getColumnValue("localizedStatusType"), is("appointmentschedulingui.scheduleAppointment.status.type.completed"));
+        assertThat((String) row.getColumnValue("localizedStatusType"), is("Completed"));
         assertThat((String) row.getColumnValue("patientName"), is(patient.getPersonName().toString()));
         assertThat(((Timestamp) row.getColumnValue("startDatetime")).toString(), is("2014-01-01 09:00:00.0"));
         assertThat((String) row.getColumnValue("startTimeFormatted"), is("09:00 AM"));

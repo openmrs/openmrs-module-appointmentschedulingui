@@ -328,9 +328,6 @@
 		     		</execution>
 			   	</executions>
    				<configuration>
-			        <echo>
-						<!--  BOWER INSTALL  -->
-			        </echo>
 		     		<executable>bower</executable>
 		     		<arguments>
 		      			<argument>install</argument>

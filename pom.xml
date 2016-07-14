@@ -33,168 +33,219 @@
     </modules>
 
     <properties>
-        <openMRSVersion>1.9.8</openMRSVersion>
+        <openMRSVersion>1.10.4</openMRSVersion>
         <emrapiVersion>1.16-SNAPSHOT</emrapiVersion>
-        <uiframeworkVersion>3.3.1</uiframeworkVersion>
-        <appframeworkVersion>2.3</appframeworkVersion>
-        <htmlformentryVersion>2.5</htmlformentryVersion>
+        <uiframeworkVersion>3.7</uiframeworkVersion>
+        <appframeworkVersion>2.9</appframeworkVersion>
+        <htmlformentryVersion>3.2</htmlformentryVersion>
         <calculationVersion>1.1</calculationVersion>
-        <reportingVersion>0.9.3</reportingVersion>
-        <serializationxstreamVersion>0.2.7</serializationxstreamVersion>
-        <providermanagementVersion>2.2</providermanagementVersion>
-        <appuiVersion>1.3</appuiVersion>
-        <uicommonsVersion>1.7</uicommonsVersion>
-        <coreappsVersion>1.10-SNAPSHOT</coreappsVersion>
+        <reportingVersion>0.10.1</reportingVersion>
+        <serializationxstreamVersion>0.2.11</serializationxstreamVersion>
+        <providermanagementVersion>2.4</providermanagementVersion>
+        <appuiVersion>1.6-SNAPSHOT</appuiVersion>
+        <uicommonsVersion>1.8</uicommonsVersion>
+        <coreappsVersion>1.11-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.6</webservicesRestVersion>
-        <appointmentschedulingVersion>1.4</appointmentschedulingVersion>
+        <appointmentschedulingVersion>1.5</appointmentschedulingVersion>
         <testutilsVersion>1.5</testutilsVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
-        <!-- Begin OpenMRS modules -->
+     <dependencies>
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>appointmentscheduling-api</artifactId>
-            <version>${appointmentschedulingVersion}</version>
-            <scope>provided</scope>
-        </dependency>
+         <!-- Begin OpenMRS core -->
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>uiframework-api</artifactId>
-            <version>${uiframeworkVersion}</version>
-            <scope>provided</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.api</groupId>
+             <artifactId>openmrs-api</artifactId>
+             <version>${openMRSVersion}</version>
+             <type>jar</type>
+             <scope>provided</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>appframework-api</artifactId>
-            <version>${appframeworkVersion}</version>
-            <scope>provided</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.api</groupId>
+             <artifactId>openmrs-api</artifactId>
+             <version>${openMRSVersion}</version>
+             <type>test-jar</type>
+             <scope>test</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>emrapi-api-1.9</artifactId>
-            <version>${emrapiVersion}</version>
-            <scope>provided</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.test</groupId>
+             <artifactId>openmrs-test</artifactId>
+             <version>${openMRSVersion}</version>
+             <type>pom</type>
+             <scope>test</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>uicommons-api</artifactId>
-            <version>${uicommonsVersion}</version>
-            <scope>provided</scope>
-        </dependency>
+         <!-- End OpenMRS core -->
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>htmlformentry-api</artifactId>
-            <version>${htmlformentryVersion}</version>
-            <scope>provided</scope>
-        </dependency>
+         <!-- Begin OpenMRS modules -->
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>htmlformentry-api</artifactId>
+             <version>${htmlformentryVersion}</version>
+             <scope>provided</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>htmlformentry-api</artifactId>
-            <version>${htmlformentryVersion}</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>htmlformentry-api</artifactId>
+             <version>${htmlformentryVersion}</version>
+             <type>test-jar</type>
+             <scope>test</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>reporting-api</artifactId>
-            <version>${reportingVersion}</version>
-            <scope>provided</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>htmlformentry-api-1.10</artifactId>
+             <version>${htmlformentryVersion}</version>
+             <scope>test</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>coreapps-api</artifactId>
-            <version>${coreappsVersion}</version>
-            <scope>provided</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>reporting-api</artifactId>
+             <version>${reportingVersion}</version>
+             <scope>provided</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.contrib</groupId>
-            <artifactId>testutils</artifactId>
-            <version>${testutilsVersion}</version>
-            <scope>test</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>reporting-api-tests</artifactId>
+             <version>${reportingVersion}</version>
+             <type>test-jar</type>
+             <scope>test</scope>
+         </dependency>
 
-        <!-- required by emrapi so we need these for tests -->
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>providermanagement-api</artifactId>
-            <version>${providermanagementVersion}</version>
-            <scope>test</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>serialization.xstream-api</artifactId>
+             <version>${serializationxstreamVersion}</version>
+             <scope>provided</scope>
+         </dependency>
 
-        <!-- required by reporting so we need these for testing -->
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>serialization.xstream-api</artifactId>
-            <version>${serializationxstreamVersion}</version>
-            <scope>test</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>serialization.xstream-api-1.9</artifactId>
+             <version>${serializationxstreamVersion}</version>
+             <scope>provided</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>calculation-api</artifactId>
-            <version>${calculationVersion}</version>
-            <scope>test</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>serialization.xstream-api-1.10</artifactId>
+             <version>${serializationxstreamVersion}</version>
+             <scope>provided</scope>
+         </dependency>
 
-        <!-- End OpenMRS modules -->
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>serialization.xstream-api-2.0</artifactId>
+             <version>${serializationxstreamVersion}</version>
+             <scope>provided</scope>
+         </dependency>
 
-        <!-- Begin OpenMRS core -->
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>calculation-api</artifactId>
+             <version>${calculationVersion}</version>
+             <scope>provided</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.api</groupId>
-            <artifactId>openmrs-api</artifactId>
-            <version>${openMRSVersion}</version>
-            <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>uiframework-api</artifactId>
+             <version>${uiframeworkVersion}</version>
+             <scope>provided</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.api</groupId>
-            <artifactId>openmrs-api</artifactId>
-            <version>${openMRSVersion}</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>appframework-api</artifactId>
+             <version>${appframeworkVersion}</version>
+             <scope>provided</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.test</groupId>
-            <artifactId>openmrs-test</artifactId>
-            <version>${openMRSVersion}</version>
-            <type>pom</type>
-            <scope>test</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>appui-api</artifactId>
+             <version>${appuiVersion}</version>
+             <scope>provided</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.web</groupId>
-            <artifactId>openmrs-web</artifactId>
-            <version>${openMRSVersion}</version>
-            <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
-        <!-- End OpenMRS core -->
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>emrapi-api</artifactId>
+             <version>${emrapiVersion}</version>
+             <scope>provided</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>rubygems</groupId>
-            <artifactId>sass</artifactId>
-            <version>3.2.10</version>
-            <type>gem</type>
-            <scope>provided</scope>
-        </dependency>
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>emrapi-api-1.10</artifactId>
+             <version>${emrapiVersion}</version>
+             <scope>provided</scope>
+         </dependency>
 
-    </dependencies>
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>emrapi-api</artifactId>
+             <version>${emrapiVersion}</version>
+             <type>test-jar</type>
+             <scope>test</scope>
+         </dependency>
+
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>providermanagement-api</artifactId>
+             <version>${providermanagementVersion}</version>
+             <scope>provided</scope>
+         </dependency>
+
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>uicommons-api</artifactId>
+             <version>${uicommonsVersion}</version>
+             <scope>provided</scope>
+         </dependency>
+
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>coreapps-api</artifactId>
+             <version>${coreappsVersion}</version>
+             <scope>provided</scope>
+         </dependency>
+
+         <dependency>
+             <groupId>org.openmrs.module</groupId>
+             <artifactId>appointmentscheduling-api</artifactId>
+             <version>${appointmentschedulingVersion}</version>
+             <scope>provided</scope>
+         </dependency>
+         <!-- End OpenMRS modules-->
+
+         <!-- Begin OpenMRS contrib -->
+
+         <dependency>
+             <groupId>org.openmrs.contrib</groupId>
+             <artifactId>testutils</artifactId>
+             <version>${testutilsVersion}</version>
+             <scope>test</scope>
+         </dependency>
+
+         <!-- End OpenMRS contrib -->
+         <dependency>
+             <groupId>rubygems</groupId>
+             <artifactId>sass</artifactId>
+             <version>3.2.10</version>
+             <type>gem</type>
+             <scope>provided</scope>
+         </dependency>
+
+     </dependencies>
 
     <build>
         <pluginManagement>
