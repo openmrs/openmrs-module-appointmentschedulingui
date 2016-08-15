@@ -59,12 +59,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
         <p>
             <label> ${ ui.message("appointmentschedulingui.requestAppointment.selectAppointmentType") }</label>
-            <input id="appointment-type" type="text" ng-model="appointmentRequest.appointmentType" typeahead-editable="false" typeahead="appointmentType as appointmentType.display for appointmentType in getAppointmentTypes(\$viewValue) | filter: \$viewValue | limitTo:8" >
+            <input id="appointment-type" type="text" ng-model="appointmentRequest.appointmentType" typeahead-editable="false" typeahead="appointmentType as appointmentType.display for appointmentType in getAppointmentTypes(\$viewValue)" >
         </p>
 
         <p>
             <label> ${ ui.message("appointmentschedulingui.requestAppointment.selectProvider") }</label>
-            <input id="provider" type="text" ng-model="appointmentRequest.provider" typeahead-editable="false" typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | filter: \$viewValue | limitTo:8" />
+            <input id="provider" type="text" ng-model="appointmentRequest.provider" typeahead-editable="false" typeahead="provider as provider.person.display for provider in getProviders(\$viewValue)" />
         </p>
 
         <!-- NOTE: the ng-blur attributes in the tags below are required to make the "minFrameBeforeMax" message to show up right away for some reason -->
