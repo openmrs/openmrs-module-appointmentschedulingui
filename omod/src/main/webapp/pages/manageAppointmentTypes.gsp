@@ -62,12 +62,12 @@ jq( function(){
                     <% appointmentTypeList.each { appointmentType -> %>
 
                         <tr>
-                            <td>${ ui.format(appointmentType.name) }</td>
+                            <td>${ ui.encodeHtmlContent(ui.format(appointmentType.name)) }</td>
                             <td>${ ui.format(appointmentType.duration) }</td>
                             <% if (featureToggles.isFeatureEnabled("appointmentscheduling.confidential")) { %>
                                 <td>${ ui.message("emr." + (appointmentType.confidential ? "yes" : "no")) }</td>
                             <% } %>
-                            <td>${ ui.format(appointmentType.description)}</td>
+                            <td>${ ui.encodeHtmlContent(ui.format(appointmentType.description))}</td>
                             <td class="align-center">
                                 <span>
                                     <i id="appointmentschedulingui-edit-${ ui.format(appointmentType.name) }" class="editAppointmentType delete-item icon-pencil"
