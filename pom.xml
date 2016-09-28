@@ -43,8 +43,8 @@
         <serializationxstreamVersion>0.2.11</serializationxstreamVersion>
         <providermanagementVersion>2.4</providermanagementVersion>
         <appuiVersion>1.6</appuiVersion>
-        <uicommonsVersion>1.10-SNAPSHOT</uicommonsVersion>
-        <coreappsVersion>1.11-SNAPSHOT</coreappsVersion>
+        <uicommonsVersion>2.0</uicommonsVersion>
+        <coreappsVersion>1.11.0</coreappsVersion>
         <webservicesRestVersion>2.6</webservicesRestVersion>
         <appointmentschedulingVersion>1.5</appointmentschedulingVersion>
         <testutilsVersion>1.5</testutilsVersion>
