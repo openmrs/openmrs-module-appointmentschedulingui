@@ -270,7 +270,7 @@
                         <include>bower_components/**/providerService.js</include>
                         <include>bower_components/**/locationService.js</include>
                         <include>bower_components/**/restUtils.js</include>
-                        <include>bower_components/**/jquery-1.8.3.min.js</include>
+                        <include>bower_components/**/jquery-1.12.4.js</include>
                         <include>bower_components/**/angular.min.js</include>
                         <include>bower_components/**/angular-common.js</include>
                         <include>bower_components/**/angular-resource.min.js</include>
@@ -285,7 +285,7 @@
                     <jsTestSrcDir>${project.basedir}/src/test/webapp/resources/scripts</jsTestSrcDir>
                     <preloadSources>
                         <source>${project.basedir}/src/test/webapp/resources/scripts/globalMocks.js</source>
-                        <source>${projectBowerResources}/jquery-1.8.3.min.js</source>
+                        <source>${projectBowerResources}/jquery-1.12.4.min.js</source>
                         <source>${projectBowerResources}/angular.min.js</source>
                         <source>${projectBowerResources}/angular-resource.min.js</source>
                         <source>${projectBowerResources}/angular-mocks.js</source>
