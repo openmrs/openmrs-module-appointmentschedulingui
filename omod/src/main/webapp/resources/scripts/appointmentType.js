@@ -14,7 +14,7 @@ function checkIfInteger(duration) {
 }
 
 function checkIfDurationIsValid(){
-    var duration = $('#duration-field').attr("value");
+    var duration = $('#duration-field').val();
     return (checkIfInteger(duration) && duration > 0) ? true : false;
 }
 
