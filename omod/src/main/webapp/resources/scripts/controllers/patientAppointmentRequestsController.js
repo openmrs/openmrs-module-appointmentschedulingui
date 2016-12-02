@@ -54,7 +54,7 @@ angular.module('appointmentscheduling')
                 // add the Actions column if not disabled
                 if (!hideActionButtons) {
 
-                    var cellTemplate;
+                    var cellTemplate="";
 
                     // only show the "book appt" action if user is able to book appts
                     if (canBook) {
