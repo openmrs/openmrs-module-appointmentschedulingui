@@ -83,7 +83,7 @@
                 <p>${ ui.message("uicommons.provider") }</p>
                 <input type="text"
                        ng-model="providerFilter"
-                       typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | filter: \$viewValue | limitTo:8"
+                       typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | limitTo:8"
                        typeahead-on-select="refreshCalendarEvents()">
                 <i class="icon-remove small add-on" ng-click="providerFilter=''" ></i>
             </div>
@@ -129,7 +129,7 @@
 
             <div id="select-provider" class="inline-box">
                 <p>${ ui.message("uicommons.provider") }</p>
-                <input type="text"  ng-change="updateSaveButton()" ng-model="appointmentBlock.provider" typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | filter: \$viewValue | limitTo:8" >
+                <input type="text"  ng-change="updateSaveButton()" ng-model="appointmentBlock.provider" typeahead="provider as provider.person.display for provider in getProviders(\$viewValue) | limitTo:8" >
             </div>
 
             <div id="select-date" class="inline-box">
