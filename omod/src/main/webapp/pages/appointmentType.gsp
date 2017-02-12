@@ -31,7 +31,7 @@
                 formFieldName: "name",
                 id: "name",
                 maxLength: 100,
-                initialValue: (appointmentType.name ?: '')
+                initialValue: (ui.encodeHtml(appointmentType.name) ?: '')
         ])}
 
         ${ ui.includeFragment("uicommons", "field/text", [
