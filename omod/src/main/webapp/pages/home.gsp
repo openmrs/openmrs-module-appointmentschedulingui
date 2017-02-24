@@ -44,16 +44,12 @@
         </a>
     <% } %>
 
-    <% if (featureToggles.isFeatureEnabled("requestAppointments")) { %>
-
-        <% if (context.hasPrivilege("Task: appointmentschedulingui.bookAppointments")) { %>
-            <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "appointmentRequests") }"
-                 id="appointmentschedulingui-appointmentRequests-app">
-                <i class="icon-calendar"></i>
-                ${ ui.message("appointmentschedulingui.appointmentRequests.title") }
-            </a>
-        <% } %>
-
+    <% if (context.hasPrivilege("Task: appointmentschedulingui.bookAppointments")) { %>
+        <a class="button app big" href="${ ui.pageLink("appointmentschedulingui", "appointmentRequests") }"
+             id="appointmentschedulingui-appointmentRequests-app">
+            <i class="icon-calendar"></i>
+            ${ ui.message("appointmentschedulingui.appointmentRequests.title") }
+        </a>
     <% } %>
 
 </div>
