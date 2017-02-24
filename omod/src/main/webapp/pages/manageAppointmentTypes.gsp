@@ -70,11 +70,11 @@ jq( function(){
                             <td>${ ui.encodeHtmlContent(ui.format(appointmentType.description))}</td>
                             <td class="align-center">
                                 <span>
-                                    <i id="appointmentschedulingui-edit-${ ui.format(appointmentType.name) }" class="editAppointmentType delete-item icon-pencil"
+                                    <i id="appointmentschedulingui-edit-${ ui.encodeHtml(ui.format(appointmentType.name)) }" class="editAppointmentType delete-item icon-pencil"
                                        data-appointment-type-id="${ appointmentType.id}"
                                        data-edit-url='${ui.pageLink("appointmentschedulingui", "appointmentType")}'
                                        title="${ ui.message("coreapps.edit") }"></i>
-                                    <i id="appointmentschedulingui-delete-${ ui.format(appointmentType.name) }" class="deleteAppointmentType delete-item icon-remove"
+                                    <i id="appointmentschedulingui-delete-${ ui.encodeHtml(ui.format(appointmentType.name)) }" class="deleteAppointmentType delete-item icon-remove"
                                        data-appointment-type-id="${ appointmentType.id}"
                                        title="${ ui.message("coreapps.delete") }"></i>
                                 </span>
