@@ -52,7 +52,7 @@
 ${ ui.includeFragment("appointmentschedulingui", "timeZoneWarning") }
 
 
-<div id="appointmentscheduling-scheduleAppointment" class="scheduleAppointment" ng-controller="ScheduleAppointmentCtrl"  ng-init="init(${ patient?.patient?.uuid ? "'" + patient.patient.uuid + "'" : null},  ${ returnUrl ? "'" + ui.escapeJs(returnUrl) + "'" : null}, '${ locale }' )" ng-cloak>
+<div id="appointmentscheduling-scheduleAppointment" class="scheduleAppointment" ng-controller="ScheduleAppointmentCtrl"  ng-init="init(${ patient?.patient?.uuid ? "'" + patient.patient.uuid + "'" : null},  ${ returnUrl ? "'" + ui.encodeHtml(returnUrl) + "'" : null}, '${ locale }' )" ng-cloak>
 
        <div ng-show="showScheduleAppointment">
 
@@ -121,7 +121,7 @@ ${ ui.includeFragment("appointmentschedulingui", "timeZoneWarning") }
 
        </div>
 
-       <div ng-show="showConfirmAppointment" id="confirmAppointment" class="container" ng-controller="ConfirmAppointmentCtrl" ng-init='init(${ canOverbook },  ${ returnUrl ? '"' + ui.escapeJs(returnUrl) + '"' : null} )'>
+       <div ng-show="showConfirmAppointment" id="confirmAppointment" class="container" ng-controller="ConfirmAppointmentCtrl" ng-init='init(${ canOverbook },  ${ returnUrl ? '"' + ui.encodeHtml(returnUrl) + '"' : null} )'>
             <h2>
                 ${ ui.message("appointmentschedulingui.scheduleAppointment.confirmAppointment") }
             </h2>
