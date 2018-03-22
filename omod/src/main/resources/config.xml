@@ -144,7 +144,14 @@
         <lang>id_ID</lang>
         <file>messages_id_ID.properties</file>
     </messages>
-
+   
+   <globalProperty>
+        <property>appointmentschedulingui.includeWeekends</property>
+        <defaultValue>false</defaultValue>
+        <description>
+            Defines whether the calendar should include weekends 
+        </description>
+    </globalProperty>
 
     <privilege>
         <name>App: appointmentschedulingui.appointmentTypes</name>
