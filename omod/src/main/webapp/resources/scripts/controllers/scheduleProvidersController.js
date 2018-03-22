@@ -98,7 +98,7 @@ angular.module('appointmentscheduling.scheduleProviders')
             // configure the calendar
             calendar:{
                 ignoreTimezone: false,  // does this parameter do anything?
-                weekends: false,
+                weekends: includeWeekends,
                 header:{
                     left: 'month basicWeek basicDay',
                     center: 'title',

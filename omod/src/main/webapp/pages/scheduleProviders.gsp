@@ -49,6 +49,9 @@
 ].flatten()
 ]) %>
 
+<script type="text/javascript">
+var includeWeekends = ('${includeWeekends}' === "true");
+</script>
 
 <script type="text/javascript">
     var breadcrumbs = [

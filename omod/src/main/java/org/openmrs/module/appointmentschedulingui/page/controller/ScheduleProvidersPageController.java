@@ -18,7 +18,7 @@ public class ScheduleProvidersPageController {
                 supportsAppointmentsTag != null ? supportsAppointmentsTag.getUuid() : "");
         model.addAttribute("sessionLocationUuid", uiSessionContext != null && uiSessionContext.getSessionLocation() != null ?
                 uiSessionContext.getSessionLocation().getUuid() : "");
-
+        model.addAttribute("includeWeekends", properties.includeWeekends());
         return null;
     }
 
