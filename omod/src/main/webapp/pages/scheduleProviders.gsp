@@ -68,7 +68,7 @@ var includeWeekends = ('${includeWeekends}' === "true");
 
 <%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
 
-<div class="schedule-providers" ng-app="appointmentscheduling.scheduleProviders" ng-controller="ScheduleProvidersCtrl" ng-cloak>
+<div class="schedule-providers container" ng-app="appointmentscheduling.scheduleProviders" ng-controller="ScheduleProvidersCtrl" ng-cloak>
 
     <div ng-show="showCalendar">
         <h1>
@@ -98,8 +98,9 @@ var includeWeekends = ('${includeWeekends}' === "true");
                 placeholdermessage = '${ ui.message("appointmentschedulingui.scheduleProviders.selectMultiplePlaceholder") }'
                 class="inline-box"></selectmultipleappointmenttypes>
         </div>
-
-        <div id="calendar" ui-calendar="uiConfig.calendar" calendar="calendar" ng-model="appointmentBlocksSource"></div>
+        <div class= "row">
+        <div  class="col-12 col-sm-12 col-md-12 col-lg-12" id="calendar" ui-calendar="uiConfig.calendar" calendar="calendar" ng-model="appointmentBlocksSource"></div>
+        </div>
     </div>
 
     <div id="appointment-block-form" ng-show="showAppointmentBlockForm">

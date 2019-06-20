@@ -339,6 +339,7 @@
 			  </executions>
 			</plugin>
 
+			
 			<plugin>
 	   			<groupId>org.codehaus.mojo</groupId>
 			   	<artifactId>exec-maven-plugin</artifactId>
@@ -353,7 +354,7 @@
    				<configuration>
 		     		<executable>bower</executable>
 		     		<arguments>
-		      			<argument>install</argument>
+						<argument>install</argument>
                         <argument>--allow-root</argument>
 		     		</arguments>
 		     		<workingDirectory>${basedir}/src/main/webapp/resources/scripts/</workingDirectory>
