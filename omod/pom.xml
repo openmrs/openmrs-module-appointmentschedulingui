@@ -345,19 +345,32 @@
 			   	<executions>
 		     		<execution>
 	     				<phase>generate-sources</phase>
+						 <configuration>
+							<target name="building">
+								<echo>
+						<!--  NPM INSTALL  -->
+								</echo>
+								<exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+									<arg line="/c npm config set color false" />
+								</exec>
+
+								<exec executable="npm" dir="${project.basedir}" osfamily="unix" failonerror="true">
+									<arg line="config set color false" />
+								</exec>
+
+								<exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+									<arg line="/c npm install" />
+								</exec>
+								<exec executable="npm" dir="${project.basedir}" osfamily="unix" failonerror="true">
+									<arg line="install" />
+								</exec>
+							</target>
+						</configuration>
 		     			<goals>
 		      				<goal>exec</goal>
 		     			</goals>
 		     		</execution>
 			   	</executions>
-				<configuration>
-					<executable>cmd</executable> <!-- or bash -->
-					<workingDirectory>./</workingDirectory>
-					<arguments>
-						<argument>/c</argument>
-						<argument>"npm --version"</argument>
-					</arguments>
-				</configuration>
    				<configuration>
 		     		<executable>bower</executable>
 		     		<arguments>
