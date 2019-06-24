@@ -350,6 +350,14 @@
 		     			</goals>
 		     		</execution>
 			   	</executions>
+				<configuration>
+					<executable>cmd</executable> <!-- or bash -->
+					<workingDirectory>./</workingDirectory>
+					<arguments>
+						<argument>/c</argument>
+						<argument>"npm --version"</argument>
+					</arguments>
+				</configuration>
    				<configuration>
 		     		<executable>bower</executable>
 		     		<arguments>
