@@ -8,7 +8,9 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 
 /**
  * Recreate the Daily Appointments Report when the primary identifier changes
- */
+ *
+ * Note: This is currently disabled, see: https://issues.openmrs.org/browse/AM-202
+ **/
 public class EmrPrimaryIdentifierTypeGlobalPropertyListener implements GlobalPropertyListener {
 
     @Override
