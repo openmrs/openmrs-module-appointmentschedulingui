@@ -46,7 +46,7 @@ jq( function(){
 
         <% if (appointmentTypeList) { %>
 
-            <table id="appointmentTypesTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
+            <table class="table table-sm table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl" id="appointmentTypesTable" empty-value-message='${ ui.message("uicommons.dataTable.emptyTable") }'>
                 <thead>
                 <tr>
                     <th style="width: 40%">${ ui.message("appointmentschedulingui.appointmenttype.name") }</th>
