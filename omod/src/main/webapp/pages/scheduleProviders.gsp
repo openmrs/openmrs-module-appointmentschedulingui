@@ -31,6 +31,8 @@
 
     ui.includeJavascript("appointmentschedulingui", "qtip/jquery.qtip.min.js")
     ui.includeCss("appointmentschedulingui", "qtip/jquery.qtip.min.css")
+    ui.includeJavascript("appui", "jquery-3.4.1.min.js")
+
 
     ui.includeCss("appointmentschedulingui", "scheduleProviders.css")
     ui.includeCss("appointmentschedulingui", "selectMultipleAppointmentTypes.css")
