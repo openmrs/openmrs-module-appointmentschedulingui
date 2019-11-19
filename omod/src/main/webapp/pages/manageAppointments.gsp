@@ -1,5 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
+    ui.includeCss("appointmentschedulingui", "manageAppoinment.css")
 %>
 
 

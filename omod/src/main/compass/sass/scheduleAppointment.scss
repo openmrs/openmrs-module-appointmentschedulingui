@@ -82,4 +82,12 @@
   z-index:999;
 }
 
+.viewAllAppointmentTypes a, #allAppointmentTypesModal a {
+  color: #007fff !important;
+  text-decoration: none !important;
+}
 
+.viewAllAppointmentTypes a:hover, #allAppointmentTypesModal a:hover {
+  color: #3399ff !important;
+  text-decoration: underline !important;
+}
