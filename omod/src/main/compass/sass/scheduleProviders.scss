@@ -79,12 +79,13 @@ selectmultipleappointmenttypes {
   padding-left: unset !important;
 }
 
-.viewAllAppointmentTypes a:hover {
+#allAppointmentTypesModal a:hover, .viewAllAppointmentTypes a:hover {
   color: #3399ff !important;
   text-decoration: underline !important;
 }
 
-.viewAllAppointmentTypes > a {
+#allAppointmentTypesModal a, .viewAllAppointmentTypes > a {
   color: #007fff !important;
   text-decoration: none !important;
 }
+
