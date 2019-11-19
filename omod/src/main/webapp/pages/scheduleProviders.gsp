@@ -70,7 +70,7 @@ var includeWeekends = ('${includeWeekends}' === "true");
 
 <%= ui.includeFragment("appointmentschedulingui", "timeZoneWarning") %>
 
-<div class="schedule-providers container" ng-app="appointmentscheduling.scheduleProviders" ng-controller="ScheduleProvidersCtrl" ng-cloak>
+<div class="schedule-providers" ng-app="appointmentscheduling.scheduleProviders" ng-controller="ScheduleProvidersCtrl" ng-cloak>
 
     <div ng-show="showCalendar">
         <h1>
