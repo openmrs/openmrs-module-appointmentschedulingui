@@ -45,7 +45,7 @@
 
     <% if (context.hasPrivilege("App: appointmentschedulingui.viewAppointments")) { %>
         <div  class="col-6 col-sm-2 col-md-3 col-lg-2 homeList schedulingList ml-3">       
-        <a class="btn btn-default btn-lg button app big align-self-center" type="button" href="${ ui.pageLink("appointmentschedulingui", "dailyScheduledAppointments") }"
+        <a class="btn btn-default btn-lg button app big align-self-center dailyappoinment" type="button" href="${ ui.pageLink("appointmentschedulingui", "dailyScheduledAppointments") }"
                 id="appointmentschedulingui-scheduledAppointments-app">
             <i class="icon-calendar"></i>
             ${ ui.message("appointmentschedulingui.dailyScheduledAppointments.title") }
