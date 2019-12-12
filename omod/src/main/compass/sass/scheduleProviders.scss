@@ -73,3 +73,19 @@ selectmultipleappointmenttypes {
     }
   }
 }
+
+.container-fluid {
+  padding-right: unset !important;
+  padding-left: unset !important;
+}
+
+#allAppointmentTypesModal a:hover, .viewAllAppointmentTypes a:hover {
+  color: #3399ff !important;
+  text-decoration: underline !important;
+}
+
+#allAppointmentTypesModal a, .viewAllAppointmentTypes > a {
+  color: #007fff !important;
+  text-decoration: none !important;
+}
+

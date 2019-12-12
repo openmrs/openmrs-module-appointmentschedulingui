@@ -29,3 +29,11 @@
   }
 
 }
+
+.table thead th {
+  vertical-align: inherit !important;
+}
+
+#description-field {
+  width: unset !important;
+}

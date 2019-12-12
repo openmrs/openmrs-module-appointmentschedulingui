@@ -1,5 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
+    ui.includeJavascript("appui", "jquery-3.4.1.min.js")
     ui.includeCss("appointmentschedulingui", "scheduleAppointment.css")
 
     def angularLocale = context.locale.toString().toLowerCase();

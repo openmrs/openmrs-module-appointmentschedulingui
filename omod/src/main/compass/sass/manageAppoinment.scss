@@ -1,0 +1,30 @@
+.date-range-picker-div a:hover {
+    color: #3399ff !important;
+    text-decoration: underline !important;
+}
+  
+.date-range-picker-div a {
+    color: #007fff !important;
+    text-decoration: none !important;
+}
+
+#viewAllAppointmentTypes a {
+    color: #007fff !important;
+    text-decoration: none !important;
+}
+
+#viewAllAppointmentTypes a:hover {
+    color: #3399ff !important;
+    text-decoration: underline !important;
+}
+
+.container-fluid {
+    padding-right: unset !important;
+    padding-left: unset !important;
+}
+
+@media only screen and (min-width : 991px)  {
+    #selectIncludeSlotsThatRequireOverbook {
+        margin-left: -202px !important;
+    }
+}
