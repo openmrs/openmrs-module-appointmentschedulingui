@@ -18,18 +18,13 @@
         <gem.home>${basedir}/.rubygems</gem.home>
         <gem.path>${basedir}/.rubygems</gem.path>
     </properties>
-
-
 	<dependencies>
-
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>appointmentschedulingui-api</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-
 		<!-- Begin OpenMRS core -->
-
         <dependency>
             <groupId>org.openmrs.web</groupId>
             <artifactId>openmrs-web</artifactId>
@@ -37,9 +32,7 @@
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
-
         <!-- End OpenMRS core -->
-
         <dependency>
             <groupId>rubygems</groupId>
             <artifactId>compass</artifactId>
@@ -47,7 +40,6 @@
             <type>gem</type>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>appui-omod</artifactId>
@@ -55,11 +47,8 @@
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
-
         <!-- End OpenMRS modules -->
-
 	</dependencies>
-
 	<build>
 		<finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
 		<resources>
@@ -84,14 +73,12 @@
 				<targetPath>web/module</targetPath>
 			</resource>
 		</resources>
-
 		<testResources>
 			<testResource>
 				<directory>src/test/resources</directory>
 				<filtering>true</filtering>
 			</testResource>
 		</testResources>
-
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -210,7 +197,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>de.saumya.mojo</groupId>
                 <artifactId>gem-maven-plugin</artifactId>
@@ -219,7 +205,6 @@
                     <execution>
                         <goals>
                             <goal>exec</goal>
-                        
                         </goals>
                         <phase>generate-resources</phase>
                     </execution>
@@ -229,7 +214,6 @@
                     <execArgs>${gem.home}/bin/compass compile ${basedir}/src/main/compass</execArgs>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>com.github.klieber</groupId>
                 <artifactId>phantomjs-maven-plugin</artifactId>
@@ -245,7 +229,6 @@
                     <version>2.1.1</version>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>com.github.searls</groupId>
                 <artifactId>jasmine-maven-plugin</artifactId>
@@ -279,11 +262,9 @@
                         <include>bower_components/**/angular-mocks.js</include>
                         <include>bower_components/**/moment.min.js</include>
                     </sourceIncludes>
-
                     <sourceExcludes>
                         <exclude>bower_component/**/*.js</exclude>
                     </sourceExcludes>
-
                     <jsTestSrcDir>${project.basedir}/src/test/webapp/resources/scripts</jsTestSrcDir>
                     <preloadSources>
                         <source>${project.basedir}/src/test/webapp/resources/scripts/globalMocks.js</source>
@@ -305,7 +286,6 @@
                     </webDriverCapabilities>
                 </configuration>
             </plugin>
-
             <plugin>
 			  <artifactId>maven-antrun-plugin</artifactId>
 			  <version>1.7</version>
@@ -366,8 +346,6 @@
 
 		</plugins>
 	</build>
-
-
     <profiles>
         <profile>
             <id>watch-sass</id>
