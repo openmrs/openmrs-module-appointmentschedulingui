@@ -1,13 +1,16 @@
-<div class="date-range-picker-div" class="inlineBox">
-    <p> {{headermessage}} </p>
-    <span class="angular-datepicker">
-        <input class="appoinmentrangepicker" type="text" is-open="startDateOptions.opened" ng-model="startDate" min="{{startDateMin}}" max="endDate" show-weeks="false" datepicker-popup="dd MMM yyyy" readonly/>
-        <i class="icon-calendar small add-on" ng-click="startDateOptions.open($event)" ></i>
-        <a class="date-range-picker-clear-link add-on" ng-click="startDateOptions.clear($event)">{{ clearLinkText }}</a>
-    </span>
-    <span class="angular-datepicker">
-        <input class="appoinmentrangepicker" type="text" is-open="endDateOptions.opened"  ng-model="endDate" min="startDate {{ startDateMin && ' || '.concat(startDateMin) || ''}}" show-weeks="false" datepicker-popup="dd MMM yyyy" readonly/>
-        <i class="icon-calendar small add-on" ng-click="endDateOptions.open($event)"></i>
-        <a class="date-range-picker-clear-link add-on" ng-click="endDateOptions.clear($event)">{{ clearLinkText }}</a>
-    </span>
+
+  <div class="date-range-picker-div">
+  <p>{{headermessage}}&nbsp;<span>
+    <a class="date-range-picker-clear-link add-on1" ng-click="startDateOptions.clear($event)">{{ clearLinkText }}</a>
+  </span></p>
+  <span class="angular-datepicker">
+      <input class="appointmentrangepicker" type="text" is-open="startDateOptions.opened" ng-model="startDate" min="{{startDateMin}}" max="endDate" show-weeks="false" datepicker-popup="dd MMM yyyy" readonly/>
+     <i class="icon-calendar small add-on1" ng-click="startDateOptions.open($event)" ></i> 
+  </span>
+     <span class="angular-datepicker">
+         <a class="date-range-picker-clear-link add-on" ng-click="endDateOptions.clear($event)">{{ clearLinkText }}</a>
+        <input class="appointmentrangepicker" type="text" is-open="endDateOptions.opened" ng-model="endDate" min="{{startDateMin}}"  max="startDate" show-weeks="false" datepicker-popup="dd MMM yyyy" readonly/>
+        <i class="icon-calendar small add-on1" ng-click="endDateOptions.open($event)"></i>
+     </span>
 </div>
+ </div>

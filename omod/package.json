@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "Mirebalais - Apppointment Scheduling Ui",
   "dependencies": {},
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git://github.com/PIH/openmrs-module-appointmentschedulingui.git"
