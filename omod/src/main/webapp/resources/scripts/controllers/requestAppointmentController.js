@@ -101,6 +101,7 @@ angular.module('appointmentscheduling.requestAppointment')
 
             AppointmentService.saveAppointmentRequest(appointmentRequestToSave).then(function() {
                 // success callback
+            	emr.successAlert("requestAppointment saved successfully");
                 redirectToReturnPage();
             }).
             catch(function () {
