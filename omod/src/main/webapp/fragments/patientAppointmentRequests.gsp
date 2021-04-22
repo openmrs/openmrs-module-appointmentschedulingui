@@ -84,8 +84,9 @@
         <div class="dialog-header">
             <h3>${ ui.message("appointmentschedulingui.scheduleAppointment.appointmentRequestNotes") }</h3>
         </div>
-        <div class="dialog-content" ng-bind-html="notesDialogContent">
-
+        
+        <div class="dialog-content" ng-bind="notesDialogContent">
+            
         </div>
         <button class="button confirm right" ng-click="closeNotesDialog()"> ${ ui.message("uicommons.close") }</button>
     </div>
