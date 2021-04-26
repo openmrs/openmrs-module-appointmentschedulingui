@@ -23,6 +23,9 @@ public class AppointmentTypePageController {
 
         if(appointmentTypeId!=null){
             appointmentType = appointmentService.getAppointmentType(appointmentTypeId);
+            if(appointmentType == null){
+                log.warn("Invalid Appointment Type ID.");
+            }
         }
 
         model.addAttribute("appointmentType", appointmentType);
