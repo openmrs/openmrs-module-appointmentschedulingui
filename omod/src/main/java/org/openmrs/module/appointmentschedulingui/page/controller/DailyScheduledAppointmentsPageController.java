@@ -16,7 +16,6 @@ public class DailyScheduledAppointmentsPageController {
                     UiSessionContext uiSessionContext){
 		
 		uiSessionContext.requireAuthentication();
-		System.out.println(uiSessionContext.getCurrentUser().getPrivileges());
 		if (!uiSessionContext.getCurrentUser().hasPrivilege("App: appointmentschedulingui.viewAppointments")
 		        && (!uiSessionContext.getCurrentUser().isSuperUser())) {
 			throw new APIAuthenticationException();
