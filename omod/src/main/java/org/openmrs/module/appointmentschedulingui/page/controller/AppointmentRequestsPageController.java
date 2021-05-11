@@ -11,7 +11,8 @@ public class AppointmentRequestsPageController {
 		uiSessionContext.requireAuthentication();
 		if (!uiSessionContext.getCurrentUser().hasPrivilege("Task: appointmentschedulingui.requestAppointments")
 		        && (!uiSessionContext.getCurrentUser().isSuperUser())) {
-			throw new APIAuthenticationException();
+			throw new APIAuthenticationException(
+			        "Access to appointment requests page denied due to insufficient privileges");
 		}
         model.addAttribute("canBook", uiSessionContext.getCurrentUser().hasPrivilege(AppointmentSchedulingUIConstants.PRIVILEGE_BOOK_APPOINTMENTS));
         return null;
