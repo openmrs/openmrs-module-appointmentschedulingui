@@ -18,7 +18,7 @@ public class DailyScheduledAppointmentsPageController {
 		uiSessionContext.requireAuthentication();
 		if (!uiSessionContext.getCurrentUser().hasPrivilege("App: appointmentschedulingui.viewAppointments")
 		        && (!uiSessionContext.getCurrentUser().isSuperUser())) {
-			throw new APIAuthenticationException();
+			throw new APIAuthenticationException("Access to daily scheduled appointments page denied due to insufficient privileges");
 		}
        Location location = uiSessionContext.getSessionLocation();
        LocationTag supportsAppointmentsTag =  properties.getSupportsAppointmentsTag();
