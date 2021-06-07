@@ -56,21 +56,17 @@
         <h2>
             ${ ui.message("appointmentschedulingui.scheduleAppointment.patientAppointmentRequests") }
         </h2>
-        
-        <TABLE>
-   <TR>
-      <TD>Data 1</TD>
-      <TD>Data 2</TD>
-   </TR>
-   <TR>
-      <TD>Data 3</TD>
-      <TD>Data 4</TD>
-   </TR>
-   <TR>
-      <TD>Data 5</TD>
-      <TD>Data 6</TD>
-   </TR>
-</TABLE>
+<table>
+<tr>
+<th>Appointment Type</th>
+<th>Provider</th>
+<th>Time Frame</th>
+<th>Actions</th>
+  <td class="column1"></td>
+ </tr>
+
+</table>
+
         <span ng-show="showAppointmentRequests">
             <table id="appointmentRequestsGridTable" class="gridStyle" ng-grid="appointmentRequestsGrid" ></table>
         </span>
