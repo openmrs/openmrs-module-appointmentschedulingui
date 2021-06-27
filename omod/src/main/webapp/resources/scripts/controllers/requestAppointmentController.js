@@ -1,6 +1,6 @@
 
 angular.module('appointmentscheduling.requestAppointment')
-    .controller('RequestAppointmentCtrl', function ($scope, AppointmentService, ProviderService) {
+    .controller('RequestAppointmentCtrl', function ($scope, AppointmentService, ProviderService,$q) {
 
         // TODO handle editing a request form
         $scope.appointmentRequest = {};
@@ -42,7 +42,20 @@ angular.module('appointmentscheduling.requestAppointment')
         // backing function for the provider autocomplete
         $scope.getProviders = function (searchString) {
             // TODO sort???
-            return ProviderService.getProviders({'q': searchString, 'v': 'default'});
+            var temp = ProviderService.getProviders({'q': searchString, 'v': 'default'});
+            var deferred = $q.defer();
+            temp.then(function(data){
+                for(key in data){
+                   for(individual in data[key]['person']){
+                        if(individual==='display'){                            
+                            var encodedStr = escapeHtml(data[key]['person']['display']);
+                            data[key]['person']['display'] = encodedStr;
+                        }
+                   }
+                }
+                deferred.resolve(data);
+            });
+            return deferred.promise;
         }
 
         $scope.validateAppointmentRequest = function() {
@@ -121,6 +134,23 @@ angular.module('appointmentscheduling.requestAppointment')
             redirectToReturnPage();
         }
 
+        $scope.$watch('appointmentRequest.provider', function(newValue,oldValue){
+            if(typeof newValue!=='undefined'){
+                var map =
+                {
+                    '&amp;': '&',
+                    '&lt;': '<',
+                    '&gt;': '>',
+                    '&quot;': '"',
+                    '&#039;': "'"
+                };
+
+                if(typeof newValue['person']!=='undefined' && typeof newValue['person']['display']!=='undefined')
+                    newValue['person']['display'] =  (newValue['person']['display'].replace(/&amp;|&lt;|&gt;|&quot;|&#039;/g, function(m) {return map[m];}));
+            }
+            
+        });
+
         var redirectToReturnPage = function () {
             if ($scope.returnUrl) {
                 emr.navigateTo({ url: $scope.returnUrl });
@@ -132,6 +162,15 @@ angular.module('appointmentscheduling.requestAppointment')
                 });
             }
         }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+          }
 
         // find a recommended provider based on the most recent appointment of that type (any status, past, present or future)
         var updateProvider = function() {
