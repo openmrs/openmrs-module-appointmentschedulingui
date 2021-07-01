@@ -13,6 +13,8 @@ omod/.classpath
 omod/.settings/
 omod/target/
 
+# Frontend build directories
+omod/src/main/webapp/resources/scripts/node
 omod/src/main/compass/sass-external/
 omod/src/main/webapp/resources/scripts/bower_components/
 
@@ -27,3 +29,4 @@ omod/src/main/webapp/resources/scripts/bower_components/
 # Rubygems build directories #
 omod/.rubygems
 omod/.rubygems-provided
+
