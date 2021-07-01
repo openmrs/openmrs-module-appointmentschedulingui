@@ -101,6 +101,11 @@
             <select ng-model="appointmentStatusTypeFilter" ng-options="appointmentStatusType.value as appointmentStatusType.localizedDisplayName for appointmentStatusType in appointmentStatusTypes" ng-change="newSelectedAppointmentStatusType(appointmentStatusTypeFilter)">
             </select>
         </div>
+        <div id="filter-creator" class="inline-box">
+            <p>${ ui.message("uicommons.creator") }</p>
+            <select ng-model="creatorFilter" ng-options="creator for creator in creators" ng-change="newSelectedCreator(creatorFilter)">
+            </select>
+        </div>
 
         <selectmultipleappointmenttypes
             headermessage='${ ui.message("appointmentschedulingui.scheduleAppointment.serviceTypes") }'

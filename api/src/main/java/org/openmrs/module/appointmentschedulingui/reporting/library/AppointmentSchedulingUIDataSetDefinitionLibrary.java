@@ -6,6 +6,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
 import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentCreatorDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentEndDateDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentProviderDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentStartDateDataDefinition;
@@ -102,6 +103,7 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
         dsd.addColumn("startDatetime", new AppointmentStartDateDataDefinition(), "", null);
         dsd.addColumn("startTimeFormatted", new AppointmentStartDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
         dsd.addColumn("endTimeFormatted", new AppointmentEndDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
+        dsd.addColumn("creator", new AppointmentCreatorDataDefinition(), "", formatted);
 
         dsd.addSortCriteria("startDatetime", SortCriteria.SortDirection.ASC);
         dsd.addSortCriteria("provider", SortCriteria.SortDirection.ASC);
