@@ -36,6 +36,8 @@
         'appointmentschedulingui.dailyScheduledAppointments.timeBlock',
         'appointmentschedulingui.dailyScheduledAppointments.provider',
         'appointmentschedulingui.dailyScheduledAppointments.patientName',
+        'appointmentschedulingui.dailyScheduledAppointments.creator',
+        'appointmentschedulingui.dailyScheduledAppointments.allCreators',
         'appointmentschedulingui.dailyScheduledAppointments.patientId',
         'appointmentschedulingui.dailyScheduledAppointments.appointmentType',
         'appointmentschedulingui.dailyScheduledAppointments.allProviders',
@@ -102,7 +104,7 @@
             </select>
         </div>
         <div id="filter-creator" class="inline-box">
-            <p>${ ui.message("uicommons.creator") }</p>
+            <p>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.creator") }</p>
             <select ng-model="creatorFilter" ng-options="creator for creator in creators" ng-change="newSelectedCreator(creatorFilter)">
             </select>
         </div>
