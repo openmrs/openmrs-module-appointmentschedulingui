@@ -36,6 +36,8 @@
         'appointmentschedulingui.dailyScheduledAppointments.timeBlock',
         'appointmentschedulingui.dailyScheduledAppointments.provider',
         'appointmentschedulingui.dailyScheduledAppointments.patientName',
+        'appointmentschedulingui.dailyScheduledAppointments.creator',
+        'appointmentschedulingui.dailyScheduledAppointments.allCreators',
         'appointmentschedulingui.dailyScheduledAppointments.patientId',
         'appointmentschedulingui.dailyScheduledAppointments.appointmentType',
         'appointmentschedulingui.dailyScheduledAppointments.allProviders',
@@ -99,6 +101,11 @@
         <div id="filter-appointmentStatusType" class="inline-box">
             <p>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.appointmentStatus") }</p>
             <select ng-model="appointmentStatusTypeFilter" ng-options="appointmentStatusType.value as appointmentStatusType.localizedDisplayName for appointmentStatusType in appointmentStatusTypes" ng-change="newSelectedAppointmentStatusType(appointmentStatusTypeFilter)">
+            </select>
+        </div>
+        <div id="filter-creator" class="inline-box">
+            <p>${ ui.message("appointmentschedulingui.dailyScheduledAppointments.creator") }</p>
+            <select ng-model="creatorFilter" ng-options="creator for creator in creators" ng-change="newSelectedCreator(creatorFilter)">
             </select>
         </div>
 

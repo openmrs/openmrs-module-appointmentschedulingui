@@ -2,10 +2,13 @@ package org.openmrs.module.appointmentschedulingui.reporting.library;
 
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifier;
+import org.openmrs.Person;
+import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
 import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentCreatorDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentEndDateDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentProviderDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentStartDateDataDefinition;
@@ -17,6 +20,7 @@ import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstan
 import org.openmrs.module.appointmentschedulingui.reporting.converter.AppointmentStatusToLocalizedStatusTypeConverter;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.reporting.common.SortCriteria;
+import org.openmrs.module.reporting.data.converter.ChainedConverter;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
@@ -102,6 +106,11 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
         dsd.addColumn("startDatetime", new AppointmentStartDateDataDefinition(), "", null);
         dsd.addColumn("startTimeFormatted", new AppointmentStartDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
         dsd.addColumn("endTimeFormatted", new AppointmentEndDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
+        dsd.addColumn("creator", new AppointmentCreatorDataDefinition(), "",
+                new ChainedConverter(
+                        new PropertyConverter(User.class, "person"),
+                        new PropertyConverter(Person.class, "personName"),
+                        new ObjectFormatter()));
 
         dsd.addSortCriteria("startDatetime", SortCriteria.SortDirection.ASC);
         dsd.addSortCriteria("provider", SortCriteria.SortDirection.ASC);

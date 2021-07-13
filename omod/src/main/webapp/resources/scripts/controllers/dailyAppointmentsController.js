@@ -24,7 +24,9 @@ function ($scope, AppointmentService, LocationService, ngGridHelper, filterFilte
         $scope.filterObjects.appointmentTypes = "";
 
         $scope.providers = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allProviders")];
+        $scope.creators = [emr.message("appointmentschedulingui.dailyScheduledAppointments.allCreators")];
         $scope.providerFilter = $scope.providers[0];
+        $scope.creatorFilter = $scope.creators[0];
 
         if (!$scope.appointmentStatusTypes ) {
             $scope.appointmentStatusTypes = [];
@@ -118,6 +120,7 @@ function ($scope, AppointmentService, LocationService, ngGridHelper, filterFilte
             AppointmentService.getDailyAppointmentsDataSet(getSearchParams()).then( function(results){
                 $scope.dailyAppointments = results.rows;
                 dailyAppointmentsHelper.findProvidersFromGrid($scope);
+                dailyAppointmentsHelper.findCreatorsFromGrid($scope);
                 dailyAppointmentsHelper.manageMessages($scope);
                 $scope.updateFilter();
             })
@@ -150,9 +153,21 @@ function ($scope, AppointmentService, LocationService, ngGridHelper, filterFilte
 
     // bound to the provider dropdown via ng-change
     $scope.newSelectedProvider = function(provider){
-        if(provider == emr.message("appointmentschedulingui.dailyScheduledAppointments.allProviders"))
+        if(provider == emr.message("appointmentschedulingui.dailyScheduledAppointments.allProviders")) {
             $scope.filterObjects.provider = '';
-        else $scope.filterObjects.provider =  provider;
+        } else {
+            $scope.filterObjects.provider = provider;
+        }
+        $scope.updateFilter();
+    };
+
+    // bound to the creator dropdown via ng-change
+    $scope.newSelectedCreator = function(creator){
+        if(creator == emr.message("appointmentschedulingui.dailyScheduledAppointments.allCreators")) {
+            $scope.filterObjects.creator = '';
+        } else {
+            $scope.filterObjects.creator =  creator;
+        }
         $scope.updateFilter();
     };
 

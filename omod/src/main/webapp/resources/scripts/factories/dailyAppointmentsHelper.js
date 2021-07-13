@@ -61,12 +61,12 @@ angular.module('dailyAppointmentsHelper')
                            displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.timeBlock") },
 
                        { field: 'provider',
-                           width: '20%',
+                           width: '15%',
                            cellTemplate: "<div>{{ row.getProperty(\'provider\') }}</div>",  // putting it in div causes it to wrap if it extends past column, which is what we want
                            displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.provider") },
 
                        { field: 'appointmentType',
-                           width: '20%',
+                           width: '15%',
                            cellTemplate: "<div>{{ row.getProperty(\'appointmentType\') }}</div>",  // putting it in div causes it to wrap if it extends past column, which is what we want
                            displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.appointmentType") },
 
@@ -78,7 +78,12 @@ angular.module('dailyAppointmentsHelper')
                        { field: 'localizedStatusType',
                            width: '10%',
                            cellTemplate: "<div>{{ row.getProperty(\'localizedStatusType\') }}</div>", // putting it in div causes it to wrap if it extends past column, which is what we want
-                           displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.appointmentStatus") }
+                           displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.appointmentStatus") },
+
+                       { field: 'creator',
+                           width: '10%',
+                           cellTemplate: "<div>{{ row.getProperty(\'creator\') }}</div>", // putting it in div causes it to wrap if it extends past column, which is what we want
+                           displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.creator") }
 
                             ]
                };
@@ -98,9 +103,16 @@ angular.module('dailyAppointmentsHelper')
            },
            findProvidersFromGrid: function(scope) {
                angular.forEach(scope.dailyAppointments, function(appointment) {
-                   var index = scope.providers.indexOf(appointment.provider);
-                   if(index == -1)
+                   if (!scope.providers.includes(appointment.provider)) {
                        scope.providers.push(appointment.provider);
+                   }
+               });
+           },
+           findCreatorsFromGrid: function(scope) {
+               angular.forEach(scope.dailyAppointments, function(appointment) {
+                   if (!scope.creators.includes(appointment.creator)) {
+                       scope.creators.push(appointment.creator);
+                   }
                });
            },
 
