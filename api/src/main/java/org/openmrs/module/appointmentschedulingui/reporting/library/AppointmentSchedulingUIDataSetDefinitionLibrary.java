@@ -3,6 +3,7 @@ package org.openmrs.module.appointmentschedulingui.reporting.library;
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.Person;
+import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
@@ -107,9 +108,9 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
         dsd.addColumn("endTimeFormatted", new AppointmentEndDateDataDefinition(), "", new DateConverter(AppointmentSchedulingUIConstants.TIME_FORMAT));
         dsd.addColumn("creator", new AppointmentCreatorDataDefinition(), "",
                 new ChainedConverter(
-                        new PropertyConverter(String.class, "person"),
+                        new PropertyConverter(User.class, "person"),
                         new PropertyConverter(Person.class, "personName"),
-                        new ObjectFormatter("{givenName} {familyName}")));
+                        new ObjectFormatter()));
 
         dsd.addSortCriteria("startDatetime", SortCriteria.SortDirection.ASC);
         dsd.addSortCriteria("provider", SortCriteria.SortDirection.ASC);
