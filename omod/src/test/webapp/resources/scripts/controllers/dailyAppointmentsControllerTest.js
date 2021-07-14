@@ -22,7 +22,7 @@ describe('DailyAppointmentsController', function() {
         mockLocationService.getLocations.andCallFake(function () { return deferredLocations.promise });
 
         mockHelper = jasmine.createSpyObj('dailyAppointmentsHelper', ['setUpGrid','selectLocationToFilter', 'setupDatePicker',
-            'initializeMessages', 'findProvidersFromGrid', 'manageMessages', 'getUuidsListFromAppointmentTypesList',
+            'initializeMessages', 'findProvidersFromGrid', 'findCreatorsFromGrid', 'manageMessages', 'getUuidsListFromAppointmentTypesList',
             'filterByAppointmentStatusType', 'filterByAppointmentType', 'filterByProvider']);
         mockHelper.selectLocationToFilter.andCallFake(function () { return  { display: "location 1", uuid: "location uuid"} })
 
