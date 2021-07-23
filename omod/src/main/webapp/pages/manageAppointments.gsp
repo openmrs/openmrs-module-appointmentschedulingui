@@ -6,13 +6,13 @@
 
 <script type="text/javascript">
     <% if (breadcrumbOverride) { %>
-        var breadcrumbs = _.flatten(ui.encodeJavaScript([
+        var breadcrumbs = _.flatten([
         ${ ui.encodeJavaScript(breadcrumbOverride) },
         { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" ,
             link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.id ] ) }'}
     ]) );
     <% } else { %>
-        var breadcrumbs = ui.encodeJavaScript([
+        var breadcrumbs = [
             { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
             { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" ,
                 link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.id ] ) }'},
