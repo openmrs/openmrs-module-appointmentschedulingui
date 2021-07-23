@@ -10,7 +10,7 @@
         ${ ui.encodeJavaScript(breadcrumbOverride) },
         { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" ,
             link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.id ] ) }'}
-    ]) );
+    ] );
     <% } else { %>
         var breadcrumbs = [
             { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
@@ -19,7 +19,7 @@
             { label: "${ ui.message("appointmentschedulingui.scheduleAppointment.buttonTitle") }",
                 link: "${ ui.pageLink("coreapps", "findpatient/findPatient", [app: "appointmentschedulingui.schedulingAppointmentApp"]) }" }
 
-        ]);
+        ];
     <% } %>
 
 
