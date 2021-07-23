@@ -7,7 +7,7 @@
 <script type="text/javascript">
     <% if (breadcrumbOverride) { %>
         var breadcrumbs = _.flatten([
-        ${ breadcrumbOverride },
+        ${ ui.encodeJavaScript(breadcrumbOverride) },
         { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" ,
             link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.id ] ) }'}
     ] );
@@ -30,7 +30,6 @@
 </script>
 
 <div>
-
     ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
     <div id="appointmentscheduling-manageAppointments">
