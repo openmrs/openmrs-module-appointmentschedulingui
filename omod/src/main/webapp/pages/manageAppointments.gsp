@@ -6,20 +6,20 @@
 
 <script type="text/javascript">
     <% if (breadcrumbOverride) { %>
-        var breadcrumbs = _.flatten([
-        ${ breadcrumbOverride },
+        var breadcrumbs = _.flatten(ui.encodeJavaScript([
+        ${ ui.encodeJavaScript(breadcrumbOverride) },
         { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" ,
             link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.id ] ) }'}
-    ] );
+    ]) );
     <% } else { %>
-        var breadcrumbs = [
+        var breadcrumbs = ui.encodeJavaScript([
             { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
             { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" ,
                 link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.id ] ) }'},
             { label: "${ ui.message("appointmentschedulingui.scheduleAppointment.buttonTitle") }",
                 link: "${ ui.pageLink("coreapps", "findpatient/findPatient", [app: "appointmentschedulingui.schedulingAppointmentApp"]) }" }
 
-        ];
+        ]);
     <% } %>
 
 
@@ -30,7 +30,6 @@
 </script>
 
 <div>
-
     ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
     <div id="appointmentscheduling-manageAppointments">
