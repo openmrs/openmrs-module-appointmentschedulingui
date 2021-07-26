@@ -5,6 +5,8 @@ Appointment Scheduling UI Module
 
 New UI for appointment scheduling module based on UI/App framework
 
+Watch SASS files for changes with `mvn compile -Pwatch-sass`
+
 ### Troubleshooting
 
 If the jasmine tests are failing, it may be because your bower components directory is stale. To fix this, delete

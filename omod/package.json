@@ -4,6 +4,7 @@
   "scripts": {
     "build": "npm run build-sass && npm run build-bower",
     "build-sass": "sass src/main/webapp/resources/styles/ -Isrc/main/webapp/resources/styles -Isrc/main/webapp/resources/styles/lib/uicommons-scss -Inode_modules/compass-mixins/lib",
+    "watch-sass": "sass -w src/main/webapp/resources/styles/ -Isrc/main/webapp/resources/styles -Isrc/main/webapp/resources/styles/lib/uicommons-scss -Inode_modules/compass-mixins/lib",
     "build-bower": "cd src/main/webapp/resources/scripts && bower install --allow-root"
   },
   "dependencies": {
