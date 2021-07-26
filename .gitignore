@@ -14,9 +14,9 @@ omod/.settings/
 omod/target/
 
 # Frontend build directories
-omod/src/main/webapp/resources/scripts/node
-omod/src/main/compass/sass-external/
 omod/src/main/webapp/resources/scripts/bower_components/
+omod/node/
+omod/node_modules/
 
 *.css
 !jquery.qtip.min.css
