@@ -1,23 +1,14 @@
 {
-  "name": "mirebalais.apppointmentschedulingui",
-  "version": "0.0.1",
-  "description": "Mirebalais - Apppointment Scheduling Ui",
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/PIH/openmrs-module-appointmentschedulingui.git"
+  "name": "appointmentschedulingui-omod",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm run build-sass && npm run build-bower",
+    "build-sass": "sass src/main/webapp/resources/styles/ -Isrc/main/webapp/resources/styles -Isrc/main/webapp/resources/styles/lib/uicommons-scss -Inode_modules/compass-mixins/lib",
+    "build-bower": "cd src/main/webapp/resources/scripts && bower install --allow-root"
   },
-  "keywords": [
-    "Mirebalais",
-    "EMR",
-    "openmrs",
-    "HMS",
-    "healthcare"
-  ],
-  "author": "mirebalais@thoughtworks.com",
-  "license": "Apache v2.0",
-  "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/pih/openmrs-module-appointmentschedulingui/issues"
+  "dependencies": {
+    "bower": "^1.8.12",
+    "compass-mixins": "^0.12.10",
+    "sass": "^1.32.13"
   }
 }
