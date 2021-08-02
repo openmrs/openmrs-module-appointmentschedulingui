@@ -134,7 +134,16 @@ angular.module('dailyAppointmentsHelper')
                     });
                 }
                 return appointmentsToFilter;
+           },
 
+           filterByCreator: function(appointmentsToFilter, creator) {
+
+               if (creator && creator.length > 0 ) {
+                   appointmentsToFilter = appointmentsToFilter.filter(function(appointment) {
+                       return appointment.creator == creator;
+                   });
+               }
+               return appointmentsToFilter;
            },
 
            filterByAppointmentType: function(appointmentsToFilter, appointmentTypesUuidList) {

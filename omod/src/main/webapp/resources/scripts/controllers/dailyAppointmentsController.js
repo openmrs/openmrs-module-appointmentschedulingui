@@ -146,6 +146,8 @@ function ($scope, AppointmentService, LocationService, ngGridHelper, filterFilte
             filterByProvider($scope.filteredScheduledAppointments, $scope.filterObjects.provider);
         $scope.filteredScheduledAppointments = dailyAppointmentsHelper.
             filterByAppointmentType($scope.filteredScheduledAppointments, $scope.filterObjects.appointmentTypes);
+        $scope.filteredScheduledAppointments = dailyAppointmentsHelper.
+            filterByCreator($scope.filteredScheduledAppointments, $scope.filterObjects.creator);
 
         $scope.updateSort();
         $scope.updatePagingData();
