@@ -23,7 +23,7 @@ describe('DailyAppointmentsController', function() {
 
         mockHelper = jasmine.createSpyObj('dailyAppointmentsHelper', ['setUpGrid','selectLocationToFilter', 'setupDatePicker',
             'initializeMessages', 'findProvidersFromGrid', 'findCreatorsFromGrid', 'manageMessages', 'getUuidsListFromAppointmentTypesList',
-            'filterByAppointmentStatusType', 'filterByAppointmentType', 'filterByProvider']);
+            'filterByAppointmentStatusType', 'filterByAppointmentType', 'filterByProvider', 'filterByCreator']);
         mockHelper.selectLocationToFilter.andCallFake(function () { return  { display: "location 1", uuid: "location uuid"} })
 
         mockAppointmentService = jasmine.createSpyObj('AppointmentService', ['getDailyAppointmentsDataSet', 'getAppointmentStatusTypes']);
