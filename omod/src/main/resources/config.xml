@@ -147,7 +147,7 @@
    
    <globalProperty>
         <property>appointmentschedulingui.includeWeekends</property>
-        <defaultValue>false</defaultValue>
+        <defaultValue>true</defaultValue>
         <description>
             Defines whether the calendar should include weekends 
         </description>
