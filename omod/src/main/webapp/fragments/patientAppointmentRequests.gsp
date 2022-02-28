@@ -1,6 +1,6 @@
 <%
     def angularLocale = context.locale.toString().toLowerCase();
-
+    
     ui.includeJavascript("uicommons", "angular.min.js")
     ui.includeJavascript("uicommons", "i18n/angular-locale_" + angularLocale + ".js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.13.0.min.js")
@@ -11,16 +11,21 @@
     ui.includeJavascript("uicommons", "moment-with-locales.min.js")
     ui.includeJavascript("uicommons", "emr.js")
     ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
-
+    ui.includeCss("uicommons", "datetimepicker.css")
+    
     ui.includeJavascript("appointmentschedulingui","app.js")
     ui.includeJavascript("appointmentschedulingui", "services/appointmentService.js")
+    ui.includeJavascript("appointmentschedulingui", "controllers/dateRangePickerController.js")
+    ui.includeJavascript("appointmentschedulingui", "directives/dateRangePickerDirective.js")
+    ui.includeJavascript("appointmentschedulingui", "services/dateRangePickerEventListener.js")
     ui.includeJavascript("appointmentschedulingui", "factories/ngGridHelper.js")
     ui.includeJavascript("appointmentschedulingui", "resources/appointmentResources.js")
     ui.includeJavascript("appointmentschedulingui", "controllers/patientAppointmentRequestsController.js")
-
+    
+    ui.includeCss("appointmentschedulingui", "patientAppointment.css")
+    ui.includeCss("appointmentschedulingui", "dateRangePicker.css")
     ui.includeCss("appointmentschedulingui", "gridStyle.css")
-    ui.includeCss("appointmentschedulingui", "patientAppointmentRequests.css")
-
+    
 %>
 
 <%= ui.includeFragment("appui", "messages", [ codes: [
@@ -37,7 +42,6 @@
         'appointmentschedulingui.timeframeunits.WEEKS',
         'appointmentschedulingui.timeframeunits.MONTHS',
         'appointmentschedulingui.timeframeunits.YEARS'
-
 ].flatten()
 ]) %>
 
@@ -56,9 +60,24 @@
         <h2>
             ${ ui.message("appointmentschedulingui.scheduleAppointment.patientAppointmentRequests") }
         </h2>
-        <span ng-show="showAppointmentRequests">
-            <table id="appointmentRequestsGridTable" class="gridStyle" ng-grid="appointmentRequestsGrid" ></table>
-        </span>
+        <table ng-show="showAppointmentRequests">
+            <tr style="background-color:#dee1e4;">
+                <th>${ ui.message("appointmentschedulingui.scheduleAppointment.serviceType") }</th>
+                <th>${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
+                <th>${ ui.message("appointmentschedulingui.scheduleAppointment.requestTimeFrame") }</th>
+                <th>${ ui.message("appointmentschedulingui.scheduleAppointment.actions") }</th>
+            </tr>
+            <tr ng-repeat="appt in filteredAppointmentRequests">
+                <td>{{ appt.appointmentType.display }}</td>
+                <td>{{ appt.provider.person.display }}</td>
+                <td>{{ appt.timeFrame }}</td>
+                <td>
+                    <span><i class="delete-item icon-calendar" ng-click="bookAppointment({ entity: appt })" title="{{ appt.bookAppointmentTooltip }}"></i></span>
+                    <span><i class="delete-item icon-file" ng-click="openNotesDialog({ entity: appt })" title="{{ appt.showNotesTooltip }}"></i></span>
+                    <span><i class="delete-item icon-remove" ng-click="cancelAppointmentRequest(appt.uuid)" title="{{ appt.cancelRequestTooltip }}"></i></span>
+                </td>
+            </tr>
+        </table>
         <span ng-hide="showAppointmentRequests">
             <p>
                 ${ ui.message("appointmentschedulingui.scheduleAppointment.noPatientAppointmentRequests") }
@@ -84,8 +103,9 @@
         <div class="dialog-header">
             <h3>${ ui.message("appointmentschedulingui.scheduleAppointment.appointmentRequestNotes") }</h3>
         </div>
-        <div class="dialog-content" ng-bind-html="notesDialogContent">
-
+        
+        <div class="dialog-content" ng-bind="notesDialogContent">
+            
         </div>
         <button class="button confirm right" ng-click="closeNotesDialog()"> ${ ui.message("uicommons.close") }</button>
     </div>
