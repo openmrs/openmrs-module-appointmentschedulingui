@@ -56,9 +56,24 @@
         <h2>
             ${ ui.message("appointmentschedulingui.scheduleAppointment.patientAppointmentRequests") }
         </h2>
-        <span ng-show="showAppointmentRequests">
-            <table id="appointmentRequestsGridTable" class="gridStyle" ng-grid="appointmentRequestsGrid" ></table>
-        </span>
+        <table ng-show="showAppointmentRequests">
+            <tr>
+                <th>${ ui.message("appointmentschedulingui.scheduleAppointment.serviceType") }</th>
+                <th>${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
+                <th>${ ui.message("appointmentschedulingui.scheduleAppointment.requestTimeFrame") }</th>
+                <th>${ ui.message("appointmentschedulingui.scheduleAppointment.actions") }</th>
+            </tr>
+            <tr ng-repeat="appt in filteredAppointmentRequests">
+                <td>{{ appt.appointmentType.display }}</td>
+                <td>{{ appt.provider.person.display }}</td>
+                <td>{{ appt.timeFrame }}</td>
+                <td>
+                    <span><i class="delete-item icon-calendar" ng-click="bookAppointment({ entity: appt })" title="{{ appt.bookAppointmentTooltip }}"></i></span>
+                    <span><i class="delete-item icon-file" ng-click="openNotesDialog({ entity: appt })" title="{{ appt.showNotesTooltip }}"></i></span>
+                    <span><i class="delete-item icon-remove" ng-click="cancelAppointmentRequest(appt.uuid)" title="{{ appt.cancelRequestTooltip }}"></i></span>
+                </td>
+            </tr>
+        </table>
         <span ng-hide="showAppointmentRequests">
             <p>
                 ${ ui.message("appointmentschedulingui.scheduleAppointment.noPatientAppointmentRequests") }
