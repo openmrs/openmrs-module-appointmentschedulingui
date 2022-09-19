@@ -14,11 +14,11 @@ describe('Cancel Appointment controller', function () {
 
         mockAppointmentService = jasmine.createSpyObj('mockAppointmentService', ['cancelAppointment', 'getAppointments']);
 
-        mockAppointmentService.cancelAppointment.andCallFake(function() {
+        mockAppointmentService.cancelAppointment.and.callFake(function() {
             return promise;
         });
 
-        mockAppointmentService.getAppointments.andCallFake(function() {
+        mockAppointmentService.getAppointments.and.callFake(function() {
             return promise;
         });
 

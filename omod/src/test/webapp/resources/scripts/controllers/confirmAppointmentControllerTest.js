@@ -12,7 +12,7 @@ describe('ConfirmAppointment Controller', function () {
         promise = deferred.promise;
 
         appointmentServiceMock = jasmine.createSpyObj('appointmentServiceMock', ['saveAppointment', 'markAppointmentRequestFulfilled']);
-        appointmentServiceMock.saveAppointment.andCallFake(function() {
+        appointmentServiceMock.saveAppointment.and.callFake(function() {
             return promise;
         });
 

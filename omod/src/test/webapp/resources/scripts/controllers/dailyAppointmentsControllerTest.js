@@ -19,16 +19,16 @@ describe('DailyAppointmentsController', function() {
         deferredDailyAppointmentsDataSet = $q.defer();
 
         mockLocationService = jasmine.createSpyObj('LocationService', ['getLocations']);
-        mockLocationService.getLocations.andCallFake(function () { return deferredLocations.promise });
+        mockLocationService.getLocations.and.callFake(function () { return deferredLocations.promise });
 
         mockHelper = jasmine.createSpyObj('dailyAppointmentsHelper', ['setUpGrid','selectLocationToFilter', 'setupDatePicker',
             'initializeMessages', 'findProvidersFromGrid', 'findCreatorsFromGrid', 'manageMessages', 'getUuidsListFromAppointmentTypesList',
             'filterByAppointmentStatusType', 'filterByAppointmentType', 'filterByProvider', 'filterByCreator']);
-        mockHelper.selectLocationToFilter.andCallFake(function () { return  { display: "location 1", uuid: "location uuid"} })
+        mockHelper.selectLocationToFilter.and.callFake(function () { return  { display: "location 1", uuid: "location uuid"} })
 
         mockAppointmentService = jasmine.createSpyObj('AppointmentService', ['getDailyAppointmentsDataSet', 'getAppointmentStatusTypes']);
-        mockAppointmentService.getDailyAppointmentsDataSet.andCallFake(function () { return deferredDailyAppointmentsDataSet.promise });
-        mockAppointmentService.getAppointmentStatusTypes.andCallFake(function () { return deferredAppointmentStatusTypes.promise });
+        mockAppointmentService.getDailyAppointmentsDataSet.and.callFake(function () { return deferredDailyAppointmentsDataSet.promise });
+        mockAppointmentService.getAppointmentStatusTypes.and.callFake(function () { return deferredAppointmentStatusTypes.promise });
 
         mockNgGridHelper = jasmine.createSpyObj('ngGridHelper', ['includePagination', 'includeSorting']);
 
@@ -70,7 +70,7 @@ describe('DailyAppointmentsController', function() {
 
         beforeEach( function(){
             scope.locationFilter = { display: "location 1", uuid: "uuid of location"};
-            emr.message.andCallFake( function(){ return ""});
+            emr.message.and.callFake( function(){ return ""});
             scope.$apply();
         });
 
@@ -79,9 +79,9 @@ describe('DailyAppointmentsController', function() {
         });
 
         it('initialize provider, service type and appointment block filter', function(){
-
             expect(scope.providers).toEqual([""]);
             expect(scope.services).toEqual([{ name : '', uuid : '' } ]);
+            // TODO: sometimes the above are undefined and sometimes the they are empty, I suspect this is an async timing issue that should be fixed
         })
     });
 

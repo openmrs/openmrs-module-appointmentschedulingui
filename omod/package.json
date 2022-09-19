@@ -5,11 +5,22 @@
     "build": "npm run build-sass && npm run build-bower",
     "build-sass": "sass src/main/webapp/resources/styles/ -Isrc/main/webapp/resources/styles -Isrc/main/webapp/resources/styles/lib/uicommons-scss -Inode_modules/compass-mixins/lib",
     "watch-sass": "sass -w src/main/webapp/resources/styles/ -Isrc/main/webapp/resources/styles -Isrc/main/webapp/resources/styles/lib/uicommons-scss -Inode_modules/compass-mixins/lib",
-    "build-bower": "cd src/main/webapp/resources/scripts && bower install --allow-root"
+    "build-bower": "cd src/main/webapp/resources/scripts && bower install --allow-root",
+    "test": "karma start --browsers=ChromeHeadless karma.config.js"
   },
   "dependencies": {
     "bower": "^1.8.12",
     "compass-mixins": "^0.12.10",
     "sass": "^1.32.13"
+  },
+  "devDependencies": {
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.1.1",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.3"
   }
 }

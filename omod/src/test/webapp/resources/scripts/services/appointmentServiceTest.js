@@ -22,7 +22,7 @@ describe('AppointmentService tests', function() {
 
     // create mock AppointmentType resource
     var mockAppointmentType = jasmine.createSpyObj('AppointmentType', ['query']);
-    mockAppointmentType.query.andCallFake(function() {
+    mockAppointmentType.query.and.callFake(function() {
 
         deferredAppointmentTypeQuery = q.defer();
 
@@ -35,7 +35,7 @@ describe('AppointmentService tests', function() {
 
     // create mock TimeSlot resource
     var mockTimeSlot = jasmine.createSpyObj('TimeSlot', ['query']);
-    mockTimeSlot.query.andCallFake(function() {
+    mockTimeSlot.query.and.callFake(function() {
 
         deferredTimeSlotQuery = q.defer();
 
@@ -48,7 +48,7 @@ describe('AppointmentService tests', function() {
 
     // create mock AppointmentBlock resource
     var mockAppointmentBlock = jasmine.createSpyObj('AppointmentBlock', ['query', 'save', 'delete']);
-    mockAppointmentBlock.query.andCallFake(function() {
+    mockAppointmentBlock.query.and.callFake(function() {
 
         deferredAppointmentBlockQuery = q.defer();
 
@@ -58,7 +58,7 @@ describe('AppointmentService tests', function() {
 
         return promise_mock;
     })
-    mockAppointmentBlock.save.andCallFake(function() {
+    mockAppointmentBlock.save.and.callFake(function() {
 
         deferredAppointmentBlockSave = q.defer();
 
@@ -68,7 +68,7 @@ describe('AppointmentService tests', function() {
 
         return promise_mock;
     })
-    mockAppointmentBlock.delete.andCallFake(function() {
+    mockAppointmentBlock.delete.and.callFake(function() {
 
         deferredAppointmentBlockDelete = q.defer();
 
@@ -82,7 +82,7 @@ describe('AppointmentService tests', function() {
 
     // create mock Appointment resource
     var mockAppointment = jasmine.createSpyObj('Appointment', ['query','save']);
-    mockAppointment.query.andCallFake(function() {
+    mockAppointment.query.and.callFake(function() {
 
         deferredAppointmentQuery = q.defer();
 
@@ -92,7 +92,7 @@ describe('AppointmentService tests', function() {
 
         return promise_mock;
     })
-    mockAppointment.save.andCallFake(function() {
+    mockAppointment.save.and.callFake(function() {
 
         deferredAppointmentSave = q.defer();
 
@@ -104,7 +104,7 @@ describe('AppointmentService tests', function() {
     })
 
     var mockAppointmentAllowingOverbook = jasmine.createSpyObj('AppointmentAllowingOverbook', ['save']);
-    mockAppointmentAllowingOverbook.save.andCallFake(function() {
+    mockAppointmentAllowingOverbook.save.and.callFake(function() {
 
         deferredAppointmentSave = q.defer();
 
@@ -117,7 +117,7 @@ describe('AppointmentService tests', function() {
 
     // create mock AppointmentRequest resource
     var mockAppointmentRequest = jasmine.createSpyObj('AppointmentBlock', ['get', 'save', 'delete']);
-    mockAppointmentRequest.get.andCallFake(function() {
+    mockAppointmentRequest.get.and.callFake(function() {
 
         deferredAppointmentRequestGet = q.defer();
 
@@ -127,7 +127,7 @@ describe('AppointmentService tests', function() {
 
         return promise_mock;et
     })
-    mockAppointmentRequest.save.andCallFake(function() {
+    mockAppointmentRequest.save.and.callFake(function() {
 
         deferredAppointmentRequestSave = q.defer();
 
@@ -137,7 +137,7 @@ describe('AppointmentService tests', function() {
 
         return promise_mock;
     })
-    mockAppointmentRequest.delete.andCallFake(function() {
+    mockAppointmentRequest.delete.and.callFake(function() {
 
         deferredAppointmentRequestDelete = q.defer();
 
@@ -150,7 +150,7 @@ describe('AppointmentService tests', function() {
 
 
     var mockDataSet = jasmine.createSpyObj('DataSet', ['get']);
-    mockDataSet.get.andCallFake(function () {
+    mockDataSet.get.and.callFake(function () {
 
         deferredDataSetGet = q.defer();
 

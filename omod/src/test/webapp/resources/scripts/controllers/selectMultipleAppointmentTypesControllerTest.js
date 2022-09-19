@@ -11,7 +11,7 @@ describe('select Multiple Appointment Types controller', function() {
         deferred = $q.defer();
         promise = deferred.promise;
         mockAppointmentService = jasmine.createSpyObj('AppointmentService', ['getAppointmentTypes']);
-        mockAppointmentService.getAppointmentTypes.andCallFake(function () { return promise; });
+        mockAppointmentService.getAppointmentTypes.and.callFake(function () { return promise; });
 
         mockFilterFilter = jasmine.createSpy('filterFilter');
 
@@ -66,6 +66,7 @@ describe('select Multiple Appointment Types controller', function() {
                 }
             };
             scope.selectedAppointmentTypes = [];
+            scope.$on('selectMultipleAppointmentTypesApp.selectionChanged', listener);
             scope.selectedAppointmentTypes.push(appointmentType);
 
             scope.removeAppointmentType(appointmentType);

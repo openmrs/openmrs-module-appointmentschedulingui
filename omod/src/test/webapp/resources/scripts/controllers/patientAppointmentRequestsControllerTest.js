@@ -12,7 +12,7 @@ describe('patient appointment requests controller', function() {
         scope = $rootScope.$new();
 
         mockAppointmentService = jasmine.createSpyObj('AppointmentService', ['getAppointmentRequests']);
-        mockAppointmentService.getAppointmentRequests.andCallFake(function () { return promise; });;
+        mockAppointmentService.getAppointmentRequests.and.callFake(function () { return promise; });;
 
         mockFilterFilter = jasmine.createSpy('filterFilter');
         mockNgGridHelper = jasmine.createSpyObj('ngGridHelper', ['includePagination']);

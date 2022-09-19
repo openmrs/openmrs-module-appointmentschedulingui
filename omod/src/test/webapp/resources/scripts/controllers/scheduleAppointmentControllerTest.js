@@ -14,8 +14,8 @@ describe('ScheduleAppointment tests', function() {
         deferred = $q.defer();
         promise = deferred.promise;
         mockAppointmentService = jasmine.createSpyObj('AppointmentService', ['getAppointmentTypes', 'getTimeSlots']);
-        mockAppointmentService.getAppointmentTypes.andCallFake(function () { return promise; });
-        mockAppointmentService.getTimeSlots.andCallFake(function () {return promise});
+        mockAppointmentService.getAppointmentTypes.and.callFake(function () { return promise; });
+        mockAppointmentService.getTimeSlots.and.callFake(function () {return promise});
 
         mockFilterFilter = jasmine.createSpy('filterFilter');
 

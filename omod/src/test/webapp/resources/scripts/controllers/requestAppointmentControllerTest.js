@@ -13,11 +13,11 @@ describe('Request Appointment Controller tests', function() {
         promise = deferred.promise;
 
         mockAppointmentService = jasmine.createSpyObj('AppointmentService', ['saveAppointmentRequest', 'getAppointments']);
-        mockAppointmentService.saveAppointmentRequest.andCallFake(function () { return promise; });
-        mockAppointmentService.getAppointments.andCallFake(function () { return promise; });
+        mockAppointmentService.saveAppointmentRequest.and.callFake(function () { return promise; });
+        mockAppointmentService.getAppointments.and.callFake(function () { return promise; });
 
         mockProviderService = jasmine.createSpyObj('ProviderService', ['getProviders']);
-        mockProviderService.getProviders.andCallFake(function () { return promise; });
+        mockProviderService.getProviders.and.callFake(function () { return promise; });
 
         scope = $rootScope.$new();
 

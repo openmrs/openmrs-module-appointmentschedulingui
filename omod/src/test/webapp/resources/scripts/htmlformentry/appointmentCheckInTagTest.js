@@ -37,7 +37,7 @@ describe('AppointmentCheckInTagCtrl', function() {
 
     // create mock Appointment resource
     var mockAppointmentService = jasmine.createSpyObj('Appointment', ['getAppointments']);
-    mockAppointmentService.getAppointments.andCallFake(function() {
+    mockAppointmentService.getAppointments.and.callFake(function() {
         deferredGetAppointments = q.defer();
         return deferredGetAppointments.promise;
     })

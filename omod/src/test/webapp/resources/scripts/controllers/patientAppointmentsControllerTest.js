@@ -17,7 +17,7 @@ describe('Patient Appointments controller', function () {
 
         mockAppointmentService = jasmine.createSpyObj('mockAppointmentService', ['getAppointments']);
 
-        mockAppointmentService.getAppointments.andCallFake(function() {
+        mockAppointmentService.getAppointments.and.callFake(function() {
             return promise;
         });
 

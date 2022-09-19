@@ -202,82 +202,6 @@
             </plugin>
 
             <plugin>
-                <groupId>com.github.klieber</groupId>
-                <artifactId>phantomjs-maven-plugin</artifactId>
-                <version>0.7</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>install</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <version>2.1.1</version>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>com.github.searls</groupId>
-                <artifactId>jasmine-maven-plugin</artifactId>
-                <version>1.3.1.5</version>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <jsSrcDir>${project.basedir}/src/main/webapp/resources/scripts</jsSrcDir>
-                    <sourceIncludes>
-                        <include>app.js</include>
-                        <include>*.js</include>
-                        <include>controllers/*.js</include>
-                        <include>factories/*.js</include>
-                        <include>htmlformentry/*.js</include>
-                        <include>directives/*.js</include>
-                        <include>services/*.js</include>
-                        <include>resources/*.js</include>
-                        <include>bower_components/**/providerService.js</include>
-                        <include>bower_components/**/locationService.js</include>
-                        <include>bower_components/**/restUtils.js</include>
-                        <include>bower_components/**/jquery-1.12.4.js</include>
-                        <include>bower_components/**/angular.min.js</include>
-                        <include>bower_components/**/angular-common.js</include>
-                        <include>bower_components/**/angular-resource.min.js</include>
-                        <include>bower_components/**/angular-mocks.js</include>
-                        <include>bower_components/**/moment.min.js</include>
-                    </sourceIncludes>
-
-                    <sourceExcludes>
-                        <exclude>bower_component/**/*.js</exclude>
-                    </sourceExcludes>
-
-                    <jsTestSrcDir>${project.basedir}/src/test/webapp/resources/scripts</jsTestSrcDir>
-                    <preloadSources>
-                        <source>${project.basedir}/src/test/webapp/resources/scripts/globalMocks.js</source>
-                        <source>${projectBowerResources}/jquery-1.12.4.min.js</source>
-                        <source>${projectBowerResources}/angular.min.js</source>
-                        <source>${projectBowerResources}/angular-resource.min.js</source>
-                        <source>${projectBowerResources}/angular-mocks.js</source>
-                        <source>${projectBowerResources}/angular-ui/ui-bootstrap-tpls-0.13.0.min.js</source>
-                        <source>${projectBowerResources}/angular-ui/ng-grid-2.0.7.min.js</source>
-                        <source>${projectBowerResources}/angular-ui/ng-grid-flexible-height.js</source>
-                    </preloadSources>
-                    <serverPort>7234</serverPort>
-                    <webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName>
-                    <webDriverCapabilities>
-                        <capability>
-                            <name>phantomjs.binary.path</name>
-                            <value>${phantomjs.binary}</value>
-                        </capability>
-                    </webDriverCapabilities>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.11.3</version>
@@ -293,6 +217,15 @@
                         <goals>
                             <goal>npm</goal>
                         </goals>
+                    </execution>
+                    <execution>
+                        <id>npm run test</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run test</arguments>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>npm run build</id>
