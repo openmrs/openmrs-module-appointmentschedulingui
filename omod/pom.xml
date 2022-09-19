@@ -219,15 +219,6 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>npm run test</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run test</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>npm run build</id>
                         <goals>
                             <goal>npm</goal>
@@ -236,6 +227,15 @@
                             <arguments>run build</arguments>
                         </configuration>
                     </execution>
+					<execution>
+						<id>npm run test</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run test</arguments>
+						</configuration>
+					</execution>
                 </executions>
             </plugin>
 
