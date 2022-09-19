@@ -6,7 +6,7 @@
     "build-sass": "sass src/main/webapp/resources/styles/ -Isrc/main/webapp/resources/styles -Isrc/main/webapp/resources/styles/lib/uicommons-scss -Inode_modules/compass-mixins/lib",
     "watch-sass": "sass -w src/main/webapp/resources/styles/ -Isrc/main/webapp/resources/styles -Isrc/main/webapp/resources/styles/lib/uicommons-scss -Inode_modules/compass-mixins/lib",
     "build-bower": "cd src/main/webapp/resources/scripts && bower install --allow-root",
-    "test": "karma start --browsers=FirefoxHeadless karma.config.js"
+    "test": "karma start --browsers=ChromeHeadless karma.config.js"
   },
   "dependencies": {
     "bower": "^1.8.12",
