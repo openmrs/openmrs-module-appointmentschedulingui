@@ -1,21 +1,8 @@
+process.env.CHROME_BIN = require('puppeteer').executablePath()
+
 module.exports = function(config) {
     var karmaConfig = {
-        customLaunchers: {
-            ChromeWithoutSecurity: {
-                base: 'Chrome',
-                flags: ['--disable-web-security']
-            },
-            FirefoxNoSandbox: {
-                base: 'Firefox',
-                flags: ['--no-sandbox']
-            },FirefoxHeadless: {
-                base: 'Firefox',
-                flags: [
-                    '--no-sandbox',
-                    '--headless'
-                ]
-            }
-        },
+        browsers: ['ChromeHeadless'],
         files: [
             { pattern: 'src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/jquery-1.12.4.min.js'},
             { pattern: 'src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/angular.min.js'},
