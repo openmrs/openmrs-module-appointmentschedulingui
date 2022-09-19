@@ -42,8 +42,6 @@ module.exports = function(config) {
             { pattern: 'src/test/webapp/resources/scripts/directives/*.js' },
             { pattern: 'src/test/webapp/resources/scripts/factories/*.js' },
             { pattern: 'src/test/webapp/resources/scripts/htmlformentry/*.js' },
-            { pattern: 'src/test/webapp/resources/scripts/qtip/*.js' },
-            { pattern: 'src/test/webapp/resources/scripts/resources/*.js' },
             { pattern: 'src/test/webapp/resources/scripts/services/*.js' },
 
         ],
