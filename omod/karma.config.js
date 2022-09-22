@@ -6,7 +6,6 @@ module.exports = function(config) {
         files: [
             { pattern: 'src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/jquery-1.12.4.min.js'},
             { pattern: 'src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/angular.min.js'},
-            { pattern: 'src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/angular.min.js'},
             { pattern: 'src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/angular-common.js'},
             { pattern: 'src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/angular-resource.min.js'},
             { pattern: 'src/main/webapp/resources/scripts/bower_components/openmrs-uicommons/omod/src/main/webapp/resources/scripts/angular-mocks.js'},
