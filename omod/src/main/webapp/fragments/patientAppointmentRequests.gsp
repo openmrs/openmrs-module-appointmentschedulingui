@@ -62,16 +62,22 @@
         </h2>
         <table ng-show="showAppointmentRequests">
             <tr style="background-color:#dee1e4;">
+                <% if (!patient) { %>
+                    <th>${ ui.message("appointmentschedulingui.scheduleAppointment.patient") }</th>
+                <% } %>
                 <th>${ ui.message("appointmentschedulingui.scheduleAppointment.serviceType") }</th>
                 <th>${ ui.message("appointmentschedulingui.scheduleAppointment.provider") }</th>
                 <th>${ ui.message("appointmentschedulingui.scheduleAppointment.requestTimeFrame") }</th>
                 <th>${ ui.message("appointmentschedulingui.scheduleAppointment.actions") }</th>
             </tr>
             <tr ng-repeat="appt in filteredAppointmentRequests">
+                <% if (!patient) { %>
+                    <td>{{ appt.patient.person.display }}</td>
+                <% } %>
                 <td>{{ appt.appointmentType.display }}</td>
                 <td>{{ appt.provider.person.display }}</td>
                 <td>{{ appt.timeFrame }}</td>
-                <td>
+                <td style="white-space:nowrap;">
                     <span><i class="delete-item icon-calendar" ng-click="bookAppointment({ entity: appt })" title="{{ appt.bookAppointmentTooltip }}"></i></span>
                     <span><i class="delete-item icon-file" ng-click="openNotesDialog({ entity: appt })" title="{{ appt.showNotesTooltip }}"></i></span>
                     <span><i class="delete-item icon-remove" ng-click="cancelAppointmentRequest(appt.uuid)" title="{{ appt.cancelRequestTooltip }}"></i></span>
