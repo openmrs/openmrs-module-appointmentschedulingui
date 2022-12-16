@@ -10,6 +10,8 @@ angular.module('appointmentscheduling')
             $scope.appointmentRequests = [];
             $scope.filteredAppointmentRequests = [];
             $scope.pagingOptions = {};
+            $scope.canBook = false;
+            $scope.hideActionButtons = false;
 
             // for the notes dialog
             $scope.showNotesDialog = false;
@@ -18,66 +20,16 @@ angular.module('appointmentscheduling')
             $scope.init = function(patientUuid, loadOnInit, hideActionButtons, enablePagination, canBook) {
 
                 $scope.enablePagination = enablePagination;
+                $scope.canBook = canBook;
+                $scope.hideActionButtons = hideActionButtons;
 
-                // kind of hack to check it patient Uuid is equal to the string null
+              // kind of hack to check it patient Uuid is equal to the string null
                 if (patientUuid && patientUuid != 'null') {
                     $scope.patientUuid = patientUuid;
                 }
 
-                $scope.defineAppointmentRequestsGrid(hideActionButtons, canBook)
-
                 if (loadOnInit == null || loadOnInit) {
                     $scope.findAppointmentRequests();
-                }
-            }
-
-            $scope.defineAppointmentRequestsGrid = function(hideActionButtons, canBook) {
-
-                $scope.appointmentRequestsGrid = {
-                    data: 'filteredAppointmentRequests',
-                    multiSelect: false,
-                    enableSorting: false,
-                    i18n: jsLocale,
-                    selectedItems: [],
-                    columnDefs: [   { field: 'appointmentType.display', width: '30%', displayName: emr.message("appointmentschedulingui.scheduleAppointment.serviceType") },
-                                    { field: 'provider.person.display', displayName: emr.message("appointmentschedulingui.scheduleAppointment.provider") },
-                                    { field: 'timeFrame', displayName: emr.message("appointmentschedulingui.scheduleAppointment.requestTimeFrame") } ],
-                    plugins: [new ngGridFlexibleHeightPlugin()]
-
-                };
-
-                // add patient column if we are in a non-patient context
-                if (!$scope.patientUuid) {
-                    $scope.appointmentRequestsGrid.columnDefs.unshift( { field: 'patient.person.display', displayName: emr.message("appointmentschedulingui.scheduleAppointment.patient") } );
-                }
-
-                // add the Actions column if not disabled
-                if (!hideActionButtons) {
-
-                    var cellTemplate="";
-
-                    // only show the "book appt" action if user is able to book appts
-                    if (canBook) {
-                        cellTemplate = cellTemplate + '<span><i class="delete-item icon-calendar" ng-click="bookAppointment(row)" ' +
-                            'title="{{ row.getProperty(\'bookAppointmentTooltip\') }}"></i></span>      ';
-                    }
-
-                    cellTemplate = cellTemplate + '<span><i class="delete-item icon-file" ng-click="openNotesDialog(row)" ' +
-                        'title="{{ row.getProperty(\'showNotesTooltip\') }}"></i></span>      ';
-
-                    // only show the "delete" action if user is able to book appts
-                    if (canBook) {
-                        cellTemplate = cellTemplate + '<span><i class="delete-item icon-remove" ng-click="cancelAppointmentRequest(row.getProperty(\'uuid\'))" ' +
-                        'title="{{ row.getProperty(\'cancelRequestTooltip\') }}"></i></span>'
-                    }
-
-                    $scope.appointmentRequestsGrid.columnDefs.push({ displayName: emr.message("appointmentschedulingui.scheduleAppointment.actions"), width: '8%',
-                        cellTemplate: cellTemplate });
-
-                }
-
-                if ($scope.enablePagination) {
-                    ngGridHelper.includePagination($scope, $scope.appointmentRequestsGrid, updatePagination);
                 }
             }
 
@@ -115,14 +67,7 @@ angular.module('appointmentscheduling')
 
             var updatePagination = function () {
 
-                if ($scope.enablePagination) {
-                    // sets the display rows based on pagination
-                    $scope.filteredAppointmentRequests = $scope.setPagingData($scope.appointmentRequests);
-                }
-                else {
-                    // just display all the rows
-                    $scope.filteredAppointmentRequests = $scope.appointmentRequests;
-                }
+                $scope.filteredAppointmentRequests = $scope.appointmentRequests;
 
                 if (!$scope.$$phase) $scope.$apply();
 

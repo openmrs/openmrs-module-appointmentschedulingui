@@ -78,9 +78,11 @@
                 <td>{{ appt.provider.person.display }}</td>
                 <td>{{ appt.timeFrame }}</td>
                 <td style="white-space:nowrap;">
-                    <span><i class="delete-item icon-calendar" ng-click="bookAppointment({ entity: appt })" title="{{ appt.bookAppointmentTooltip }}"></i></span>
-                    <span><i class="delete-item icon-file" ng-click="openNotesDialog({ entity: appt })" title="{{ appt.showNotesTooltip }}"></i></span>
-                    <span><i class="delete-item icon-remove" ng-click="cancelAppointmentRequest(appt.uuid)" title="{{ appt.cancelRequestTooltip }}"></i></span>
+                    <div ng-show="!hideActionButtons">
+                        <span><i ng-show="canBook" class="delete-item icon-calendar" ng-click="bookAppointment({ entity: appt })" title="{{ appt.bookAppointmentTooltip }}"></i></span>
+                        <span><i class="delete-item icon-file" ng-click="openNotesDialog({ entity: appt })" title="{{ appt.showNotesTooltip }}"></i></span>
+                        <span><i ng-show="canBook" class="delete-item icon-remove" ng-click="cancelAppointmentRequest(appt.uuid)" title="{{ appt.cancelRequestTooltip }}"></i></span>
+                    </div>
                 </td>
             </tr>
         </table>
