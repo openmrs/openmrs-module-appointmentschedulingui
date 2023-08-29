@@ -7,7 +7,7 @@ import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
-import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.AppointmentData;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentCreatorDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentEndDateDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentProviderDataDefinition;
@@ -31,6 +31,7 @@ import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinitionService;
 import org.openmrs.module.reporting.definition.library.BaseDefinitionLibrary;
 import org.openmrs.module.reporting.definition.library.DocumentedDefinition;
+import org.openmrs.module.reporting.definition.service.SerializedDefinitionService;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -100,7 +101,7 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
         dsd.addColumn("appointmentType", new AppointmentTypeDataDefinition(), "", formatted);
         dsd.addColumn("appointmentTypeUuid", new AppointmentTypeDataDefinition(), "", new PropertyConverter(String.class, "uuid"));
         dsd.addColumn("providerUuid", new AppointmentProviderDataDefinition(), "", new PropertyConverter(String.class, "uuid"));
-        dsd.addColumn("statusType", new AppointmentStatusDataDefinition(), "", new PropertyConverter(Appointment.AppointmentStatusType.class, "type"));
+        dsd.addColumn("statusType", new AppointmentStatusDataDefinition(), "", new PropertyConverter(AppointmentData.AppointmentStatusType.class, "type"));
         dsd.addColumn("localizedStatusType", new AppointmentStatusDataDefinition(), "", new AppointmentStatusToLocalizedStatusTypeConverter());
         dsd.addColumn("patientName", new PreferredNameDataDefinition(), "", formatted);
         dsd.addColumn("startDatetime", new AppointmentStartDateDataDefinition(), "", null);
@@ -121,9 +122,23 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
     public void persistDailyAppointmentsDataSetDefinition() {
 
         DataSetDefinitionService dataSetDefinitionService = Context.getService(DataSetDefinitionService.class);
+        SerializedDefinitionService serializedDefinitionService = Context.getService(SerializedDefinitionService.class);
+
+        String dsdUuid = AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID;
+
+        // Update serialized object if needed due to change of name from Appointment -> AppointmentData
+        SerializedObject dsdObj = serializedDefinitionService.getSerializedDefinitionByUuid(dsdUuid);
+        if (dsdObj != null) {
+            String serializedData = dsdObj.getSerializedData();
+            String previousClass = "org.openmrs.module.appointmentscheduling.Appointment$AppointmentStatusType";
+            String newClass = "org.openmrs.module.appointmentscheduling.AppointmentData$AppointmentStatusType";
+            serializedData = serializedData.replace(previousClass, newClass);
+            dsdObj.setSerializedData(serializedData);
+            serializedDefinitionService.saveSerializedDefinition(dsdObj);
+        }
 
         // fetch the existing definition if it exists
-        DataSetDefinition existing =  dataSetDefinitionService.getDefinition(AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID, AppointmentDataSetDefinition.class);
+        DataSetDefinition existing =  dataSetDefinitionService.getDefinition(dsdUuid, AppointmentDataSetDefinition.class);
 
         // create the new definition
         AppointmentDataSetDefinition dsd = getDailyAppointmentsDataSetDefinition();

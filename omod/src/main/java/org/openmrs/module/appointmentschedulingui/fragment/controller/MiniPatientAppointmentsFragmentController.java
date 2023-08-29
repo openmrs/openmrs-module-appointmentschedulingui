@@ -12,8 +12,8 @@ package org.openmrs.module.appointmentschedulingui.fragment.controller;
 import org.joda.time.DateTime;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.appointmentscheduling.Appointment;
-import org.openmrs.module.appointmentscheduling.Appointment.AppointmentStatus;
+import org.openmrs.module.appointmentscheduling.AppointmentData;
+import org.openmrs.module.appointmentscheduling.AppointmentData.AppointmentStatus;
 import org.openmrs.module.appointmentscheduling.AppointmentRequest;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.coreapps.CoreAppsProperties;
@@ -34,7 +34,7 @@ public class MiniPatientAppointmentsFragmentController {
 		DateTime curDate = new DateTime(new Date());
 		Date date48HrsAgo = new Date(curDate.minusHours(48).withTimeAtStartOfDay().getMillis());
 		List<AppointmentStatus> statuses = AppointmentStatus.getNotCancelledAppointmentStatuses();
-		List<Appointment> patientAppointments = appointmentService.getAppointmentsByConstraints(date48HrsAgo, null, null, null,
+		List<AppointmentData> patientAppointments = appointmentService.getAppointmentsByConstraints(date48HrsAgo, null, null, null,
 		    null, patient, statuses);
         List<AppointmentRequest> patientAppointmentRequests = appointmentService.getAppointmentRequestsByConstraints(patient,
                 null, null, AppointmentRequest.AppointmentRequestStatus.PENDING);

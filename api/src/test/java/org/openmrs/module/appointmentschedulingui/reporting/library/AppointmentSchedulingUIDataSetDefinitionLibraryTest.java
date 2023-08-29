@@ -8,7 +8,7 @@ import org.openmrs.Patient;
 import org.openmrs.Provider;
 import org.openmrs.api.LocationService;
 import org.openmrs.contrib.testdata.TestDataManager;
-import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.AppointmentData;
 import org.openmrs.module.appointmentscheduling.AppointmentBlock;
 import org.openmrs.module.appointmentscheduling.AppointmentType;
 import org.openmrs.module.appointmentscheduling.TimeSlot;
@@ -90,14 +90,14 @@ public class AppointmentSchedulingUIDataSetDefinitionLibraryTest extends BaseMod
         timeSlot.setEndDate(endDate);
         appointmentService.saveTimeSlot(timeSlot);
 
-        Appointment appointment = new Appointment();
+        AppointmentData appointment = new AppointmentData();
         appointment.setAppointmentType(appointmentType);
         appointment.setPatient(patient);
         appointment.setTimeSlot(timeSlot);
-        appointment.setStatus(Appointment.AppointmentStatus.COMPLETED);
+        appointment.setStatus(AppointmentData.AppointmentStatus.COMPLETED);
         appointment.setReason("Sick");
         appointment.setCancelReason("Provider sick");
-        appointmentService.saveAppointment(appointment);
+        appointmentService.saveAppointmentData(appointment);
 
         EvaluationContext context = new EvaluationContext();
         context.addParameterValue("date", DateUtil.parseDate("2014-01-01", "yyyy-MM-dd"));
@@ -114,7 +114,7 @@ public class AppointmentSchedulingUIDataSetDefinitionLibraryTest extends BaseMod
         assertThat((String) row.getColumnValue("appointmentTypeUuid"), is(appointmentType.getUuid()));
         assertThat((String) row.getColumnValue("appointmentType"), is("Outpatient consult"));
         assertThat((String) row.getColumnValue("provider"), is(scheduledProvider.getName()));
-        assertThat((Appointment.AppointmentStatusType) row.getColumnValue("statusType"), is(Appointment.AppointmentStatusType.COMPLETED));
+        assertThat((AppointmentData.AppointmentStatusType) row.getColumnValue("statusType"), is(AppointmentData.AppointmentStatusType.COMPLETED));
         assertThat((String) row.getColumnValue("localizedStatusType"), is("Completed"));
         assertThat((String) row.getColumnValue("patientName"), is(patient.getPersonName().toString()));
         assertThat(((Timestamp) row.getColumnValue("startDatetime")).toString(), is("2014-01-01 09:00:00.0"));
