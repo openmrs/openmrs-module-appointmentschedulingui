@@ -7,7 +7,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.Visit;
-import org.openmrs.module.appointmentscheduling.AppointmentData;
+import org.openmrs.module.appointmentscheduling.PatientAppointment;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.htmlformentry.FormEntryContext;
 import org.openmrs.module.htmlformentry.FormEntrySession;
@@ -54,19 +54,19 @@ public class AppointmentCheckInSubmissionActionTest {
         encounter.setLocation(location);
         Visit visit = new Visit();
 
-        AppointmentData appointment = new AppointmentData();
-        appointment.setStatus(AppointmentData.AppointmentStatus.SCHEDULED);
+        PatientAppointment appointment = new PatientAppointment();
+        appointment.setStatus(PatientAppointment.AppointmentStatus.SCHEDULED);
 
         when(mockFormEntrySession.getPatient()).thenReturn(patient);
         when(mockFormSubmissionActions.getCurrentEncounter()).thenReturn(encounter);
         when(mockFormEntryContext.getVisit()).thenReturn(visit);
         when(mockAppointmentService.getAppointmentsByConstraints(new DateTime(2014, 1, 2, 0, 0, 0, 0).toDate(),
-                new DateTime(2014, 1, 2, 23, 59, 59, 999).toDate(), location, null, null, patient, AppointmentData.AppointmentStatus.SCHEDULED))
+                new DateTime(2014, 1, 2, 23, 59, 59, 999).toDate(), location, null, null, patient, PatientAppointment.AppointmentStatus.SCHEDULED))
             .thenReturn(Arrays.asList(appointment));
 
         appointmentCheckInSubmissionAction.applyAction(mockFormEntrySession);
 
-        assertThat(appointment.getStatus(), is(AppointmentData.AppointmentStatus.WAITING));
+        assertThat(appointment.getStatus(), is(PatientAppointment.AppointmentStatus.WAITING));
         assertThat(appointment.getVisit(), is(visit));
     }
 
