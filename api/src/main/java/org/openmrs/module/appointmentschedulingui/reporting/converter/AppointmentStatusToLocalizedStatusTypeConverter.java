@@ -1,7 +1,7 @@
 package org.openmrs.module.appointmentschedulingui.reporting.converter;
 
 import org.openmrs.api.context.Context;
-import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.PatientAppointment;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 
 /**
@@ -11,14 +11,14 @@ public class AppointmentStatusToLocalizedStatusTypeConverter implements DataConv
 
     @Override
     public Object convert(Object original) {
-        Appointment.AppointmentStatus status = (Appointment.AppointmentStatus) original;
+        PatientAppointment.AppointmentStatus status = (PatientAppointment.AppointmentStatus) original;
         return Context.getMessageSourceService()
                 .getMessage("appointmentschedulingui.scheduleAppointment.status.type." + status.getType().toString().toLowerCase());
     }
 
     @Override
     public Class<?> getInputDataType() {
-        return Appointment.AppointmentStatus.class;
+        return PatientAppointment.AppointmentStatus.class;
     }
 
     @Override

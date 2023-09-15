@@ -2,7 +2,7 @@ package org.openmrs.module.appointmentschedulingui.htmlformentry;
 
 import org.joda.time.DateTime;
 import org.openmrs.Visit;
-import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.PatientAppointment;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
 import org.openmrs.module.htmlformentry.FormEntrySession;
@@ -25,15 +25,15 @@ public class AppointmentCheckInSubmissionAction implements CustomFormSubmissionA
         Date toDate = new DateTime(session.getSubmissionActions().getCurrentEncounter().getEncounterDatetime()).withTime(23, 59, 59, 999).toDate();
 
         // TODO do we need to handle RESCHEDULED here?
-        List<Appointment> appointmentList = appointmentService.getAppointmentsByConstraints(fromDate, toDate,
-                session.getSubmissionActions().getCurrentEncounter().getLocation(), null, null, session.getPatient(), Appointment.AppointmentStatus.SCHEDULED);
+        List<PatientAppointment> appointmentList = appointmentService.getAppointmentsByConstraints(fromDate, toDate,
+                session.getSubmissionActions().getCurrentEncounter().getLocation(), null, null, session.getPatient(), PatientAppointment.AppointmentStatus.SCHEDULED);
 
         Visit visit = session.getContext().getVisit() != null ? (Visit) session.getContext().getVisit() : null;
 
-        for (Appointment appointment : appointmentList) {
-            appointment.setStatus(Appointment.AppointmentStatus.WAITING);
+        for (PatientAppointment appointment : appointmentList) {
+            appointment.setStatus(PatientAppointment.AppointmentStatus.WAITING);
             appointment.setVisit(visit);
-            appointmentService.saveAppointment(appointment);
+            appointmentService.savePatientAppointment(appointment);
         }
     }
 

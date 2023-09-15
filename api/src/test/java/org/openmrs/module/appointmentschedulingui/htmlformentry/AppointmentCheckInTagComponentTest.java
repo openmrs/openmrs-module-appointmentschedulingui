@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.PatientAppointment;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIActivator;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
@@ -77,13 +77,13 @@ public class AppointmentCheckInTagComponentTest extends BaseModuleContextSensiti
             @Override
             public void testResults(SubmissionResults results) {
                 // this is the appointment that should be changed
-                assertThat(appointmentService.getAppointment(4).getStatus(), is(Appointment.AppointmentStatus.WAITING));
+                assertThat(appointmentService.getPatientAppointment(4).getStatus(), is(PatientAppointment.AppointmentStatus.WAITING));
 
                 // make sure none of the other scheduled appointments have been updated
-                assertThat(appointmentService.getAppointment(1).getStatus(), is(Appointment.AppointmentStatus.SCHEDULED));
-                assertThat(appointmentService.getAppointment(5).getStatus(), is(Appointment.AppointmentStatus.SCHEDULED));
-                assertThat(appointmentService.getAppointment(6).getStatus(), is(Appointment.AppointmentStatus.SCHEDULED));
-                assertThat(appointmentService.getAppointment(7).getStatus(), is(Appointment.AppointmentStatus.SCHEDULED));
+                assertThat(appointmentService.getPatientAppointment(1).getStatus(), is(PatientAppointment.AppointmentStatus.SCHEDULED));
+                assertThat(appointmentService.getPatientAppointment(5).getStatus(), is(PatientAppointment.AppointmentStatus.SCHEDULED));
+                assertThat(appointmentService.getPatientAppointment(6).getStatus(), is(PatientAppointment.AppointmentStatus.SCHEDULED));
+                assertThat(appointmentService.getPatientAppointment(7).getStatus(), is(PatientAppointment.AppointmentStatus.SCHEDULED));
 
             }
         }.run();
