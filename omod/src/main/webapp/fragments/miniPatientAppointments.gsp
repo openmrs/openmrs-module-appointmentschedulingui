@@ -12,7 +12,7 @@
         <% } %>
     </div>
     <div class="info-body">
-        <% if (patientAppointments.size == 0){ %>
+        <% if (patientAppointments.size() == 0){ %>
             ${ ui.message("general.none")}
         <% } else { %>
         <ul id="miniPatientAppointments">
@@ -37,7 +37,7 @@
     </div>
 </div>
 
-<% if (patientAppointmentRequests.size > 0){ %>
+<% if (patientAppointmentRequests.size() > 0){ %>
     <div class="info-section">
         <div class="info-header">
             <i class="icon-calendar"></i>
