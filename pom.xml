@@ -47,7 +47,7 @@
         <uicommonsVersion>2.1</uicommonsVersion>
         <coreappsVersion>1.11.1</coreappsVersion>
         <webservicesRestVersion>2.6</webservicesRestVersion>
-        <appointmentschedulingVersion>2.0.0-SNAPSHOT</appointmentschedulingVersion>
+        <appointmentschedulingVersion>2.0.0</appointmentschedulingVersion>
         <testutilsVersion>1.5</testutilsVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
